@@ -1,22 +1,17 @@
 
-
-## 📘 `README.md`
-
-````markdown
 # Luma App
 
 Luma is a board game companion web app that helps users understand and play games better through interactive tutorials, smart rule-books, community features, and accessibility tools.
 
----
+
 ## 🚀 Getting Started
 
 Follow these steps to get the project running locally with Tailwind CSS and Live Server.
 
----
+
 
 ### 1. Clone the repository
 
-```bash
 git clone https://github.com/demilade111/Luma-project.git
 cd luma-project
 ````
