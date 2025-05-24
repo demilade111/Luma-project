@@ -1,7 +1,7 @@
 
 # Luma App
 
-Luma is a board game companion web app that helps users understand and play games better through interactive tutorials, smart rule-books, community features, and accessibility tools.
+Luma is a board game companion web app that helps users understand and play games better through interactive tutorials, smart rule-books, community features, and accessibility tools
 
 
 ## 🚀 Getting Started
