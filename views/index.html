@@ -2,10 +2,152 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Tailwind CLI v4</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luma Home Page</title>
     <link href="../src/output.css" rel="stylesheet" />
+
   </head>
-  <body>
-    <p class="text-red-500 text-6xl">Test</p>
+  <body class="bg-gray-100 text-gray-900">
+
+    <!-- Navbar -->
+    <header class="bg-white border-b px-6 py-4 flex justify-between items-center">
+      <div class="text-lg font-bold">Luma</div>
+      <nav class="hidden md:flex gap-6 text-sm">
+        <a href="#">Home</a>
+        <a href="#">Games</a>
+        <a href="#">Events</a>
+        <a href="#">Account</a>
+        <a href="#">About Us</a>
+      </nav>
+      <div class="md:hidden">
+        <button>
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gray-50 py-12 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-xl font-semibold">The Night Cage</h2>
+        <p class="text-sm text-gray-600 max-w-md mx-auto mt-2">
+          You awake in the dark. Your mind races. Your torch flickers. The maze shifts with each step. You hear the echo of creatures. How long will you last?
+        </p>
+        <div class="flex justify-center gap-4 text-sm text-gray-500 mt-4">
+          <span>⏱ 50m</span>
+          <span>👥 1-5</span>
+          <span>14+</span>
+        </div>
+        <div class="flex justify-center gap-1 mt-4">
+          <div class="w-2 h-2 rounded-full bg-gray-400"></div>
+          <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+          <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Section -->
+    <main class="px-6 py-8 space-y-16">
+
+      <!-- Events -->
+      <section>
+        <h2 class="text-lg font-semibold mb-4">Events</h2>
+
+        <!-- Trending -->
+        <div class="mb-6">
+          <h3 class="text-sm font-semibold mb-2">Trending</h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            <div class="h-32 bg-gray-300"></div>
+            <div class="h-32 bg-gray-300"></div>
+            <div class="h-32 bg-gray-300"></div>
+            <div class="h-32 bg-gray-300"></div>
+            <div class="h-32 bg-gray-300"></div>
+          </div>
+        </div>
+
+        <!-- Upcoming -->
+        <div>
+          <h3 class="text-sm font-semibold mb-2">Upcoming</h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            <div class="h-24 bg-gray-300"></div>
+            <div class="h-24 bg-gray-300"></div>
+            <div class="h-24 bg-gray-300"></div>
+            <div class="h-24 bg-gray-300"></div>
+            <div class="h-24 bg-gray-300"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Games -->
+      <section>
+        <h2 class="text-lg font-semibold mb-4">Games</h2>
+
+        <!-- Trending -->
+        <div class="mb-6">
+          <h3 class="text-sm font-semibold mb-2">Trending</h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            <div class="h-40 bg-gray-300"></div>
+            <div class="h-40 bg-gray-300"></div>
+            <div class="h-40 bg-gray-300"></div>
+            <div class="h-40 bg-gray-300"></div>
+            <div class="h-40 bg-gray-300"></div>
+          </div>
+        </div>
+
+        <!-- Continue Learning -->
+        <div>
+          <h3 class="text-sm font-semibold mb-2">Continue Learning</h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            <div class="h-24 bg-gray-300"></div>
+            <div class="h-24 bg-gray-300"></div>
+            <div class="h-24 bg-gray-300"></div>
+            <div class="h-24 bg-gray-300"></div>
+            <div class="h-24 bg-gray-300"></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 px-6 py-8">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-6 text-sm">
+        <div class="col-span-2">
+          <div class="font-bold text-white mb-2">Luma logo</div>
+          <p class="text-xs">Open Net</p>
+        </div>
+        <div>
+          <ul class="space-y-1">
+            <li>Learn Ipsum</li>
+            <li>Learn Ipsum</li>
+            <li>Learn Ipsum</li>
+          </ul>
+        </div>
+        <div>
+          <ul class="space-y-1">
+            <li>Learn Ipsum</li>
+            <li>Learn Ipsum</li>
+            <li>Learn Ipsum</li>
+          </ul>
+        </div>
+        <div>
+          <ul class="space-y-1">
+            <li>About us</li>
+            <li>Contact</li>
+            <li>Learn Ipsum</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-6 flex gap-4">
+        <a href="#">🌐</a>
+        <a href="#">📘</a>
+        <a href="#">📸</a>
+        <a href="#">🐦</a>
+      </div>
+    </footer>
+
   </body>
 </html>
