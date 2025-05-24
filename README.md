@@ -17,8 +17,8 @@ Follow these steps to get the project running locally with Tailwind CSS and Live
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/luma-app.git
-cd luma-app
+git clone https://github.com/demilade111/Luma-project.git
+cd luma-project
 ````
 
 ---
@@ -67,7 +67,7 @@ Your changes will update live as you save.
 ```
 luma-app/
 ├── config/               # Firebase setup
-├── js/                   # App logic and routing
+├── js/                   # App logic 
 ├── public/               # Static assets
 ├── src/
 │   ├── input.css         # Tailwind directives + custom CSS
@@ -96,11 +96,6 @@ In `package.json`:
 
 ---
 
-## 💬 Support
-
-If Tailwind styles aren’t showing:
-
-* Make sure `output.css` is being generated
 * Confirm your HTML files have this in `<head>`:
 
 ```html
@@ -108,12 +103,3 @@ If Tailwind styles aren’t showing:
 ```
 
 ---
-
-Let me know if you run into issues or need help with styling or component behavior.
-
-```
-
----
-
-Would you like a version that includes setup instructions for deployment (e.g. GitHub Pages or Netlify) too?
-```
