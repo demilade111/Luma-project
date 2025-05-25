@@ -27,7 +27,7 @@
       <!-- Sidebar -->
       <aside
         id="sidebar"
-        class="fixed top-0 left-0 z-40 hidden  h-screen w-16 bg-white border-r shadow sm:flex flex-col justify-center items-center py-6"
+        class="fixed top-0 left-0 z-40 hidden h-screen w-16 bg-white border-r shadow sm:flex flex-col justify-center items-center py-6"
         aria-label="Sidebar"
       >
         <!-- All icons stacked in the center -->
@@ -94,70 +94,178 @@
           </div>
 
           <!-- Hero Content -->
+
           <div class="bg-gray-100 px-6 py-20">
             <div
-              class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12"
+              id="hero-carousel"
+              class="max-w-6xl mx-auto relative overflow-hidden"
             >
-              <!-- Left: Placeholder for visual -->
+              <!-- Slides -->
               <div
-                class="w-full lg:w-1/2 h-64 bg-gray-200 rounded-lg shadow-inner"
-              ></div>
-
-              <!-- Right: Text content -->
-              <div class="w-full lg:w-1/2 text-center lg:text-left">
-                <h1 class="text-4xl font-bold text-gray-800 mb-3">
-                  The Night Cage
-                </h1>
-                <h2 class="text-xl font-semibold text-gray-700 mb-2">
-                  How long will you last?
-                </h2>
-                <p
-                  class="text-gray-600 leading-relaxed mb-6 max-w-md mx-auto lg:mx-0"
-                >
-                  You awake in the dark, your skin cold, your mind blank. You
-                  have nothing but your fear, a flickering candle, and a
-                  question: How long will your light last?
-                </p>
-
-                <div
-                  class="flex justify-center lg:justify-start gap-6 text-gray-700 text-sm mb-6"
-                >
-                  <div class="flex items-center gap-2">
-                    <i class="fas fa-hourglass-half"></i>
-                    <span>50m</span>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <i class="fas fa-user-group"></i>
-                    <span>1–5</span>
-                  </div>
-                  <span
-                    class="px-2 py-0.5 border border-gray-500 rounded-full text-xs"
-                    >14+</span
+                id="hero-slides"
+                class="flex transition-transform duration-500 will-change-transform"
+              >
+                <!-- Slide 1 -->
+                <div class="hero-slide flex-none">
+                  <div
+                    class="flex flex-col lg:flex-row items-center justify-between gap-12"
                   >
+                    <div
+                      class="w-full lg:w-1/2 rounded-lg shadow-md overflow-hidden"
+                    >
+                      <img
+                        src="https://placehold.co/600x400/111827/FFFFFF?text=The+Night+Cage"
+                        alt="The Night Cage"
+                        class="w-full h-64 md:h-80 lg:h-96 object-cover object-center"
+                      />
+                    </div>
+                    <div class="w-full lg:w-1/2 text-center lg:text-left">
+                      <h1 class="text-4xl font-bold text-gray-800 mb-3">
+                        The Night Cage
+                      </h1>
+                      <h2 class="text-xl font-semibold text-gray-700 mb-2">
+                        How long will you last?
+                      </h2>
+                      <p
+                        class="text-gray-600 leading-relaxed mb-6 max-w-md mx-auto lg:mx-0"
+                      >
+                        You awake in the dark, your skin cold, your mind blank.
+                        You have nothing but your fear, a flickering candle, and
+                        a question: How long will your light last?
+                      </p>
+                      <div
+                        class="flex justify-center lg:justify-start gap-6 text-gray-700 text-sm mb-6"
+                      >
+                        <div class="flex items-center gap-2">
+                          <i class="fas fa-hourglass-half"></i><span>50m</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <i class="fas fa-user-group"></i><span>1–5</span>
+                        </div>
+                        <span
+                          class="px-2 py-0.5 border border-gray-500 rounded-full text-xs"
+                          >14+</span
+                        >
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <!-- Pagination dots -->
-                <div class="flex justify-center lg:justify-start gap-2">
-                  <span
-                    class="w-2 h-2 bg-gray-800 rounded-full inline-block"
-                  ></span>
-                  <span
-                    class="w-2 h-2 bg-gray-400 rounded-full inline-block"
-                  ></span>
-                  <span
-                    class="w-2 h-2 bg-gray-400 rounded-full inline-block"
-                  ></span>
+                <!-- Slide 2 -->
+                <div class="hero-slide flex-none">
+                  <div
+                    class="flex flex-col lg:flex-row items-center justify-between gap-12"
+                  >
+                    <div
+                      class="w-full lg:w-1/2 rounded-lg shadow-md overflow-hidden"
+                    >
+                      <img
+                        src="https://placehold.co/600x400/064e3b/FFFFFF?text=Explore+New+Worlds"
+                        alt="Explore New Worlds"
+                        class="w-full h-64 md:h-80 lg:h-96 object-cover object-center"
+                      />
+                    </div>
+                    <div class="w-full lg:w-1/2 text-center lg:text-left">
+                      <h1 class="text-4xl font-bold text-gray-800 mb-3">
+                        Explore New Worlds
+                      </h1>
+                      <h2 class="text-xl font-semibold text-gray-700 mb-2">
+                        Discover your next adventure.
+                      </h2>
+                      <p
+                        class="text-gray-600 leading-relaxed mb-6 max-w-md mx-auto lg:mx-0"
+                      >
+                        Dive into immersive board games that transport you to
+                        different realms. Strategy, luck, and fun await!
+                      </p>
+                      <div
+                        class="flex justify-center lg:justify-start gap-6 text-gray-700 text-sm mb-6"
+                      >
+                        <div class="flex items-center gap-2">
+                          <i class="fas fa-dice-d20"></i><span>Strategy</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <i class="fas fa-users"></i><span>2–6 Players</span>
+                        </div>
+                        <span
+                          class="px-2 py-0.5 border border-gray-500 rounded-full text-xs"
+                          >12+</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="hero-slide flex-none">
+                  <div
+                    class="flex flex-col lg:flex-row items-center justify-between gap-12"
+                  >
+                    <div
+                      class="w-full lg:w-1/2 rounded-lg shadow-md overflow-hidden"
+                    >
+                      <img
+                        src="https://placehold.co/600x400/1e3a8a/FFFFFF?text=Family+Game+Night"
+                        alt="Family Game Night"
+                        class="w-full h-64 md:h-80 lg:h-96 object-cover object-center"
+                      />
+                    </div>
+                    <div class="w-full lg:w-1/2 text-center lg:text-left">
+                      <h1 class="text-4xl font-bold text-gray-800 mb-3">
+                        Family Game Night
+                      </h1>
+                      <h2 class="text-xl font-semibold text-gray-700 mb-2">
+                        Fun for all ages.
+                      </h2>
+                      <p
+                        class="text-gray-600 leading-relaxed mb-6 max-w-md mx-auto lg:mx-0"
+                      >
+                        Gather your loved ones for an unforgettable game night.
+                        Create lasting memories with our selection of
+                        family-friendly games.
+                      </p>
+                      <div
+                        class="flex justify-center lg:justify-start gap-6 text-gray-700 text-sm mb-6"
+                      >
+                        <div class="flex items-center gap-2">
+                          <i class="fas fa-puzzle-piece"></i
+                          ><span>Cooperative</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <i class="fas fa-child"></i><span>All Ages</span>
+                        </div>
+                        <span
+                          class="px-2 py-0.5 border border-gray-500 rounded-full text-xs"
+                          >6+</span
+                        >
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
+
+            <!-- Navigation Dots (outside carousel) -->
+            <div class="mt-10 flex justify-center gap-3">
+              <button
+                data-slide-to="0"
+                class="carousel-dot w-2 h-2 bg-gray-800 rounded-full focus:outline-none"
+              ></button>
+              <button
+                data-slide-to="1"
+                class="carousel-dot w-2 h-2 bg-gray-400 rounded-full focus:outline-none"
+              ></button>
+              <button
+                data-slide-to="2"
+                class="carousel-dot w-2 h-2 bg-gray-400 rounded-full focus:outline-none"
+              ></button>
             </div>
           </div>
         </header>
 
-
-
         <!-- Main content -->
         <main class="flex-1 p-4 md:p-10">
-          <section class="bg-gray-100  px-4 sm:px-6 lg:px-12 space-y-16">
+          <section class="bg-gray-100 px-4 sm:px-6 lg:px-12 space-y-16">
             <!-- Events -->
             <div>
               <h2 class="text-2xl font-bold text-gray-800 mb-6">Events</h2>
@@ -322,5 +430,7 @@
         <p class="text-center text-sm">© 2025 Luma. All rights reserved.</p>
       </div>
     </footer>
+
+    <script src="../js/main.js" defer></script>
   </body>
 </html>
