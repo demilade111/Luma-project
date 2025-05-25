@@ -5,13 +5,13 @@ const sidebarOverlay = document.getElementById("sidebar-overlay");
 sidebarToggle.addEventListener("click", () => {
   sidebar.classList.remove("-translate-x-full");
   sidebarOverlay.classList.remove("hidden");
-  setTimeout(() => sidebarOverlay.classList.add("opacity-00"), 10);
+  setTimeout(() => sidebarOverlay.classList.add("opacity-0"), 10);
 });
 
 function closeSidebar() {
   sidebar.classList.add("-translate-x-full");
   sidebarOverlay.classList.add("hidden");
-  sidebarOverlay.classList.remove("opacity-100");
+  sidebarOverlay.classList.remove("opacity-0");
 }
 
 sidebarOverlay.addEventListener("click", closeSidebar);
