@@ -12,7 +12,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
   </head>
-  <body class="bg-gray-100">
+  <body class="bg-gray-100 px-2">
     <!-- Hamburger: always visible, right on mobile, left on md+ -->
     <button
       id="sidebar-toggle"
@@ -27,27 +27,18 @@
       <!-- Sidebar -->
       <aside
         id="sidebar"
-        class="fixed md:relative z-40 inset-y-0 left-0 w-16 bg-white border-r shadow-lg flex flex-col justify-center items-center transition-transform duration-300 -translate-x-full md:translate-x-0 md:flex md:w-16 h-screen"
+        class="fixed top-0 left-0 z-40 hidden  h-screen w-16 bg-white border-r shadow sm:flex flex-col justify-center items-center py-6"
         aria-label="Sidebar"
-        tabindex="-1"
       >
-        <nav class="flex flex-col items-center gap-10 w-full">
-          <a
-            href="#"
-            class="w-8 h-8 flex items-center justify-center text-gray-700 hover:text-blue-500"
-          >
+        <!-- All icons stacked in the center -->
+        <nav class="flex flex-col items-center space-y-10">
+          <a href="#" class="text-gray-600 hover:text-blue-500">
             <i class="fa-regular fa-bookmark fa-lg"></i>
           </a>
-          <a
-            href="#"
-            class="w-8 h-8 flex items-center justify-center text-gray-700 hover:text-blue-500"
-          >
+          <a href="#" class="text-gray-600 hover:text-blue-500">
             <i class="fa-regular fa-comment fa-lg"></i>
           </a>
-          <a
-            href="#"
-            class="w-8 h-8 flex items-center justify-center text-gray-700 hover:text-blue-500"
-          >
+          <a href="#" class="text-gray-600 hover:text-blue-500">
             <i class="fa-regular fa-heart fa-lg"></i>
           </a>
         </nav>
@@ -62,48 +53,189 @@
       ></div>
 
       <div class="flex-1 flex flex-col min-h-screen">
-        <!-- Header -->
-        <header
-          class="w-full bg-[#232f3e] py-6 shadow flex items-center justify-between px-6"
-        >
-          <a href="#" class="text-2xl font-bold text-white">Luma</a>
-          <nav class="hidden md:flex items-center space-x-8 ml-auto">
-            <a
-              href="#"
-              class="text-white text-xl hover:text-blue-200 transition"
-              >Home</a
+        <!-- Header with Hero -->
+        <header class="relative bg-white">
+          <div
+            class="w-full bg-[#232f3e] py-6 shadow flex items-center justify-between px-6 pl-20"
+          >
+            <a href="#" class="text-2xl font-bold text-white">Luma</a>
+            <nav class="hidden md:flex items-center space-x-8 ml-auto">
+              <a
+                href="#"
+                class="text-white text-xl hover:text-blue-200 transition"
+                >Home</a
+              >
+              <a
+                href="#"
+                class="text-white text-xl hover:text-blue-200 transition"
+                >Games</a
+              >
+              <a
+                href="#"
+                class="text-white text-xl hover:text-blue-200 transition"
+                >Events</a
+              >
+              <a
+                href="#"
+                class="text-white text-xl hover:text-blue-200 transition"
+                >Account</a
+              >
+              <a
+                href="#"
+                class="text-white text-xl hover:text-blue-200 transition"
+                >About Us</a
+              >
+              <button
+                class="ml-4 p-1 rounded-full text-white hover:text-blue-200 focus:outline-none"
+              >
+                <i class="fas fa-search fa-lg"></i>
+              </button>
+            </nav>
+          </div>
+
+          <!-- Hero Content -->
+          <div class="bg-gray-100 px-6 py-20">
+            <div
+              class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12"
             >
-            <a
-              href="#"
-              class="text-white text-xl hover:text-blue-200 transition"
-              >Games</a
-            >
-            <a
-              href="#"
-              class="text-white text-xl hover:text-blue-200 transition"
-              >Events</a
-            >
-            <a
-              href="#"
-              class="text-white text-xl hover:text-blue-200 transition"
-              >Account</a
-            >
-            <a
-              href="#"
-              class="text-white text-xl hover:text-blue-200 transition"
-              >About Us</a
-            >
-            <button
-              class="ml-4 p-1 rounded-full text-white hover:text-blue-200 focus:outline-none"
-            >
-              <i class="fas fa-search fa-lg"></i>
-            </button>
-          </nav>
+              <!-- Left: Placeholder for visual -->
+              <div
+                class="w-full lg:w-1/2 h-64 bg-gray-200 rounded-lg shadow-inner"
+              ></div>
+
+              <!-- Right: Text content -->
+              <div class="w-full lg:w-1/2 text-center lg:text-left">
+                <h1 class="text-4xl font-bold text-gray-800 mb-3">
+                  The Night Cage
+                </h1>
+                <h2 class="text-xl font-semibold text-gray-700 mb-2">
+                  How long will you last?
+                </h2>
+                <p
+                  class="text-gray-600 leading-relaxed mb-6 max-w-md mx-auto lg:mx-0"
+                >
+                  You awake in the dark, your skin cold, your mind blank. You
+                  have nothing but your fear, a flickering candle, and a
+                  question: How long will your light last?
+                </p>
+
+                <div
+                  class="flex justify-center lg:justify-start gap-6 text-gray-700 text-sm mb-6"
+                >
+                  <div class="flex items-center gap-2">
+                    <i class="fas fa-hourglass-half"></i>
+                    <span>50m</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <i class="fas fa-user-group"></i>
+                    <span>1–5</span>
+                  </div>
+                  <span
+                    class="px-2 py-0.5 border border-gray-500 rounded-full text-xs"
+                    >14+</span
+                  >
+                </div>
+
+                <!-- Pagination dots -->
+                <div class="flex justify-center lg:justify-start gap-2">
+                  <span
+                    class="w-2 h-2 bg-gray-800 rounded-full inline-block"
+                  ></span>
+                  <span
+                    class="w-2 h-2 bg-gray-400 rounded-full inline-block"
+                  ></span>
+                  <span
+                    class="w-2 h-2 bg-gray-400 rounded-full inline-block"
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </div>
         </header>
 
+
+
         <!-- Main content -->
-        <main class="flex-1 p-4 md:p-8">
-          <!-- Your content here -->
+        <main class="flex-1 p-4 md:p-10">
+          <section class="bg-gray-100  px-4 sm:px-6 lg:px-12 space-y-16">
+            <!-- Events -->
+            <div>
+              <h2 class="text-2xl font-bold text-gray-800 mb-6">Events</h2>
+
+              <!-- Trending -->
+              <div class="mb-10">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">
+                  Trending
+                </h3>
+                <div
+                  class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
+                >
+                  <div class="bg-gray-300 h-48 rounded shadow"></div>
+                  <div class="bg-gray-300 h-48 rounded shadow"></div>
+                  <div class="bg-gray-300 h-48 rounded shadow"></div>
+                  <div class="bg-gray-300 h-48 rounded shadow"></div>
+                  <div class="bg-gray-300 h-48 rounded shadow"></div>
+                  <div class="bg-gray-300 h-48 rounded shadow"></div>
+                </div>
+              </div>
+
+              <!-- Upcoming -->
+              <div>
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">
+                  Upcoming
+                </h3>
+                <div
+                  class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
+                >
+                  <div class="bg-gray-300 h-40 rounded shadow"></div>
+                  <div class="bg-gray-300 h-40 rounded shadow"></div>
+                  <div class="bg-gray-300 h-40 rounded shadow"></div>
+                  <div class="bg-gray-300 h-40 rounded shadow"></div>
+                  <div class="bg-gray-300 h-40 rounded shadow"></div>
+                  <div class="bg-gray-300 h-40 rounded shadow"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Games -->
+            <div>
+              <h2 class="text-2xl font-bold text-gray-800 mb-6">Games</h2>
+
+              <!-- Trending -->
+              <div class="mb-10">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">
+                  Trending
+                </h3>
+                <div
+                  class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
+                >
+                  <div class="bg-gray-300 h-48 rounded shadow"></div>
+                  <div class="bg-gray-300 h-48 rounded shadow"></div>
+                  <div class="bg-gray-300 h-48 rounded shadow"></div>
+                  <div class="bg-gray-300 h-48 rounded shadow"></div>
+                  <div class="bg-gray-300 h-48 rounded shadow"></div>
+                  <div class="bg-gray-300 h-48 rounded shadow"></div>
+                </div>
+              </div>
+
+              <!-- Continue Learning -->
+              <div>
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">
+                  Continue Learning
+                </h3>
+                <div
+                  class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
+                >
+                  <div class="bg-gray-300 h-40 rounded shadow"></div>
+                  <div class="bg-gray-300 h-40 rounded shadow"></div>
+                  <div class="bg-gray-300 h-40 rounded shadow"></div>
+                  <div class="bg-gray-300 h-40 rounded shadow"></div>
+                  <div class="bg-gray-300 h-40 rounded shadow"></div>
+                  <div class="bg-gray-300 h-40 rounded shadow"></div>
+                </div>
+              </div>
+            </div>
+          </section>
         </main>
       </div>
     </div>
