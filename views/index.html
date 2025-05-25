@@ -2,152 +2,193 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luma Home Page</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Luma | Home</title>
+    <!-- Your Tailwind CSS build -->
     <link href="../src/output.css" rel="stylesheet" />
-
+    <!-- Font Awesome Free CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
   </head>
-  <body class="bg-gray-100 text-gray-900">
+  <body class="bg-gray-100">
+    <!-- Hamburger: always visible, right on mobile, left on md+ -->
+    <button
+      id="sidebar-toggle"
+      class="fixed top-4 md:left-4 cursor-pointer md:right-auto left-auto right-4 z-50 p-2 bg-white rounded shadow-lg focus:outline-none"
+      aria-label="Open menu"
+      type="button"
+    >
+      <i class="fas fa-bars w-7 h-7 text-black text-2xl cursor-pointer"></i>
+    </button>
 
-    <!-- Navbar -->
-    <header class="bg-white border-b px-6 py-4 flex justify-between items-center">
-      <div class="text-lg font-bold">Luma</div>
-      <nav class="hidden md:flex gap-6 text-sm">
-        <a href="#">Home</a>
-        <a href="#">Games</a>
-        <a href="#">Events</a>
-        <a href="#">Account</a>
-        <a href="#">About Us</a>
-      </nav>
-      <div class="md:hidden">
-        <button>
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
+    <div class="flex min-h-screen">
+      <!-- Sidebar -->
+      <aside
+        id="sidebar"
+        class="fixed md:relative z-40 inset-y-0 left-0 w-16 bg-white border-r shadow-lg flex flex-col justify-center items-center transition-transform duration-300 -translate-x-full md:translate-x-0 md:flex md:w-16 h-screen"
+        aria-label="Sidebar"
+        tabindex="-1"
+      >
+        <nav class="flex flex-col items-center gap-10 w-full">
+          <a
+            href="#"
+            class="w-8 h-8 flex items-center justify-center text-gray-700 hover:text-blue-500"
+          >
+            <i class="fa-regular fa-bookmark fa-lg"></i>
+          </a>
+          <a
+            href="#"
+            class="w-8 h-8 flex items-center justify-center text-gray-700 hover:text-blue-500"
+          >
+            <i class="fa-regular fa-comment fa-lg"></i>
+          </a>
+          <a
+            href="#"
+            class="w-8 h-8 flex items-center justify-center text-gray-700 hover:text-blue-500"
+          >
+            <i class="fa-regular fa-heart fa-lg"></i>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Sidebar overlay for mobile -->
+      <div
+        id="sidebar-overlay"
+        class="fixed inset-0 bg-black bg-opacity-30 z-30 hidden transition-opacity duration-200"
+        tabindex="-1"
+        aria-hidden="true"
+      ></div>
+
+      <div class="flex-1 flex flex-col min-h-screen">
+        <!-- Header -->
+        <header
+          class="w-full bg-[#232f3e] py-6 shadow flex items-center justify-between px-6"
+        >
+          <a href="#" class="text-2xl font-bold text-white">Luma</a>
+          <nav class="hidden md:flex items-center space-x-8 ml-auto">
+            <a
+              href="#"
+              class="text-white text-xl hover:text-blue-200 transition"
+              >Home</a
+            >
+            <a
+              href="#"
+              class="text-white text-xl hover:text-blue-200 transition"
+              >Games</a
+            >
+            <a
+              href="#"
+              class="text-white text-xl hover:text-blue-200 transition"
+              >Events</a
+            >
+            <a
+              href="#"
+              class="text-white text-xl hover:text-blue-200 transition"
+              >Account</a
+            >
+            <a
+              href="#"
+              class="text-white text-xl hover:text-blue-200 transition"
+              >About Us</a
+            >
+            <button
+              class="ml-4 p-1 rounded-full text-white hover:text-blue-200 focus:outline-none"
+            >
+              <i class="fas fa-search fa-lg"></i>
+            </button>
+          </nav>
+        </header>
+
+        <!-- Main content -->
+        <main class="flex-1 p-4 md:p-8">
+          <!-- Your content here -->
+        </main>
       </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="bg-gray-50 py-12 px-6">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-xl font-semibold">The Night Cage</h2>
-        <p class="text-sm text-gray-600 max-w-md mx-auto mt-2">
-          You awake in the dark. Your mind races. Your torch flickers. The maze shifts with each step. You hear the echo of creatures. How long will you last?
-        </p>
-        <div class="flex justify-center gap-4 text-sm text-gray-500 mt-4">
-          <span>⏱ 50m</span>
-          <span>👥 1-5</span>
-          <span>14+</span>
-        </div>
-        <div class="flex justify-center gap-1 mt-4">
-          <div class="w-2 h-2 rounded-full bg-gray-400"></div>
-          <div class="w-2 h-2 rounded-full bg-gray-300"></div>
-          <div class="w-2 h-2 rounded-full bg-gray-300"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Content Section -->
-    <main class="px-6 py-8 space-y-16">
-
-      <!-- Events -->
-      <section>
-        <h2 class="text-lg font-semibold mb-4">Events</h2>
-
-        <!-- Trending -->
-        <div class="mb-6">
-          <h3 class="text-sm font-semibold mb-2">Trending</h3>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-            <div class="h-32 bg-gray-300"></div>
-            <div class="h-32 bg-gray-300"></div>
-            <div class="h-32 bg-gray-300"></div>
-            <div class="h-32 bg-gray-300"></div>
-            <div class="h-32 bg-gray-300"></div>
-          </div>
-        </div>
-
-        <!-- Upcoming -->
-        <div>
-          <h3 class="text-sm font-semibold mb-2">Upcoming</h3>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-            <div class="h-24 bg-gray-300"></div>
-            <div class="h-24 bg-gray-300"></div>
-            <div class="h-24 bg-gray-300"></div>
-            <div class="h-24 bg-gray-300"></div>
-            <div class="h-24 bg-gray-300"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Games -->
-      <section>
-        <h2 class="text-lg font-semibold mb-4">Games</h2>
-
-        <!-- Trending -->
-        <div class="mb-6">
-          <h3 class="text-sm font-semibold mb-2">Trending</h3>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-            <div class="h-40 bg-gray-300"></div>
-            <div class="h-40 bg-gray-300"></div>
-            <div class="h-40 bg-gray-300"></div>
-            <div class="h-40 bg-gray-300"></div>
-            <div class="h-40 bg-gray-300"></div>
-          </div>
-        </div>
-
-        <!-- Continue Learning -->
-        <div>
-          <h3 class="text-sm font-semibold mb-2">Continue Learning</h3>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-            <div class="h-24 bg-gray-300"></div>
-            <div class="h-24 bg-gray-300"></div>
-            <div class="h-24 bg-gray-300"></div>
-            <div class="h-24 bg-gray-300"></div>
-            <div class="h-24 bg-gray-300"></div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
+    </div>
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 px-6 py-8">
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-6 text-sm">
-        <div class="col-span-2">
-          <div class="font-bold text-white mb-2">Luma logo</div>
-          <p class="text-xs">Open Net</p>
+
+    <footer class="bg-[#232f3e] text-white">
+      <div class="max-w-7xl mx-auto px-6 py-12">
+        <div
+          class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-12"
+        >
+          <!-- Brand -->
+          <div class="lg:w-1/4">
+            <a href="#" class="text-2xl font-bold block mb-4">Luma</a>
+            <p class="text-sm leading-relaxed">
+              Discover, learn, and play board games smarter with Luma.
+            </p>
+          </div>
+
+          <!-- Links -->
+          <div
+            class="flex-1 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+          >
+            <div>
+              <h3 class="font-semibold uppercase text-sm mb-2">About</h3>
+              <ul class="space-y-2">
+                <li>
+                  <a href="#" class="hover:text-gray-300 text-sm">Company</a>
+                </li>
+                <li>
+                  <a href="#" class="hover:text-gray-300 text-sm">Community</a>
+                </li>
+                <li>
+                  <a href="#" class="hover:text-gray-300 text-sm">Careers</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-semibold uppercase text-sm mb-2">Blog</h3>
+              <ul class="space-y-2">
+                <li>
+                  <a href="#" class="hover:text-gray-300 text-sm">Tech</a>
+                </li>
+                <li>
+                  <a href="#" class="hover:text-gray-300 text-sm">Music</a>
+                </li>
+                <li>
+                  <a href="#" class="hover:text-gray-300 text-sm">Videos</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-semibold uppercase text-sm mb-2">Products</h3>
+              <ul class="space-y-2">
+                <li>
+                  <a href="#" class="hover:text-gray-300 text-sm">Mega Cloud</a>
+                </li>
+                <li>
+                  <a href="#" class="hover:text-gray-300 text-sm">Aperion UI</a>
+                </li>
+                <li>
+                  <a href="#" class="hover:text-gray-300 text-sm">Meraki UI</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-semibold uppercase text-sm mb-2">Connect</h3>
+              <div class="flex space-x-4 mt-4">
+                <a href="#" aria-label="Reddit" class="hover:text-gray-300">
+                  <i class="fab fa-reddit fa-lg"></i>
+                </a>
+                <a href="#" aria-label="Facebook" class="hover:text-gray-300">
+                  <i class="fab fa-facebook fa-lg"></i>
+                </a>
+                <a href="#" aria-label="Github" class="hover:text-gray-300">
+                  <i class="fab fa-github fa-lg"></i>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <ul class="space-y-1">
-            <li>Learn Ipsum</li>
-            <li>Learn Ipsum</li>
-            <li>Learn Ipsum</li>
-          </ul>
-        </div>
-        <div>
-          <ul class="space-y-1">
-            <li>Learn Ipsum</li>
-            <li>Learn Ipsum</li>
-            <li>Learn Ipsum</li>
-          </ul>
-        </div>
-        <div>
-          <ul class="space-y-1">
-            <li>About us</li>
-            <li>Contact</li>
-            <li>Learn Ipsum</li>
-          </ul>
-        </div>
-      </div>
-      <div class="mt-6 flex gap-4">
-        <a href="#">🌐</a>
-        <a href="#">📘</a>
-        <a href="#">📸</a>
-        <a href="#">🐦</a>
+
+        <hr class="mt-12 mb-6 border-t border-gray-600" />
+
+        <p class="text-center text-sm">© 2025 Luma. All rights reserved.</p>
       </div>
     </footer>
-
   </body>
 </html>
