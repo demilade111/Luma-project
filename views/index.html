@@ -4,432 +4,102 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Luma | Home</title>
-    <!-- Your Tailwind CSS build -->
+
+    <!-- Tailwind CSS -->
     <link href="../src/output.css" rel="stylesheet" />
-    <!-- Font Awesome Free CDN -->
+
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
   </head>
+
   <body class="bg-gray-100 px-2">
-    <!-- Hamburger: always visible, right on mobile, left on md+ -->
-    <button
-      id="sidebar-toggle"
-      class="fixed top-4 md:left-4 cursor-pointer md:right-auto left-auto right-4 z-50 p-2 bg-white rounded shadow-lg focus:outline-none"
-      aria-label="Open menu"
-      type="button"
-    >
-      <i class="fas fa-bars w-7 h-7 text-black text-2xl cursor-pointer"></i>
-    </button>
+    <!-- Sidebar -->
+    <div data-component="sidebar"></div>
 
-    <div class="flex min-h-screen">
-      <!-- Sidebar -->
-      <aside
-        id="sidebar"
-        class="fixed top-0 left-0 z-40 hidden h-screen w-16 bg-white border-r shadow sm:flex flex-col justify-center items-center py-6"
-        aria-label="Sidebar"
-      >
-        <!-- All icons stacked in the center -->
-        <nav class="flex flex-col items-center space-y-10">
-          <a href="#" class="text-gray-600 hover:text-blue-500">
-            <i class="fa-regular fa-bookmark fa-lg"></i>
-          </a>
-          <a href="#" class="text-gray-600 hover:text-blue-500">
-            <i class="fa-regular fa-comment fa-lg"></i>
-          </a>
-          <a href="#" class="text-gray-600 hover:text-blue-500">
-            <i class="fa-regular fa-heart fa-lg"></i>
-          </a>
-        </nav>
-      </aside>
+    <!-- Header with Navbar and Hero -->
+    <header class="relative bg-white">
+      <div data-component="navbar"></div>
+      <div id="hero-container" data-component="hero"></div>
+    </header>
 
-      <!-- Sidebar overlay for mobile -->
-      <div
-        id="sidebar-overlay"
-        class="fixed inset-0 bg-black bg-opacity-30 z-30 hidden transition-opacity duration-200"
-        tabindex="-1"
-        aria-hidden="true"
-      ></div>
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col min-h-screen">
+      <main class="flex-1 p-4 md:p-10">
+        <section class="bg-gray-100 px-4 sm:px-6 lg:px-12 space-y-16">
+          <!-- Events -->
+          <div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Events</h2>
 
-      <div class="flex-1 flex flex-col min-h-screen">
-        <!-- Header with Hero -->
-        <header class="relative bg-white">
-          <div
-            class="w-full bg-[#232f3e] py-6 shadow flex items-center justify-between px-6 pl-20"
-          >
-            <a href="#" class="text-2xl font-bold text-white">Luma</a>
-            <nav class="hidden md:flex items-center space-x-8 ml-auto">
-              <a
-                href="#"
-                class="text-white text-xl hover:text-blue-200 transition"
-                >Home</a
-              >
-              <a
-                href="#"
-                class="text-white text-xl hover:text-blue-200 transition"
-                >Games</a
-              >
-              <a
-                href="#"
-                class="text-white text-xl hover:text-blue-200 transition"
-                >Events</a
-              >
-              <a
-                href="#"
-                class="text-white text-xl hover:text-blue-200 transition"
-                >Account</a
-              >
-              <a
-                href="#"
-                class="text-white text-xl hover:text-blue-200 transition"
-                >About Us</a
-              >
-              <button
-                class="ml-4 p-1 rounded-full text-white hover:text-blue-200 focus:outline-none"
-              >
-                <i class="fas fa-search fa-lg"></i>
-              </button>
-            </nav>
+            <!-- Trending -->
+            <div class="mb-10">
+              <h3 class="text-lg font-semibold text-gray-700 mb-4">Trending</h3>
+              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div class="bg-gray-300 h-48 rounded shadow"></div>
+                <div class="bg-gray-300 h-48 rounded shadow"></div>
+                <div class="bg-gray-300 h-48 rounded shadow"></div>
+                <div class="bg-gray-300 h-48 rounded shadow"></div>
+                <div class="bg-gray-300 h-48 rounded shadow"></div>
+                <div class="bg-gray-300 h-48 rounded shadow"></div>
+              </div>
+            </div>
+
+            <!-- Upcoming -->
+            <div>
+              <h3 class="text-lg font-semibold text-gray-700 mb-4">Upcoming</h3>
+              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div class="bg-gray-300 h-40 rounded shadow"></div>
+                <div class="bg-gray-300 h-40 rounded shadow"></div>
+                <div class="bg-gray-300 h-40 rounded shadow"></div>
+                <div class="bg-gray-300 h-40 rounded shadow"></div>
+                <div class="bg-gray-300 h-40 rounded shadow"></div>
+                <div class="bg-gray-300 h-40 rounded shadow"></div>
+              </div>
+            </div>
           </div>
 
-          <!-- Hero Content -->
+          <!-- Games -->
+          <div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Games</h2>
 
-          <div class="bg-gray-100 px-6 py-20">
-            <div
-              id="hero-carousel"
-              class="max-w-6xl mx-auto relative overflow-hidden"
-            >
-              <!-- Slides -->
-              <div
-                id="hero-slides"
-                class="flex transition-transform duration-500 will-change-transform"
-              >
-                <!-- Slide 1 -->
-                <div class="hero-slide flex-none">
-                  <div
-                    class="flex flex-col lg:flex-row items-center justify-between gap-12"
-                  >
-                    <div
-                      class="w-full lg:w-1/2 rounded-lg shadow-md overflow-hidden"
-                    >
-                      <img
-                        src="https://placehold.co/600x400/111827/FFFFFF?text=The+Night+Cage"
-                        alt="The Night Cage"
-                        class="w-full h-64 md:h-80 lg:h-96 object-cover object-center"
-                      />
-                    </div>
-                    <div class="w-full lg:w-1/2 text-center lg:text-left">
-                      <h1 class="text-4xl font-bold text-gray-800 mb-3">
-                        The Night Cage
-                      </h1>
-                      <h2 class="text-xl font-semibold text-gray-700 mb-2">
-                        How long will you last?
-                      </h2>
-                      <p
-                        class="text-gray-600 leading-relaxed mb-6 max-w-md mx-auto lg:mx-0"
-                      >
-                        You awake in the dark, your skin cold, your mind blank.
-                        You have nothing but your fear, a flickering candle, and
-                        a question: How long will your light last?
-                      </p>
-                      <div
-                        class="flex justify-center lg:justify-start gap-6 text-gray-700 text-sm mb-6"
-                      >
-                        <div class="flex items-center gap-2">
-                          <i class="fas fa-hourglass-half"></i><span>50m</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                          <i class="fas fa-user-group"></i><span>1–5</span>
-                        </div>
-                        <span
-                          class="px-2 py-0.5 border border-gray-500 rounded-full text-xs"
-                          >14+</span
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Slide 2 -->
-                <div class="hero-slide flex-none">
-                  <div
-                    class="flex flex-col lg:flex-row items-center justify-between gap-12"
-                  >
-                    <div
-                      class="w-full lg:w-1/2 rounded-lg shadow-md overflow-hidden"
-                    >
-                      <img
-                        src="https://placehold.co/600x400/064e3b/FFFFFF?text=Explore+New+Worlds"
-                        alt="Explore New Worlds"
-                        class="w-full h-64 md:h-80 lg:h-96 object-cover object-center"
-                      />
-                    </div>
-                    <div class="w-full lg:w-1/2 text-center lg:text-left">
-                      <h1 class="text-4xl font-bold text-gray-800 mb-3">
-                        Explore New Worlds
-                      </h1>
-                      <h2 class="text-xl font-semibold text-gray-700 mb-2">
-                        Discover your next adventure.
-                      </h2>
-                      <p
-                        class="text-gray-600 leading-relaxed mb-6 max-w-md mx-auto lg:mx-0"
-                      >
-                        Dive into immersive board games that transport you to
-                        different realms. Strategy, luck, and fun await!
-                      </p>
-                      <div
-                        class="flex justify-center lg:justify-start gap-6 text-gray-700 text-sm mb-6"
-                      >
-                        <div class="flex items-center gap-2">
-                          <i class="fas fa-dice-d20"></i><span>Strategy</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                          <i class="fas fa-users"></i><span>2–6 Players</span>
-                        </div>
-                        <span
-                          class="px-2 py-0.5 border border-gray-500 rounded-full text-xs"
-                          >12+</span
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Slide 3 -->
-                <div class="hero-slide flex-none">
-                  <div
-                    class="flex flex-col lg:flex-row items-center justify-between gap-12"
-                  >
-                    <div
-                      class="w-full lg:w-1/2 rounded-lg shadow-md overflow-hidden"
-                    >
-                      <img
-                        src="https://placehold.co/600x400/1e3a8a/FFFFFF?text=Family+Game+Night"
-                        alt="Family Game Night"
-                        class="w-full h-64 md:h-80 lg:h-96 object-cover object-center"
-                      />
-                    </div>
-                    <div class="w-full lg:w-1/2 text-center lg:text-left">
-                      <h1 class="text-4xl font-bold text-gray-800 mb-3">
-                        Family Game Night
-                      </h1>
-                      <h2 class="text-xl font-semibold text-gray-700 mb-2">
-                        Fun for all ages.
-                      </h2>
-                      <p
-                        class="text-gray-600 leading-relaxed mb-6 max-w-md mx-auto lg:mx-0"
-                      >
-                        Gather your loved ones for an unforgettable game night.
-                        Create lasting memories with our selection of
-                        family-friendly games.
-                      </p>
-                      <div
-                        class="flex justify-center lg:justify-start gap-6 text-gray-700 text-sm mb-6"
-                      >
-                        <div class="flex items-center gap-2">
-                          <i class="fas fa-puzzle-piece"></i
-                          ><span>Cooperative</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                          <i class="fas fa-child"></i><span>All Ages</span>
-                        </div>
-                        <span
-                          class="px-2 py-0.5 border border-gray-500 rounded-full text-xs"
-                          >6+</span
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <!-- Trending -->
+            <div class="mb-10">
+              <h3 class="text-lg font-semibold text-gray-700 mb-4">Trending</h3>
+              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div class="bg-gray-300 h-48 rounded shadow"></div>
+                <div class="bg-gray-300 h-48 rounded shadow"></div>
+                <div class="bg-gray-300 h-48 rounded shadow"></div>
+                <div class="bg-gray-300 h-48 rounded shadow"></div>
+                <div class="bg-gray-300 h-48 rounded shadow"></div>
+                <div class="bg-gray-300 h-48 rounded shadow"></div>
               </div>
             </div>
 
-            <div class="mt-10 flex justify-center gap-3">
-              <button
-                data-slide-to="0"
-                class="carousel-dot w-2 h-2 bg-gray-800 rounded-full focus:outline-none"
-              ></button>
-              <button
-                data-slide-to="1"
-                class="carousel-dot w-2 h-2 bg-gray-400 rounded-full focus:outline-none"
-              ></button>
-              <button
-                data-slide-to="2"
-                class="carousel-dot w-2 h-2 bg-gray-400 rounded-full focus:outline-none"
-              ></button>
+            <!-- Continue Learning -->
+            <div>
+              <h3 class="text-lg font-semibold text-gray-700 mb-4">Continue Learning</h3>
+              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div class="bg-gray-300 h-40 rounded shadow"></div>
+                <div class="bg-gray-300 h-40 rounded shadow"></div>
+                <div class="bg-gray-300 h-40 rounded shadow"></div>
+                <div class="bg-gray-300 h-40 rounded shadow"></div>
+                <div class="bg-gray-300 h-40 rounded shadow"></div>
+                <div class="bg-gray-300 h-40 rounded shadow"></div>
+              </div>
             </div>
           </div>
-        </header>
+        </section>
+      </main>
 
-        <!-- Main content -->
-        <main class="flex-1 p-4 md:p-10">
-          <section class="bg-gray-100 px-4 sm:px-6 lg:px-12 space-y-16">
-            <!-- Events -->
-            <div>
-              <h2 class="text-2xl font-bold text-gray-800 mb-6">Events</h2>
-
-              <!-- Trending -->
-              <div class="mb-10">
-                <h3 class="text-lg font-semibold text-gray-700 mb-4">
-                  Trending
-                </h3>
-                <div
-                  class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
-                >
-                  <div class="bg-gray-300 h-48 rounded shadow"></div>
-                  <div class="bg-gray-300 h-48 rounded shadow"></div>
-                  <div class="bg-gray-300 h-48 rounded shadow"></div>
-                  <div class="bg-gray-300 h-48 rounded shadow"></div>
-                  <div class="bg-gray-300 h-48 rounded shadow"></div>
-                  <div class="bg-gray-300 h-48 rounded shadow"></div>
-                </div>
-              </div>
-
-              <!-- Upcoming -->
-              <div>
-                <h3 class="text-lg font-semibold text-gray-700 mb-4">
-                  Upcoming
-                </h3>
-                <div
-                  class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
-                >
-                  <div class="bg-gray-300 h-40 rounded shadow"></div>
-                  <div class="bg-gray-300 h-40 rounded shadow"></div>
-                  <div class="bg-gray-300 h-40 rounded shadow"></div>
-                  <div class="bg-gray-300 h-40 rounded shadow"></div>
-                  <div class="bg-gray-300 h-40 rounded shadow"></div>
-                  <div class="bg-gray-300 h-40 rounded shadow"></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Games -->
-            <div>
-              <h2 class="text-2xl font-bold text-gray-800 mb-6">Games</h2>
-
-              <!-- Trending -->
-              <div class="mb-10">
-                <h3 class="text-lg font-semibold text-gray-700 mb-4">
-                  Trending
-                </h3>
-                <div
-                  class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
-                >
-                  <div class="bg-gray-300 h-48 rounded shadow"></div>
-                  <div class="bg-gray-300 h-48 rounded shadow"></div>
-                  <div class="bg-gray-300 h-48 rounded shadow"></div>
-                  <div class="bg-gray-300 h-48 rounded shadow"></div>
-                  <div class="bg-gray-300 h-48 rounded shadow"></div>
-                  <div class="bg-gray-300 h-48 rounded shadow"></div>
-                </div>
-              </div>
-
-              <!-- Continue Learning -->
-              <div>
-                <h3 class="text-lg font-semibold text-gray-700 mb-4">
-                  Continue Learning
-                </h3>
-                <div
-                  class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
-                >
-                  <div class="bg-gray-300 h-40 rounded shadow"></div>
-                  <div class="bg-gray-300 h-40 rounded shadow"></div>
-                  <div class="bg-gray-300 h-40 rounded shadow"></div>
-                  <div class="bg-gray-300 h-40 rounded shadow"></div>
-                  <div class="bg-gray-300 h-40 rounded shadow"></div>
-                  <div class="bg-gray-300 h-40 rounded shadow"></div>
-                </div>
-              </div>
-            </div>
-          </section>
-        </main>
-      </div>
+      <!-- Footer -->
+      <div data-component="footer"></div>
     </div>
-    <!-- Footer -->
 
-    <footer class="bg-[#232f3e] text-white">
-      <div class="max-w-7xl mx-auto px-6 py-12">
-        <div
-          class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-12"
-        >
-          <!-- Brand -->
-          <div class="lg:w-1/4">
-            <a href="#" class="text-2xl font-bold block mb-4">Luma</a>
-            <p class="text-sm leading-relaxed">
-              Discover, learn, and play board games smarter with Luma.
-            </p>
-          </div>
-
-          <!-- Links -->
-          <div
-            class="flex-1 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
-          >
-            <div>
-              <h3 class="font-semibold uppercase text-sm mb-2">About</h3>
-              <ul class="space-y-2">
-                <li>
-                  <a href="#" class="hover:text-gray-300 text-sm">Company</a>
-                </li>
-                <li>
-                  <a href="#" class="hover:text-gray-300 text-sm">Community</a>
-                </li>
-                <li>
-                  <a href="#" class="hover:text-gray-300 text-sm">Careers</a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 class="font-semibold uppercase text-sm mb-2">Blog</h3>
-              <ul class="space-y-2">
-                <li>
-                  <a href="#" class="hover:text-gray-300 text-sm">Tech</a>
-                </li>
-                <li>
-                  <a href="#" class="hover:text-gray-300 text-sm">Music</a>
-                </li>
-                <li>
-                  <a href="#" class="hover:text-gray-300 text-sm">Videos</a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 class="font-semibold uppercase text-sm mb-2">Products</h3>
-              <ul class="space-y-2">
-                <li>
-                  <a href="#" class="hover:text-gray-300 text-sm">Mega Cloud</a>
-                </li>
-                <li>
-                  <a href="#" class="hover:text-gray-300 text-sm">Aperion UI</a>
-                </li>
-                <li>
-                  <a href="#" class="hover:text-gray-300 text-sm">Meraki UI</a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 class="font-semibold uppercase text-sm mb-2">Connect</h3>
-              <div class="flex space-x-4 mt-4">
-                <a href="#" aria-label="Reddit" class="hover:text-gray-300">
-                  <i class="fab fa-reddit fa-lg"></i>
-                </a>
-                <a href="#" aria-label="Facebook" class="hover:text-gray-300">
-                  <i class="fab fa-facebook fa-lg"></i>
-                </a>
-                <a href="#" aria-label="Github" class="hover:text-gray-300">
-                  <i class="fab fa-github fa-lg"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <hr class="mt-12 mb-6 border-t border-gray-600" />
-
-        <p class="text-center text-sm">© 2025 Luma. All rights reserved.</p>
-      </div>
-    </footer>
-
+    <!-- Scripts -->
+    <script src="../js/inject.js" defer></script>
     <script src="../js/main.js" defer></script>
+    <script src="../js/hero-carousel.js" defer></script>
   </body>
 </html>
