@@ -1,0 +1,61 @@
+<!-- Sidebar Navigation -->
+<button
+  id="sidebar-toggle"
+  class="fixed top-4 md:left-4 cursor-pointer md:right-auto left-auto right-4 z-50 p-2 bg-white rounded shadow-lg focus:outline-none"
+  aria-label="Open menu"
+  type="button"
+>
+  <i class="fas fa-bars w-7 h-7 text-black text-2xl cursor-pointer"></i>
+</button>
+
+<!-- Sidebar -->
+<aside
+  id="sidebar"
+  class="fixed top-0 left-0 z-40 hidden h-screen w-16 bg-white border-r shadow sm:flex flex-col justify-center items-center py-6"
+  aria-label="Sidebar"
+>
+  <!-- All icons stacked in the center -->
+  <nav class="flex flex-col items-center space-y-10">
+    <a href="#" class="text-gray-600 hover:text-blue-500">
+      <i class="fa-regular fa-bookmark fa-lg"></i>
+    </a>
+    <a href="#" class="text-gray-600 hover:text-blue-500">
+      <i class="fa-regular fa-comment fa-lg"></i>
+    </a>
+    <a href="#" class="text-gray-600 hover:text-blue-500">
+      <i class="fa-regular fa-heart fa-lg"></i>
+    </a>
+  </nav>
+</aside>
+
+<!-- Sidebar overlay for mobile -->
+<div
+  id="sidebar-overlay"
+  class="fixed inset-0 bg-black bg-opacity-30 z-30 hidden transition-opacity duration-200"
+  tabindex="-1"
+  aria-hidden="true"
+></div>
+
+<script>
+  // Sidebar toggle functionality
+  document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar");
+    const sidebarToggle = document.getElementById("sidebar-toggle");
+    const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+    sidebarToggle.addEventListener("click", function () {
+      const isExpanded = this.getAttribute("aria-expanded") === "true";
+      this.setAttribute("aria-expanded", !isExpanded);
+      sidebar.classList.toggle("hidden");
+      sidebarOverlay.classList.toggle("hidden");
+      document.body.classList.toggle("overflow-hidden");
+    });
+
+    sidebarOverlay.addEventListener("click", function () {
+      sidebarToggle.setAttribute("aria-expanded", "false");
+      sidebar.classList.add("hidden");
+      this.classList.add("hidden");
+      document.body.classList.remove("overflow-hidden");
+    });
+  });
+</script>
