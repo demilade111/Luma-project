@@ -32,6 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setupSidebar();
     setupHero();
+
+    window.dispatchEvent(new Event("components-injected"));
   }
 
   function setupHero() {
