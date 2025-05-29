@@ -1,9 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
+  function getRelativePathPrefix() {
+    // Count how deep the page is from the root.
+    const depth = window.location.pathname.split("/").length - 2;
+    return "../".repeat(depth);
+  }
+
+  // Define component paths dynamically.
+  const prefix = getRelativePathPrefix();
   const componentPaths = {
-    sidebar: "../components/sidebar.html",
-    navbar: "../components/navbar.html",
-    hero: "../components/hero.html",
-    footer: "../components/footer.html",
+    sidebar: `${prefix}components/sidebar.html`,
+    navbar: `${prefix}components/navbar.html`,
+    hero: `${prefix}components/hero.html`,
+    footer: `${prefix}components/footer.html`,
   };
 
   async function fetchComponent(componentName) {
