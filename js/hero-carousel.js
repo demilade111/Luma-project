@@ -41,12 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
     currentIndex++;
     updateCarousel(true);
 
-
     if (currentIndex === slidesWrapper.children.length - 1) {
       setTimeout(() => {
         currentIndex = 0;
         updateCarousel(false);
-      }, 500); 
+      }, 500);
     }
   }
 
@@ -63,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function stopAutoplay() {
     clearInterval(intervalId);
   }
-
 
   dots.forEach((dot) => {
     dot.addEventListener("click", () => {

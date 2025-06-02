@@ -56,7 +56,9 @@ document.addEventListener("DOMContentLoaded", function () {
     sidebarToggle.addEventListener("click", () => {
       sidebar.classList.remove("-translate-x-full");
       sidebarOverlay.classList.remove("hidden");
-      setTimeout(() => sidebarOverlay.classList.add("opacity-0"), 10);
+      requestAnimationFrame(() => {
+        sidebarOverlay.classList.add("opacity-0");
+      });
     });
 
     function closeSidebar() {
