@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Luma | Home</title>
+
+    <!-- Tailwind CSS -->
+    <link href="../../src/output.css" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+
+<body class="bg-gray-100 px-2">
+    <!-- Sidebar -->
+    <div data-component="sidebar"></div>
+
+    <!-- Header with Navbar and Hero -->
+    <header class="relative bg-white">
+        <div data-component="navbar"></div>
+        <div id="hero-container" data-component="hero"></div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col min-h-screen">
+        <main class="flex-1 p-4 md:p-10">
+            <section class="bg-gray-100 px-4 sm:px-6 lg:px-12 space-y-16">
+                <!-- Upcomming -->
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Upcomming</h2>
+                </div>
+
+                <!-- Weekly Highlights -->
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Weekly Highlights</h2>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <div data-component="footer"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/inject.js" defer></script>
+    <script src="../../js/main.js" defer></script>
+    <script src="../../js/hero-carousel.js" defer></script>
+</body>
+
+</html>
