@@ -3,9 +3,193 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
+  <link href="../src/output.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <!--Swiper CSS-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   
+  <title>Luma | Games</title>
+</head>
+<body class="bg-white">
+  <!--Sidebar section-->
+<div data-component="sidebar"></div>
+
+ <!--Navigation bar section-->
+ <header class="relative bg-white">
+  <div data-component="navbar"></div>
+  <!--<div id="hero-container" data-component="hero"></div>-->
+</header>
+
+ <!--Main section-->
+<div class="w-full max-w-screen overflow-x-hidden mx-auto">
+  <main class="flex flex-col gap-10 p-4 items-center justify-center min-h-screen bg-white border border-red-500">
+
+    <section class="see-games p-4 min-h-screen bg-gray-100 flex items-center justify-center">
+      <div class="w-full max-w-4xl mx-auto flex flex-col items-center">
+      <!--Swiper container-->
+      <div class="swiper w-[90%] md:w-[70%] mx-auto">
+     <div class="swiper-wrapper">
+      <!--Slide 1-->
+      <div class="swiper-slide max-w-[700px] w-full mx-auto border border-gray-400 rounded-md p-4 bg-orange-200 flex flex-col justify-end min-h-[350px] md:min-h-[256px]">
+        <h2 class="text-xl font-semibold mb-2">Lorem, Condimentum</h2>
+        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <p class="text-gray-700 flex-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, voluptate! Earum vel voluptatum tenetur laudantium hic non vitae! Veritatis impedit cupiditate laborum rem enim.</p>
+          <button class="px-4 py-2 bg-gray-300 rounded-[50px] border border-gray-500">See game</button>
+        </div>
+      </div>
+
+      <!--Slide 2-->
+      <div class="swiper-slide max-w-[700px] w-full mx-auto border border-gray-400 rounded-md p-4 bg-green-200 flex flex-col justify-end min-h-[350px] md:min-h-[256px]">
+        <h2 class="text-xl font-semibold mb-2">Lorem, Condimentum</h2>
+        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <p class="text-gray-700 flex-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, voluptate! Earum vel voluptatum tenetur laudantium hic non vitae! Veritatis impedit cupiditate laborum rem enim.</p>
+          <button class="px-4 py-2 bg-gray-300 rounded-[50px] border border-gray-500">See game</button>
+    </div>
+  </div>
+
+
+      <!--Slide 3-->
+      <div class="swiper-slide max-w-[700px] w-full mx-auto border border-gray-400 rounded-md p-4 bg-yellow-200 flex flex-col justify-end min-h-[350px] md:min-h-[256px]">
+        <h2 class="text-xl font-semibold mb-2">Lorem, Condimentum</h2>
+        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <p class="text-gray-700 flex-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, voluptate! Earum vel voluptatum tenetur laudantium hic non vitae! Veritatis impedit cupiditate laborum rem enim.</p>
+          <button class="px-4 py-2 bg-gray-300 rounded-[50px] border border-gray-500">See game</button>
+    </div>
+  </div>
+</div>
+     
+
+     
+    </div>
+    <!--Pagination dots that are clickable-->
+    <div class="swiper-pagination mt-4 flex justify-center"></div>
+  </div>
+ 
+
+  
+      <!--<div class="w-full md:w-[50%] min-h-[300px] md:min-h-[256px] border border-gray-400 rounded-md p-4 bg-gray-200 flex flex-col justify-end">
+        <h2 class="text-xl font-semibold md-2">Lorem, Condimentum</h2>
+      
+        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        
+        <p class="text-gray-700 flex-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, voluptate! Earum vel voluptatum tenetur laudantium hic non vitae! Veritatis impedit cupiditate laborum rem enim.</p>
+      
+          <button class="px-4 py-2 bg-gray-300 rounded-[50px] border border-gray-500">See game</button>
+      </div>
+    </div>-->
+    </section>
+     <!--Category games-->
+    <section class="category-games p-4 w-full bg-gray-100 flex flex-col items-center justify-center space-y-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-[repeat(auto-fit, minmax(4rem, 1fr))] gap-4 lg:gap-4 w-full md:max-w-screen-lg mx-auto">
+         
+           <div class="flex flex-col items-center w-full md:w-32"><a href="popular" class="pb-2">Popular</a>
+            <div class="w-full md:w-32 h-42 bg-gray-200 border border-gray-400 rounded-md flex flex-col justify-end items-center">
+              <button class="mb-2 px-2 py-1 text-sm w-20 bg-gray-300 rounded-[50px] border border-gray-500">See Game</button>
+            </div>
+            <p class="mt-2 text-center text-gray-800 text-sm">Exciting games</p>
+          </div>
+           <div class="flex flex-col items-center w-full md:w-32"><a href="for-you" class="pb-2">For You</a>
+            <div class="w-full md:w-32 h-42 bg-gray-200 border border-gray-400 rounded-md flex flex-col justify-end items-center">
+              <button class="mb-2 px-2 py-1 text-sm w-20 bg-gray-300 rounded-[50px] border border-gray-500">See Game</button>
+            </div>
+            <p class="mt-2 text-center text-gray-800 text-sm">Exciting games</p>
+          </div>
+           <div class="flex flex-col items-center w-full md:w-32"><a href="ttrp" class="pb-2">TTRPG</a>
+            <div class="w-full md:w-32 h-42 bg-gray-200 border border-gray-400 rounded-md flex flex-col justify-end items-center">
+              <button class="mb-2 px-2 py-1 text-sm w-20  bg-gray-300 rounded-[50px] border border-gray-500">See Game</button>
+            </div>
+            <p class="mt-2 text-center text-gray-800 text-sm">Exciting games</p>
+          </div>
+           <div class="flex flex-col items-center w-full md:w-32"><a href="new" class="pb-2">New</a>
+            <div class="w-full md:w-32 h-42 bg-gray-200 border border-gray-400 rounded-md flex flex-col justify-end items-center">
+              <button class="mb-2 px-2 py-1 text-sm w-20 bg-gray-300 rounded-[50px] border border-gray-500">See Game</button>
+            </div>
+            <p class="mt-2 text-center text-gray-800 text-sm">Exciting games</p>
+          </div>
+          </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-[repeat(auto-fit, minmax(8rem, 1fr))] gap-4 lg:gap-4 w-full md:max-w-screen-lg mx-auto">
+        <div class="flex flex-col items-center w-full md:w-32">
+          <div class="w-full md:w-32 aspect-square bg-gray-200 border border-gray-400 rounded-md"></div>
+          <p class="mt-2 text-sm text-center">Donec eu odio</p>
+        </div>
+
+        <div class="flex flex-col items-center w-full md:w-32">
+          <div class="w-full md:w-32 aspect-square bg-gray-200 border border-gray-400 rounded-md"></div>
+          <p class="mt-2 text-sm text-center">Donec eu odio</p>
+        </div>
+
+        <div class="flex flex-col items-center w-full md:w-32">
+          <div class="w-full md:w-32 aspect-square bg-gray-200 border border-gray-400 rounded-md"></div>
+          <p class="mt-2 text-sm text-center">Donec eu odio</p>
+        </div>
+
+        <div class="flex flex-col items-center w-full md:w-32">
+          <div class="w-full md:w-32 aspect-square bg-gray-200 border border-gray-400 rounded-md"></div>
+          <p class="mt-2 text-sm text-center">Donec eu odio</p>
+        </div>
+         
+      </div>
+    </section>
+
+    <!--Learning and Strategy-->
+
+    <section class="continue-strategy p-4 w-full bg-gray-100 flex flex-col items-center justify-center space-y-8">
+      
+      <div class="flex flex-col items-center space-y-2 w-full max-w-screen-md">
+        <h3 class="font-semibold self-start w-full">Continue Learning</h3>
+      
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+      <div class="w-full md:w-32 h-42 bg-gray-200 border border-gray-400 rounded-md flex flex-col justify-end items-center">
+        <button class="mb-2 px-2 py-1 text-sm w-20 bg-gray-300 rounded-[50px] border border-gray-500">See Game</button>
+      </div>
+      <div class="w-full md:w-32 h-42 bg-gray-200 border border-gray-400 rounded-md flex flex-col justify-end items-center">
+        <button class="mb-2 px-2 py-1 text-sm w-20 bg-gray-300 rounded-[50px] border border-gray-500">See Game</button>
+      </div>
+      <div class="w-full md:w-32 h-42 bg-gray-200 border border-gray-400 rounded-md flex flex-col justify-end items-center">
+        <button class="mb-2 px-2 py-1 text-sm w-20 bg-gray-300 rounded-[50px] border border-gray-500">See Game</button>
+      </div>
+      <div class="w-full md:w-32 h-42 bg-gray-200 border border-gray-400 rounded-md flex flex-col justify-end items-center">
+        <button class="mb-2 px-2 py-1 text-sm w-20 bg-gray-300 rounded-[50px] border border-gray-500">See Game</button>
+      </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center space-y-2 w-full max-w-screen-md">
+
+      <h3 class="font-semibold self-start w-full" >Strategy</h3>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+      <div class="w-full md:w-32 h-42 bg-gray-200 border border-gray-400 rounded-md flex flex-col justify-end items-center">
+        <button class="mb-2 px-2 py-1 text-sm w-20 bg-gray-300 rounded-[50px] border border-gray-500">See Game</button>
+      </div>
+      <div class="w-full md:w-32 h-42 bg-gray-200 border border-gray-400 rounded-md flex flex-col justify-end items-center">
+        <button class="mb-2 px-2 py-1 text-sm w-20 bg-gray-300 rounded-[50px] border border-gray-500">See Game</button>
+      </div>
+      <div class="w-full md:w-32 h-42 bg-gray-200 border border-gray-400 rounded-md flex flex-col justify-end items-center">
+        <button class="mb-2 px-2 py-1 text-sm w-20 bg-gray-300 rounded-[50px] border border-gray-500">See Game</button>
+      </div>
+      <div class="w-full md:w-32 h-42 bg-gray-200 border border-gray-400 rounded-md flex flex-col justify-end items-center">
+        <button class="mb-2 px-2 py-1 text-sm w-20 bg-gray-300 rounded-[50px] border border-gray-500">See Game</button>
+      </div>
+      </div>
+    </div>
+    </section>
+  </main>
+  
+  
+   <!--Footer section-->
+   <div data-component="footer"></div>
+</div>
+
+ <!--script-->
+ <script src="../js/inject.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/hero-carousel.js" defer></script>
+
+    <!--Swiper js for first section games page-->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
 </body>
 </html>

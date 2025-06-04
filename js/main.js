@@ -104,4 +104,31 @@ document.addEventListener("DOMContentLoaded", function () {
       observer.observe(heroContainer, { childList: true });
     }
   }
+
+  //Initializing games page swiper
+  if (document.querySelector(".swiper")) {
+    new Swiper(".swiper", {
+      loop: true,
+      slidesPerView: 1,
+      centeredSlides: true,
+      spaceBetween: 20,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 1,
+        },
+        1024: {
+          slidesPerView: 1,
+        },
+      },
+    });
+  }
 });
+
