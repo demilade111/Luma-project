@@ -1,17 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
-  function getRelativePathPrefix() {
-    // Count how deep the page is from the root.
-    const depth = window.location.pathname.split("/").length - 2;
-    return "../".repeat(depth);
-  }
-
-  // Define component paths dynamically.
-  const prefix = getRelativePathPrefix();
+  // Use the correct base path for your project.
+  const base = "/luma-app";
   const componentPaths = {
-    sidebar: `${prefix}components/sidebar.html`,
-    navbar: `${prefix}components/navbar.html`,
-    hero: `${prefix}components/hero.html`,
-    footer: `${prefix}components/footer.html`,
+    sidebar: `${base}/components/sidebar.html`,
+    navbar: `${base}/components/navbar.html`,
+    hero: `${base}/components/hero.html`,
+    footer: `${base}/components/footer.html`,
   };
 
   async function fetchComponent(componentName) {
@@ -23,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return await response.text();
     } catch (error) {
       console.error(error);
-      return `<div class="p-4 bg-red-100 text-red-700">Error loading ${componentName} component</div>`;
+      return `<div class="p-4 bg-red-100 ">Error loading ${componentName} component</div>`;
     }
   }
 

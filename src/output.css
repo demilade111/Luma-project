@@ -565,9 +565,6 @@
   .bg-red-100 {
     background-color: var(--color-red-100);
   }
-  .bg-red-900 {
-    background-color: var(--color-red-900);
-  }
   .bg-white {
     background-color: var(--color-white);
   }
@@ -685,9 +682,6 @@
   }
   .text-red-500 {
     color: var(--color-red-500);
-  }
-  .text-red-700 {
-    color: var(--color-red-700);
   }
   .text-white {
     color: var(--color-white);
@@ -926,15 +920,12 @@
     }
   }
 }
-<<<<<<< HEAD .scroll-container::-webkit-scrollbar {
+.scroll-container::-webkit-scrollbar {
   display: none;
 }
 .scroll-container {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-======= .bg-color {
-  background-color: red;
 }
 @property --tw-translate-x {
   syntax: "*";
