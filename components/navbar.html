@@ -1,32 +1,27 @@
 <div class="w-full bg-[#232f3e] py-6 shadow flex items-center justify-between px-6 pl-20">
-     <a href="/" class="text-2xl font-bold text-white hover:text-blue-200 transition-colors">
-       Luma
-     </a>
-   
-     <nav class="hidden md:flex items-center space-x-8 ml-auto" aria-label="Main menu">
-       <a href="/" class="text-white text-xl hover:text-blue-200 transition-colors focus:outline-none focus:underline">
-         Home
-       </a>
-       <a href="/games" class="text-white text-xl hover:text-blue-200 transition-colors focus:outline-none focus:underline">
-         Games
-       </a>
-       <a href="/events" class="text-white text-xl hover:text-blue-200 transition-colors focus:outline-none focus:underline">
-         Events
-       </a>
-       <a href="/account" class="text-white text-xl hover:text-blue-200 transition-colors focus:outline-none focus:underline">
-         Account
-       </a>
-       <a href="/about" class="text-white text-xl hover:text-blue-200 transition-colors focus:outline-none focus:underline">
-         About Us
-       </a>
-   
-       <button class="ml-4 p-1 rounded-full text-white hover:text-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Search">
-         <i class="fas fa-search fa-lg" aria-hidden="true"></i>
-       </button>
-     </nav>
-   
-     <button class="md:hidden p-2 rounded-full text-white hover:text-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Open menu">
-       <i class="fas fa-ellipsis-h fa-lg" aria-hidden="true"></i>
-     </button>
-   </div>
-   
+  <a href="/" class="text-2xl font-bold text-white hover:text-blue-200">
+    Luma
+  </a>
+
+  <div class="relative ml-auto hidden md:flex items-center space-x-6">
+    <a href="/" class="text-white text-xl hover:text-blue-200">Home</a>
+    <a href="/games" class="text-white text-xl hover:text-blue-200">Games</a>
+    <a href="/events" class="text-white text-xl hover:text-blue-200">Events</a>
+    <a href="/account" class="text-white text-xl hover:text-blue-200">Account</a>
+    <a href="/about" class="text-white text-xl hover:text-blue-200">About Us</a>
+
+    <div class="relative ml-4">
+      <button id="searchToggle" class="p-2 text-white hover:text-blue-200" aria-label="Search">
+        <i class="fas fa-search text-xl"></i>
+      </button>
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="Search..."
+        class="hidden absolute right-0 top-full mt-2 w-64 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 placeholder-gray-400/70 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
+      />
+    </div>
+    
+    
+  </div>
+</div>
