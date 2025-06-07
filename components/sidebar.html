@@ -1,19 +1,19 @@
 <!-- Sidebar Navigation -->
-<button
-  id="sidebar-toggle"
-  class="fixed top-4 md:left-4 cursor-pointer md:right-auto left-auto right-4 z-50 p-2 bg-white rounded shadow-lg focus:outline-none"
-  aria-label="Open menu"
-  type="button"
->
-  <i class="fas fa-bars w-7 h-7 text-black text-2xl cursor-pointer"></i>
+<button id="sidebar-toggle"
+  class="fixed top-8 cursor-pointer z-50 ml-5"
+  aria-label="Open menu" type="button">
+  
+  <svg width="20" height="20" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line y1="2" x2="31" y2="2" stroke="black" stroke-width="4" />
+    <line x1="11" y1="17" x2="31" y2="17" stroke="black" stroke-width="4" />
+    <line x1="19" y1="28" x2="31" y2="28" stroke="black" stroke-width="4" />
+  </svg>
 </button>
 
 <!-- Sidebar -->
-<aside
-  id="sidebar"
+<aside id="sidebar"
   class="fixed top-0 left-0 z-40 hidden h-screen w-16 bg-white border-r shadow sm:flex flex-col justify-center items-center py-6"
-  aria-label="Sidebar"
->
+  aria-label="Sidebar">
   <!-- All icons stacked in the center -->
   <nav class="flex flex-col items-center space-y-10">
     <a href="#" class="text-gray-600 hover:text-blue-500">
@@ -29,12 +29,8 @@
 </aside>
 
 <!-- Sidebar overlay for mobile -->
-<div
-  id="sidebar-overlay"
-  class="fixed inset-0 bg-black bg-opacity-30 z-30 hidden transition-opacity duration-200"
-  tabindex="-1"
-  aria-hidden="true"
-></div>
+<div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-30 z-30 hidden transition-opacity duration-200"
+  tabindex="-1" aria-hidden="true"></div>
 
 <script>
   // Sidebar toggle functionality
