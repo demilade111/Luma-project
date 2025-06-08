@@ -1,9 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Use the correct base path for your project.
+  const base = "/luma-app";
   const componentPaths = {
-    sidebar: "../components/sidebar.html",
-    navbar: "../components/navbar.html",
-    hero: "../components/hero.html",
-    footer: "../components/footer.html",
+    sidebar: `${base}/components/sidebar.html`,
+    navbar: `${base}/components/navbar.html`,
+    hero: `${base}/components/hero.html`,
+    footer: `${base}/components/footer.html`,
   };
 
   async function fetchComponent(componentName) {
@@ -15,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return await response.text();
     } catch (error) {
       console.error(error);
-      return `<div class="p-4 bg-red-100 text-red-700">Error loading ${componentName} component</div>`;
+      return `<div class="p-4 bg-red-100 ">Error loading ${componentName} component</div>`;
     }
   }
 
@@ -32,6 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setupSidebar();
     setupHero();
+
+    window.dispatchEvent(new Event("components-injected"));
   }
 
   function setupHero() {
@@ -54,7 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
     sidebarToggle.addEventListener("click", () => {
       sidebar.classList.remove("-translate-x-full");
       sidebarOverlay.classList.remove("hidden");
-      setTimeout(() => sidebarOverlay.classList.add("opacity-0"), 10);
+      requestAnimationFrame(() => {
+        sidebarOverlay.classList.add("opacity-0");
+      });
     });
 
     function closeSidebar() {

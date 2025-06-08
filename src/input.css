@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
-.bg-color{
-    background-color: red;
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
