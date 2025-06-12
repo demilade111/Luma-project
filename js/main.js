@@ -1,3 +1,7 @@
+console.log("main.js loaded");
+
+import { seedFirestore } from "./seed/seed.js";
+
 function setupSearchToggle() {
   const toggleBtn = document.getElementById("searchToggle");
   const searchInput = document.getElementById("searchInput");
@@ -12,13 +16,30 @@ function setupSearchToggle() {
   });
 
   document.addEventListener("click", (e) => {
-    const clickedInside = toggleBtn.contains(e.target) || searchInput.contains(e.target);
+    const clickedInside =
+      toggleBtn.contains(e.target) || searchInput.contains(e.target);
     if (!clickedInside) {
       searchInput.classList.add("hidden");
     }
   });
 }
 
+// Move seedBtn event listener setup to the components-injected event
+function setupSeedButton() {
+  const btn = document.getElementById("seedBtn");
+  const status = document.getElementById("status");
+
+  if (btn && status) {
+    console.log("Seed button found, setting up event listener");
+    btn.addEventListener("click", () => {
+      console.log("Seed button clicked");
+      alert("Seeding started!"); // Show the alert immediately
+      seedFirestore(status);
+    });
+  } else {
+    console.warn("Seed button or status element not found");
+  }
+}
 
 function initCarousel() {
   const slidesContainer = document.getElementById("hero-slides");
@@ -50,7 +71,9 @@ function initCarousel() {
   }
 
   function updateCarousel(animate = true) {
-    slidesContainer.style.transition = animate ? "transform 300ms ease" : "none";
+    slidesContainer.style.transition = animate
+      ? "transform 300ms ease"
+      : "none";
     slidesContainer.style.transform = `translateX(-${currentIndex * width}px)`;
 
     dots.forEach((dot, i) => {
@@ -103,7 +126,9 @@ function initCarousel() {
 }
 
 window.addEventListener("components-injected", () => {
+  console.log("Components injected event fired");
   setupSearchToggle();
+  setupSeedButton(); // Set up the seed button after components are injected
 
   const heroContainer = document.querySelector('[data-component="hero"]');
   if (heroContainer?.children.length > 0) {
@@ -145,4 +170,3 @@ window.addEventListener("components-injected", () => {
     });
   }
 });
-
