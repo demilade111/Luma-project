@@ -1,4 +1,44 @@
-console.log("main.js loaded");
+const events = [
+  {
+    day: "Today Sunday",
+    entries: [
+      {
+        time: "08:00 PM",
+        title: "Jazzopoly Board Game Night",
+        host: "Kevin McMillan",
+        location: "Langara College B Building",
+        attendees: "2259 Ava, Sarah, and 28 others",
+      },
+    ],
+  },
+  // Add other days similarly
+];
+
+const container = document.getElementById("events");
+
+events.forEach((group) => {
+  const dayBlock = document.createElement("div");
+  dayBlock.innerHTML = `
+    <p class="text-sm font-medium text-gray-600 mb-3">${group.day}</p>
+    ${group.entries
+      .map(
+        (event) => `
+      <div class="bg-white p-4 rounded shadow flex justify-between items-center mb-4">
+        <div>
+          <p class="text-sm text-gray-700">${event.time}</p>
+          <p class="font-semibold">${event.title}</p>
+          <p class="text-sm text-gray-500">by ${event.host}</p>
+          <p class="text-sm text-gray-500">${event.location}</p>
+          <p class="text-xs text-gray-400">${event.attendees}</p>
+        </div>
+        <div class="w-28 h-16 bg-gray-200 rounded"></div>
+      </div>
+    `
+      )
+      .join("")}
+  `;
+  container.appendChild(dayBlock);
+});
 
 import { seedFirestore } from "./seed/seed.js";
 

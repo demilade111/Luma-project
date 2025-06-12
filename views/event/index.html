@@ -1,55 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Luma | Home</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vancouver Events</title>
+  <script defer src="script.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-100 text-gray-800">
 
-    <!-- Tailwind CSS -->
-    <link href="../../src/output.css" rel="stylesheet" />
+  <main class="max-w-7xl mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+    
+    <!-- Left Content -->
+    <section class="md:col-span-2 space-y-6">
+      <div>
+        <h2 class="text-sm text-gray-500">What's Happening in</h2>
+        <h1 class="text-3xl font-bold">Vancouver</h1>
+        <p class="mt-2 text-sm text-gray-600">
+          A playful hub on the Pacific, Vancouver is buzzing with board game nights, tournaments, and welcoming communities. 
+        </p>
+        <button class="mt-3 px-4 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300">Subscribe</button>
+      </div>
 
-    <!-- Font Awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-  </head>
+      <!-- Events List -->
+      <div id="events" class="space-y-6">
+        <!-- Event Day Group (Template repeated with JS or manually) -->
+        <div>
+          <p class="text-sm font-medium text-gray-600 mb-3">Today Sunday</p>
 
-  <body class="bg-gray-100 px-2">
-    <!-- Sidebar -->
-    <div data-component="sidebar"></div>
-
-    <!-- Header with Navbar and Hero -->
-    <header class="relative bg-white">
-      <div data-component="navbar"></div>
-      <div id="hero-container" data-component="hero"></div>
-    </header>
-
-    <!-- Main Content -->
-    <div class="flex-1 flex flex-col min-h-screen">
-      <main class="flex-1 p-4 md:p-10">
-        <section class="bg-gray-100 px-4 sm:px-6 lg:px-12 space-y-16">
-          <!-- Upcomming -->
-          <div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">Upcomming</h2>
+          <div class="bg-white p-4 rounded shadow flex justify-between items-center">
+            <div>
+              <p class="text-sm text-gray-700">08:00 PM</p>
+              <p class="font-semibold">Jazzopoly Board Game Night</p>
+              <p class="text-sm text-gray-500">by Kevin McMillan</p>
+              <p class="text-sm text-gray-500">Langara College Building</p>
+              <p class="text-xs text-gray-400">2259 Ava, Sarah, and 28 others</p>
+            </div>
+            <div class="w-28 h-16 bg-gray-200 rounded"></div>
           </div>
+        </div>
 
-          <!-- Weekly Highlights -->
-          <div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">
-              Weekly Highlights
-            </h2>
-          </div>
-        </section>
-      </main>
+        <!-- Repeat similar event groups for other days (use JS to render from data if needed) -->
+      </div>
+    </section>
 
-      <!-- Footer -->
-      <div data-component="footer"></div>
-    </div>
+    <!-- Sticky Sidebar -->
+    <aside class="sticky top-6 self-start space-y-4">
+      <div class="bg-white p-4 rounded shadow">
+        <h3 class="font-semibold">Vancouver</h3>
+        <p class="text-sm text-gray-600 mt-2">Discover the hottest events in Vancouver and get notified before they sell out.</p>
+        <button class="mt-3 px-4 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300">Subscribe</button>
+      </div>
+      <div class="bg-gray-100 p-4 rounded text-purple-600 text-sm">
+        PS: This card is a sticky element
+      </div>
+    </aside>
 
-    <!-- Scripts -->
-    <script src="../../js/inject.js" defer></script>
-    <script src="../../js/main.js" defer></script>
-    <script src="../../js/hero-carousel.js" defer></script>
-  </body>
+  </main>
+
+</body>
 </html>
