@@ -8,7 +8,7 @@
      <script src="https://cdn.tailwindcss.com"></script>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
-<body>
+<body class=" bg-gray-100">
      <div data-component="sidebar"></div>
 
      <!-- Header with Navbar and Hero -->
@@ -17,7 +17,6 @@
      <div id="hero-container" data-component="hero"></div>
    </header>
 
-     <body class=" bg-gray-300">
           <p class="text-red-500 text-6xl">Game Details</p>
           
           <!--The Night cage section-->
@@ -84,17 +83,56 @@
      
      
           <!--Strategy-->
-          <div class="strategy">
-               <button class="border border-black rounded px-6 py-1">Puzzle Games</button>
-               <button class="border border-black rounded px-6 py-1">Strategy Games</button>
-               <button class="border border-black rounded px-6 py-1">Co-Op</button>
+          <div class="strategy gap-4">
+
+               <!--Puzzle card-->
+               <div
+                        class="inline-flex items-center bg-white rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]">
+                        <svg width="40" height="40" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M40 49H53.5V61.5H66.5V75.5H27M40 49V36.5M40 49V61.5H27M1 36.5V10.5H15V23.5H40V36.5M1 36.5H40M1 36.5V49M1 49V75.5H27M1 49H27V61.5M27 75.5V61.5M49 1V26.5H62.5V40.5H75.5V14.5H62.5V1H50H49Z"
+                                stroke="black" />
+                        </svg>
+                        <div class="whitespace-nowrap">Puzzle Games</div>
+                    </div>
+
+                    <!--Strategy card-->
+                    <div
+                        class="inline-flex items-center bg-white rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]">
+                        <svg width="40" height="40" viewBox="0 0 77 77" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.5" y="0.5" width="76" height="76" rx="18.5" stroke="black" />
+                            <path d="M37.9932 0V76M56.7432 0V76M76 39H1M1 57H76M76 20H1M19 0.5V76" stroke="black" />
+                            <circle cx="29.5" cy="11.5" r="2.5" fill="#020202" />
+                            <circle cx="47.5" cy="29.5" r="2.5" fill="#020202" />
+                            <circle cx="66.5" cy="47.5" r="2.5" fill="#020202" />
+                            <circle cx="66.5" cy="11.5" r="2.5" fill="#020202" />
+                            <circle cx="10.5" cy="29.5" r="2.5" fill="#020202" />
+                            <circle cx="29.5" cy="47.5" r="2.5" fill="#020202" />
+                            <circle cx="10.5" cy="66.5" r="2.5" fill="#020202" />
+                            <circle cx="47.5" cy="66.5" r="2.5" fill="#020202" />
+                        </svg>
+
+                        <div class="whitespace-nowrap">Strategy Games</div>
+                    </div>
+
+                    <!--Co-op card-->
+                    <div
+                        class="inline-flex items-center bg-white rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]">
+                        <svg width="40" height="40" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M40 49H53.5V61.5H66.5V75.5H27M40 49V36.5M40 49V61.5H27M1 36.5V10.5H15V23.5H40V36.5M1 36.5H40M1 36.5V49M1 49V75.5H27M1 49H27V61.5M27 75.5V61.5M49 1V26.5H62.5V40.5H75.5V14.5H62.5V1H50H49Z"
+                                stroke="black" />
+                        </svg>
+                        <div class="whitespace-nowrap">Co-Op</div>
+                    </div>               
+                
           </div>
      
      
      
           <!--Comments-->
           <div class="comments p-4">
-               <h1 class="text-x1 font-semibold gap-4">Comments</h1>
+               <h1 class="text-x1 font-extrabold text-gray-400 gap-4 font-Nunito text-6xl">Comments</h1>
                <div class="flex flex-wrap gap-4">
                     <div class="w-[378px] h-[260px] bg-gray-200"></div>
                     <div class="w-[378px] h-[260px] bg-gray-200"></div>
