@@ -1,3 +1,47 @@
+const events = [
+  {
+    day: "Today Sunday",
+    entries: [
+      {
+        time: "08:00 PM",
+        title: "Jazzopoly Board Game Night",
+        host: "Kevin McMillan",
+        location: "Langara College B Building",
+        attendees: "2259 Ava, Sarah, and 28 others",
+      },
+    ],
+  },
+  // Add other days similarly
+];
+
+const container = document.getElementById("events");
+
+events.forEach((group) => {
+  const dayBlock = document.createElement("div");
+  dayBlock.innerHTML = `
+    <p class="text-sm font-medium text-gray-600 mb-3">${group.day}</p>
+    ${group.entries
+      .map(
+        (event) => `
+      <div class="bg-white p-4 rounded shadow flex justify-between items-center mb-4">
+        <div>
+          <p class="text-sm text-gray-700">${event.time}</p>
+          <p class="font-semibold">${event.title}</p>
+          <p class="text-sm text-gray-500">by ${event.host}</p>
+          <p class="text-sm text-gray-500">${event.location}</p>
+          <p class="text-xs text-gray-400">${event.attendees}</p>
+        </div>
+        <div class="w-28 h-16 bg-gray-200 rounded"></div>
+      </div>
+    `
+      )
+      .join("")}
+  `;
+  container.appendChild(dayBlock);
+});
+
+import { seedFirestore } from "./seed/seed.js";
+
 function setupSearchToggle() {
   const toggleBtn = document.getElementById("searchToggle");
   const searchInput = document.getElementById("searchInput");
@@ -12,13 +56,30 @@ function setupSearchToggle() {
   });
 
   document.addEventListener("click", (e) => {
-    const clickedInside = toggleBtn.contains(e.target) || searchInput.contains(e.target);
+    const clickedInside =
+      toggleBtn.contains(e.target) || searchInput.contains(e.target);
     if (!clickedInside) {
       searchInput.classList.add("hidden");
     }
   });
 }
 
+// Move seedBtn event listener setup to the components-injected event
+function setupSeedButton() {
+  const btn = document.getElementById("seedBtn");
+  const status = document.getElementById("status");
+
+  if (btn && status) {
+    console.log("Seed button found, setting up event listener");
+    btn.addEventListener("click", () => {
+      console.log("Seed button clicked");
+      alert("Seeding started!"); // Show the alert immediately
+      seedFirestore(status);
+    });
+  } else {
+    console.warn("Seed button or status element not found");
+  }
+}
 
 function initCarousel() {
   const slidesContainer = document.getElementById("hero-slides");
@@ -50,7 +111,9 @@ function initCarousel() {
   }
 
   function updateCarousel(animate = true) {
-    slidesContainer.style.transition = animate ? "transform 300ms ease" : "none";
+    slidesContainer.style.transition = animate
+      ? "transform 300ms ease"
+      : "none";
     slidesContainer.style.transform = `translateX(-${currentIndex * width}px)`;
 
     dots.forEach((dot, i) => {
@@ -103,7 +166,9 @@ function initCarousel() {
 }
 
 window.addEventListener("components-injected", () => {
+  console.log("Components injected event fired");
   setupSearchToggle();
+  setupSeedButton(); // Set up the seed button after components are injected
 
   const heroContainer = document.querySelector('[data-component="hero"]');
   if (heroContainer?.children.length > 0) {
@@ -145,4 +210,3 @@ window.addEventListener("components-injected", () => {
     });
   }
 });
-
