@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="font-nunito">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,18 +15,21 @@
     />
 
     <style>
-          
+      body {
+        font-family: "Nunito", sans-serif;
+      }
 
       /* Timeline styles */
       .timeline {
         position: relative;
-        padding-left: 30px;
+        padding-left: 45px;
+        margin-top: 30px;
       }
 
       .timeline::before {
         content: "";
         position: absolute;
-        left: 0;
+        left: 7px;
         top: 0;
         height: 100%;
         width: 0;
@@ -35,35 +38,88 @@
 
       .timeline-event {
         position: relative;
-        padding-bottom: 48px;
+        padding-bottom: 22px;
+        margin-bottom: 10px;
       }
 
       .timeline-event::before {
         content: "";
         position: absolute;
-        left: -38px;
-        top: 4px;
+        left: -23px;
+        top: 11px;
         width: 16px;
         height: 16px;
-        background-color: #4b5563;
+        background-color: #3b82f6;
         border-radius: 50%;
-        border: 3px solid white;
-        box-shadow: 0 0 0 1px #cbd5e0;
+        border: 2px solid white;
         z-index: 1;
       }
 
-      .timeline-event::after {
+      .timeline-date {
+        margin-left: -10px;
+        margin-bottom: 10px;
+        font-size: 0.875rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .timeline-date span {
+        font-weight: 700;
+        margin-right: 5px;
+      }
+
+      /* Rectangle connector styling */
+      .event-card {
+        position: relative;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        padding: 24px;
+      }
+
+      .event-box {
+        position: relative;
+      }
+
+      .event-box::before,
+      .event-box::after,
+      .timeline-connector-top,
+      .timeline-connector-bottom {
         content: "";
         position: absolute;
-        left: -22px;
-        top: 12px;
-        width: 22px;
-        height: 0;
-        border-top: 2px solid #cbd5e0;
+        background: #cbd5e0;
+        z-index: 0;
+      }
+
+      .timeline-connector-top {
+        height: 2px;
+        width: 15px;
+        left: -15px;
+        top: 19px;
+      }
+
+      .timeline-connector-bottom {
+        height: 2px;
+        width: 15px;
+        left: -15px;
+        bottom: 0;
+      }
+
+      .event-box::before {
+        width: 2px;
+        left: -15px;
+        top: 19px;
+        bottom: 0;
+      }
+
+      .event-box::after {
+        width: 2px;
+        right: -1px;
+        top: 19px;
+        bottom: 0;
       }
     </style>
   </head>
-  <body class="bg-gray-100 text-gray-800 font-nunito">
+  <body class="bg-gray-100 text-gray-800">
     <div data-component="sidebar"></div>
     <header class="relative bg-white">
       <div data-component="navbar"></div>
@@ -72,230 +128,240 @@
       <!-- Hero -->
       <section>
         <div class="mb-6">
-          <p class="text-sm text-gray-500 font-nunito">What's Happening in</p>
-          <h1 class="text-3xl font-bold text-gray-900 font-nunito">Vancouver</h1>
-          <p class="mt-2 text-lg text-gray-600 max-w-xl font-nunito">
+          <p class="text-sm text-gray-500">What's Happening in</p>
+          <h1 class="text-3xl font-bold text-gray-900">Vancouver</h1>
+          <p class="mt-2 text-sm text-gray-600 max-w-xl">
             A playful hub on the Pacific, Vancouver is buzzing with board game
             nights, tabletop tournaments, and welcoming player communities. From
             cozy cafes to lively conventions, it's a city where strategy meets
             social connection.
           </p>
           <button
-            class="mt-4 px-4 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300 font-nunito"
+            class="mt-4 px-4 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300"
           >
             Subscribe
           </button>
         </div>
       </section>
       <section>
-        <h2 class="text-xl font-semibold mb-6 font-nunito">Events</h2>
+        <h2 class="text-xl font-semibold mb-4">Events</h2>
         <!-- Timeline -->
         <div class="flex gap-10">
           <div class="flex-1 timeline">
             <!-- Today -->
             <div class="timeline-event">
-              <p class="text-sm font-medium text-gray-700 mb-3 font-nunito">
-                <span class="font-bold">Today</span> Sunday
-              </p>
+              <p class="timeline-date"><span>Today</span> Sunday</p>
 
-              <div
-                class="bg-white p-6 rounded-lg shadow-sm flex justify-between items-start"
-              >
-                <div class="flex-1">
-                  <p class="text-sm text-gray-600 mb-1 font-nunito">06:00 PM</p>
-                  <p class="text-xl font-semibold text-gray-800 mb-4 font-nunito">
-                    Jazzipoly Board Game Night
-                  </p>
-
-                  <div class="flex items-center gap-2 mb-3 text-gray-500 font-nunito">
-                    <img
-                      src="https://i.pravatar.cc/20?img=1"
-                      class="w-6 h-6 rounded-full"
-                      alt=""
-                    />
-                    <span>by Kevin McMillan</span>
-                  </div>
-
-                  <div class="flex items-center gap-2 mb-3 text-gray-500 font-nunito">
-                    <i class="fas fa-map-marker-alt text-gray-500"></i>
-                    <span>Langara College B Building</span>
-                  </div>
-
-                  <div class="flex items-center gap-2 mb-3 text-gray-500 font-nunito">
-                    <i class="fas fa-users text-gray-500"></i>
-                    <span>22/35 Ana Paola, Mekhala, Sahil and 19 others</span>
-                  </div>
-                </div>
+              <div class="event-box">
+                <div class="timeline-connector-top"></div>
                 <div
-                  class="w-[364px] h-[209px] bg-gray-200 rounded-lg ml-4 flex-shrink-0"
-                ></div>
+                  class="event-card rounded-lg flex justify-between items-start bg-white"
+                >
+                  <div class="flex-1">
+                    <p class="text-sm text-gray-600 mb-1">06:00 PM</p>
+                    <p class="text-xl font-semibold text-gray-800 mb-4">
+                      Jazzipoly Board Game Night
+                    </p>
+
+                    <div class="flex items-center gap-2 mb-3 text-gray-500">
+                      <img
+                        src="https://i.pravatar.cc/20?img=1"
+                        class="w-6 h-6 rounded-full"
+                        alt=""
+                      />
+                      <span>by Kevin McMillan</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 mb-3 text-gray-500">
+                      <i class="fas fa-map-marker-alt text-gray-500"></i>
+                      <span>Langara College B Building</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 mb-3 text-gray-500">
+                      <i class="fas fa-users text-gray-500"></i>
+                      <span>22/35 Ana Paola, Mekhala, Sahil and 19 others</span>
+                    </div>
+                  </div>
+                  <div
+                    class="w-[300px] h-[180px] bg-gray-200 rounded-lg ml-4 flex-shrink-0"
+                  ></div>
+                </div>
+                <div class="timeline-connector-bottom"></div>
               </div>
             </div>
 
             <!-- Jun 2 -->
             <div class="timeline-event">
-              <p class="text-sm font-medium text-gray-700 mb-3 font-nunito">
-                <span class="font-bold">Jun 2</span> Monday
-              </p>
+              <p class="timeline-date"><span>Jun 2</span> Monday</p>
 
-              <div
-                class="bg-white p-6 rounded-lg shadow-sm flex justify-between items-start"
-              >
-                <div class="flex-1">
-                  <p class="text-sm text-gray-600 mb-1 font-nunito">03:00 AM</p>
-                  <p class="text-xl font-semibold text-gray-800 mb-4 font-nunito">
-                    Catch the Flexbox Froggy
-                  </p>
-
-                  <div class="flex items-center gap-2 mb-3 text-gray-500 font-nunito">
-                    <img
-                      src="https://i.pravatar.cc/20?img=2"
-                      class="w-6 h-6 rounded-full"
-                      alt=""
-                    />
-                    <span>by Amandeep</span>
-                  </div>
-
-                  <div class="flex items-center gap-2 mb-3 text-gray-500 font-nunito">
-                    <i class="fas fa-map-marker-alt text-gray-500"></i>
-                    <span>Langara College A301</span>
-                  </div>
-
-                  <div class="flex items-center gap-2 mb-3 text-gray-500 font-nunito">
-                    <i class="fas fa-users text-gray-500"></i>
-                    <span>22/35 Zin, Abu, Demi and 19 others</span>
-                  </div>
-                </div>
+              <div class="event-box">
+                <div class="timeline-connector-top"></div>
                 <div
-                  class="w-[364px] h-[209px] bg-gray-200 rounded-lg ml-4 flex-shrink-0"
-                ></div>
+                  class="event-card rounded-lg flex justify-between items-start bg-white"
+                >
+                  <div class="flex-1">
+                    <p class="text-sm text-gray-600 mb-1">03:00 AM</p>
+                    <p class="text-xl font-semibold text-gray-800 mb-4">
+                      Catch the Flexbox Froggy
+                    </p>
+
+                    <div class="flex items-center gap-2 mb-3 text-gray-500">
+                      <img
+                        src="https://i.pravatar.cc/20?img=2"
+                        class="w-6 h-6 rounded-full"
+                        alt=""
+                      />
+                      <span>by Amandeep</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 mb-3 text-gray-500">
+                      <i class="fas fa-map-marker-alt text-gray-500"></i>
+                      <span>Langara College A301</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 mb-3 text-gray-500">
+                      <i class="fas fa-users text-gray-500"></i>
+                      <span>22/35 Zin, Abu, Demi and 19 others</span>
+                    </div>
+                  </div>
+                  <div
+                    class="w-[300px] h-[180px] bg-gray-200 rounded-lg ml-4 flex-shrink-0"
+                  ></div>
+                </div>
+                <div class="timeline-connector-bottom"></div>
               </div>
             </div>
 
             <!-- Jun 3 -->
             <div class="timeline-event">
-              <p class="text-sm font-medium text-gray-700 mb-3 font-nunito">
-                <span class="font-bold">Jun 3</span> Tuesday
-              </p>
+              <p class="timeline-date"><span>Jun 3</span> Tuesday</p>
 
-              <div
-                class="bg-white p-6 rounded-lg shadow-sm flex justify-between items-start"
-              >
-                <div class="flex-1">
-                  <p class="text-sm text-gray-600 mb-1 font-nunito">04:30 AM</p>
-                  <p class="text-xl font-semibold text-gray-800 mb-4 font-nunito">
-                    Find Your Inner Grid
-                  </p>
-
-                  <div class="flex items-center gap-2 mb-3 text-gray-500 font-nunito">
-                    <img
-                      src="https://i.pravatar.cc/20?img=1"
-                      class="w-6 h-6 rounded-full"
-                      alt=""
-                    />
-                    <span>by Kevin McMillan</span>
-                  </div>
-
-                  <div class="flex items-center gap-2 mb-3 text-gray-500 font-nunito">
-                    <i class="fas fa-map-marker-alt text-gray-500"></i>
-                    <span>Langara College B Building</span>
-                  </div>
-
-                  <div class="flex items-center gap-2 mb-3 text-gray-500 font-nunito">
-                    <i class="fas fa-users text-gray-500"></i>
-                    <span>22/35 Ana Paola, Workshop and 19 others</span>
-                  </div>
-                </div>
+              <div class="event-box">
+                <div class="timeline-connector-top"></div>
                 <div
-                  class="w-[364px] h-[209px] bg-gray-200 rounded-lg ml-4 flex-shrink-0"
-                ></div>
+                  class="event-card rounded-lg flex justify-between items-start bg-white"
+                >
+                  <div class="flex-1">
+                    <p class="text-sm text-gray-600 mb-1">04:30 AM</p>
+                    <p class="text-xl font-semibold text-gray-800 mb-4">
+                      Find Your Inner Grid
+                    </p>
+
+                    <div class="flex items-center gap-2 mb-3 text-gray-500">
+                      <img
+                        src="https://i.pravatar.cc/20?img=1"
+                        class="w-6 h-6 rounded-full"
+                        alt=""
+                      />
+                      <span>by Kevin McMillan</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 mb-3 text-gray-500">
+                      <i class="fas fa-map-marker-alt text-gray-500"></i>
+                      <span>Langara College B Building</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 mb-3 text-gray-500">
+                      <i class="fas fa-users text-gray-500"></i>
+                      <span>22/35 Ana Paola, Workshop and 19 others</span>
+                    </div>
+                  </div>
+                  <div
+                    class="w-[300px] h-[180px] bg-gray-200 rounded-lg ml-4 flex-shrink-0"
+                  ></div>
+                </div>
+                <div class="timeline-connector-bottom"></div>
               </div>
             </div>
 
             <!-- Jun 4 -->
             <div class="timeline-event">
-              <p class="text-sm font-medium text-gray-700 mb-3 font-nunito">
-                <span class="font-bold">Jun 4</span> Wednesday
-              </p>
+              <p class="timeline-date"><span>Jun 4</span> Wednesday</p>
 
-              <div
-                class="bg-white p-6 rounded-lg shadow-sm flex justify-between items-start"
-              >
-                <div class="flex-1">
-                  <p class="text-sm text-gray-600 mb-1 font-nunito">01:00 AM</p>
-                  <p class="text-xl font-semibold text-gray-800 mb-4 font-nunito">
-                    Selector Showdown
-                  </p>
-
-                  <div class="flex items-center gap-2 mb-3 text-gray-500 font-nunito">
-                    <img
-                      src="https://i.pravatar.cc/20?img=1"
-                      class="w-6 h-6 rounded-full"
-                      alt=""
-                    />
-                    <span>by Kevin McMillan</span>
-                  </div>
-
-                  <div class="flex items-center gap-2 mb-3 text-gray-500 font-nunito">
-                    <i class="fas fa-map-marker-alt text-gray-500"></i>
-                    <span>Langara College Library</span>
-                  </div>
-
-                  <div class="flex items-center gap-2 mb-3 text-gray-500 font-nunito">
-                    <i class="fas fa-users text-gray-500"></i>
-                    <span>22/35 Ana Paola, Mekhala, Sahil and 19 others</span>
-                  </div>
-                </div>
+              <div class="event-box">
+                <div class="timeline-connector-top"></div>
                 <div
-                  class="w-[364px] h-[209px] bg-gray-200 rounded-lg ml-4 flex-shrink-0"
-                ></div>
+                  class="event-card rounded-lg flex justify-between items-start bg-white"
+                >
+                  <div class="flex-1">
+                    <p class="text-sm text-gray-600 mb-1">01:00 AM</p>
+                    <p class="text-xl font-semibold text-gray-800 mb-4">
+                      Selector Showdown
+                    </p>
+
+                    <div class="flex items-center gap-2 mb-3 text-gray-500">
+                      <img
+                        src="https://i.pravatar.cc/20?img=1"
+                        class="w-6 h-6 rounded-full"
+                        alt=""
+                      />
+                      <span>by Kevin McMillan</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 mb-3 text-gray-500">
+                      <i class="fas fa-map-marker-alt text-gray-500"></i>
+                      <span>Langara College Library</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 mb-3 text-gray-500">
+                      <i class="fas fa-users text-gray-500"></i>
+                      <span>22/35 Ana Paola, Mekhala, Sahil and 19 others</span>
+                    </div>
+                  </div>
+                  <div
+                    class="w-[300px] h-[180px] bg-gray-200 rounded-lg ml-4 flex-shrink-0"
+                  ></div>
+                </div>
+                <div class="timeline-connector-bottom"></div>
               </div>
             </div>
 
             <!-- Jun 5 -->
             <div class="timeline-event">
-              <p class="text-sm font-medium text-gray-700 mb-3 font-nunito">
-                <span class="font-bold">Jun 5</span> Thursday
-              </p>
+              <p class="timeline-date"><span>Jun 5</span> Thursday</p>
 
-              <div
-                class="bg-white p-6 rounded-lg shadow-sm flex justify-between items-start"
-              >
-                <div class="flex-1">
-                  <p class="text-sm text-gray-600 mb-1 font-nunito">02:00 PM</p>
-                  <p class="text-xl font-semibold text-gray-800 mb-4 font-nunito">
-                    Pathfinder Tournament
-                  </p>
-
-                  <div class="flex items-center gap-2 mb-3 text-gray-500 font-nunito">
-                    <img
-                      src="https://i.pravatar.cc/20?img=1"
-                      class="w-6 h-6 rounded-full"
-                      alt=""
-                    />
-                    <span>by Kevin McMillan</span>
-                  </div>
-
-                  <div class="flex items-center gap-2 mb-3 text-gray-500 font-nunito">
-                    <i class="fas fa-map-marker-alt text-gray-500"></i>
-                    <span>Langara College B Building</span>
-                  </div>
-
-                  <div class="flex items-center gap-2 mb-3 text-gray-500">
-                    <i class="fas fa-users text-gray-500"></i>
-                    <span>22/35 Ana Paola, Mekhala, Sahil and 19 others</span>
-                  </div>
-                </div>
+              <div class="event-box">
+                <div class="timeline-connector-top"></div>
                 <div
-                  class="w-[364px] h-[209px] bg-gray-200 rounded-lg ml-4 flex-shrink-0"
-                ></div>
+                  class="event-card rounded-lg flex justify-between items-start bg-white"
+                >
+                  <div class="flex-1">
+                    <p class="text-sm text-gray-600 mb-1">02:00 PM</p>
+                    <p class="text-xl font-semibold text-gray-800 mb-4">
+                      Pathfinder Tournament
+                    </p>
+
+                    <div class="flex items-center gap-2 mb-3 text-gray-500">
+                      <img
+                        src="https://i.pravatar.cc/20?img=1"
+                        class="w-6 h-6 rounded-full"
+                        alt=""
+                      />
+                      <span>by Kevin McMillan</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 mb-3 text-gray-500">
+                      <i class="fas fa-map-marker-alt text-gray-500"></i>
+                      <span>Langara College B Building</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 mb-3 text-gray-500">
+                      <i class="fas fa-users text-gray-500"></i>
+                      <span>22/35 Ana Paola, Mekhala, Sahil and 19 others</span>
+                    </div>
+                  </div>
+                  <div
+                    class="w-[300px] h-[180px] bg-gray-200 rounded-lg ml-4 flex-shrink-0"
+                  ></div>
+                </div>
+                <div class="timeline-connector-bottom"></div>
               </div>
             </div>
           </div>
 
-          <aside class="w-[320px] sticky top-5 self-start mt-10 mr-5">
-            <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
-              <h3 class="font-semibold text-gray-800">Vancouver</h3>
+          <aside class="w-[320px] sticky top-5 self-start mr-5">
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-4">
+              <h3 class="font-semibold text-gray-800 text-lg">Vancouver</h3>
               <p class="text-sm text-gray-600 mt-2">
                 Discover the hottest events in Vancouver, and get notified of
                 new events before they sell out.
