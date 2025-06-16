@@ -1,83 +1,58 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const slidesWrapper = document.getElementById("hero-slides");
   const carousel = document.getElementById("hero-carousel");
-  const dots = document.querySelectorAll(".carousel-dot");
+  const slides = Array.from(carousel.querySelectorAll("[data-carousel-item]"));
+  const dots = Array.from(
+    carousel.querySelectorAll("[data-carousel-slide-to]")
+  );
 
-  if (!slidesWrapper || !carousel || dots.length === 0) return;
+  let currentSlideIndex = 0;
+  const autoAdvanceInterval = 5000; // 5 seconds
+  let carouselInterval; // Declare it here to be accessible by start/stop functions
 
-  let currentIndex = 0;
-  let width = 0;
-  let intervalId;
+  // Function to show a specific slide
+  function showSlide(index) {
+    // Ensure index wraps around for continuous loop
+    currentSlideIndex = (index + slides.length) % slides.length;
 
-  // Clone the first slide and append for seamless looping
-  const firstSlideClone = slidesWrapper.children[0].cloneNode(true);
-  slidesWrapper.appendChild(firstSlideClone);
-
-  function updateSlideSizes() {
-    width = carousel.clientWidth;
-
-    Array.from(slidesWrapper.children).forEach((slide) => {
-      slide.style.width = `${width}px`;
-      slide.style.flexShrink = "0";
+    // Hide all slides and reset dot styles
+    slides.forEach((slide) => slide.classList.add("hidden"));
+    dots.forEach((dot) => {
+      dot.classList.replace("bg-gray-800", "bg-gray-400");
+      dot.setAttribute("aria-current", "false");
     });
 
-    slidesWrapper.style.width = `${width * slidesWrapper.children.length}px`;
-    updateCarousel(false);
+    // Show the selected slide and update dot style
+    slides[currentSlideIndex].classList.remove("hidden");
+    dots[currentSlideIndex].classList.replace("bg-gray-400", "bg-gray-800");
+    dots[currentSlideIndex].setAttribute("aria-current", "true");
   }
 
-  function updateCarousel(animate = true) {
-    slidesWrapper.style.transition = animate ? "transform 500ms ease" : "none";
-    slidesWrapper.style.transform = `translateX(-${currentIndex * width}px)`;
-
-    const activeDot = currentIndex % dots.length;
-
-    dots.forEach((dot, i) => {
-      dot.classList.toggle("bg-gray-800", i === activeDot);
-      dot.classList.toggle("bg-gray-400", i !== activeDot);
-    });
+  // Function to start the auto-advance
+  function startAutoAdvance() {
+    clearInterval(carouselInterval); // Clear any existing interval first
+    carouselInterval = setInterval(() => {
+      showSlide(currentSlideIndex + 1);
+    }, autoAdvanceInterval);
   }
 
-  function nextSlide() {
-    currentIndex++;
-    updateCarousel(true);
-
-    if (currentIndex === slidesWrapper.children.length - 1) {
-      setTimeout(() => {
-        currentIndex = 0;
-        updateCarousel(false);
-      }, 500);
-    }
-  }
-
-  function goToSlide(index) {
-    currentIndex = index;
-    updateCarousel(true);
-  }
-
-  function startAutoplay() {
-    stopAutoplay();
-    intervalId = setInterval(nextSlide, 3500);
-  }
-
-  function stopAutoplay() {
-    clearInterval(intervalId);
-  }
-
-  dots.forEach((dot) => {
+  // Event listeners for dot navigation
+  dots.forEach((dot, index) => {
     dot.addEventListener("click", () => {
-      const index = parseInt(dot.dataset.slideTo, 10);
-      if (!isNaN(index)) {
-        goToSlide(index);
-        startAutoplay();
-      }
+      showSlide(index);
+      startAutoAdvance(); // Restart timer after manual navigation
     });
   });
 
-  carousel.addEventListener("mouseenter", stopAutoplay);
-  carousel.addEventListener("mouseleave", startAutoplay);
-  window.addEventListener("resize", updateSlideSizes);
+  // Pause carousel on hover
+  carousel.addEventListener("mouseenter", () => {
+    clearInterval(carouselInterval);
+  });
 
-  // Initial setup
-  updateSlideSizes();
-  startAutoplay();
+  carousel.addEventListener("mouseleave", () => {
+    startAutoAdvance();
+  });
+
+  // Initialize the first slide and start auto-advance
+  showSlide(currentSlideIndex);
+  startAutoAdvance();
 });
