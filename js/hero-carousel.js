@@ -1,58 +1,90 @@
-document.addEventListener("DOMContentLoaded", () => {
+// Wait for components to be injected before initializing carousel
+window.addEventListener("components-injected", () => {
+  console.log("Components injected, initializing hero carousel");
+  initHeroCarousel();
+});
+
+function initHeroCarousel() {
   const carousel = document.getElementById("hero-carousel");
+  if (!carousel) {
+    console.warn("Hero carousel element not found");
+    return;
+  }
+
   const slides = Array.from(carousel.querySelectorAll("[data-carousel-item]"));
   const dots = Array.from(
     carousel.querySelectorAll("[data-carousel-slide-to]")
   );
 
-  let currentSlideIndex = 0;
-  const autoAdvanceInterval = 5000; // 5 seconds
-  let carouselInterval; // Declare it here to be accessible by start/stop functions
+  if (slides.length === 0) {
+    console.warn("No carousel slides found");
+    return;
+  }
 
-  // Function to show a specific slide
+  console.log(`Found ${slides.length} slides and ${dots.length} dots`);
+
+  let currentSlideIndex = 0;
+  const interval = 2000; 
+  let carouselInterval;
+
   function showSlide(index) {
-    // Ensure index wraps around for continuous loop
+    // Ensure index wraps around
     currentSlideIndex = (index + slides.length) % slides.length;
 
-    // Hide all slides and reset dot styles
-    slides.forEach((slide) => slide.classList.add("hidden"));
-    dots.forEach((dot) => {
-      dot.classList.replace("bg-gray-800", "bg-gray-400");
-      dot.setAttribute("aria-current", "false");
+    console.log(`Showing slide ${currentSlideIndex}`);
+
+    // For absolute positioned slides, toggle the hidden class
+    slides.forEach((slide, i) => {
+      if (i === currentSlideIndex) {
+        slide.classList.remove("hidden");
+      } else {
+        slide.classList.add("hidden");
+      }
     });
 
-    // Show the selected slide and update dot style
-    slides[currentSlideIndex].classList.remove("hidden");
-    dots[currentSlideIndex].classList.replace("bg-gray-400", "bg-gray-800");
-    dots[currentSlideIndex].setAttribute("aria-current", "true");
+    // Update the dots
+    dots.forEach((dot, i) => {
+      if (i === currentSlideIndex) {
+        dot.classList.add("bg-gray-800");
+        dot.classList.remove("bg-gray-400");
+        dot.setAttribute("aria-current", "true");
+      } else {
+        dot.classList.add("bg-gray-400");
+        dot.classList.remove("bg-gray-800");
+        dot.setAttribute("aria-current", "false");
+      }
+    });
   }
 
-  // Function to start the auto-advance
   function startAutoAdvance() {
-    clearInterval(carouselInterval); // Clear any existing interval first
+    clearInterval(carouselInterval);
     carouselInterval = setInterval(() => {
       showSlide(currentSlideIndex + 1);
-    }, autoAdvanceInterval);
+    }, interval);
   }
 
-  // Event listeners for dot navigation
-  dots.forEach((dot, index) => {
+  // Set up dot navigation
+  dots.forEach((dot, i) => {
     dot.addEventListener("click", () => {
-      showSlide(index);
-      startAutoAdvance(); // Restart timer after manual navigation
+      console.log(`Dot ${i} clicked`);
+      showSlide(i);
+      startAutoAdvance();
     });
   });
 
-  // Pause carousel on hover
+  // Pause on hover
   carousel.addEventListener("mouseenter", () => {
+    console.log("Mouse entered carousel - pausing");
     clearInterval(carouselInterval);
   });
 
   carousel.addEventListener("mouseleave", () => {
+    console.log("Mouse left carousel - resuming");
     startAutoAdvance();
   });
 
-  // Initialize the first slide and start auto-advance
-  showSlide(currentSlideIndex);
+  // Initialize the carousel
+  console.log("Initializing hero carousel");
+  showSlide(0);
   startAutoAdvance();
-});
+}
