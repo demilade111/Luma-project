@@ -1,83 +1,90 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const slidesWrapper = document.getElementById("hero-slides");
+// Wait for components to be injected before initializing carousel
+window.addEventListener("components-injected", () => {
+  console.log("Components injected, initializing hero carousel");
+  initHeroCarousel();
+});
+
+function initHeroCarousel() {
   const carousel = document.getElementById("hero-carousel");
-  const dots = document.querySelectorAll(".carousel-dot");
-
-  if (!slidesWrapper || !carousel || dots.length === 0) return;
-
-  let currentIndex = 0;
-  let width = 0;
-  let intervalId;
-
-  // Clone the first slide and append for seamless looping
-  const firstSlideClone = slidesWrapper.children[0].cloneNode(true);
-  slidesWrapper.appendChild(firstSlideClone);
-
-  function updateSlideSizes() {
-    width = carousel.clientWidth;
-
-    Array.from(slidesWrapper.children).forEach((slide) => {
-      slide.style.width = `${width}px`;
-      slide.style.flexShrink = "0";
-    });
-
-    slidesWrapper.style.width = `${width * slidesWrapper.children.length}px`;
-    updateCarousel(false);
+  if (!carousel) {
+    console.warn("Hero carousel element not found");
+    return;
   }
 
-  function updateCarousel(animate = true) {
-    slidesWrapper.style.transition = animate ? "transform 500ms ease" : "none";
-    slidesWrapper.style.transform = `translateX(-${currentIndex * width}px)`;
+  const slides = Array.from(carousel.querySelectorAll("[data-carousel-item]"));
+  const dots = Array.from(
+    carousel.querySelectorAll("[data-carousel-slide-to]")
+  );
 
-    const activeDot = currentIndex % dots.length;
-
-    dots.forEach((dot, i) => {
-      dot.classList.toggle("bg-gray-800", i === activeDot);
-      dot.classList.toggle("bg-gray-400", i !== activeDot);
-    });
+  if (slides.length === 0) {
+    console.warn("No carousel slides found");
+    return;
   }
 
-  function nextSlide() {
-    currentIndex++;
-    updateCarousel(true);
+  console.log(`Found ${slides.length} slides and ${dots.length} dots`);
 
-    if (currentIndex === slidesWrapper.children.length - 1) {
-      setTimeout(() => {
-        currentIndex = 0;
-        updateCarousel(false);
-      }, 500);
-    }
-  }
+  let currentSlideIndex = 0;
+  const interval = 2000; 
+  let carouselInterval;
 
-  function goToSlide(index) {
-    currentIndex = index;
-    updateCarousel(true);
-  }
+  function showSlide(index) {
+    // Ensure index wraps around
+    currentSlideIndex = (index + slides.length) % slides.length;
 
-  function startAutoplay() {
-    stopAutoplay();
-    intervalId = setInterval(nextSlide, 3500);
-  }
+    console.log(`Showing slide ${currentSlideIndex}`);
 
-  function stopAutoplay() {
-    clearInterval(intervalId);
-  }
-
-  dots.forEach((dot) => {
-    dot.addEventListener("click", () => {
-      const index = parseInt(dot.dataset.slideTo, 10);
-      if (!isNaN(index)) {
-        goToSlide(index);
-        startAutoplay();
+    // For absolute positioned slides, toggle the hidden class
+    slides.forEach((slide, i) => {
+      if (i === currentSlideIndex) {
+        slide.classList.remove("hidden");
+      } else {
+        slide.classList.add("hidden");
       }
+    });
+
+    // Update the dots
+    dots.forEach((dot, i) => {
+      if (i === currentSlideIndex) {
+        dot.classList.add("bg-gray-800");
+        dot.classList.remove("bg-gray-400");
+        dot.setAttribute("aria-current", "true");
+      } else {
+        dot.classList.add("bg-gray-400");
+        dot.classList.remove("bg-gray-800");
+        dot.setAttribute("aria-current", "false");
+      }
+    });
+  }
+
+  function startAutoAdvance() {
+    clearInterval(carouselInterval);
+    carouselInterval = setInterval(() => {
+      showSlide(currentSlideIndex + 1);
+    }, interval);
+  }
+
+  // Set up dot navigation
+  dots.forEach((dot, i) => {
+    dot.addEventListener("click", () => {
+      console.log(`Dot ${i} clicked`);
+      showSlide(i);
+      startAutoAdvance();
     });
   });
 
-  carousel.addEventListener("mouseenter", stopAutoplay);
-  carousel.addEventListener("mouseleave", startAutoplay);
-  window.addEventListener("resize", updateSlideSizes);
+  // Pause on hover
+  carousel.addEventListener("mouseenter", () => {
+    console.log("Mouse entered carousel - pausing");
+    clearInterval(carouselInterval);
+  });
 
-  // Initial setup
-  updateSlideSizes();
-  startAutoplay();
-});
+  carousel.addEventListener("mouseleave", () => {
+    console.log("Mouse left carousel - resuming");
+    startAutoAdvance();
+  });
+
+  // Initialize the carousel
+  console.log("Initializing hero carousel");
+  showSlide(0);
+  startAutoAdvance();
+}
