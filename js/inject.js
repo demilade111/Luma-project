@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Use the correct base path for your project.
+
   const base = "";
   const componentPaths = {
     sidebar: `${base}/components/sidebar.html`,
