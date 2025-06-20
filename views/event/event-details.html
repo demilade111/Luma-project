@@ -4,359 +4,145 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Event Details</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
+    
     <link href="../../src/output.css" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
-
-    <style>
-      body {
-        font-family: "Nunito", sans-serif;
-      }
-
-      /* Timeline styles */
-      .timeline {
-        position: relative;
-        padding-left: 45px;
-        margin-top: 30px;
-      }
-
-      .timeline::before {
-        content: "";
-        position: absolute;
-        left: 7px;
-        top: 0;
-        height: 100%;
-        width: 0;
-        border-left: 2px dashed #cbd5e0;
-      }
-
-      .timeline-event {
-        position: relative;
-        padding-bottom: 22px;
-        margin-bottom: 10px;
-      }
-
-      .timeline-event::before {
-        content: "";
-        position: absolute;
-        left: -23px;
-        top: 11px;
-        width: 16px;
-        height: 16px;
-        background-color: #3b82f6;
-        border-radius: 50%;
-        border: 2px solid white;
-        z-index: 1;
-      }
-
-      .timeline-date {
-        margin-left: -10px;
-        margin-bottom: 10px;
-        font-size: 0.875rem;
-        display: flex;
-        align-items: center;
-      }
-
-      .timeline-date span {
-        font-weight: 700;
-        margin-right: 5px;
-      }
-
-      /* Rectangle connector styling */
-      .event-card {
-        position: relative;
-        border: 1px solid #e5e7eb;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        padding: 24px;
-      }
-
-      .event-box {
-        position: relative;
-      }
-
-      .event-box::before,
-      .event-box::after,
-      .timeline-connector-top,
-      .timeline-connector-bottom {
-        content: "";
-        position: absolute;
-        background: #cbd5e0;
-        z-index: 0;
-      }
-
-      .timeline-connector-top {
-        height: 2px;
-        width: 15px;
-        left: -15px;
-        top: 19px;
-      }
-
-      .timeline-connector-bottom {
-        height: 2px;
-        width: 15px;
-        left: -15px;
-        bottom: 0;
-      }
-
-      .event-box::before {
-        width: 2px;
-        left: -15px;
-        top: 19px;
-        bottom: 0;
-      }
-
-      .event-box::after {
-        width: 2px;
-        right: -1px;
-        top: 19px;
-        bottom: 0;
-      }
-    </style>
   </head>
-  <body class="bg-gray-100 text-gray-800">
+  <body class="bg-gray-100 text-gray-800 font-nunito">
     <div data-component="sidebar"></div>
+
     <header class="relative bg-white">
       <div data-component="navbar"></div>
     </header>
+
     <main class="max-w-7xl mx-auto p-8">
-      <!-- Hero -->
       <section>
         <div class="mb-6">
-          <p class="text-sm text-gray-500">What's Happening in</p>
-          <h1 class="text-3xl font-bold text-gray-900">Vancouver</h1>
-          <p class="mt-2 text-sm text-gray-600 max-w-xl">
+          <p class="text-sm text-[#5E5E5E] text-[28px] font-normal">
+            What's Happening in
+          </p>
+          <h1 class="text-[#5E5E5E] text-5xl font-extrabold leading-normal">
+            Vancouver
+          </h1>
+          <p class="mt-2 text-xl text-[#5E5E5E] max-w-xl font-normal leading-normal">
             A playful hub on the Pacific, Vancouver is buzzing with board game
             nights, tabletop tournaments, and welcoming player communities. From
             cozy cafes to lively conventions, it's a city where strategy meets
             social connection.
           </p>
           <button
-            class="mt-4 px-4 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300"
+            class="mt-4 px-4 py-1 w-[180px] h-[45px] text-sm bg-white border border-[#A8A2A2] rounded-3xl"
           >
             Subscribe
           </button>
         </div>
       </section>
-      <section>
-        <h2 class="text-xl font-semibold mb-4">Events</h2>
-        <!-- Timeline -->
-        <div class="flex gap-10">
-          <div class="flex-1 timeline">
-            <!-- Today -->
-            <div class="timeline-event">
-              <p class="timeline-date"><span>Today</span> Sunday</p>
 
-              <div class="event-box">
-                <div class="timeline-connector-top"></div>
-                <div
-                  class="event-card rounded-lg flex justify-between items-start bg-white"
-                >
-                  <div class="flex-1">
-                    <p class="text-sm text-gray-600 mb-1">06:00 PM</p>
+      <section>
+        <h2 class="text-4xl text-[#5E5E5E] font-semibold mt-[52px] mb-[20px]">
+          Events
+        </h2>
+
+        <div class="flex gap-10">
+          <div class="flex-1 relative pl-[30px] mt-[30px]">
+            <!-- Timeline Line -->
+            <div class="absolute left-[6.5px] top-[15px] h-[calc(100%-15px)] w-0 border-l-2 border-dashed border-gray-300 z-10"></div>
+
+            <!-- Timeline Item 1 -->
+            <div class="relative pb-10">
+              <div class="absolute -left-[29px] top-[10px] w-[13px] h-[13px] bg-[#5E5E5E] rounded-full z-20"></div>
+              <p class="text-[0.95rem] text-2xl font-bold mb-[18px] text-gray-800">
+                Today <span class="font-normal ml-1 text-gray-600">Sunday</span>
+              </p>
+              <div class="bg-white rounded-lg p-6">
+                <div class="flex justify-between gap-4">
+                  <div>
+                    <p class="text-base text-[#5E5E5E]">06:00 PM</p>
                     <p class="text-xl font-semibold text-gray-800 mb-4">
                       Jazzipoly Board Game Night
                     </p>
-
                     <div class="flex items-center gap-2 mb-3 text-gray-500">
-                      <img
-                        src="https://i.pravatar.cc/20?img=1"
-                        class="w-6 h-6 rounded-full"
-                        alt=""
-                      />
+                      <img src="https://i.pravatar.cc/20?img=1" class="w-6 h-6 rounded-full" alt="" />
                       <span>by Kevin McMillan</span>
                     </div>
-
                     <div class="flex items-center gap-2 mb-3 text-gray-500">
-                      <i class="fas fa-map-marker-alt text-gray-500"></i>
+                      <i class="fas fa-map-marker-alt"></i>
                       <span>Langara College B Building</span>
                     </div>
-
                     <div class="flex items-center gap-2 mb-3 text-gray-500">
-                      <i class="fas fa-users text-gray-500"></i>
+                      <i class="fas fa-users"></i>
                       <span>22/35 Ana Paola, Mekhala, Sahil and 19 others</span>
                     </div>
                   </div>
-                  <div
-                    class="w-[300px] h-[180px] bg-gray-200 rounded-lg ml-4 flex-shrink-0"
-                  ></div>
+                  <div class="w-[300px] h-[180px] bg-gray-200 rounded-lg"></div>
                 </div>
-                <div class="timeline-connector-bottom"></div>
               </div>
             </div>
 
-            <!-- Jun 2 -->
-            <div class="timeline-event">
-              <p class="timeline-date"><span>Jun 2</span> Monday</p>
-
-              <div class="event-box">
-                <div class="timeline-connector-top"></div>
-                <div
-                  class="event-card rounded-lg flex justify-between items-start bg-white"
-                >
-                  <div class="flex-1">
-                    <p class="text-sm text-gray-600 mb-1">03:00 AM</p>
+            <div class="relative pb-10">
+              <div class="absolute -left-[29px] top-[10px] w-[13px] h-[13px] bg-[#5E5E5E] rounded-full z-20"></div>
+              <p class="text-[0.95rem] text-2xl font-bold mb-[18px] text-gray-800">
+                Today <span class="font-normal ml-1 text-gray-600">Sunday</span>
+              </p>
+              <div class="bg-white rounded-lg p-6">
+                <div class="flex justify-between gap-4">
+                  <div>
+                    <p class="text-base text-[#5E5E5E]">06:00 PM</p>
                     <p class="text-xl font-semibold text-gray-800 mb-4">
-                      Catch the Flexbox Froggy
+                      Jazzipoly Board Game Night
                     </p>
-
                     <div class="flex items-center gap-2 mb-3 text-gray-500">
-                      <img
-                        src="https://i.pravatar.cc/20?img=2"
-                        class="w-6 h-6 rounded-full"
-                        alt=""
-                      />
-                      <span>by Amandeep</span>
-                    </div>
-
-                    <div class="flex items-center gap-2 mb-3 text-gray-500">
-                      <i class="fas fa-map-marker-alt text-gray-500"></i>
-                      <span>Langara College A301</span>
-                    </div>
-
-                    <div class="flex items-center gap-2 mb-3 text-gray-500">
-                      <i class="fas fa-users text-gray-500"></i>
-                      <span>22/35 Zin, Abu, Demi and 19 others</span>
-                    </div>
-                  </div>
-                  <div
-                    class="w-[300px] h-[180px] bg-gray-200 rounded-lg ml-4 flex-shrink-0"
-                  ></div>
-                </div>
-                <div class="timeline-connector-bottom"></div>
-              </div>
-            </div>
-
-            <!-- Jun 3 -->
-            <div class="timeline-event">
-              <p class="timeline-date"><span>Jun 3</span> Tuesday</p>
-
-              <div class="event-box">
-                <div class="timeline-connector-top"></div>
-                <div
-                  class="event-card rounded-lg flex justify-between items-start bg-white"
-                >
-                  <div class="flex-1">
-                    <p class="text-sm text-gray-600 mb-1">04:30 AM</p>
-                    <p class="text-xl font-semibold text-gray-800 mb-4">
-                      Find Your Inner Grid
-                    </p>
-
-                    <div class="flex items-center gap-2 mb-3 text-gray-500">
-                      <img
-                        src="https://i.pravatar.cc/20?img=1"
-                        class="w-6 h-6 rounded-full"
-                        alt=""
-                      />
+                      <img src="https://i.pravatar.cc/20?img=1" class="w-6 h-6 rounded-full" alt="" />
                       <span>by Kevin McMillan</span>
                     </div>
-
                     <div class="flex items-center gap-2 mb-3 text-gray-500">
-                      <i class="fas fa-map-marker-alt text-gray-500"></i>
+                      <i class="fas fa-map-marker-alt"></i>
                       <span>Langara College B Building</span>
                     </div>
-
                     <div class="flex items-center gap-2 mb-3 text-gray-500">
-                      <i class="fas fa-users text-gray-500"></i>
-                      <span>22/35 Ana Paola, Workshop and 19 others</span>
-                    </div>
-                  </div>
-                  <div
-                    class="w-[300px] h-[180px] bg-gray-200 rounded-lg ml-4 flex-shrink-0"
-                  ></div>
-                </div>
-                <div class="timeline-connector-bottom"></div>
-              </div>
-            </div>
-
-            <!-- Jun 4 -->
-            <div class="timeline-event">
-              <p class="timeline-date"><span>Jun 4</span> Wednesday</p>
-
-              <div class="event-box">
-                <div class="timeline-connector-top"></div>
-                <div
-                  class="event-card rounded-lg flex justify-between items-start bg-white"
-                >
-                  <div class="flex-1">
-                    <p class="text-sm text-gray-600 mb-1">01:00 AM</p>
-                    <p class="text-xl font-semibold text-gray-800 mb-4">
-                      Selector Showdown
-                    </p>
-
-                    <div class="flex items-center gap-2 mb-3 text-gray-500">
-                      <img
-                        src="https://i.pravatar.cc/20?img=1"
-                        class="w-6 h-6 rounded-full"
-                        alt=""
-                      />
-                      <span>by Kevin McMillan</span>
-                    </div>
-
-                    <div class="flex items-center gap-2 mb-3 text-gray-500">
-                      <i class="fas fa-map-marker-alt text-gray-500"></i>
-                      <span>Langara College Library</span>
-                    </div>
-
-                    <div class="flex items-center gap-2 mb-3 text-gray-500">
-                      <i class="fas fa-users text-gray-500"></i>
+                      <i class="fas fa-users"></i>
                       <span>22/35 Ana Paola, Mekhala, Sahil and 19 others</span>
                     </div>
                   </div>
-                  <div
-                    class="w-[300px] h-[180px] bg-gray-200 rounded-lg ml-4 flex-shrink-0"
-                  ></div>
+                  <div class="w-[300px] h-[180px] bg-gray-200 rounded-lg"></div>
                 </div>
-                <div class="timeline-connector-bottom"></div>
               </div>
             </div>
-
-            <!-- Jun 5 -->
-            <div class="timeline-event">
-              <p class="timeline-date"><span>Jun 5</span> Thursday</p>
-
-              <div class="event-box">
-                <div class="timeline-connector-top"></div>
-                <div
-                  class="event-card rounded-lg flex justify-between items-start bg-white"
-                >
-                  <div class="flex-1">
-                    <p class="text-sm text-gray-600 mb-1">02:00 PM</p>
+            <div class="relative pb-10">
+              <div class="absolute -left-[29px] top-[10px] w-[13px] h-[13px] bg-[#5E5E5E] rounded-full z-20"></div>
+              <p class="text-[0.95rem] text-2xl font-bold mb-[18px] text-gray-800">
+                Today <span class="font-normal ml-1 text-gray-600">Sunday</span>
+              </p>
+              <div class="bg-white rounded-lg p-6">
+                <div class="flex justify-between gap-4">
+                  <div>
+                    <p class="text-base text-[#5E5E5E]">06:00 PM</p>
                     <p class="text-xl font-semibold text-gray-800 mb-4">
-                      Pathfinder Tournament
+                      Jazzipoly Board Game Night
                     </p>
-
                     <div class="flex items-center gap-2 mb-3 text-gray-500">
-                      <img
-                        src="https://i.pravatar.cc/20?img=1"
-                        class="w-6 h-6 rounded-full"
-                        alt=""
-                      />
+                      <img src="https://i.pravatar.cc/20?img=1" class="w-6 h-6 rounded-full" alt="" />
                       <span>by Kevin McMillan</span>
                     </div>
-
                     <div class="flex items-center gap-2 mb-3 text-gray-500">
-                      <i class="fas fa-map-marker-alt text-gray-500"></i>
+                      <i class="fas fa-map-marker-alt"></i>
                       <span>Langara College B Building</span>
                     </div>
-
                     <div class="flex items-center gap-2 mb-3 text-gray-500">
-                      <i class="fas fa-users text-gray-500"></i>
+                      <i class="fas fa-users"></i>
                       <span>22/35 Ana Paola, Mekhala, Sahil and 19 others</span>
                     </div>
                   </div>
-                  <div
-                    class="w-[300px] h-[180px] bg-gray-200 rounded-lg ml-4 flex-shrink-0"
-                  ></div>
+                  <div class="w-[300px] h-[180px] bg-gray-200 rounded-lg"></div>
                 </div>
-                <div class="timeline-connector-bottom"></div>
               </div>
             </div>
+     
+
+   
           </div>
 
           <aside class="w-[320px] sticky top-5 self-start mr-5">
@@ -372,9 +158,7 @@
                 Subscribe
               </button>
             </div>
-            <div
-              class="bg-gray-200 rounded-lg h-[200px] w-full relative flex justify-center items-center"
-            >
+            <div class="bg-gray-200 rounded-lg h-[200px] w-full relative flex justify-center items-center">
               <div class="text-purple-700 absolute bottom-5 text-center">
                 PS: This card is a sticky element
               </div>
@@ -383,6 +167,7 @@
         </div>
       </section>
     </main>
+
     <script src="../../js/inject.js" defer></script>
     <script src="../../js/main.js" defer></script>
   </body>
