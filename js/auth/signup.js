@@ -7,11 +7,8 @@ import {
   query,
   where,
   getDocs,
-  addDoc
+  addDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-// Optional test: confirm it's loading
-alert("Hello");
 
 const form = document.querySelector("form");
 const errorMsg = document.createElement("p");
@@ -32,7 +29,6 @@ form.addEventListener("submit", async (e) => {
   }
 
   try {
-    // Check if username exists
     const usersRef = collection(db, "users");
     const q = query(usersRef, where("username", "==", username));
     const snapshot = await getDocs(q);
@@ -42,15 +38,17 @@ form.addEventListener("submit", async (e) => {
       return;
     }
 
-    // Register with email/password
-    const userCred = await createUserWithEmailAndPassword(auth, email, password);
+    const userCred = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
     const uid = userCred.user.uid;
 
-    // Save to Firestore
     await addDoc(usersRef, {
       uid,
       username,
-      email
+      email,
     });
 
     alert("Account created. Redirecting to login...");
