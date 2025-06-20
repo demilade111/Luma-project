@@ -1,6 +1,6 @@
 // js/register.js
 
-import { auth, db } from "../../config/firebase.js"; // ✅ use correct path and .js extension
+import { auth, db } from "../../config/firebase.js"; // 
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import {
   collection,
