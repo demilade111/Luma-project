@@ -13,142 +13,47 @@
 <div data-component="sidebar"></div>
  <!--Navigation bar section-->
  <header class="relative bg-white">
-  <div data-component="navbar"></div>
   <!--<div id="hero-container" data-component="hero"></div>-->
 </header>
 <!--Main container-->
-<main class="flex-1 flex flex-col min-h-screen ml-20">
+<main class="px-40 flex flex-col bg-white min-h-screen ">
   <div class="flex-1 p-0.5 md:pb-10">
  <!--Pupulalar games section-->
  <div class="mb-20">
-  <h1 class="text-4xl font-nunito font-bold mb-12 text-gray-500">Popular Games</h1>
+  <div class="flex justify-between items-center mb-12">
+    <h1 class="text-4xl mt-10 font-nunito font-bold text-gray-500">Popular Games</h1>
+    <div id="games-count" class="text-sm text-gray-500 hidden">
+      <!-- Game count will be shown here -->
+    </div>
+  </div>
    
   <!--Cards container-->
-  <div class="grid gap-6 md:grid-cols-2 px-4">
-      <!--First card-->
-    <div class="flex items-center gap-4 overflow-hidden">
-      <div class="w-48 h-48 border rounded-2xl shrink-0"></div>
-      <div class="p-4 flex flex-col justify-between items-start">
-          <div>
-              <h2 class="text-lg mb-1">The Night Cage</h2>
-              <p class="text-base text-gray-600 mb-3">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                  incididunt ut labore et dolore magna...
-              </p>
-          </div>
-          <div class="flex gap-6 text-sm text-gray-600 justify-center">
-            <p><span class="ml-2"><i class="fas fa-hourglass"></i></span> 50m</p>
-            <p><span class="ml-2"><i class='fas'>&#xf500;</i></span> 1-5</p>
-             
-            <p class="border border-black rounded-3xl p-0.5"><span class="ml-2"></span>14+</p>
-          </div>
+  <div id="games-loading" class="text-center py-8">
+    <i class="fas fa-spinner fa-spin text-2xl text-gray-400"></i>
+    <p class="mt-2 text-gray-500">Loading games...</p>
   </div>
- </div>
-  <!--Second card-->
-  <div class="flex items-center gap-4 overflow-hidden">
-      <div class="w-48 h-48 border rounded-2xl shrink-0"></div>
-      <div class="p-4 flex flex-col justify-between items-start">
-          <div>
-              <h2 class="text-lg mb-1">The Night Cage</h2>
-              <p class="text-base text-gray-600 mb-3">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                  incididunt ut labore et dolore magna...
-              </p>
-          </div>
-          <div class="flex gap-6 text-sm text-gray-600 justify-center">
-            <p><span class="ml-2"><i class="fas fa-hourglass"></i></span> 50m</p>
-            <p><span class="ml-2"><i class='fas'>&#xf500;</i></span> 1-5</p>
-             
-            <p class="border border-black rounded-3xl p-0.5"><span class="ml-2"></span>14+</p>
-          </div>
+  
+  <div id="games-error" class="hidden text-center py-8">
+    <i class="fas fa-exclamation-triangle text-2xl text-red-400"></i>
+    <p class="mt-2 text-red-500">Error loading games. Please try again.</p>
+    <button id="retry-games" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+      Retry
+    </button>
   </div>
- </div>
- <!--Third card-->
- <div class="flex items-center gap-4 overflow-hidden">
-  <div class="w-48 h-48 border rounded-2xl shrink-0"></div>
-  <div class="p-4 flex flex-col justify-between items-start">
-      <div>
-          <h2 class="text-lg mb-1">The Night Cage</h2>
-          <p class="text-base text-gray-600 mb-3">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-              incididunt ut labore et dolore magna...
-          </p>
-      </div>
-      <div class="flex gap-6 text-sm text-gray-600 justify-center">
-        <p><span class="ml-2"><i class="fas fa-hourglass"></i></span> 50m</p>
-        <p><span class="ml-2"><i class='fas'>&#xf500;</i></span> 1-5</p>
-         
-        <p class="border border-black rounded-3xl p-0.5"><span class="ml-2"></span>14+</p>
-      </div>
-</div>
-</div>
- <!--Fourth card-->
- <div class="flex items-center gap-4 overflow-hidden">
-      <div class="w-48 h-48 border rounded-2xl shrink-0"></div>
-      <div class="p-4 flex flex-col justify-between items-start">
-          <div>
-              <h2 class="text-lg mb-1">The Night Cage</h2>
-              <p class="text-base text-gray-600 mb-3">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                  incididunt ut labore et dolore magna...
-              </p>
-          </div>
-          <div class="flex gap-6 text-sm text-gray-600 justify-center">
-            <p><span class="ml-2"><i class="fas fa-hourglass"></i></span> 50m</p>
-            <p><span class="ml-2"><i class='fas'>&#xf500;</i></span> 1-5</p>
-             
-            <p class="border border-black rounded-3xl p-0.5"><span class="ml-2"></span>14+</p>
-          </div>
-  </div>
- </div>
- <!--Fifth card-->
-<div class="flex items-center gap-4 overflow-hidden">
-      <div class="w-48 h-48 border rounded-2xl shrink-0"></div>
-      <div class="p-4 flex flex-col justify-between items-start">
-          <div>
-              <h2 class="text-lg mb-1">The Night Cage</h2>
-              <p class="text-base text-gray-600 mb-3">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                  incididunt ut labore et dolore magna...
-              </p>
-          </div>
-          <div class="flex gap-6 text-sm text-gray-600 justify-center">
-            <p><span class="ml-2"><i class="fas fa-hourglass"></i></span> 50m</p>
-            <p><span class="ml-2"><i class='fas'>&#xf500;</i></span> 1-5</p>
-             
-            <p class="border border-black rounded-3xl p-0.5"><span class="ml-2"></span>14+</p>
-          </div>
-  </div>
- </div>
- <!--Sixth card-->
- <div class="flex items-center gap-4 overflow-hidden">
-      <div class="w-48 h-48 border rounded-2xl shrink-0"></div>
-      <div class="p-4 flex flex-col justify-between items-start">
-          <div>
-              <h2 class="text-lg mb-1">The Night Cage</h2>
-              <p class="text-base text-gray-600 mb-3">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                  incididunt ut labore et dolore magna...
-              </p>
-          </div>
-          <div class="flex gap-6 text-sm text-gray-600 justify-center">
-            <p><span class="ml-2"><i class="fas fa-hourglass"></i></span> 50m</p>
-            <p><span class="ml-2"><i class='fas'>&#xf500;</i></span> 1-5</p>
-             
-            <p class="border border-black rounded-3xl p-0.5"><span class="ml-2"></span>14+</p>
-          </div>
-  </div>
- </div>
+
+     <div id="games-container" class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 px-4 hidden">
+     <!-- Games will be dynamically inserted here -->
+   </div>
 
  <!--Categories Section-->
  <div class="mb-12">
-  <h1 class="text-4xl font-nunito font-bold mb-12 text-gray-500">Categories</h1>
+  <h1 class="text-4xl font-nunito mt-10 font-bold mb-12 text-gray-500">Categories</h1>
 
   <!--Inline cards left scroll-->
   <div class="flex space-x-4 overflow-x-auto pb-4 px-4 max-w-[100%] ">
      <!--Puzzle card-->
     <div
-    class="inline-flex items-center bg-white rounded-2xl p-5 border gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]">
+    class="inline-flex items-center bg-white rounded-2xl p-5 border gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)] cursor-pointer hover:bg-gray-50 category-filter" data-category="Puzzle">
     <svg width="40" height="40" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
             d="M40 49H53.5V61.5H66.5V75.5H27M40 49V36.5M40 49V61.5H27M1 36.5V10.5H15V23.5H40V36.5M1 36.5H40M1 36.5V49M1 49V75.5H27M1 49H27V61.5M27 75.5V61.5M49 1V26.5H62.5V40.5H75.5V14.5H62.5V1H50H49Z"
@@ -159,7 +64,7 @@
 
     <!-- RPG card -->
     <div
-    class="inline-flex items-center bg-white rounded-2xl p-5 border gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]">
+    class="inline-flex items-center bg-white rounded-2xl p-5 border gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)] cursor-pointer hover:bg-gray-50 category-filter" data-category="Fantasy">
     <svg width="40" height="40" viewBox="0 0 78 76" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
             d="M53.5 1L76.5 32M53.5 1L15.5 7M53.5 1L42.5 21M76.5 32L65 70.5M76.5 32L42.5 21M76.5 32L50 61M65 70.5L22 74.5M65 70.5L50 61M22 74.5L1 43.5M22 74.5L13.5 43.5M22 74.5L50 61M1 43.5L15.5 7M1 43.5H13.5M15.5 7L42.5 21M15.5 7L13.5 43.5M42.5 21L13.5 43.5M42.5 21L50 61M13.5 43.5L50 61"
@@ -169,7 +74,7 @@
             fill="black" />
     </svg>
 
-    <div class="whitespace-nowrap">Rpg Games</div>
+    <div class="whitespace-nowrap">Fantasy Games</div>
 </div>
 
 <!-- Brewed card -->
@@ -211,7 +116,7 @@
 
 <!-- Strategy -->
 <div
-    class="inline-flex items-center bg-white rounded-2xl p-5 border gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]">
+    class="inline-flex items-center bg-white rounded-2xl p-5 border gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)] cursor-pointer hover:bg-gray-50 category-filter" data-category="Abstract Strategy">
     <svg width="40" height="40" viewBox="0 0 77 77" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="0.5" y="0.5" width="76" height="76" rx="18.5" stroke="black" />
         <path d="M37.9932 0V76M56.7432 0V76M76 39H1M1 57H76M76 20H1M19 0.5V76" stroke="black" />
@@ -225,7 +130,7 @@
         <circle cx="47.5" cy="66.5" r="2.5" fill="#020202" />
     </svg>
 
-    <div class="whitespace-nowrap">Tournament</div>
+    <div class="whitespace-nowrap">Strategy Games</div>
 </div>
 
 <!-- More card -->
@@ -255,6 +160,7 @@
 
 
  <!--script-->
+ <script src="../../service/gameService.js" defer></script>
  <script src="../../js/inject.js" defer></script>
  <script src="../../js/main.js" defer></script>
  <script src="../../js/hero-carousel.js" defer></script>

@@ -1,57 +1,30 @@
-<!-- Sidebar Navigation -->
-<button id="sidebar-toggle"
-  class="fixed top-8 text-left cursor-pointer z-50 ml-4"
-  aria-label="Open menu" type="button">
-  
-  <svg width="20" height="20" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <line y1="2" x2="31" y2="2" stroke="black" stroke-width="4" />
-    <line x1="11" y1="17" x2="31" y2="17" stroke="black" stroke-width="4" />
-    <line x1="19" y1="28" x2="31" y2="28" stroke="black" stroke-width="4" />
-  </svg>
+<button
+  id="sidebar-toggle"
+  class="fixed text-left cursor-pointer z-50 p-5"
+  aria-label="Open menu"
+  type="button"
+>
+  <img
+    src="../../src/asset/images/Luma - Icon 1.png"
+    alt="Luma"
+    class="w-10 h-10 object-contain"
+  />
 </button>
 
-<!-- Sidebar -->
-<aside id="sidebar"
-  class="fixed top-0 left-0 z-40 hidden h-screen w-14 bg-[#F1F1F1] border-r border-gray-400 shadow sm:flex flex-col justify-end items-center py-6"
-  aria-label="Sidebar">
-  <!-- All icons stacked in the center -->
-  <nav class="flex flex-col items-center space-y-10">
-    <a href="#" class="text-gray-600 hover:text-blue-500">
+<aside
+  id="sidebar"
+  class="fixed top-0 left-0 z-40 hidden h-screen w-[90px] bg-[#1A1F2C] flex-shrink-0 sm:flex flex-col justify-between items-center py-6 sidebar-shadow"
+  aria-label="Sidebar"
+>
+  <!-- <nav class="flex flex-col items-center space-y-10 mb-6">
+    <a href="#" class="text-gray-400 hover:text-white">
       <i class="fa-regular fa-bookmark fa-lg"></i>
     </a>
-    <a href="#" class="text-gray-600 hover:text-blue-500">
+    <a href="#" class="text-gray-400 hover:text-white">
       <i class="fa-regular fa-comment fa-lg"></i>
     </a>
-    <a href="#" class="text-gray-600 hover:text-blue-500">
+    <a href="#" class="text-gray-400 hover:text-white">
       <i class="fa-regular fa-heart fa-lg"></i>
     </a>
-  </nav>
+  </nav> -->
 </aside>
-
-<!-- Sidebar overlay for mobile -->
-<div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-30 z-30 hidden transition-opacity duration-200"
-  tabindex="-1" aria-hidden="true"></div>
-
-<script>
-  // Sidebar toggle functionality
-  document.addEventListener("DOMContentLoaded", function () {
-    const sidebar = document.getElementById("sidebar");
-    const sidebarToggle = document.getElementById("sidebar-toggle");
-    const sidebarOverlay = document.getElementById("sidebar-overlay");
-
-    sidebarToggle.addEventListener("click", function () {
-      const isExpanded = this.getAttribute("aria-expanded") === "true";
-      this.setAttribute("aria-expanded", !isExpanded);
-      sidebar.classList.toggle("hidden");
-      sidebarOverlay.classList.toggle("hidden");
-      document.body.classList.toggle("overflow-hidden");
-    });
-
-    sidebarOverlay.addEventListener("click", function () {
-      sidebarToggle.setAttribute("aria-expanded", "false");
-      sidebar.classList.add("hidden");
-      this.classList.add("hidden");
-      document.body.classList.remove("overflow-hidden");
-    });
-  });
-</script>
