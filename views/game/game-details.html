@@ -11,49 +11,46 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
   </head>
-  <body class="bg-gray-100">
+  <body class="bg-gray-100 ">
     <div data-component="sidebar"></div>
 
     <!-- Header with Navbar and Hero -->
     <header class="relative bg-white">
-      <div data-component="navbar"></div>
+     
       <!-- <div id="hero-container" data-component="hero"></div> -->
     </header>
-    <!--The Night cage section-->
-    <div class="night-cage-wrap flex gap-8 p-8 items-start px-20">
-      <div
-        class="w-[600px] h-[500px] shrink-0 bg-cover bg-center border border-black rounded-2xl text-white flex items-center justify-center p-4"
-        style="background-image: url('https://picsum.photos/1')"
+    <!--Game Details section-->
+    <main class="px-10">   <div class="night-cage-wrap flex gap-8 p-8 items-start px-20">
+      <div id="game-image"
+        class="w-[600px] h-[500px] shrink-0 bg-cover bg-center border border-black rounded-2xl text-white flex items-center justify-center p-4 bg-gray-200"
       >
-        <p class="w-[40%] font-extrabold text-6xl -tracking-tight font-serif">
-          The Night Cage
-        </p>
+        <div class="loading-game-data">
+          <i class="fas fa-spinner fa-spin text-4xl text-gray-400"></i>
+          <p class="mt-4 text-gray-600">Loading game data...</p>
+        </div>
       </div>
 
       <div class="flex flex-col gap-6 max-w-[700px]">
-        <h3 class="font-extrabold text-[64px] text-gray-500">The Night Cage</h3>
+        <h3 id="game-title" class="font-extrabold text-[64px] text-gray-500">Loading...</h3>
         <div class="gap-6">
-          <h4 class="font-semibold text-[40px] text-gray-500">
-            How long will you last?
+          <h4 id="game-subtitle" class="font-semibold text-[40px] text-gray-500">
+            ...
           </h4>
-          <p class="text-lg pb-6 max-w-[80%]">
-            You awake in the dark, your skin cold, your mind blank. You have
-            nothing but your tear, a flickering candle, and a question: How long
-            will your light last?
+          <p id="game-description" class="text-lg pb-6 max-w-[80%]">
+            Loading game description...
           </p>
         </div>
-        <div class="flex gap-6 text-sm text-gray-600">
-          <p>
-            <span class="ml-2"><i class="fas fa-hourglass"></i></span> 50m
+        <div id="game-stats" class="flex gap-6 text-sm text-gray-600">
+          <p id="playing-time">
+            <span class="ml-2"><i class="fas fa-hourglass"></i></span> <span class="time-value">...</span>
           </p>
-          <p>
-            <span class="ml-2"><i class="fas">&#xf500;</i></span> 1-5
+          <p id="player-count">
+            <span class="ml-2"><i class="fas fa-users"></i></span> <span class="players-value">...</span>
           </p>
-
-          <p class="border border-black rounded-3xl p-0.5">
-            <span class="ml-2"></span>14+
+          <p id="age-rating" class="border border-black rounded-3xl p-0.5">
+            <span class="ml-2 age-value">...</span>
           </p>
-          <p><span class="ml-2">&#9733;</span> 8/10</p>
+          <p id="game-rating"><span class="ml-2">&#9733;</span> <span class="rating-value">...</span></p>
         </div>
 
         <div class="flex gap-4 flex-wrap">
@@ -61,7 +58,7 @@
             Tutorial
           </button>
           <button class="border border-black rounded px-6 py-1">Share</button>
-          <button class="border border-black rounded px-6 py-1">Rules</button>
+          <button id="rules-btn" class="border border-black rounded px-6 py-1">Rules</button>
           <button class="border border-black rounded px-6 py-1">
             <i class="fa-solid fa-bookmark m-2 text-gray-500"></i>Bookmarks
           </button>
@@ -71,49 +68,36 @@
     <div class="py-10 lg:px-20">
       <div class="about-game flex gap-8 p-8 items-start">
         <div class="flex flex-col gap-6 max-w-[50%]">
-          <div>
+          <div id="designers-section">
             <h3 class="text-3xl font-semibold font-sans text-gray-500">
               Designer
             </h3>
-            <p class="text-custom-gray text-2xl">
-              Christopher Ryan Chan, Chris McMahon, Rosswell Saunders
-            </p>
+            <div id="designers-list" class="text-custom-gray text-2xl">
+              Loading...
+            </div>
           </div>
-          <div>
-            <h3 class="text-3xl font-semibold font-sans text-gray-500">
-              Artist
-            </h3>
-            <p class="text-custom-gray text-2xl">Christopher Ryan Chan</p>
-          </div>
-          <div>
+          <div id="publishers-section">
             <h3 class="text-3xl font-semibold font-sans text-gray-500">
               Publisher
             </h3>
-            <p class="text-custom-gray text-2xl">Smirk & Laughter Games</p>
-            <p class="text-custom-gray text-2xl">Sanana Games</p>
-            <p class="text-custom-gray text-2xl">ELLO</p>
-            <p class="text-custom-gray text-2xl">Magellan</p>
+            <div id="publishers-list" class="text-custom-gray text-2xl">
+              Loading...
+            </div>
+          </div>
+          <div id="categories-section">
+            <h3 class="text-3xl font-semibold font-sans text-gray-500">
+              Categories
+            </h3>
+            <div id="categories-list" class="text-custom-gray text-2xl">
+              Loading...
+            </div>
           </div>
         </div>
 
         <div class="flex flex-col gap-6 max-w-[40%] left-6">
           <h2 class="text-4xl font-extrabold text-gray-500">About Game</h2>
-          <p>
-            Suspendisse potenti. Sed ut iaculis nulla. Donec non lectus non
-            libero interdum vehicula. Aliquam lorem urna, interdum vitae ex
-            quis, rhoncus pharetra risus. Aliquam sit amet viverra quam. Aenean
-            eget commodo erat, nec vehicula ipsum. Nullam auctor diam felis, in
-            consectetur neque accumsan in. Nulla a lorem ut magna tincidunt
-            sagittis quis vel augue. Integer tristique eleifend neque et
-            consectetur. psum. Nullam auctor diam felis, in consectetur neque
-            accumsan in. Nulla a lorem ut magna tincidunt sagittis quis vel
-            augue. Integer tristique eleifend neque et consectetur. Mauris in
-            nunc at ipsum tempor cursus. Etiam nisl magna. psum. Nullam auctor
-            diam felis, in consectetur neque accumsan in. Nulla a lorem ut magna
-            tincidunt sagittis quis vel augue. Integer tristique eleifend neque
-            et consectetur. Mauris in nunc at ipsum tempor cursus. Etiam nisl
-            magna Mauris in nunc at ipsum tempor cursus. Etiam nisl magna,
-            luctus id metus sed, blandit pulvinar risus. Morbi at enim orci.
+          <p id="detailed-description">
+            Loading detailed game description...
           </p>
         </div>
       </div>
@@ -368,10 +352,38 @@
     </div>
     <!--About Game section-->
     <div data-component="footer"></div>
+
+    <!-- PDF Preview Modal -->
+    <div id="pdf-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+      <div class="bg-white rounded-lg max-w-4xl max-h-[90vh] w-full mx-4">
+        <div class="flex justify-between items-center p-4 border-b">
+          <h3 class="text-lg font-semibold">Game Rules</h3>
+          <button id="close-pdf-modal" class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+        <div class="p-4 h-[80vh] overflow-hidden">
+          <iframe id="pdf-viewer" src="" class="w-full h-full border-0"></iframe>
+        </div>
+        <div class="flex gap-4 p-4 border-t bg-gray-50">
+          <button id="download-pdf" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            <i class="fas fa-download mr-2"></i>Download PDF
+          </button>
+          <button id="close-pdf-modal-btn" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+            Close
+          </button>
+        </div>
+      </div>
+    </div></main>
+ 
+
     <!--Script-->
+    <script src="../../service/gameService.js" defer></script>
     <script src="../../js/inject.js" defer></script>
     <script src="../../js/main.js" defer></script>
     <script src="../../js/hero-carousel.js" defer></script>
     <script type="module" src="../../js/auth/signout.js"></script>
+
+
   </body>
 </html>

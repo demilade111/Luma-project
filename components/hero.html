@@ -1,72 +1,100 @@
-<section class="bg-white py-1 px-4 w-full max-w-screen-xl mx-auto rounded-xl">
+<section
+  class="bg-[url('../../src/asset/images/img+gradient.png')] bg-cover bg-center bg-no-repeat px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 rounded-xl h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] xl:h-[750px] 2xl:h-[800px]"
+>
+  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3 z-30">
+    <button
+      type="button"
+      class="rounded-full border border-[#171C27] flex-shrink-0"
+      style="
+        width: 29.767px;
+        height: 30px;
+        background: linear-gradient(269deg, #f59275 24.95%, #f1647a 87.01%);
+        border-width: 1.084px;
+      "
+      aria-current="true"
+      aria-label="Slide 1"
+      data-carousel-slide-to="0"
+    ></button>
+    <button
+      type="button"
+      class="rounded-full border border-[#171C27] flex-shrink-0 bg-transparent"
+      style="width: 29.767px; height: 30px; border-width: 1.084px"
+      aria-label="Slide 2"
+      data-carousel-slide-to="1"
+    ></button>
+    <button
+      type="button"
+      class="rounded-full border border-[#171C27] flex-shrink-0 bg-transparent"
+      style="width: 29.767px; height: 30px; border-width: 1.084px"
+      aria-label="Slide 3"
+      data-carousel-slide-to="2"
+    ></button>
+  </div>
+
+  <!-- Hero content temporarily commented out -->
+  <!--
     <div id="hero-carousel" class="relative w-full overflow-hidden" data-carousel="slide">
-      <!-- Slides wrapper -->
       <div class="relative h-[500px]">
         
-        <!-- Slide 1 (visible) -->
         <div class="absolute inset-0 px-6 py-10 grid lg:grid-cols-12 gap-8 items-center transition-all duration-700 ease-in-out" data-carousel-item>
           <div class="lg:flex lg:col-span-5">
-            <img src="https://placehold.co/600x400/333333/FFFFFF?text=The+Night+Cage" alt="The Night Cage" class="rounded-lg shadow-lg object-cover w-full h-full" />
+            <img src="../../src/asset/images/img+gradient.png" alt="The Night Cage" class="rounded-lg shadow-lg object-cover w-full h-full" />
           </div>
-          <div class="lg:col-span-7 text-gray-800">
+          <div class="lg:col-span-7 text-white">
             <h1 class="text-4xl md:text-5xl font-extrabold mb-4">The Night Cage</h1>
             <h2 class="text-2xl md:text-3xl font-semibold mb-3">How long will you last?</h2>
-            <p class="text-lg md:text-xl font-light text-gray-600 mb-6">
+            <p class="text-lg md:text-xl font-light text-gray-300 mb-6">
               You awake in the dark, your skin cold, your mind blank. You have nothing but your tear, a flickering candle, and a question: How long will your light last?
             </p>
             <div class="flex items-center gap-8 mt-6">
-              <div class="flex items-center gap-2"><i class="fas fa-hourglass-half text-gray-700"></i><span>50m</span></div>
-              <div class="flex items-center gap-2"><i class="fas fa-users text-gray-700"></i><span>1-5</span></div>
+              <div class="flex items-center gap-2"><i class="fas fa-hourglass-half text-gray-300"></i><span>50m</span></div>
+              <div class="flex items-center gap-2"><i class="fas fa-users text-gray-300"></i><span>1-5</span></div>
+              <div class="flex items-center gap-2"><i class="fas fa-star text-yellow-400"></i><span>8/10</span></div>
               <div class="px-3 py-1 border border-gray-400 rounded-full"><span>14+</span></div>
             </div>
           </div>
         </div>
   
-        <!-- Slide 2 (hidden) -->
         <div class="absolute inset-0 px-6 py-10 grid lg:grid-cols-12 gap-8 items-center transition-all duration-700 ease-in-out " data-carousel-item>
           <div class="lg:flex lg:col-span-5">
             <img src="https://placehold.co/600x400/4A2C40/FFFFFF?text=Dark+Labyrinth" alt="Dark Labyrinth" class="rounded-lg shadow-lg object-cover w-full h-full" />
           </div>
-          <div class="lg:col-span-7 text-gray-800">
+          <div class="lg:col-span-7 text-white">
             <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Dark Labyrinth</h1>
             <h2 class="text-2xl md:text-3xl font-semibold mb-3">Find your escape</h2>
-            <p class="text-lg md:text-xl font-light text-gray-600 mb-6">
+            <p class="text-lg md:text-xl font-light text-gray-300 mb-6">
               Navigate through an ever-changing maze where walls shift and terror lurks. Your candle is your lifeline - when it goes out, darkness consumes all.
             </p>
             <div class="flex items-center gap-8 mt-6">
-              <div class="flex items-center gap-2"><i class="fas fa-hourglass-half text-gray-700"></i><span>50m</span></div>
-              <div class="flex items-center gap-2"><i class="fas fa-users text-gray-700"></i><span>1-5</span></div>
+              <div class="flex items-center gap-2"><i class="fas fa-hourglass-half text-gray-300"></i><span>50m</span></div>
+              <div class="flex items-center gap-2"><i class="fas fa-users text-gray-300"></i><span>1-5</span></div>
+              <div class="flex items-center gap-2"><i class="fas fa-star text-yellow-400"></i><span>8/10</span></div>
               <div class="px-3 py-1 border border-gray-400 rounded-full"><span>14+</span></div>
             </div>
           </div>
         </div>
   
-        <!-- Slide 3 (hidden) -->
         <div class="absolute inset-0 px-6 py-10 grid lg:grid-cols-12 gap-8 items-center transition-all duration-700 ease-in-out " data-carousel-item>
           <div class="lg:flex lg:col-span-5">
             <img src="https://placehold.co/600x400/202020/FFFFFF?text=Endless+Nightmare" alt="Endless Nightmare" class="rounded-lg shadow-lg object-cover w-full h-full" />
           </div>
-          <div class="lg:col-span-7 text-gray-800">
+          <div class="lg:col-span-7 text-white">
             <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Endless Nightmare</h1>
             <h2 class="text-2xl md:text-3xl font-semibold mb-3">Survive together</h2>
-            <p class="text-lg md:text-xl font-light text-gray-600 mb-6">
+            <p class="text-lg md:text-xl font-light text-gray-300 mb-6">
               Unite with fellow prisoners of the labyrinth. Work together to escape the ever-changing corridors before your light fades forever.
             </p>
             <div class="flex items-center gap-8 mt-6">
-              <div class="flex items-center gap-2"><i class="fas fa-hourglass-half text-gray-700"></i><span>50m</span></div>
-              <div class="flex items-center gap-2"><i class="fas fa-users text-gray-700"></i><span>1-5</span></div>
+              <div class="flex items-center gap-2"><i class="fas fa-hourglass-half text-gray-300"></i><span>50m</span></div>
+              <div class="flex items-center gap-2"><i class="fas fa-users text-gray-300"></i><span>1-5</span></div>
+              <div class="flex items-center gap-2"><i class="fas fa-star text-yellow-400"></i><span>8/10</span></div>
               <div class="px-3 py-1 border border-gray-400 rounded-full"><span>14+</span></div>
             </div>
           </div>
         </div>
       </div>
   
-      <!-- Dots -->
-      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3 z-30">
-        <button type="button" class="w-3 h-3 bg-gray-800 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-        <button type="button" class="w-3 h-3 bg-gray-400 rounded-full" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-        <button type="button" class="w-3 h-3 bg-gray-400 rounded-full" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-      </div>
+      >
     </div>
-  </section>
-  
+    -->
+</section>

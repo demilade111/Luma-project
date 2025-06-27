@@ -8,3 +8,17 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+body {
+  background: var(--background-color, #1a1f2c);
+}
+.luma-gradient {
+  background: linear-gradient(269deg, #f59275 24.95%, #f1647a 87.01%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sidebar-shadow {
+  box-shadow: 3.276px 6.427px 6.049px 0px rgba(0, 5, 16, 0.7),
+    -3.276px -6.427px 6.049px 0px rgba(46, 51, 62, 0.7);
+}
