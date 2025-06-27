@@ -4,8 +4,9 @@ const cheerio = require("cheerio");
 const fs = require("fs").promises;
 const path = require("path");
 
-// List of board games to fetch
+
 const gameNames = [
+  "The Night Cage",
   "Catan",
   "Carcassonne",
   "Dominion",
