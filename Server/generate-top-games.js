@@ -29,13 +29,13 @@ const gameNames = [
   "Blood Rage",
 ];
 
-// Delay function to avoid rate limiting
+
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// Function to search for game on BGG and get ID
+
 async function searchBGG(gameName) {
   try {
-    console.log(`Searching BGG for: ${gameName}`);
+
     const searchUrl = `https://boardgamegeek.com/xmlapi2/search?query=${encodeURIComponent(
       gameName
     )}`;
@@ -45,24 +45,17 @@ async function searchBGG(gameName) {
     const result = await parser.parseStringPromise(response.data);
 
     if (result.items && result.items.item && result.items.item.length > 0) {
-      // Get the first matching game's ID
       const gameId = result.items.item[0].$.id;
-      console.log(`Found BGG ID for ${gameName}: ${gameId}`);
       return gameId;
     }
-
-    console.log(`No BGG results found for: ${gameName}`);
     return null;
   } catch (error) {
-    console.error(`Error searching BGG for ${gameName}:`, error.message);
     return null;
   }
 }
 
-// Function to get detailed game info from BGG
 async function getGameDetails(gameId) {
   try {
-    console.log(`Fetching details for BGG ID: ${gameId}`);
     const detailUrl = `https://boardgamegeek.com/xmlapi2/thing?id=${gameId}&stats=1`;
     const response = await axios.get(detailUrl);
 
@@ -72,13 +65,11 @@ async function getGameDetails(gameId) {
     if (result.items && result.items.item && result.items.item.length > 0) {
       const item = result.items.item[0];
 
-      // Extract primary name
       const names = Array.isArray(item.name) ? item.name : [item.name];
       const primaryName =
         names.find((name) => name.$.type === "primary")?.$.value ||
         names[0]?.$.value;
 
-      // Extract basic details
       const year = item.yearpublished?.[0]?.$.value || "";
       const minPlayers = item.minplayers?.[0]?.$.value || "";
       const maxPlayers = item.maxplayers?.[0]?.$.value || "";
@@ -86,29 +77,25 @@ async function getGameDetails(gameId) {
       const minPlayTime = item.minplaytime?.[0]?.$.value || "";
       const maxPlayTime = item.maxplaytime?.[0]?.$.value || "";
       
-      // Extract images
       const image = item.image?.[0] || "";
       const thumbnail = item.thumbnail?.[0] || "";
       
-      // Extract description and clean HTML tags
+  
       let description = item.description?.[0] || "";
       if (description) {
-        // Remove HTML tags and decode entities
         description = description.replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, ' ').trim();
         // Limit description length
         if (description.length > 500) {
           description = description.substring(0, 497) + '...';
         }
       }
-      
-      // Extract ratings and statistics
+    
       const statistics = item.statistics?.[0]?.ratings?.[0];
       const rating = statistics?.average?.[0]?.$.value || "";
       const ratingCount = statistics?.usersrated?.[0]?.$.value || "";
       const complexity = statistics?.averageweight?.[0]?.$.value || "";
       const rank = statistics?.ranks?.[0]?.rank?.find(r => r.$.name === 'boardgame')?.$.value || "";
-      
-      // Extract categories
+  
       const categories = [];
       if (item.link) {
         const categoryLinks = Array.isArray(item.link) ? item.link : [item.link];
@@ -118,8 +105,7 @@ async function getGameDetails(gameId) {
           }
         });
       }
-      
-      // Extract mechanics
+    
       const mechanics = [];
       if (item.link) {
         const mechanicLinks = Array.isArray(item.link) ? item.link : [item.link];
@@ -130,7 +116,6 @@ async function getGameDetails(gameId) {
         });
       }
       
-      // Extract designers
       const designers = [];
       if (item.link) {
         const designerLinks = Array.isArray(item.link) ? item.link : [item.link];
@@ -141,7 +126,6 @@ async function getGameDetails(gameId) {
         });
       }
       
-      // Extract publishers
       const publishers = [];
       if (item.link) {
         const publisherLinks = Array.isArray(item.link) ? item.link : [item.link];
@@ -151,8 +135,7 @@ async function getGameDetails(gameId) {
           }
         });
       }
-      
-      // Extract age recommendation
+  
       const age = item.age?.[0]?.$.value || "";
 
       return {
@@ -172,14 +155,12 @@ async function getGameDetails(gameId) {
         ratingCount: ratingCount,
         complexity: complexity ? parseFloat(complexity).toFixed(1) : "",
         rank: rank && rank !== 'Not Ranked' ? rank : "",
-        categories: categories.slice(0, 5), // Limit to top 5 categories
-        mechanics: mechanics.slice(0, 5), // Limit to top 5 mechanics
-        designers: designers.slice(0, 3), // Limit to top 3 designers
-        publishers: publishers.slice(0, 3), // Limit to top 3 publishers
+        categories: categories.slice(0, 5), 
+        mechanics: mechanics.slice(0, 5), 
+        designers: designers.slice(0, 3), 
+        publishers: publishers.slice(0, 3), 
       };
     }
-
-    console.log(`No details found for BGG ID: ${gameId}`);
     return null;
   } catch (error) {
     console.error(
@@ -190,10 +171,8 @@ async function getGameDetails(gameId) {
   }
 }
 
-// Function to search for rulebook on 1jour-1jeu.com
 async function findRulebook(gameName) {
   try {
-    console.log(`Searching for rulebook: ${gameName}`);
     const searchUrl = `https://en.1jour-1jeu.com/rules/search?q=${encodeURIComponent(
       gameName
     )}`;
@@ -221,7 +200,7 @@ async function findRulebook(gameName) {
 
       console.log(`Found result page: ${fullUrl}`);
 
-      // Visit the result page to find PDF link
+    
       const detailResponse = await axios.get(fullUrl, {
         headers: {
           "User-Agent":
@@ -231,7 +210,6 @@ async function findRulebook(gameName) {
 
       const $detail = cheerio.load(detailResponse.data);
 
-      // Look for PDF links
       const pdfLink =
         $detail('a[href$=".pdf"]').first().attr("href") ||
         $detail('a[href*=".pdf"]').first().attr("href");
@@ -245,8 +223,6 @@ async function findRulebook(gameName) {
         return fullPdfUrl;
       }
     }
-
-    console.log(`No rulebook found for: ${gameName}`);
     return null;
   } catch (error) {
     console.error(
@@ -256,7 +232,6 @@ async function findRulebook(gameName) {
     return null;
   }
 }
-
 // Main function to process all games
 async function generateTopGames() {
   console.log("Starting to generate top-games.json...\n");
@@ -272,7 +247,6 @@ async function generateTopGames() {
       await delay(1000); // Rate limiting
 
       if (!gameId) {
-        console.log(`Skipping ${gameName} - no BGG ID found`);
         continue;
       }
 
@@ -303,27 +277,21 @@ async function generateTopGames() {
     }
   }
 
-  // Step 5: Save to JSON file
+
   try {
-    // Create data directory if it doesn't exist
     const dataDir = path.join(__dirname, "data");
     await fs.mkdir(dataDir, { recursive: true });
 
-    // Save JSON file
     const outputPath = path.join(dataDir, "top-games.json");
     await fs.writeFile(outputPath, JSON.stringify(results, null, 2));
 
-    console.log(
-      `\n✅ Successfully saved ${results.length} games to ${outputPath}`
-    );
-    console.log("\nSample of generated data:");
-    console.log(JSON.stringify(results.slice(0, 2), null, 2));
+  
   } catch (error) {
-    console.error("Error saving file:", error.message);
+return error;
   }
 }
 
-// Run the script
+
 if (require.main === module) {
   generateTopGames().catch(console.error);
 }
