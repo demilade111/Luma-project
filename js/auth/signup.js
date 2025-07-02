@@ -1,4 +1,4 @@
-import { auth, db } from "../../config/firebase.js"; //
+import { auth, db } from "../../config/firebase.js";
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import {
   collection,
@@ -7,6 +7,10 @@ import {
   getDocs,
   addDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { checkIfLoggedIn } from "./authGuard.js";
+
+// Check if user is already logged in
+checkIfLoggedIn();
 
 const form = document.querySelector("form");
 const errorMsg = document.createElement("p");
@@ -49,8 +53,14 @@ form.addEventListener("submit", async (e) => {
       email,
     });
 
-    alert("Account created. Redirecting to login...");
-    window.location.href = "login.html";
+    // Store session information
+    const user = userCred.user;
+    sessionStorage.setItem("userToken", user.accessToken || "authenticated");
+    sessionStorage.setItem("userEmail", user.email);
+    sessionStorage.setItem("userId", user.uid);
+
+    // Redirect to home page
+    window.location.href = "/views/home/index.html";
   } catch (err) {
     console.error(err);
     if (err.code === "auth/email-already-in-use") {
