@@ -16,10 +16,14 @@
   </head>
 
   <body class="text-white px-2">
+    <!-- Small Sign Out Button -->
+    <!-- <button id="signOut" class="fixed top-6 right-4 z-50 bg-red-600 hover:bg-red-700 text-white text-sm px-3 py-1 rounded">
+      Sign Out
+    </button> -->
+    
     <div data-component="sidebar"></div>
 
     <header class="relative">
-      <!-- <div data-component="navbar"></div> -->
       <div id="hero-container" data-component="hero"></div>
     </header>
     <div>
@@ -290,6 +294,10 @@
       <div data-component="footer"></div>
     </div>
 
+    <script type="module">
+      import { initAuthGuard } from "../../js/auth/authGuard.js";
+      initAuthGuard();
+    </script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="../../service/gameService.js"></script>
