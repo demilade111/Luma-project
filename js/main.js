@@ -593,6 +593,20 @@ function loadGameDetails() {
     rulesBtn.textContent = "Rules N/A";
     rulesBtn.classList.add("opacity-50", "cursor-not-allowed");
   }
+
+  // Setup tutorial button for The Night Cage
+  const tutorialBtn = document.getElementById("tutorial-btn");
+  if (tutorialBtn) {
+    if (game.name && game.name.toLowerCase() === "the night cage") {
+      tutorialBtn.onclick = () => {
+        window.location.href = "night-cage-tutorial.html";
+      };
+    } else {
+      tutorialBtn.onclick = null;
+      tutorialBtn.classList.add("opacity-50", "cursor-not-allowed");
+      tutorialBtn.disabled = true;
+    }
+  }
 }
 
 function setupPDFModal() {

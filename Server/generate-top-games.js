@@ -6,6 +6,7 @@ const path = require("path");
 
 // List of board games to fetch
 const gameNames = [
+  "The Night Cage",
   "Catan",
   "Carcassonne",
   "Dominion",
@@ -84,73 +85,86 @@ async function getGameDetails(gameId) {
       const playingTime = item.playingtime?.[0]?.$.value || "";
       const minPlayTime = item.minplaytime?.[0]?.$.value || "";
       const maxPlayTime = item.maxplaytime?.[0]?.$.value || "";
-      
+
       // Extract images
       const image = item.image?.[0] || "";
       const thumbnail = item.thumbnail?.[0] || "";
-      
+
       // Extract description and clean HTML tags
       let description = item.description?.[0] || "";
       if (description) {
         // Remove HTML tags and decode entities
-        description = description.replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, ' ').trim();
+        description = description
+          .replace(/<[^>]*>/g, "")
+          .replace(/&[^;]+;/g, " ")
+          .trim();
         // Limit description length
         if (description.length > 500) {
-          description = description.substring(0, 497) + '...';
+          description = description.substring(0, 497) + "...";
         }
       }
-      
+
       // Extract ratings and statistics
       const statistics = item.statistics?.[0]?.ratings?.[0];
       const rating = statistics?.average?.[0]?.$.value || "";
       const ratingCount = statistics?.usersrated?.[0]?.$.value || "";
       const complexity = statistics?.averageweight?.[0]?.$.value || "";
-      const rank = statistics?.ranks?.[0]?.rank?.find(r => r.$.name === 'boardgame')?.$.value || "";
-      
+      const rank =
+        statistics?.ranks?.[0]?.rank?.find((r) => r.$.name === "boardgame")?.$
+          .value || "";
+
       // Extract categories
       const categories = [];
       if (item.link) {
-        const categoryLinks = Array.isArray(item.link) ? item.link : [item.link];
-        categoryLinks.forEach(link => {
-          if (link.$.type === 'boardgamecategory') {
+        const categoryLinks = Array.isArray(item.link)
+          ? item.link
+          : [item.link];
+        categoryLinks.forEach((link) => {
+          if (link.$.type === "boardgamecategory") {
             categories.push(link.$.value);
           }
         });
       }
-      
+
       // Extract mechanics
       const mechanics = [];
       if (item.link) {
-        const mechanicLinks = Array.isArray(item.link) ? item.link : [item.link];
-        mechanicLinks.forEach(link => {
-          if (link.$.type === 'boardgamemechanic') {
+        const mechanicLinks = Array.isArray(item.link)
+          ? item.link
+          : [item.link];
+        mechanicLinks.forEach((link) => {
+          if (link.$.type === "boardgamemechanic") {
             mechanics.push(link.$.value);
           }
         });
       }
-      
+
       // Extract designers
       const designers = [];
       if (item.link) {
-        const designerLinks = Array.isArray(item.link) ? item.link : [item.link];
-        designerLinks.forEach(link => {
-          if (link.$.type === 'boardgamedesigner') {
+        const designerLinks = Array.isArray(item.link)
+          ? item.link
+          : [item.link];
+        designerLinks.forEach((link) => {
+          if (link.$.type === "boardgamedesigner") {
             designers.push(link.$.value);
           }
         });
       }
-      
+
       // Extract publishers
       const publishers = [];
       if (item.link) {
-        const publisherLinks = Array.isArray(item.link) ? item.link : [item.link];
-        publisherLinks.forEach(link => {
-          if (link.$.type === 'boardgamepublisher') {
+        const publisherLinks = Array.isArray(item.link)
+          ? item.link
+          : [item.link];
+        publisherLinks.forEach((link) => {
+          if (link.$.type === "boardgamepublisher") {
             publishers.push(link.$.value);
           }
         });
       }
-      
+
       // Extract age recommendation
       const age = item.age?.[0]?.$.value || "";
 
@@ -170,7 +184,7 @@ async function getGameDetails(gameId) {
         rating: rating ? parseFloat(rating).toFixed(1) : "",
         ratingCount: ratingCount,
         complexity: complexity ? parseFloat(complexity).toFixed(1) : "",
-        rank: rank && rank !== 'Not Ranked' ? rank : "",
+        rank: rank && rank !== "Not Ranked" ? rank : "",
         categories: categories.slice(0, 5), // Limit to top 5 categories
         mechanics: mechanics.slice(0, 5), // Limit to top 5 mechanics
         designers: designers.slice(0, 3), // Limit to top 3 designers
