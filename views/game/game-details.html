@@ -22,10 +22,10 @@
     <!--Game Details section-->
     <main class="px-10">   <div class="night-cage-wrap flex gap-8 p-8 items-start px-20">
       <div id="game-image"
-        class="w-[600px] h-[500px] shrink-0 bg-cover bg-center border border-black rounded-2xl text-white flex items-center justify-center p-4 bg-gray-200"
+        class="w-[600px] h-[500px] shrink-0 bg-cover bg-center border border-black rounded-2xl text-white flex items-center justify-center p-4 bg-[#1A1F2C]"
       >
         <div class="loading-game-data">
-          <i class="fas fa-spinner fa-spin text-4xl text-gray-400"></i>
+          <i class="fas fa-spinner fa-spin text-4xl text-white"></i>
           <p class="mt-4 text-gray-600">Loading game data...</p>
         </div>
       </div>
@@ -41,26 +41,41 @@
           </p>
         </div>
         <div id="game-stats" class="flex gap-6 text-sm text-gray-600">
-          <p id="playing-time">
-            <span class="ml-2"><i class="fas fa-hourglass"></i></span> <span class="time-value">...</span>
+          <p id="playing-time" class="text-white">
+            <span class="ml-2 "><i class="fas fa-hourglass "></i></span> <span class="time-value">...</span>
           </p>
-          <p id="player-count">
+          <p id="player-count" class="text-white">
             <span class="ml-2"><i class="fas fa-users"></i></span> <span class="players-value">...</span>
           </p>
-          <p id="age-rating" class="border border-black rounded-3xl p-0.5">
+          <p id="age-rating" class="border border-white rounded-2xl p-0.5 text-white">14+
             <span class="ml-2 age-value">...</span>
           </p>
-          <p id="game-rating"><span class="ml-2">&#9733;</span> <span class="rating-value">...</span></p>
+          <p id="game-rating" class="text-white"><span class="ml-2">&#9733;</span> <span class="rating-value">...</span></p>
         </div>
 
         <div class="flex gap-4 flex-wrap">
-          <button class="border border-black rounded px-6 py-1">
+          <button class="border border-black rounded px-6 py-1 bg-[#363f56]">
             Tutorial
           </button>
-          <button class="border border-black rounded px-6 py-1">Share</button>
-          <button id="rules-btn" class="border border-black rounded px-6 py-1">Rules</button>
-          <button class=" bookmark-btn border border-black rounded px-6 py-1">
-            <i class="fa-solid fa-bookmark m-2 text-gray-500"></i>Bookmarks
+          <button id="shareBtn" class="border border-black rounded px-6 py-1 bg-[#363f56]">Share</button>
+          <div id="share-links" class="hidden flex items-center gap-2 mt-2">
+            <a id="share-facebook" title="Share on Facebook"
+               class="p-2 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+               target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-facebook text-2xl"></i>
+              <span class="sr-only">Share on Facebook</span>
+            </a>
+            <a id="share-twitter" title="Share on Twitter"
+               class="p-2 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+               target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-twitter text-2xl"></i>
+              <span class="sr-only">Share on Twitter</span>
+            </a>
+          </div>
+          
+          <button id="rules-btn" class="border border-black rounded px-6 py-1 bg-[#363f56]">Rules</button>
+          <button class=" bookmark-btn border border-black rounded px-6 py-1 bg-[#363f56]">
+            <i class="fa-solid fa-bookmark m-2 text-white"></i>Bookmarks
           </button>
         </div>
       </div>
@@ -95,7 +110,7 @@
         </div>
 
         <div class="flex flex-col gap-6 max-w-[40%] left-6">
-          <h2 class="text-4xl font-extrabold text-gray-500">About Game</h2>
+          <h2 class="text-4xl font-extrabold text-[#F1647A] drop-shadow-md">About Game</h2>
           <p id="detailed-description">
             Loading detailed game description...
           </p>
@@ -106,7 +121,7 @@
       <div class="strategy gap-4 m-6">
         <!--Puzzle card-->
         <div
-          class="inline-flex items-center mr-6 bg-white rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]"
+          class="inline-flex items-center mr-6 bg-[#2f364A] rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]"
         >
           <svg
             width="40"
@@ -125,7 +140,7 @@
 
         <!--Strategy card-->
         <div
-          class="inline-flex items-center mr-6 bg-white rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]"
+          class="inline-flex items-center mr-6 bg-[#2f364A] rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]"
         >
           <svg
             width="40"
@@ -161,7 +176,7 @@
 
         <!--Co-op card-->
         <div
-          class="inline-flex items-center bg-white rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]"
+          class="inline-flex items-center bg-[#2f364A] rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]"
         >
           <svg
             width="40"
@@ -179,19 +194,71 @@
         </div>
       </div>
 
+      <!--Suggested games-->
+      <div class="continue-l p-6">
+        <h2 class="text-4xl mt-10 font-Inter mb-4 font-bold text-[#F1647A] drop-shadow-md">Suggested Games</h2>
+       
+        <!--Scrollable div-->
+        <div class="flex overflow-x-auto gap-6 pb-4">
+         <!--Card One-->
+          
+           <div class="flex gap-6">
+             <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+         </div>
+         
+         <!--Card Two-->
+         <div class="flex gap-6">
+          <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+      </div>
+        <!--Card Three-->
+        <div class="flex gap-6">
+          <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+      </div>
+         <!--Card Four-->
+         <div class="flex gap-6">
+          <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+      </div>
+         <!--Card Five-->
+         <div class="flex gap-6">
+          <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+      </div>
+        <!--Card Six-->
+        <div class="flex gap-6">
+          <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+      </div>
+      <!--Card Seven-->
+      <div class="flex gap-6">
+        <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+    </div>
+      <!--Card eight-->
+      <div class="flex gap-6">
+        <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+    </div>
+      <!--Card nine-->
+      <div class="flex gap-6">
+        <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+    </div>
+      <!--Card ten-->
+      <div class="flex gap-6">
+        <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+    </div>
+       </div>
+       </div>
+               
+
       <!--Comments-->
       <div class="comments p-4">
         <h1
-          class="text-6xl font-extrabold text-gray-500 gap-4 font-sans p-4 text-center"
+          class="text-6xl font-extrabold text-[#F1647A] drop-shadow-md gap-4 font-sans p-4 text-center"
         >
           Comments
         </h1>
         <div class="grid grid-cols-4 gap-4">
           <div
-            class="row-span-2 bg-white border border-black rounded-2xl p-4 flex flex-col justify-between"
+            class="row-span-2 bg-[#F1647A] drop-shadow-md border border-black rounded-2xl p-4 flex flex-col justify-between"
           >
             <div
-              class="border border-black rounded-2xl p-3 flex flex-col h-full flex-grow"
+              class="border border-black rounded-2xl p-3 flex flex-col h-full flex-grow bg-[#f1a7b2] text-gray-900"
             >
               <p class="mb-2">
                 Ut in odio efficitur, pharetra ipsum id,porta dolor.
@@ -202,18 +269,18 @@
               </p>
             </div>
             <button
-              class="mt-4 self-center w-[70%] px-6 py-3 flex items-center gap-2 bg-white border border-black rounded-lg justify-center"
+              class="mt-4 self-center w-[70%] px-6 py-3 flex items-center gap-2 bg-[#F1647A]  border border-black rounded-lg justify-center"
             >
-              <i class="fas fa-comment-dots text-3xl text-gray-500"></i>
+              <i class="fas fa-comment-dots text-3xl text-white"></i><span>comments</span>
             </button>
           </div>
-          <div class="bg-white border border-black rounded-2xl p-4">
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
             <p class="flex items-center gap-2 mb-2">
               <img
                 src="https://i.pravatar.cc/20?img=1"
                 alt="User Avatar"
                 class="w-[76px] h-[74px] rounded-full bg-white border border-black"
-              />User_Name
+              />CthulhuFan93
             </p>
             <p>
               Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius
@@ -221,7 +288,7 @@
               ridiculus mus.
             </p>
           </div>
-          <div class="bg-white border border-black rounded-2xl p-4">
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
             <p class="flex items-center gap-2 mb-2">
               <img
                 src="https://i.pravatar.cc/20?img=2"
@@ -235,7 +302,7 @@
               ridiculus mus.
             </p>
           </div>
-          <div class="bg-white border border-black rounded-2xl p-4">
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
             <p class="flex items-center gap-2 mb-2">
               <img
                 src="https://i.pravatar.cc/20?img=3"
@@ -249,7 +316,7 @@
               ridiculus mus.
             </p>
           </div>
-          <div class="bg-white border border-black rounded-2xl p-4">
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
             <p class="flex items-center gap-2 mb-2">
               <img
                 src="https://i.pravatar.cc/20?img=4"
@@ -263,7 +330,7 @@
               ridiculus mus.
             </p>
           </div>
-          <div class="bg-white border border-black rounded-2xl p-4">
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
             <p class="flex items-center gap-2 mb-2">
               <img
                 src="https://i.pravatar.cc/20?img=5"
@@ -277,7 +344,7 @@
               ridiculus mus.
             </p>
           </div>
-          <div class="bg-white border border-black rounded-2xl p-4">
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
             <p class="flex items-center gap-2 mb-2">
               <img
                 src="https://i.pravatar.cc/20?img=6"
@@ -291,7 +358,7 @@
               ridiculus mus.
             </p>
           </div>
-          <div class="bg-white border border-black rounded-2xl p-4">
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
             <p class="flex items-center gap-2 mb-2">
               <img
                 src="https://i.pravatar.cc/20?img=7"
@@ -305,7 +372,7 @@
               ridiculus mus.
             </p>
           </div>
-          <div class="bg-white border border-black rounded-2xl p-4">
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
             <p class="flex items-center gap-2 mb-2">
               <img
                 src="https://i.pravatar.cc/20?img=8"
@@ -319,7 +386,7 @@
               ridiculus mus.
             </p>
           </div>
-          <div class="bg-white border border-black rounded-2xl p-4">
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
             <p class="flex items-center gap-2 mb-2">
               <img
                 src="https://i.pravatar.cc/20?img=9"
@@ -333,7 +400,7 @@
               ridiculus mus.
             </p>
           </div>
-          <div class="bg-white border border-black rounded-2xl p-4">
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
             <p class="flex items-center gap-2 mb-2">
               <img
                 src="https://i.pravatar.cc/20?img=10"
