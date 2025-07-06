@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Luma | Game Details</title>
     <link href="../../src/output.css" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
   </head>
-  <body class="bg-gray-100">
+  <body class="text-white bg-[#1A1F2C] ">
     <div data-component="sidebar"></div>
 
     <!-- Header with Navbar and Hero -->
@@ -19,69 +19,65 @@
       <!-- <div id="hero-container" data-component="hero"></div> -->
     </header>
     <!--Game Details section-->
-    <main class="px-10">
-      <div class="night-cage-wrap flex gap-8 p-8 items-start px-20">
-        <div
-          id="game-image"
-          class="w-[600px] h-[500px] shrink-0 bg-cover bg-center border border-black rounded-2xl text-white flex items-center justify-center p-4 bg-gray-200"
-        >
-          <div class="loading-game-data">
-            <i class="fas fa-spinner fa-spin text-4xl text-gray-400"></i>
-            <p class="mt-4 text-gray-600">Loading game data...</p>
-          </div>
+    <main class="px-10">   <div class="night-cage-wrap flex gap-8 p-8 items-start px-20">
+      <div id="game-image"
+        class="w-[600px] h-[500px] shrink-0 bg-cover bg-center border border-black rounded-2xl text-white flex items-center justify-center p-4 bg-[#1A1F2C]"
+      >
+        <div class="loading-game-data">
+          <i class="fas fa-spinner fa-spin text-4xl text-white"></i>
+          <p class="mt-4 text-gray-600">Loading game data...</p>
+        </div>
+      <div class="flex flex-col gap-6 max-w-[700px]">
+        <h3 id="game-title" class="font-extrabold text-[64px] text-gray-500">Loading...</h3>
+        <div class="gap-6">
+          <h4 id="game-subtitle" class="font-semibold text-[40px] text-gray-500">
+            ...
+          </h4>
+          <p id="game-description" class="text-lg pb-6 max-w-[80%]">
+            Loading game description...
+          </p>
+        </div>
+        <div id="game-stats" class="flex gap-6 text-sm text-gray-600">
+          <p id="playing-time" class="text-white">
+            <span class="ml-2 "><i class="fas fa-hourglass "></i></span> <span class="time-value">...</span>
+          </p>
+          <p id="player-count" class="text-white">
+            <span class="ml-2"><i class="fas fa-users"></i></span> <span class="players-value">...</span>
+          </p>
+          <p id="age-rating" class="border border-white rounded-2xl p-0.5 text-white">14+
+            <span class="ml-2 age-value">...</span>
+          </p>
+          <p id="game-rating" class="text-white"><span class="ml-2">&#9733;</span> <span class="rating-value">...</span></p>
         </div>
 
-        <div class="flex flex-col gap-6 max-w-[700px]">
-          <h3 id="game-title" class="font-extrabold text-[64px] text-gray-500">
-            Loading...
-          </h3>
-          <div class="gap-6">
-            <h4
-              id="game-subtitle"
-              class="font-semibold text-[40px] text-gray-500"
-            >
-              ...
-            </h4>
-            <p id="game-description" class="text-lg pb-6 max-w-[80%]">
-              Loading game description...
-            </p>
-          </div>
-          <div id="game-stats" class="flex gap-6 text-sm text-gray-600">
-            <p id="playing-time">
-              <span class="ml-2"><i class="fas fa-hourglass"></i></span>
-              <span class="time-value">...</span>
-            </p>
-            <p id="player-count">
-              <span class="ml-2"><i class="fas fa-users"></i></span>
-              <span class="players-value">...</span>
-            </p>
-            <p id="age-rating" class="border border-black rounded-3xl p-0.5">
-              <span class="ml-2 age-value">...</span>
-            </p>
-            <p id="game-rating">
-              <span class="ml-2">&#9733;</span>
-              <span class="rating-value">...</span>
-            </p>
-          </div>
+        <div class="flex gap-4 flex-wrap">
+          <a
+  href="tutorial.html"
+  class="inline-block border border-black rounded px-6 py-1 bg-[#363f56] hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 text-center"
+>
+  Tutorial
+</a>
 
-          <div class="flex gap-4 flex-wrap">
-            <button
-              id="tutorial-btn"
-              class="border border-black rounded px-6 py-1"
-            >
-              Tutorial
-            </button>
-            <button class="border border-black rounded px-6 py-1">Share</button>
-            <button
-              id="rules-btn"
-              class="border border-black rounded px-6 py-1"
-            >
-              Rules
-            </button>
-            <button class="border border-black rounded px-6 py-1">
-              <i class="fa-solid fa-bookmark m-2 text-gray-500"></i>Bookmarks
-            </button>
+          <button id="shareBtn" class="border border-black rounded px-6 py-1 bg-[#363f56]">Share</button>
+          <div id="share-links" class="hidden flex items-center gap-2 mt-2">
+            <a id="share-facebook" title="Share on Facebook"
+               class="p-2 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+               target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-facebook text-2xl"></i>
+              <span class="sr-only">Share on Facebook</span>
+            </a>
+            <a id="share-twitter" title="Share on Twitter"
+               class="p-2 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+               target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-twitter text-2xl"></i>
+              <span class="sr-only">Share on Twitter</span>
+            </a>
           </div>
+          
+          <button id="rules-btn" class="border border-black rounded px-6 py-1 bg-[#363f56]">Rules</button>
+          <button class=" bookmark-btn border border-black rounded px-6 py-1 bg-[#363f56]">
+            <i class="fa-solid fa-bookmark m-2 text-white"></i>Bookmarks
+          </button>
         </div>
       </div>
       <div class="py-10 lg:px-20">
@@ -113,19 +109,25 @@
             </div>
           </div>
 
-          <div class="flex flex-col gap-6 max-w-[40%] left-6">
-            <h2 class="text-4xl font-extrabold text-gray-500">About Game</h2>
-            <p id="detailed-description">
-              Loading detailed game description...
-            </p>
-          </div>
+        <div class="flex flex-col gap-6 max-w-[40%] left-6">
+          <h2 class="text-4xl font-extrabold text-[#F1647A] drop-shadow-md">About Game</h2>
+          <p id="detailed-description">
+            Loading detailed game description...
+          </p>
         </div>
 
-        <!--Strategy-->
-        <div class="strategy gap-4 m-6">
-          <!--Puzzle card-->
-          <div
-            class="inline-flex items-center mr-6 bg-white rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]"
+      <!--Strategy-->
+      <div class="strategy gap-4 m-6">
+        <!--Puzzle card-->
+        <div
+          class="inline-flex items-center mr-6 bg-[#2f364A] rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]"
+        >
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 76 76"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <svg
               width="40"
@@ -142,9 +144,16 @@
             <div class="whitespace-nowrap">Puzzle Games</div>
           </div>
 
-          <!--Strategy card-->
-          <div
-            class="inline-flex items-center mr-6 bg-white rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]"
+        <!--Strategy card-->
+        <div
+          class="inline-flex items-center mr-6 bg-[#2f364A] rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]"
+        >
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 77 77"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <svg
               width="40"
@@ -178,9 +187,16 @@
             <div class="whitespace-nowrap">Strategy Games</div>
           </div>
 
-          <!--Co-op card-->
-          <div
-            class="inline-flex items-center bg-white rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]"
+        <!--Co-op card-->
+        <div
+          class="inline-flex items-center bg-[#2f364A] rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]"
+        >
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 76 76"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <svg
               width="40"
@@ -198,16 +214,74 @@
           </div>
         </div>
 
-        <!--Comments-->
-        <div class="comments p-4">
-          <h1
-            class="text-6xl font-extrabold text-gray-500 gap-4 font-sans p-4 text-center"
+      <!--Suggested games-->
+      <div class="continue-l p-6">
+        <h2 class="text-4xl mt-10 font-Inter mb-4 font-bold text-[#F1647A] drop-shadow-md">Suggested Games</h2>
+       
+        <!--Scrollable div-->
+        <div class="flex overflow-x-auto gap-6 pb-4">
+         <!--Card One-->
+          
+           <div class="flex gap-6">
+             <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+         </div>
+         
+         <!--Card Two-->
+         <div class="flex gap-6">
+          <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+      </div>
+        <!--Card Three-->
+        <div class="flex gap-6">
+          <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+      </div>
+         <!--Card Four-->
+         <div class="flex gap-6">
+          <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+      </div>
+         <!--Card Five-->
+         <div class="flex gap-6">
+          <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+      </div>
+        <!--Card Six-->
+        <div class="flex gap-6">
+          <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+      </div>
+      <!--Card Seven-->
+      <div class="flex gap-6">
+        <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+    </div>
+      <!--Card eight-->
+      <div class="flex gap-6">
+        <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+    </div>
+      <!--Card nine-->
+      <div class="flex gap-6">
+        <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+    </div>
+      <!--Card ten-->
+      <div class="flex gap-6">
+        <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
+    </div>
+       </div>
+       </div>
+               
+
+      <!--Comments-->
+      <div class="comments p-4">
+        <h1
+          class="text-6xl font-extrabold text-[#F1647A] drop-shadow-md gap-4 font-sans p-4 text-center"
+        >
+          Comments
+        </h1>
+        <div class="grid grid-cols-4 gap-4">
+          <div
+            class="row-span-2 bg-[#F1647A] drop-shadow-md border border-black rounded-2xl p-4 flex flex-col justify-between"
           >
             Comments
           </h1>
           <div class="grid grid-cols-4 gap-4">
             <div
-              class="row-span-2 bg-white border border-black rounded-2xl p-4 flex flex-col justify-between"
+              class="border border-black rounded-2xl p-3 flex flex-col h-full flex-grow bg-[#f1a7b2] text-gray-900"
             >
               <div
                 class="border border-black rounded-2xl p-3 flex flex-col h-full flex-grow"
@@ -381,32 +455,150 @@
           <div class="flex justify-between items-center p-4 border-b">
             <h3 class="text-lg font-semibold">Game Rules</h3>
             <button
-              id="close-pdf-modal"
-              class="text-gray-500 hover:text-gray-700"
+              class="mt-4 self-center w-[70%] px-6 py-3 flex items-center gap-2 bg-[#F1647A]  border border-black rounded-lg justify-center"
             >
-              <i class="fas fa-times text-xl"></i>
+              <i class="fas fa-comment-dots text-3xl text-white"></i><span>comments</span>
             </button>
           </div>
-          <div class="p-4 h-[80vh] overflow-hidden">
-            <iframe
-              id="pdf-viewer"
-              src=""
-              class="w-full h-full border-0"
-            ></iframe>
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
+            <p class="flex items-center gap-2 mb-2">
+              <img
+                src="https://i.pravatar.cc/20?img=1"
+                alt="User Avatar"
+                class="w-[76px] h-[74px] rounded-full bg-white border border-black"
+              />CthulhuFan93
+            </p>
+            <p>
+              Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius
+              natoque penatibus et magnis dis parturient montes, nascetur
+              ridiculus mus.
+            </p>
           </div>
-          <div class="flex gap-4 p-4 border-t bg-gray-50">
-            <button
-              id="download-pdf"
-              class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-              <i class="fas fa-download mr-2"></i>Download PDF
-            </button>
-            <button
-              id="close-pdf-modal-btn"
-              class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-            >
-              Close
-            </button>
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
+            <p class="flex items-center gap-2 mb-2">
+              <img
+                src="https://i.pravatar.cc/20?img=2"
+                alt="User Avatar"
+                class="w-[76px] h-[74px] rounded-full bg-white border border-black"
+              />User_Name
+            </p>
+            <p>
+              Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius
+              natoque penatibus et magnis dis parturient montes, nascetur
+              ridiculus mus.
+            </p>
+          </div>
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
+            <p class="flex items-center gap-2 mb-2">
+              <img
+                src="https://i.pravatar.cc/20?img=3"
+                alt="User Avatar"
+                class="w-[76px] h-[74px] rounded-full bg-white border border-black"
+              />User_Name
+            </p>
+            <p>
+              Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius
+              natoque penatibus et magnis dis parturient montes, nascetur
+              ridiculus mus.
+            </p>
+          </div>
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
+            <p class="flex items-center gap-2 mb-2">
+              <img
+                src="https://i.pravatar.cc/20?img=4"
+                alt="User Avatar"
+                class="w-[76px] h-[74px] rounded-full bg-white border border-black"
+              />User_Name
+            </p>
+            <p>
+              Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius
+              natoque penatibus et magnis dis parturient montes, nascetur
+              ridiculus mus.
+            </p>
+          </div>
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
+            <p class="flex items-center gap-2 mb-2">
+              <img
+                src="https://i.pravatar.cc/20?img=5"
+                alt="User Avatar"
+                class="w-[76px] h-[74px] rounded-full bg-white border border-black"
+              />User_Name
+            </p>
+            <p>
+              Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius
+              natoque penatibus et magnis dis parturient montes, nascetur
+              ridiculus mus.
+            </p>
+          </div>
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
+            <p class="flex items-center gap-2 mb-2">
+              <img
+                src="https://i.pravatar.cc/20?img=6"
+                alt="User Avatar"
+                class="w-[76px] h-[74px] rounded-full bg-white border border-black"
+              />User_Name
+            </p>
+            <p>
+              Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius
+              natoque penatibus et magnis dis parturient montes, nascetur
+              ridiculus mus.
+            </p>
+          </div>
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
+            <p class="flex items-center gap-2 mb-2">
+              <img
+                src="https://i.pravatar.cc/20?img=7"
+                alt="User Avatar"
+                class="w-[76px] h-[74px] rounded-full bg-white border border-black"
+              />User_Name
+            </p>
+            <p>
+              Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius
+              natoque penatibus et magnis dis parturient montes, nascetur
+              ridiculus mus.
+            </p>
+          </div>
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
+            <p class="flex items-center gap-2 mb-2">
+              <img
+                src="https://i.pravatar.cc/20?img=8"
+                alt="User Avatar"
+                class="w-[76px] h-[74px] rounded-full bg-white border border-black"
+              />User_Name
+            </p>
+            <p>
+              Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius
+              natoque penatibus et magnis dis parturient montes, nascetur
+              ridiculus mus.
+            </p>
+          </div>
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
+            <p class="flex items-center gap-2 mb-2">
+              <img
+                src="https://i.pravatar.cc/20?img=9"
+                alt="User Avatar"
+                class="w-[76px] h-[74px] rounded-full bg-white border border-black"
+              />User_Name
+            </p>
+            <p>
+              Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius
+              natoque penatibus et magnis dis parturient montes, nascetur
+              ridiculus mus.
+            </p>
+          </div>
+          <div class="bg-[#1A1F2C] border border-[#F1647A] rounded-2xl p-4">
+            <p class="flex items-center gap-2 mb-2">
+              <img
+                src="https://i.pravatar.cc/20?img=10"
+                alt="User Avatar"
+                class="w-[76px] h-[74px] rounded-full bg-white border border-black"
+              />User_Name
+            </p>
+            <p>
+              Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius
+              natoque penatibus et magnis dis parturient montes, nascetur
+              ridiculus mus.
+            </p>
           </div>
         </div>
       </div>

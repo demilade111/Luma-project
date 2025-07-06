@@ -746,7 +746,7 @@ function createHomeGameCard(game) {
 
   return `
     <div class="relative cursor-pointer home-game-card" data-game-id="${game.id}">
-      <div class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"></div>
+      <div class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"></div>
       <div class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10" 
            style="background-image: url('${imageUrl}');">
         <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 rounded-b-[30px]">
@@ -805,3 +805,46 @@ document.addEventListener("DOMContentLoaded", function () {
     setupHomePage();
   }
 });
+
+ // SHARE GAME DETAILS FUNCTIONALITY
+ document.addEventListener("DOMContentLoaded", () => {
+   const shareBtn = document.getElementById("shareBtn");
+   const links = document.getElementById("share-links");
+   const fb = document.getElementById("share-facebook");
+   const tw = document.getElementById("share-twitter");
+
+   const url = encodeURIComponent(window.location.href);
+   const title = encodeURIComponent(document.title);
+   const text = encodeURIComponent(
+     document.querySelector("#game-description")?.innerText || ""
+   );
+
+   // Fallback share URLs
+   fb.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+   tw.href = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+
+   shareBtn.addEventListener("click", async () => {
+     if (navigator.share) {
+       try {
+         await navigator.share({
+           title: document.title,
+           text: text,
+           url: window.location.href,
+         });
+       } catch (err) {
+         console.error("Share failed:", err);
+       }
+     } else {
+       links.classList.toggle("hidden");
+     }
+   });
+ });
+
+ // BOOKMARK FUNCTIONALITY
+ document.getElementById(`DOMContentLoad`, () => {
+   const btn = document.getElementById(`tutorialPage`);
+   btn.addEventListener(`click`, () =>{
+    window.location.href = `tutorial.html`;
+   });
+ });
+
