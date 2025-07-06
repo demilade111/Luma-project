@@ -1,9 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./views/**/*.{html,js}",
-    "./src/**/*.{html,js}",
-    "./components/**/*.{html,js}",
+    // "./views/**/*.{html,js}",
+    // "./src/**/*.{html,js}",
+    // "./components/**/*.{html,js}",
+    // "./index.html",
   ],
   safelist: [
     "bg-[#1A1F2C]",

@@ -746,7 +746,7 @@ function createHomeGameCard(game) {
 
   return `
     <div class="relative cursor-pointer home-game-card" data-game-id="${game.id}">
-      <div class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"></div>
+      <div class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"></div>
       <div class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10" 
            style="background-image: url('${imageUrl}');">
         <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 rounded-b-[30px]">
