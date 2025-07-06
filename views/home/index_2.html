@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expandable Sidebar Menu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="h-screen flex bg-gray-100">
+
+  <!-- Left Icon Sidebar -->
+<div class="fixed top-0 left-0 h-full w-16 bg-white shadow-md flex flex-col items-center py-4 z-30">
+  <button onclick="toggleDrawer()" class="mb-6 hover:text-blue-600">🏠</button>
+</div>
+
+<!-- Left Drawer Panel -->
+<div id="drawer"
+  class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-40">
+  <div class="p-4">
+    <h2 class="font-bold text-lg mb-4">Menu</h2>
+    <ul class="space-y-2">
+      <li><a href="#" class="block px-2 py-1 hover:bg-gray-200 rounded">Dashboard</a></li>
+      <li><a href="#" class="block px-2 py-1 hover:bg-gray-200 rounded">Analytics</a></li>
+      <li><a href="#" class="block px-2 py-1 hover:bg-gray-200 rounded">Settings</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Optional backdrop -->
+<div id="backdrop" 
+     class="fixed inset-0 bg-black bg-opacity-40 hidden z-30"
+     onclick="toggleDrawer()"></div>
+
+<!-- Main Content -->
+<div class="flex-1 p-6 overflow-y-auto ml-16" id="main-content">
+  <!-- your main content here -->
+</div>
+
+<script>
+  const drawer = document.getElementById('drawer');
+  const backdrop = document.getElementById('backdrop');
+  let drawerOpen = false;
+
+  function toggleDrawer() {
+    drawerOpen = !drawerOpen;
+    if (drawerOpen) {
+      drawer.style.transform = 'translateX(0)';
+      backdrop.classList.remove('hidden');
+    } else {
+      drawer.style.transform = 'translateX(-100%)';
+      backdrop.classList.add('hidden');
+    }
+  }
+</script>
+
+</body>
+
+</html>
