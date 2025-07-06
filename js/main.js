@@ -323,17 +323,16 @@ function createGameCard(game) {
          data-game-id="${gameId}" 
          data-game-data='${JSON.stringify(game).replace(/'/g, "&apos;")}'>
       <div class="w-48 h-48 border rounded-2xl shrink-0 overflow-hidden bg-gray-100">
-        ${
-          image
-            ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover" 
+        ${image
+      ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover" 
                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
            <div class="w-full h-full flex items-center justify-center text-gray-400" style="display:none;">
              <i class="fas fa-dice text-3xl"></i>
            </div>`
-            : `<div class="w-full h-full flex items-center justify-center text-gray-400">
+      : `<div class="w-full h-full flex items-center justify-center text-gray-400">
              <i class="fas fa-dice text-3xl"></i>
            </div>`
-        }
+    }
       </div>
       
       <div class="p-4 flex flex-col justify-between items-start flex-1">
@@ -347,20 +346,19 @@ function createGameCard(game) {
             ${truncatedDescription}
           </p>
           
-          ${
-            categories.length > 0
-              ? `<div class="flex flex-wrap gap-1 mb-3">
+          ${categories.length > 0
+      ? `<div class="flex flex-wrap gap-1 mb-3">
               ${categories
-                .slice(0, 3)
-                .map(
-                  (cat) =>
-                    `<span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
+        .slice(0, 3)
+        .map(
+          (cat) =>
+            `<span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
                        data-category="${cat}">${cat}</span>`
-                )
-                .join("")}
+        )
+        .join("")}
             </div>`
-              : ""
-          }
+      : ""
+    }
           
           <div class="flex items-center gap-6 text-sm text-gray-600">
             <div class="flex items-center gap-1">
@@ -369,25 +367,22 @@ function createGameCard(game) {
             </div>
             <div class="flex items-center gap-1">
               <i class="fas fa-users"></i>
-              <span>${minPlayers}${
-    maxPlayers !== minPlayers ? `-${maxPlayers}` : ""
-  }</span>
+              <span>${minPlayers}${maxPlayers !== minPlayers ? `-${maxPlayers}` : ""
+    }</span>
             </div>
-            ${
-              rating !== "?"
-                ? `<div class="flex items-center gap-1">
+            ${rating !== "?"
+      ? `<div class="flex items-center gap-1">
                 <i class="fas fa-star text-yellow-400"></i>
                 <span>${rating}</span>
               </div>`
-                : ""
-            }
-            ${
-              age !== "?"
-                ? `<div class="border border-gray-400 rounded-full px-2 py-1">
+      : ""
+    }
+            ${age !== "?"
+      ? `<div class="border border-gray-400 rounded-full px-2 py-1">
                 <span>${age}+</span>
               </div>`
-                : ""
-            }
+      : ""
+    }
           </div>
         </div>
       </div>
@@ -537,7 +532,7 @@ function loadGameDetails() {
   if (document.querySelector(".age-value")) {
     document.querySelector(".age-value").textContent = game.age
       ? `${game.age}+`
-      : "?";
+      : "N/A";
   }
   if (document.querySelector(".rating-value")) {
     document.querySelector(".rating-value").textContent = game.rating
@@ -806,45 +801,45 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
- // SHARE GAME DETAILS FUNCTIONALITY
- document.addEventListener("DOMContentLoaded", () => {
-   const shareBtn = document.getElementById("shareBtn");
-   const links = document.getElementById("share-links");
-   const fb = document.getElementById("share-facebook");
-   const tw = document.getElementById("share-twitter");
+// SHARE GAME DETAILS FUNCTIONALITY
+document.addEventListener("DOMContentLoaded", () => {
+  const shareBtn = document.getElementById("shareBtn");
+  const links = document.getElementById("share-links");
+  const fb = document.getElementById("share-facebook");
+  const tw = document.getElementById("share-twitter");
 
-   const url = encodeURIComponent(window.location.href);
-   const title = encodeURIComponent(document.title);
-   const text = encodeURIComponent(
-     document.querySelector("#game-description")?.innerText || ""
-   );
+  const url = encodeURIComponent(window.location.href);
+  const title = encodeURIComponent(document.title);
+  const text = encodeURIComponent(
+    document.querySelector("#game-description")?.innerText || ""
+  );
 
-   // Fallback share URLs
-   fb.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-   tw.href = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+  // Fallback share URLs
+  fb.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+  tw.href = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
 
-   shareBtn.addEventListener("click", async () => {
-     if (navigator.share) {
-       try {
-         await navigator.share({
-           title: document.title,
-           text: text,
-           url: window.location.href,
-         });
-       } catch (err) {
-         console.error("Share failed:", err);
-       }
-     } else {
-       links.classList.toggle("hidden");
-     }
-   });
- });
+  shareBtn.addEventListener("click", async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          text: text,
+          url: window.location.href,
+        });
+      } catch (err) {
+        console.error("Share failed:", err);
+      }
+    } else {
+      links.classList.toggle("hidden");
+    }
+  });
+});
 
- // BOOKMARK FUNCTIONALITY
- document.getElementById(`DOMContentLoad`, () => {
-   const btn = document.getElementById(`tutorialPage`);
-   btn.addEventListener(`click`, () =>{
+// BOOKMARK FUNCTIONALITY
+document.getElementById(`DOMContentLoad`, () => {
+  const btn = document.getElementById(`tutorialPage`);
+  btn.addEventListener(`click`, () => {
     window.location.href = `tutorial.html`;
-   });
- });
+  });
+});
 
