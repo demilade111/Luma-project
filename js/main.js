@@ -805,3 +805,46 @@ document.addEventListener("DOMContentLoaded", function () {
     setupHomePage();
   }
 });
+
+ // SHARE GAME DETAILS FUNCTIONALITY
+ document.addEventListener("DOMContentLoaded", () => {
+   const shareBtn = document.getElementById("shareBtn");
+   const links = document.getElementById("share-links");
+   const fb = document.getElementById("share-facebook");
+   const tw = document.getElementById("share-twitter");
+
+   const url = encodeURIComponent(window.location.href);
+   const title = encodeURIComponent(document.title);
+   const text = encodeURIComponent(
+     document.querySelector("#game-description")?.innerText || ""
+   );
+
+   // Fallback share URLs
+   fb.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+   tw.href = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+
+   shareBtn.addEventListener("click", async () => {
+     if (navigator.share) {
+       try {
+         await navigator.share({
+           title: document.title,
+           text: text,
+           url: window.location.href,
+         });
+       } catch (err) {
+         console.error("Share failed:", err);
+       }
+     } else {
+       links.classList.toggle("hidden");
+     }
+   });
+ });
+
+ // BOOKMARK FUNCTIONALITY
+ document.getElementById(`DOMContentLoad`, () => {
+   const btn = document.getElementById(`tutorialPage`);
+   btn.addEventListener(`click`, () =>{
+    window.location.href = `tutorial.html`;
+   });
+ });
+
