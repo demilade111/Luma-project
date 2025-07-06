@@ -746,7 +746,7 @@ function createHomeGameCard(game) {
 
   return `
     <div class="relative cursor-pointer home-game-card" data-game-id="${game.id}">
-      <div class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"></div>
+      <div class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"></div>
       <div class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10" 
            style="background-image: url('${imageUrl}');">
         <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 rounded-b-[30px]">
@@ -848,3 +848,35 @@ document.addEventListener("DOMContentLoaded", function () {
    });
  });
 
+
+ //Loading Games in the Continue Learning boxes
+ async function resistance(){
+  try {
+    const resp = await fetch("./data/top-games.json");
+    const games = await resp.json();
+
+    const game = games.find(g => g.name === "The Resistance");
+    if (!game) {
+      console.warn("The Resistance was not found in JSON");
+      return;
+    }
+    //adding image of the game in the box
+    const divBox = document.querySelector(".resistance-box");
+    divBox.innerHTML =`<img src="${game.thumbnail}" alt="${game.name}" class="w-full h-full object-cover rounded-2xl"/>`;
+
+    //adding description
+    const desc = document.getElementById("resistance-desc");
+    desc.textContent = game.description || "No description available";
+
+    //Tutorial button
+    const tutorialBtn = document.getElementById("resistance-tutorial");
+    tutorialBtn.addEventListener("click", () => {
+      if (game.rulebook) window.open(game.rulebook, "_blank");
+    });
+
+  }
+  catch (err) {
+    console.error("failed to load game:", err)
+  }
+ }
+ document.addEventListener("DOMContentLoaded", resistance);
