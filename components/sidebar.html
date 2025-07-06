@@ -1,30 +1,35 @@
-<button
-  id="sidebar-toggle"
-  class="fixed text-left cursor-pointer z-50 p-5"
-  aria-label="Open menu"
-  type="button"
->
-  <img
-    src="../../src/asset/images/Luma - Icon 1.png"
-    alt="Luma"
-    class="w-10 h-10 object-contain"
-  />
-</button>
-
 <aside
   id="sidebar"
-  class="fixed top-0 left-0 z-40 hidden h-screen w-[90px] bg-[#1A1F2C] flex-shrink-0 sm:flex flex-col justify-between items-center py-6 sidebar-shadow"
+  class="fixed top-0 left-0 z-40 h-screen w-[90px] bg-[#1A1F2C] flex flex-col items-center py-3 sidebar-shadow"
   aria-label="Sidebar"
 >
-  <!-- <nav class="flex flex-col items-center space-y-10 mb-6">
-    <a href="#" class="text-gray-400 hover:text-white">
-      <i class="fa-regular fa-bookmark fa-lg"></i>
-    </a>
-    <a href="#" class="text-gray-400 hover:text-white">
-      <i class="fa-regular fa-comment fa-lg"></i>
-    </a>
-    <a href="#" class="text-gray-400 hover:text-white">
-      <i class="fa-regular fa-heart fa-lg"></i>
-    </a>
-  </nav> -->
+  <button 
+    id="sidebar-button"
+    class="cursor-pointer p-5"
+    aria-label="Open menu"
+    type="button"
+  >
+    <img
+      src="../../src/asset/images/Luma - Icon 1.png"
+      alt="Luma"
+      class="w-10 h-10 object-contain"
+    />
+  </button>
 </aside>
+
+<div
+  id="leftDrawer"
+  class="fixed top-0 left-0 h-screen w-[300px] bg-[#1A1F2C] z-50 transform -translate-x-full transition-transform duration-300 shadow-xl"
+>
+  <!-- Drawer content -->
+  <div class="p-6 text-white flex justify-between items-center">
+    <h2 class="text-lg font-semibold">Sidebar Panel</h2>
+    <button id="closeDrawerBtn" class="text-white text-2xl leading-none">&times;</button>
+  </div>
+  <div class="p-6 text-white">
+    <p>This is a drawer opened from the button.</p>
+  </div>
+</div>
+
+<script type="module" src="/js/sidebar.js"></script>
+
