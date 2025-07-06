@@ -532,7 +532,7 @@ function loadGameDetails() {
   if (document.querySelector(".age-value")) {
     document.querySelector(".age-value").textContent = game.age
       ? `${game.age}+`
-      : "?";
+      : "N/A";
   }
   if (document.querySelector(".rating-value")) {
     document.querySelector(".rating-value").textContent = game.rating

@@ -2061,6 +2061,9 @@
   .border-blue-400 {
     border-color: var(--color-blue-400);
   }
+  .border-gray-200 {
+    border-color: var(--color-gray-200);
+  }
   .border-gray-300 {
     border-color: var(--color-gray-300);
   }
@@ -2510,6 +2513,9 @@
   }
   .text-\[40px\] {
     font-size: 40px;
+  }
+  .text-\[42px\] {
+    font-size: 42px;
   }
   .text-\[64px\] {
     font-size: 64px;
