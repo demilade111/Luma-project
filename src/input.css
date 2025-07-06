@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .scroll-container::-webkit-scrollbar {
   display: none;
@@ -21,4 +23,8 @@ body {
 .sidebar-shadow {
   box-shadow: 3.276px 6.427px 6.049px 0px rgba(0, 5, 16, 0.7),
     -3.276px -6.427px 6.049px 0px rgba(46, 51, 62, 0.7);
+}
+
+.luma-gradient-bg {
+  background: linear-gradient(269deg, #f59275 24.95%, #f1647a 87.01%);
 }
