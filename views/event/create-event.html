@@ -371,9 +371,11 @@
           comments.forEach((comment) => {
             const div = document.createElement("div");
             div.className = "bg-[#23283a] rounded-lg p-3 text-white";
-            const userLabel = comment.userEmail
-              ? `<span class='font-bold'>${comment.userEmail}:</span> `
-              : "";
+            const user =
+              comment.userName ||
+              comment.userEmail?.split("@")[0] ||
+              "Anonymous";
+            const userLabel = `<span class='font-bold'>${user}:</span> `;
             div.innerHTML = `${userLabel}${comment.text}`;
             commentsList.appendChild(div);
           });

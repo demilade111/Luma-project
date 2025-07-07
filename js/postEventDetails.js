@@ -123,7 +123,9 @@ function setupComments() {
     }
 
     comments.forEach((comment) => {
-      const user = comment.userEmail || comment.userName || "Anonymous";
+      // Prioritize userName, then userEmail, then fallback to Anonymous
+      const user =
+        comment.userName || comment.userEmail?.split("@")[0] || "Anonymous";
       const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
         user
       )}&background=random`;

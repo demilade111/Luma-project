@@ -10,14 +10,40 @@ import {
   doc,
   updateDoc,
   runTransaction,
+  getDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 // Add a comment to Firestore for a specific event, and update event doc with latest 3 comments and count
 export async function postComment(eventId, text) {
   if (!text || !eventId) return;
-  // Add comment to subcollection
+
+  // Get current user
+  const user = auth.currentUser;
+  if (!user) {
+    throw new Error("User must be logged in to post comments");
+  }
+
+  // Get user data from Firestore
+  let userName = user.displayName || user.email?.split("@")[0] || "Anonymous";
+  let userEmail = user.email;
+
+  try {
+    // Try to get username from users collection
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      userName = userData.username || userName;
+    }
+  } catch (error) {
+    console.log("Could not fetch user data, using fallback name");
+  }
+
+  // Add comment to subcollection with user info
   await addDoc(collection(db, "events", eventId, "comments"), {
     text,
+    userId: user.uid,
+    userEmail: userEmail,
+    userName: userName,
     createdAt: serverTimestamp(),
   });
 
@@ -35,9 +61,12 @@ export async function postComment(eventId, text) {
       id: doc.id,
       ...doc.data(),
     }));
-    const latestComments = allComments
-      .slice(0, 3)
-      .map((c) => ({ text: c.text, createdAt: c.createdAt }));
+    const latestComments = allComments.slice(0, 3).map((c) => ({
+      text: c.text,
+      userName: c.userName || "Anonymous",
+      userEmail: c.userEmail,
+      createdAt: c.createdAt,
+    }));
     const commentsCount = allComments.length;
     await transaction.update(eventRef, {
       comments: latestComments.length > 0 ? latestComments : null,

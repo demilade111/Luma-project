@@ -646,5 +646,28 @@
       import { initAuthGuard } from "../../js/auth/authGuard.js";
       initAuthGuard();
     </script>
+
+    <!-- Temporary Migration Script -->
+    <script type="module">
+      import { migrateComments } from "../../js/migrateComments.js";
+
+      // Add migration button (temporary)
+      setTimeout(() => {
+        const migrationBtn = document.createElement("button");
+        migrationBtn.textContent = "Migrate Comments (Admin)";
+        migrationBtn.className =
+          "fixed top-4 right-4 bg-red-500 text-white px-4 py-2 rounded z-50";
+        migrationBtn.onclick = () => {
+          if (
+            confirm(
+              "Run comment migration? This will update existing comments with user information."
+            )
+          ) {
+            migrateComments();
+          }
+        };
+        document.body.appendChild(migrationBtn);
+      }, 2000);
+    </script>
   </body>
 </html>
