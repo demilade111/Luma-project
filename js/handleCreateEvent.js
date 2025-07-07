@@ -261,4 +261,4 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("click", handleCreateEvent);
 
   loadGoogleMapsScript(); // load Google Maps AFTER window.initAutocomplete is defined
-});
+});s
