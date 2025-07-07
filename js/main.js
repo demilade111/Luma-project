@@ -118,6 +118,7 @@ async function loadGames() {
     }
 
     allGamesData = result.games;
+    console.log(allGamesData)
     currentPage = 1;
     console.log(`✅ Loaded ${allGamesData.length} games`);
 
@@ -543,7 +544,7 @@ function loadGameDetails() {
   // Update designers
   if (game.designers && game.designers.length > 0) {
     document.getElementById("designers-list").innerHTML = game.designers
-      .map((designer) => `<p class="text-custom-gray text-2xl">${designer}</p>`)
+      .map((designer) => `<p class="text-base text-gray-400">${designer}</p>`)
       .join("");
   } else {
     document.getElementById("designers-list").innerHTML =
@@ -552,9 +553,10 @@ function loadGameDetails() {
 
   // Update publishers
   if (game.publishers && game.publishers.length > 0) {
+    console.log(game)
     document.getElementById("publishers-list").innerHTML = game.publishers
       .map(
-        (publisher) => `<p class="text-custom-gray text-2xl">${publisher}</p>`
+        (publisher) => `<p class="text-base text-gray-400">${publisher}</p>`
       )
       .join("");
   } else {
@@ -567,7 +569,7 @@ function loadGameDetails() {
     document.getElementById("categories-list").innerHTML = game.categories
       .map(
         (category) =>
-          `<span class="inline-block px-3 py-1 mr-2 mb-2 text-sm bg-blue-100 text-blue-700 rounded-full">${category}</span>`
+          `<span style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)" class="inline-flex items-center mr-6 bg-[#2F364A] rounded-xl p-3 border text-gray-200 border-gray-700 gap-3 w-fit whitespace-nowrap min-w-[140px] justify-center">${category}</span>`
       )
       .join("");
   } else {
