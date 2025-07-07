@@ -1,291 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Luma | Home</title>
+    <title>Luma | Event</title>
 
     <!-- Tailwind CSS -->
     <link href="../../src/output.css" rel="stylesheet" />
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
 
-<body class="bg-gray-100">
+  <body class="bg-[#0F111C] text-white">
     <!-- Sidebar -->
     <div data-component="sidebar"></div>
 
-    <!-- Header with Navbar and Hero -->
-    <header class="relative bg-white">
-        <div data-component="navbar"></div>
+    <!-- Navbar -->
+    <header class="relative bg-[#0F111C]">
+      <div data-component="navbar"></div>
     </header>
 
     <!-- Main Content -->
     <div class="flex-1 flex flex-col min-h-screen ml-20">
-        <main class="flex-1 p-4 md:p-10">
+      <main class="flex-1 p-4 md:p-10">
+        <!-- Event Details Section (unchanged) -->
+        <section class="mb-[90px]">
+          <div class="flex gap-10 mb-16">
+            <div class="w-[40%] flex justify-center items-start">
+              <img
+                id="eventImage"
+                src=""
+                alt="Card Image"
+                class="w-full max-w-[649px] aspect-square object-contain rounded-4xl"
+              />
+            </div>
+            <div class="w-[60%] flex flex-col justify-evenly px-2">
+              <h1
+                id="eventName"
+                class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white leading-tight mb-1"
+              ></h1>
+              <div class="flex flex-col gap-2">
+                <div id="eventStartTime"></div>
+                <div id="eventEndTime"></div>
+                <div id="eventLocation"></div>
+              </div>
+              <div class="flex flex-col gap-2">
+                <span class="text-white text-lg font-semibold">Capacity:</span>
+                <span class="text-base text-white" id="eventCapacity"></span>
+              </div>
+            </div>
+          </div>
+        </section>
 
-            <!-- Popular Events Section -->
-            <section class="mb-[90px]">
-                <div class="flex gap-10 mb-16">
-                    <div class="w-[40%] flex justify-center items-start">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAokAAAKJCAYAAADX17MhAAAAAXNSR0IArs4c6QAAIABJREFUeF7t3QeT5MaRBtChPOW9I+W9d///H8hQhvKG8pT33l3kxGGjF0R3AjO5y9nMhwiGdMfqauTLVuy3BRTw2Oc///n/XTkIECBAgAABAgQInAg8JiT6PRAgQIAAAQIECKwFhES/CQIECBAgQIAAgecICIl+FAQIECBAgAABAkKi3wABAgQIECBAgEAuYCUxNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFdxd45StfefWKV7zi6uUvf/nVi170outy//73v1/99re/vfrLX/5SWv5b3/rWq1e96lXXc/7vf/+7+t73vnf9n0eOl770pVevfvWrr+K847N/+9vfrv/505/+dHiuI997V8Y+9thjV695zWuu+/X4449fxf/9z3/+87pXf/7zn6/+8Y9/lJ7qu9/97qsXv/jF934XP/7xjw/PH7+v6Fmc77///e/rfv31r38t/30dPjEfIECgVEBILOU0GYHnT+B1r3vd1Tvf+c57wfDcmfzud7+7+v73v3/rE42Q8IEPfOC+eb70pS9d/fe//03njvD6wQ9+8DpknDsiMEaw/clPfnIdRDoeb3/7268iaEcwPHeEZ/TrD3/4w60J3vGOd1y9+c1vvjfPf/7zn6unnnpq17wRDN/3vvfdC5hbH4o+/fKXv7z6+c9/vmtOgwgQuNsCQuLd7o+zI7BLIALXsqK35wOxUvWNb3zjxuHrhS984dUnP/nJqxe84AWHQ2KEy/e///0Xg9HppBGS4lxjNbTLEX4f//jH00B/Wm8E5h/84Ac3JoiV2g996EP3fX5vSHzb2952FYF27xG9+vrXvz5iJXiviXEEHkUBIfFR7JpzJnAi8N73vvcqVhGPHnE585vf/ObRj12P//CHP3x9SXt9ZCuJb3zjG6/e9a53Hf7OWFWM0NEhKMaqYQTEl7zkJYcdfvrTn149++yzhz8XYf5Tn/rUc0L9npB409/Xv/71r6uvfOUrh8/VBwgQuDsCQuLd6YUzIXBYIC4dxiXE9REBMC5Pxj9xSff1r3/99T1k6+Nb3/rW9X1vR463vOUtV08++eTmRy6FxAhHn/70p58TVCIAxv2HcR4xZrnfbf0FERCf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BAgQINBHQEjs00uVECBAgAABAgTKBITEMkoTESBAgAABAgT6CAiJfXqpEgIECBAgQIBAmYCQWEZpIgIECBAgQIBAHwEhsU8vVUKAAAECBAgQKBMQEssoTUSAAAECBAgQ6CMgJPbppUoIECBAgAABAmUCQmIZpYkIECBAgAABAn0EhMQ+vVQJAQIECBAgQKBMQEgsozQRAQIECBAgQKCPgJDYp5cqIUCAAAECBAiUCQiJZZQmIkCAAAECBAj0ERAS+/RSJQQIECBAgACBMgEhsYzSRAQIECBAgACBPgJCYp9eqoQAAQIECBAgUCYgJJZRmogAAQIECBAg0EdASOzTS5UQIECAAAECBMoEhMQyShMRIECAAAECBPoICIl9eqkSAgQIECBAgECZgJBYRmkiAgQIECBAgEAfASGxTy9VQoAAAQIECBAoExASyyhNRIAAAQIECBDoIyAk9umlSggQIECAAAECZQJCYhmliQgQIECAAAECfQSExD69VAkBAgQIECBAoExASCyjNBEBAgQIECBAoI+AkNinlyohQIAAAQIECJQJCIlllCYiQIAAAQIECPQREBL79FIlBAgQIECAAIEyASGxjNJEBAgQIECAAIE+AkJin16qhAABAgQIECBQJiAkllGaiAABAgQIECDQR0BI7NNLlRAgQIAAAQIEygSExDJKExEgQIAAAQIE+ggIiX16qRICBAgQIECAQJmAkFhGaSICBAgQIECAQB8BIbFPL1VCgAABAgQIECgTEBLLKE1EgAABAgQIEOgjICT26aVKCBAgQIAAAQJlAkJiGaWJCBAgQIAAAQJ9BITEPr1UCQECBAgQIECgTEBILKM0EQECBAgQIECgj4CQ2KeXKiFAgAABAgQIlAkIiWWUJiJAgAABAgQI9BEQEvv0UiUECBAgQIAAgTIBIbGM0kQECBAgQIAAgT4CQmKfXqqEAAECBAgQIFAmICSWUZqIAAECBAgQINBHQEjs00uVECBAgAABAgTKBITEMkoTESBAgAABAgT6CAiJfXqpEgIECBAgQIBAmYCQWEZpIgIECBAgQIBAHwEhsU8vVUKAAAECBAgQKBMQEssoTUSAAAECBAgQ6CMgJPbppUoIECBAgAABAmUCQmIZpYkIECBAgAABAn0EhMQ+vVQJAQIECBAgQKBMQEgsozQRAQIECBAgQKCPgJDYp5cqIUCAAAECBAiUCQiJZZQmIkCAAAECBAj0ERAS+/RSJQQIECBAgACBMgEhsYzSRAQIECBAgACBPgJCYp9eqoQAAQIECBAgUCYgJJZRmogAAQIECBAg0EdASOzTS5UQIECAAAECBMoEhMQyShMRIECAAAECBPoICIl9eqkSAgQIECBAgECZgJBYRmkiAgQIECBAgEAfASGxTy9VQoAAAQIECBAoExASyyhNRIAAAQIECBDoIyAk9umlSggQIECAAAECZQJCYhmliQgQIECAAAECfQSExD69VAkBAgQIECBAoExASCyjNBEBAgQIECBAoI+AkNinlyohQIAAAQIECJQJCIlllCYiQIAAAQIECPQREBL79FIlBAgQIECAAIEyASGxjNJEBAgQIECAAIE+AkJin16qhAABAgQIECBQJiAkllGaiAABAgQIECDQR0BI7NNLlRAgQIAAAQIEygSExDJKExEgQIAAAQIE+ggIiX16qRICBAgQIECAQJmAkFhGaSICBAgQIECAQB8BIbFPL1VCgAABAgQIECgTEBLLKE1EgAABAgQIEOgjICT26aVKCBAgQIAAAQJlAkJiGaWJCBAgQIAAAQJ9BITEPr1UCQECBAgQIECgTEBILKM0EQECBAgQIECgj4CQ2KeXKiFAgAABAgQIlAkIiWWUJiJAgAABAgQI9BEQEvv0UiUECBAgQIAAgTIBIbGM0kQECBAgQIAAgT4CQmKfXqqEAAECBAgQIFAmICSWUZqIAAECBAgQINBHQEjs00uVECBAgAABAgTKBITEMkoTESBAgAABAgT6CAiJfXqpEgIECBAgQIBAmYCQWEZpIgIECBAgQIBAHwEhsU8vVUKAAAECBAgQKBMQEssoTUSAAAECBAgQ6CMgJPbppUoIECBAgAABAmUCQmIZpYkIECBAgAABAn0EhMQ+vVQJAQIECBAgQKBMQEgsozQRAQIECBAgQKCPgJDYp5cqIUCAAAECBAiUCQiJZZQmIkCAAAECBAj0ERAS+/RSJQQIECBAgACBMgEhsYzSRAQIECBAgACBPgJCYp9eqoQAAQIECBAgUCYgJJZRmogAAQIECBAg0EdASOzTS5UQIECAAAECBMoEhMQyShMRIECAAAECBPoICIl9eqkSAgQIECBAgECZgJBYRmkiAgQIECBAgEAfASGxTy9VQoAAAQIECBAoExASyyhNRIAAAQIECBDoIyAk9umlSggQIECAAAECZQJCYhmliQgQIECAAAECfQSExD69VAkBAgQIECBAoExASCyjNBEBAgQIECBAoI+AkNinlyohQIAAAQIECJQJCIlllCYiQIAAAQIECPQREBL79FIlBAgQIECAAIEyASGxjNJEBAgQIECAAIE+AkJin16qhAABAgQIECBQJiAkllGaiAABAgQIECDQR0BI7NNLlRAgQIAAAQIEygSExDJKExEgQIAAAQIE+ggIiX16qRICBAgQIECAQJmAkFhGaSICBAgQIECAQB8BIbFPL1VCgAABAgQIECgTEBLLKE1EgAABAgQIEOgjICT26aVKCBAgQIAAAQJlAkJiGaWJCBAgQIAAAQJ9BITEPr1UCQECBAgQIECgTEBILKM0EQECBAgQIECgj4CQ2KeXKiFAgAABAgQIlAkIiWWUJiJAgAABAgQI9BEQEvv0UiUECBAgQIAAgTIBIbGM0kQECBAgQIAAgT4CQmKfXqqEAAECBAgQIFAmICSWUZqIAAECBAgQINBHQEjs00uVECBAgAABAgTKBITEMkoTESBAgAABAgT6CAiJfXqpEgIECBAgQIBAmYCQWEZpIgIECBAgQIBAHwEhsU8vVUKAAAECBAgQKBMQEssoTUSAAAECBAgQ6CMgJPbppUoIECBAgAABAmUCQmIZpYkIECBAgAABAn0EhMQ+vVQJAQIECBAgQKBMQEgsozQRAQIECBAgQKCPgJDYp5cqIUCAAAECBAiUCQiJZZQmIkCAAAECBAj0ERAS+/RSJQQIECBAgACBMgEhsYzSRAQIECBAgACBPgJCYp9eqoQAAQIECBAgUCYgJJZRmogAAQIECBAg0EdASOzTS5UQIECAAAECBMoEhMQyShMRIECAAAECBPoICIl9eqkSAgQIECBAgECZgJBYRmkiAgQIECBAgEAfASGxTy9VQoAAAQIECBAoExASyyhNRIAAAQIECBDoIyAk9umlSggQIECAAAECZQJCYhmliQgQIECAAAECfQSExD69VAkBAgQIECBAoExASCyjNBEBAgQIECBAoI+AkNinlyohQIAAAQIECJQJCIlllCYiQIAAAQIECPQREBL79FIlBAgQIECAAIEyASGxjNJEBAgQIECAAIE+AkJin16qhAABAgQIECBQJiAkllGaiAABAgQIECDQR0BI7NNLlRAgQIAAAQIEygSExDJKExEgQIAAAQIE+ggIiX16qRICBAgQIECAQJmAkFhGaSICBAgQIECAQB8BIbFPL1VCgAABAgQIECgTEBLLKE1EgAABAgQIEOgjICT26aVKCBAgQIAAAQJlAkJiGaWJCBAgQIAAAQJ9BITEPr1UCQECBAgQIECgTEBILKM0EQECBAgQIECgj4CQ2KeXKiFAgAABAgQIlAkIiWWUJiJAgAABAgQI9BEQEvv0UiUECBAgQIAAgTIBIbGM0kQECBAgQIAAgT4CQmKfXqqEAAECBAgQIFAmICSWUZqIAAECBAgQINBHQEjs00uVECBAgAABAgTKBITEMkoTESBAgAABAgT6CAiJfXqpEgIECBAgQIBAmYCQWEZpIgIECBAgQIBAHwEhsU8vVUKAAAECBAgQKBMQEssoTUSAAAECBAgQ6CMgJPbppUoIECBAgAABAmUCQmIZpYkIECBAgAABAn0EhMQ+vVQJAQIECBAgQKBMQEgsozQRAQIECBAgQKCPgJDYp5cqIUCAAAECBAiUCQiJZZQmIkCAAAECBAj0ERAS+/RSJQQIECBAgACBMgEhsYzSRAQIECBAgACBPgJCYp9eqoQAAQIECBAgUCYgJJZRmogAAQIECBAg0EdASOzTS5UQIECAAAECBMoEhMQyShMRIECAAAECBPoICIl9eqkSAgQIECBAgECZgJBYRmkiAgQIECBAgEAfASGxTy9VQoAAAQIECBAoExASyyhNRIAAAQIECBDoIyAk9umlSggQIECAAAECZQJCYhmliQgQIECAAAECfQSExD69VAkBAgQIECBAoExASCyjNBEBAgQIECBAoI+AkNinlyohQIAAAQIECJQJCIlllCYiQIAAAQIECPQREBL79FIlBAgQIECAAIEyASGxjNJEBAgQIECAAIE+AkJin16qhAABAgQIECBQJiAkllGaiAABAgQIECDQR0BI7NNLlRAgQIAAAQIEygSExDJKExEgQIAAAQIE+ggIiX16qRICBAgQIECAQJmAkFhGaSICBAgQIECAQB8BIbFPL1VCgAABAgQIECgTEBLLKE1EgAABAgQIEOgjICT26aVKCBAgQIAAAQJlAkJiGaWJCBAgQIAAAQJ9BITEPr1UCQECBAgQIECgTEBILKM0EQECBAgQIECgj4CQ2KeXKiFAgAABAgQIlAkIiWWUJiJAgAABAgQI9BEQEvv0UiUECBAgQIAAgTIBIbGM0kQECBAgQIAAgT4CQmKfXqqEAAECBAgQIFAmICSWUZqIAAECBAgQINBHQEjs00uVECBAgAABAgTKBITEMkoTESBAgAABAgT6CAiJfXqpEgIECBAgQIBAmYCQWEZpIgIECBAgQIBAHwEhsU8vVUKAAAECBAgQKBMQEssoTUSAAAECBAgQ6CMgJPbppUoIECBAgAABAmUCQmIZpYkIECBAgAABAn0EhMQ+vVQJAQIECBAgQKBMQEgsozQRAQIECBAgQKCPgJDYp5cqIUCAAAECBAiUCQiJZZQmIkCAAAECBAj0ERAS+/RSJQQIECBAgACBMgEhsYzSRAQIECBAgACBPgJCYp9eqoQAAQIECBAgUCYgJJZRmogAAQIECBAg0EdASOzTS5UQIECAAAECBMoEhMQyShMRIECAAAECBPoICIl9eqkSAgQIECBAgECZgJBYRmkiAgQIECBAgEAfASGxTy9VQoAAAQIECBAoExASyyhNRIAAAQIECBDoIyAk9umlSggQIECAAAECZQJCYhmliQgQIECAAAECfQSExD69VAkBAgQIECBAoExASCyjNBEBAgQIECBAoI+AkNinlyohQIAAAQIECJQJCIlllCYiQIAAAQIECPQREBL79FIlBAgQIECAAIEyASGxjNJEBAgQIECAAIE+AkJin16qhAABAgQIECBQJiAkllGaiAABAgQIECDQR0BI7NNLlRAgQIAAAQIEygSExDJKExEgQIAAAQIE+ggIiX16qRICBAgQIECAQJmAkFhGaSICBAgQIECAQB8BIbFPL1VCgAABAgQIECgTEBLLKE1EgAABAgQIEOgjICT26aVKCBAgQIAAAQJlAkJiGaWJCBAgQIAAAQJ9BITEPr1UCQECBAgQIECgTEBILKM0EQECBAgQIECgj4CQ2KeXKiFAgAABAgQIlAkIiWWUJiJAgAABAgQI9BEQEvv0UiUECBAgQIAAgTIBIbGM0kQECBAgQIAAgT4CQmKfXqqEAAECBAgQIFAmICSWUZqIAAECBAgQINBHQEjs00uVECBAgAABAgTKBITEMkoTESBAgAABAgT6CAiJfXqpEgIECBAgQIBAmYCQWEZpIgIECBAgQIBAHwEhsU8vVUKAAAECBAgQKBMQEssoTUSAAAECBAgQ6CMgJPbppUoIECBAgAABAmUC/wdCjwaElSVNlgAAAABJRU5ErkJggg=="
-                            alt="Card Image" class="w-full max-w-[649px] aspect-square object-contain rounded-4xl" />
-                    </div>
-                    <div class="w-[60%] flex flex-col justify-evenly px-2">
-                        <h1
-                            class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#5E5E5E] leading-tight mb-1">
-                            Cthulhu Mythos Themed Board Game Night
-                        </h1>
+        <!-- About Section (unchanged) -->
+        <section class="mb-[90px]">
+          <div class="flex gap-10 mb-16">
+            <div class="w-[40%] flex flex-col justify-start gap-6">
+              <div class="flex flex-col">
+                <span class="text-gray-500 text-lg font-semibold">Hosted by</span>
+                <span class="text-base text-[#5E5E5E]" id="eventHost"></span>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-gray-500 text-lg font-semibold">36 people are going</span>
+                <span class="text-base text-[#5E5E5E]">Valentina, Amandeep and 34 others</span>
+              </div>
+              <div class="flex flex-col mb-5">
+                <span class="text-base text-[#5E5E5E]">Contact the host</span>
+                <span class="text-base text-[#5E5E5E]">Report the event</span>
+              </div>
+              <div class="w-full">
+                <img
+                  src="../../src/asset/images/map.png"
+                  alt="Card Image"
+                  class="w-full h-64 md:h-80 lg:h-96 object-cover rounded-4xl border border-gray-500"
+                />
+              </div>
+            </div>
+            <div class="w-[60%] flex flex-col px-2">
+              <h1 class="text-2xl font-bold text-white leading-tight mb-3">About Event</h1>
+              <div class="flex flex-col gap-2">
+                <p
+                  class="text-base text-white leading-relaxed"
+                  id="eventDescription"
+                ></p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-                        <div class="flex flex-col gap-2">
-                            <div class="flex items-center overflow-hidden">
-                                <div class="border border-gray-500 w-12 h-12 bg-gray-100 rounded-xl"></div>
-                                <div class="ml-4 flex flex-col justify-between">
-                                    <div class="text-base text-gray-500 space-y-1">
-                                        <p class="font-bold">Sunday, June 1</p>
-                                        <p>6:00 PM - 9:30 PM PDT</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center overflow-hidden">
-                                <div class="border border-gray-500 w-12 h-12 bg-gray-100 rounded-xl"></div>
-                                <div class="ml-4 flex flex-col justify-between">
-                                    <div class="text-base text-gray-500 space-y-1">
-                                        <p class="font-bold">Langara Collage Library</p>
-                                        <p>Vancouver, British Columbia</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap text-gray-500 gap-2">
-                            <button
-                                class="bg-white rounded-2xl text-gray-500 py-1 sm:py-2 md:py-3 lg:py-4 xl:py-5 hover:text-white px-10 border border-gray-500 hover:border-transparent">Register</button>
-                            <button
-                                class="bg-white rounded-2xl text-gray-500 py-1 sm:py-2 md:py-3 lg:py-4 xl:py-5 hover:text-white px-10 border border-gray-500 hover:border-transparent">Share</button>
-                            <button
-                                class="bg-white rounded-2xl text-gray-500 py-1 sm:py-2 md:py-3 lg:py-4 xl:py-5 hover:text-white px-10 border border-gray-500 hover:border-transparent">Calendar</button>
-                        </div>
-                    </div>
+        <!-- Comments Section -->
+        <section>
+          <div class="max-w-7xl mx-auto">
+            <h2
+              class="text-[40px] font-extrabold text-center mb-10"
+              style="
+                background: linear-gradient(269deg, #f59275 24.95%, #f1647a 87.01%);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+              "
+            >
+              Comments
+            </h2>
+
+            <!-- Shared grid: comment input + comments -->
+            <div id="commentGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <!-- Comment Input -->
+              <div class="bg-gradient-to-b from-[#F59275] to-[#F1647A] p-[3px] rounded-2xl h-full">
+                <div class="bg-[#1A1A2E] rounded-[16px] p-5 h-full flex flex-col justify-between">
+                  <textarea
+                    id="commentInput"
+                    placeholder="I'm really looking forward to the community aspect of this event!
+There's nothing better than sharing Lovecraft's chilling tales with fellow fans."
+                    class="bg-[#2E2E48] text-white rounded-lg p-4 resize-none h-48 focus:outline-none mb-4"
+                  ></textarea>
+                  <button
+                    id="postCommentBtn"
+                    class="bg-gradient-to-r from-[#FF8E53] to-[#FE6B8B] text-white font-semibold px-6 py-3 rounded-full shadow-md"
+                  >
+                    Comment
+                  </button>
                 </div>
-            </section>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
 
-            <section class="mb-[90px]">
-                <div class="flex gap-10 mb-16">
-                    <div class="w-[40%] flex flex-col justify-start gap-6">
-                        <div class="flex flex-col">
-                            <span class="text-gray-500 text-lg font-semibold">Hosted by</span>
-                            <span class="text-base text-[#5E5E5E]">Author Name</span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-gray-500 text-lg font-semibold">36 people are going</span>
-                            <span class="text-base text-[#5E5E5E]">Valentina, Amandeep and 34 others</span>
-                        </div>
-                        <div class="flex flex-col mb-5">
-                            <span class="text-base text-[#5E5E5E]">Contact the host</span>
-                            <span class="text-base text-[#5E5E5E]">Report the event</span>
-                        </div>
-                        <div class="w-full">
-                            <img src="../../src/asset/images/map.png"
-                                alt="Card Image"
-                                class="w-full h-64 md:h-80 lg:h-96 object-cover rounded-4xl border border-gray-500" />
-                        </div>
-                    </div>
-                    <div class="w-[60%] flex flex-col px-2">
-                        <h1 class="text-2xl font-bold text-[#5E5E5E] leading-tight mb-3">
-                            About Events
-                        </h1>
-                        <div class="flex flex-col gap-2">
-                            <p class="text-base text-gray-600 leading-relaxed">
-                                Suspendisse potenti. Sed ut iaculis nulla. Donec non lectus non libero interdum vehicula. Aliquam lorem urna, interdum vitae ex quis, rhoncus pharetra risus. Aliquam sit amet viverra quam. Aenean eget commodo erat, nec vehicula ipsum. Nullam auctor diam felis, in consectetur neque accumsan in. Nulla a lorem ut magna tincidunt sagittis quis vel augue. Integer tristique eleifend neque et consectetur. psum. Nullam auctor diam felis, in consectetur neque accumsan in. Nulla a lorem ut magna tincidunt sagittis quis vel augue. Integer tristique eleifend neque et consectetur. Mauris in nunc at ipsum tempor cursus. Etiam nisl magna. psum. Nullam auctor diam felis, in consectetur neque accumsan in. Nulla a lorem ut magna tincidunt sagittis quis vel augue. Integer tristique eleifend neque et consectetur. Mauris in nunc at ipsum tempor cursus. Etiam nisl magna Mauris in nunc at ipsum tempor cursus. Etiam nisl magna, luctus id metus sed, blandit pulvinar risus. Morbi at enim orci. Proin in rhoncus nibh. Donec eu eros ex. Quisque eleifend bibendum nisl, vel maximus est convallis in. Nulla ipsum urna, faucibus eu blandit sed, finibus in nibh.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section>
-                <h1 class="text-4xl font-nunito font-bold mb-12 text-[#5E5E5E] text-center">Comments</h1>
-                <div class="grid grid-cols-4 grid-rows-3 gap-4">
-                    <div class="row-span-2 bg-white rounded-2xl p-5 border w-full flex flex-col">
-
-                    </div>
-
-                    <!-- card 1 -->
-                    <div class="col-start-2 row-start-1 bg-white rounded-2xl p-5 border w-full flex flex-col gap-4">
-                        <!-- Header: Avatar + Name -->
-                        <div class="flex items-center gap-4">
-                            <div class="h-20 w-20 rounded-full border border-gray-600 bg-gray-100"></div>
-                            <div class="text-lg font-semibold whitespace-nowrap">User_Name 1</div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="text-base text-gray-600 leading-relaxed">
-                            <p>
-                                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius natoque penatibus et
-                                magnis
-                                dis parturient montes, nascetur ridiculus mus.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- card 2 -->
-                    <div class="col-start-3 row-start-1 bg-white rounded-2xl p-5 border w-full flex flex-col gap-4">
-                        <!-- Header: Avatar + Name -->
-                        <div class="flex items-center gap-4">
-                            <div class="h-20 w-20 rounded-full border border-gray-600 bg-gray-100"></div>
-                            <div class="text-lg font-semibold whitespace-nowrap">User_Name 2</div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="text-base text-gray-600 leading-relaxed">
-                            <p>
-                                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius natoque penatibus.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- card 3 -->
-                    <div class="col-start-4 row-start-1 bg-white rounded-2xl p-5 border w-full flex flex-col gap-4">
-                        <!-- Header: Avatar + Name -->
-                        <div class="flex items-center gap-4">
-                            <div class="h-20 w-20 rounded-full border border-gray-600 bg-gray-100"></div>
-                            <div class="text-lg font-semibold whitespace-nowrap">User_Name 3</div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="text-base text-gray-600 leading-relaxed">
-                            <p>
-                                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius natoque penatibus.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- card 4 -->
-                    <div class="col-start-2 row-start-2 bg-white rounded-2xl p-5 border w-full flex flex-col gap-4">
-                        <!-- Header: Avatar + Name -->
-                        <div class="flex items-center gap-4">
-                            <div class="h-20 w-20 rounded-full border border-gray-600 bg-gray-100"></div>
-                            <div class="text-lg font-semibold whitespace-nowrap">User_Name 4</div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="text-base text-gray-600 leading-relaxed">
-                            <p>
-                                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius natoque penatibus.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- card 5 -->
-                    <div class="col-start-3 row-start-2 bg-white rounded-2xl p-5 border w-full flex flex-col gap-4">
-                        <!-- Header: Avatar + Name -->
-                        <div class="flex items-center gap-4">
-                            <div class="h-20 w-20 rounded-full border border-gray-600 bg-gray-100"></div>
-                            <div class="text-lg font-semibold whitespace-nowrap">User_Name 5</div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="text-base text-gray-600 leading-relaxed">
-                            <p>
-                                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius natoque penatibus.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- card 6 -->
-                    <div class="col-start-4 row-start-2 bg-white rounded-2xl p-5 border w-full flex flex-col gap-4">
-                        <!-- Header: Avatar + Name -->
-                        <div class="flex items-center gap-4">
-                            <div class="h-20 w-20 rounded-full border border-gray-600 bg-gray-100"></div>
-                            <div class="text-lg font-semibold whitespace-nowrap">User_Name 6</div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="text-base text-gray-600 leading-relaxed">
-                            <p>
-                                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius natoque penatibus.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- card 7 -->
-                    <div class="row-start-3 bg-white rounded-2xl p-5 border w-full flex flex-col gap-4">
-                        <!-- Header: Avatar + Name -->
-                        <div class="flex items-center gap-4">
-                            <div class="h-20 w-20 rounded-full border border-gray-600 bg-gray-100"></div>
-                            <div class="text-lg font-semibold whitespace-nowrap">User_Name 7</div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="text-base text-gray-600 leading-relaxed">
-                            <p>
-                                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius natoque penatibus.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- card 8 -->
-                    <div class="row-start-3 bg-white rounded-2xl p-5 border w-full flex flex-col gap-4">
-                        <!-- Header: Avatar + Name -->
-                        <div class="flex items-center gap-4">
-                            <div class="h-20 w-20 rounded-full border border-gray-600 bg-gray-100"></div>
-                            <div class="text-lg font-semibold whitespace-nowrap">User_Name 8</div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="text-base text-gray-600 leading-relaxed">
-                            <p>
-                                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius natoque penatibus.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- card 9 -->
-                    <div class="row-start-3 bg-white rounded-2xl p-5 border w-full flex flex-col gap-4">
-                        <!-- Header: Avatar + Name -->
-                        <div class="flex items-center gap-4">
-                            <div class="h-20 w-20 rounded-full border border-gray-600 bg-gray-100"></div>
-                            <div class="text-lg font-semibold whitespace-nowrap">User_Name 9</div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="text-base text-gray-600 leading-relaxed">
-                            <p>
-                                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius natoque penatibus.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- card 9 -->
-                    <div class="row-start-3 bg-white rounded-2xl p-5 border w-full flex flex-col gap-4">
-                        <!-- Header: Avatar + Name -->
-                        <div class="flex items-center gap-4">
-                            <div class="h-20 w-20 rounded-full border border-gray-600 bg-gray-100"></div>
-                            <div class="text-lg font-semibold whitespace-nowrap">User_Name 10</div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="text-base text-gray-600 leading-relaxed">
-                            <p>
-                                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci varius natoque penatibus.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </main>
-
-        <!-- Footer -->
-        <div data-component="footer"></div>
+      <!-- Footer -->
+      <div data-component="footer"></div>
     </div>
 
     <!-- Scripts -->
     <script src="../../js/inject.js" defer></script>
     <script src="../../js/main.js" defer></script>
     <script src="../../js/hero-carousel.js" defer></script>
-</body>
-
+    <script type="module" src="../../js/postEventDetails.js"></script>
+  </body>
 </html>
