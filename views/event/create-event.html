@@ -1,128 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Luma | Home</title>
 
     <!-- Tailwind CSS -->
-    <link href="../../src/output.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      .scroll-container::-webkit-scrollbar {
+        display: none;
+      }
+
+      .scroll-container {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      body {
+        background: var(--background-color, #1a1f2c);
+      }
+
+      .luma-gradient {
+        background: linear-gradient(269deg, #f59275 24.95%, #f1647a 87.01%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .sidebar-shadow {
+        box-shadow: 3.276px 6.427px 6.049px 0px rgba(0, 5, 16, 0.7),
+          -3.276px -6.427px 6.049px 0px rgba(46, 51, 62, 0.7);
+      }
+
+      .luma-gradient-bg {
+        background: linear-gradient(269deg, #f59275 24.95%, #f1647a 87.01%);
+      }
+
+      .tag {
+        background-color: #334155;
+        color: #f1f5f9;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .tag button {
+        margin-left: 0.5rem;
+        background: none;
+        border: none;
+        color: #f1f5f9;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .radio-group input[type="radio"] {
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #e5e7eb;
+        border-radius: 9999px;
+        outline: none;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .radio-group input[type="radio"]:checked::before {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 8px;
+        height: 8px;
+        background-color: white;
+        border-radius: 9999px;
+      }
+    </style>
+
+    <!-- Google Fonts - Nunito -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
 
-<body class="bg-gray-100">
-    <!-- Sidebar -->
+  <body>
     <div data-component="sidebar"></div>
+    <header class="relative bg-white"></header>
 
-    <!-- Header with Navbar and Hero -->
-    <header class="relative bg-white">
-        <!-- <div data-component="navbar"></div> -->
-    </header>
-
-    <!-- Main Content -->
-    <main class="flex-1 p-4 md:p-10">
-        <div class="flex-1 flex flex-col min-h-screen ml-20">
-            <div class="flex gap-10 mb-16">
-                <div class="w-[40%] flex justify-center items-center">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAokAAAKJCAYAAADX17MhAAAAAXNSR0IArs4c6QAAIABJREFUeF7t3QeT5MaRBtChPOW9I+W9d///H8hQhvKG8pT33l3kxGGjF0R3AjO5y9nMhwiGdMfqauTLVuy3BRTw2Oc///n/XTkIECBAgAABAgQInAg8JiT6PRAgQIAAAQIECKwFhES/CQIECBAgQIAAgecICIl+FAQIECBAgAABAkKi3wABAgQIECBAgEAuYCUxNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFEyBAgAABAgRyASExNzKCAAECBAgQIDBOQEgc13IFdxd45StfefWKV7zi6uUvf/nVi170outy//73v1/99re/vfrLX/5SWv5b3/rWq1e96lXXc/7vf/+7+t73vnf9n0eOl770pVevfvWrr+K847N/+9vfrv/505/+dHiuI997V8Y+9thjV695zWuu+/X4449fxf/9z3/+87pXf/7zn6/+8Y9/lJ7qu9/97qsXv/jF934XP/7xjw/PH7+v6Fmc77///e/rfv31r38t/30dPjEfIECgVEBILOU0GYHnT+B1r3vd1Tvf+c57wfDcmfzud7+7+v73v3/rE42Q8IEPfOC+eb70pS9d/fe//03njvD6wQ9+8DpknDsiMEaw/clPfnIdRDoeb3/7268iaEcwPHeEZ/TrD3/4w60J3vGOd1y9+c1vvjfPf/7zn6unnnpq17wRDN/3vvfdC5hbH4o+/fKXv7z6+c9/vmtOgwgQuNsCQuLd7o+zI7BLIALXsqK35wOxUvWNb3zjxuHrhS984dUnP/nJqxe84AWHQ2KEy/e///0Xg9HppBGS4lxjNbTLEX4f//jH00B/Wm8E5h/84Ac3JoiV2g996EP3fX5vSHzb2952FYF27xG9+vrXvz5iJXiviXEEHkUBIfFR7JpzJnAi8N73vvcqVhGPHnE585vf/ObRj12P//CHP3x9SXt9ZCuJb3zjG6/e9a53Hf7OWFWM0NEhKMaqYQTEl7zkJYcdfvrTn149++yzhz8XYf5Tn/rUc0L9npB409/Xv/71r6uvfOUrh8/VBwgQuDsCQuLd6YUzIXBYIC4dxiXE9REBMC5Pxj9xSff1r3/99T1k6+Nb3/rW9X1vR463vOUtV08++eTmRy6FxAhHn/70p58TVCIAxv2HcR4xZrnfbf0FERCf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BAgQINBHQEjs00uVECBAgAABAgTKBITEMkoTESBAgAABAgT6CAiJfXqpEgIECBAgQIBAmYCQWEZpIgIECBAgQIBAHwEhsU8vVUKAAAECBAgQKBMQEssoTUSAAAECBAgQ6CMgJPbppUoIECBAgAABAmUCQmIZpYkIECBAgAABAn0EhMQ+vVQJAQIECBAgQKBMQEgsozQRAQIECBAgQKCPgJDYp5cqIUCAAAECBAiUCQiJZZQmIkCAAAECBAj0ERAS+/RSJQQIECBAgACBMgEhsYzSRAQIECBAgACBPgJCYp9eqoQAAQIECBAgUCYgJJZRmogAAQIECBAg0EdASOzTS5UQIECAAAECBMoEhMQyShMRIECAAAECBPoICIl9eqkSAgQIECBAgECZgJBYRmkiAgQIECBAgEAfASGxTy9VQoAAAQIECBAoExASyyhNRIAAAQIECBDoIyAk9umlSggQIECAAAECZQJCYhmliQgQIECAAAECfQSExD69VAkBAgQIECBAoExASCyjNBEBAgQIECBAoI+AkNinlyohQIAAAQIECJQJCIlllCYiQIAAAQIECPQREBL79FIlBAgQIECAAIEyASGxjNJEBAgQIECAAIE+AkJin16qhAABAgQIECBQJiAkllGaiAABAgQIECDQR0BI7NNLlRAgQIAAAQIEygSExDJKExEgQIAAAQIE+ggIiX16qRICBAgQIECAQJmAkFhGaSICBAgQIECAQB8BIbFPL1VCgAABAgQIECgTEBLLKE1EgAABAgQIEOgjICT26aVKCBAgQIAAAQJlAkJiGaWJCBAgQIAAAQJ9BITEPr1UCQECBAgQIECgTEBILKM0EQECBAgQIECgj4CQ2KeXKiFAgAABAgQIlAkIiWWUJiJAgAABAgQI9BEQEvv0UiUECBAgQIAAgTIBIbGM0kQECBAgQIAAgT4CQmKfXqqEAAECBAgQIFAmICSWUZqIAAECBAgQINBHQEjs00uVECBAgAABAgTKBITEMkoTESBAgAABAgT6CAiJfXqpEgIECBAgQIBAmYCQWEZpIgIECBAgQIBAHwEhsU8vVUKAAAECBAgQKBMQEssoTUSAAAECBAgQ6CMgJPbppUoIECBAgAABAmUCQmIZpYkIECBAgAABAn0EhMQ+vVQJAQIECBAgQKBMQEgsozQRAQIECBAgQKCPgJDYp5cqIUCAAAECBAiUCQiJZZQmIkCAAAECBAj0ERAS+/RSJQQIECBAgACBMgEhsYzSRAQIECBAgACBPgJCYp9eqoQAAQIECBAgUCYgJJZRmogAAQIECBAg0EdASOzTS5UQIECAAAECBMoEhMQyShMRIECAAAECBPoICIl9eqkSAgQIECBAgECZgJBYRmkiAgQIECBAgEAfASGxTy9VQoAAAQIECBAoExASyyhNRIAAAQIECBDoIyAk9umlSggQIECAAAECZQJCYhmliQgQIECAAAECfQSExD69VAkBAgQIECBAoExASCyjNBEBAgQIECBAoI+AkNinlyohQIAAAQIECJQJCIlllCYiQIAAAQIECPQREBL79FIlBAgQIECAAIEyASGxjNJEBAgQIECAAIE+AkJin16qhAABAgQIECBQJiAkllGaiAABAgQIECDQR0BI7NNLlRAgQIAAAQIEygSExDJKExEgQIAAAQIE+ggIiX16qRICBAgQIECAQJmAkFhGaSICBAgQIECAQB8BIbFPL1VCgAABAgQIECgTEBLLKE1EgAABAgQIEOgjICT26aVKCBAgQIAAAQJlAkJiGaWJCBAgQIAAAQJ9BITEPr1UCQECBAgQIECgTEBILKM0EQECBAgQIECgj4CQ2KeXKiFAgAABAgQIlAkIiWWUJiJAgAABAgQI9BEQEvv0UiUECBAgQIAAgTIBIbGM0kQECBAgQIAAgT4CQmKfXqqEAAECBAgQIFAmICSWUZqIAAECBAgQINBHQEjs00uVECBAgAABAgTKBITEMkoTESBAgAABAgT6CAiJfXqpEgIECBAgQIBAmYCQWEZpIgIECBAgQIBAHwEhsU8vVUKAAAECBAgQKBMQEssoTUSAAAECBAgQ6CMgJPbppUoIECBAgAABAmUCQmIZpYkIECBAgAABAn0EhMQ+vVQJAQIECBAgQKBMQEgsozQRAQIECBAgQKCPgJDYp5cqIUCAAAECBAiUCQiJZZQmIkCAAAECBAj0ERAS+/RSJQQIECBAgACBMgEhsYzSRAQIECBAgACBPgJCYp9eqoQAAQIECBAgUCYgJJZRmogAAQIECBAg0EdASOzTS5UQIECAAAECBMoEhMQyShMRIECAAAECBPoICIl9eqkSAgQIECBAgECZgJBYRmkiAgQIECBAgEAfASGxTy9VQoAAAQIECBAoExASyyhNRIAAAQIECBDoIyAk9umlSggQIECAAAECZQJCYhmliQgQIECAAAECfQSExD69VAkBAgQIECBAoExASCyjNBEBAgQIECBAoI+AkNinlyohQIAAAQIECJQJCIlllCYiQIAAAQIECPQREBL79FIlBAgQIECAAIEyASGxjNJEBAgQIECAAIE+AkJin16qhAABAgQIECBQJiAkllGaiAABAgQIECDQR0BI7NNLlRAgQIAAAQIEygSExDJKExEgQIAAAQIE+ggIiX16qRICBAgQIECAQJmAkFhGaSICBAgQIECAQB8BIbFPL1VCgAABAgQIECgTEBLLKE1EgAABAgQIEOgjICT26aVKCBAgQIAAAQJlAkJiGaWJCBAgQIAAAQJ9BITEPr1UCQECBAgQIECgTEBILKM0EQECBAgQIECgj4CQ2KeXKiFAgAABAgQIlAkIiWWUJiJAgAABAgQI9BEQEvv0UiUECBAgQIAAgTIBIbGM0kQECBAgQIAAgT4CQmKfXqqEAAECBAgQIFAmICSWUZqIAAECBAgQINBHQEjs00uVECBAgAABAgTKBITEMkoTESBAgAABAgT6CAiJfXqpEgIECBAgQIBAmYCQWEZpIgIECBAgQIBAHwEhsU8vVUKAAAECBAgQKBMQEssoTUSAAAECBAgQ6CMgJPbppUoIECBAgAABAmUCQmIZpYkIECBAgAABAn0EhMQ+vVQJAQIECBAgQKBMQEgsozQRAQIECBAgQKCPgJDYp5cqIUCAAAECBAiUCQiJZZQmIkCAAAECBAj0ERAS+/RSJQQIECBAgACBMgEhsYzSRAQIECBAgACBPgJCYp9eqoQAAQIECBAgUCYgJJZRmogAAQIECBAg0EdASOzTS5UQIECAAAECBMoEhMQyShMRIECAAAECBPoICIl9eqkSAgQIECBAgECZgJBYRmkiAgQIECBAgEAfASGxTy9VQoAAAQIECBAoExASyyhNRIAAAQIECBDoIyAk9umlSggQIECAAAECZQJCYhmliQgQIECAAAECfQSExD69VAkBAgQIECBAoExASCyjNBEBAgQIECBAoI+AkNinlyohQIAAAQIECJQJCIlllCYiQIAAAQIECPQREBL79FIlBAgQIECAAIEyASGxjNJEBAgQIECAAIE+AkJin16qhAABAgQIECBQJiAkllGaiAABAgQIECDQR0BI7NNLlRAgQIAAAQIEygSExDJKExEgQIAAAQIE+ggIiX16qRICBAgQIECAQJmAkFhGaSICBAgQIECAQB8BIbFPL1VCgAABAgQIECgTEBLLKE1EgAABAgQIEOgjICT26aVKCBAgQIAAAQJlAkJiGaWJCBAgQIAAAQJ9BITEPr1UCQECBAgQIECgTEBILKM0EQECBAgQIECgj4CQ2KeXKiFAgAABAgQIlAkIiWWUJiJAgAABAgQI9BEQEvv0UiUECBAgQIAAgTIBIbGM0kQECBAgQIAAgT4CQmKfXqqEAAECBAgQIFAmICSWUZqIAAECBAgQINBHQEjs00uVECBAgAABAgTKBITEMkoTESBAgAABAgT6CAiJfXqpEgIECBAgQIBAmYCQWEZpIgIECBAgQIBAHwEhsU8vVUKAAAECBAgQKBMQEssoTUSAAAECBAgQ6CMgJPbppUoIECBAgAABAmUCQmIZpYkIECBAgAABAn0EhMQ+vVQJAQIECBAgQKBMQEgsozQRAQIECBAgQKCPgJDYp5cqIUCAAAECBAiUCQiJZZQmIkCAAAECBAj0ERAS+/RSJQQIECBAgACBMgEhsYzSRAQIECBAgACBPgJCYp9eqoQAAQIECBAgUCYgJJZRmogAAQIECBAg0EdASOzTS5UQIECAAAECBMoEhMQyShMRIECAAAECBPoICIl9eqkSAgQIECBAgECZgJBYRmkiAgQIECBAgEAfASGxTy9VQoAAAQIECBAoExASyyhNRIAAAQIECBDoIyAk9umlSggQIECAAAECZQJCYhmliQgQIECAAAECfQSExD69VAkBAgQIECBAoExASCyjNBEBAgQIECBAoI+AkNinlyohQIAAAQIECJQJCIlllCYiQIAAAQIECPQREBL79FIlBAgQIECAAIEyASGxjNJEBAgQIECAAIE+AkJin16qhAABAgQIECBQJiAkllGaiAABAgQIECDQR0BI7NNLlRAgQIAAAQIEygSExDJKExEgQIAAAQIE+ggIiX16qRICBAgQIECAQJmAkFhGaSICBAgQIECAQB8BIbFPL1VCgAABAgQIECgTEBLLKE1EgAABAgQIEOgjICT26aVKCBAgQIAAAQJlAkJiGaWJCBAgQIAAAQJ9BITEPr1UCQECBAgQIECgTEBILKM0EQECBAgQIECgj4CQ2KeXKiFAgAABAgQIlAkIiWWUJiJAgAABAgQI9BEQEvv0UiUECBAgQIAAgTIBIbGM0kQECBAgQIAAgT4CQmKfXqqEAAECBAgQIFAmICSWUZqIAAECBAgQINBHQEjs00uVECBAgAABAgTKBITEMkoTESBAgAABAgT6CAiJfXqpEgIECBAgQIBAmYCQWEZpIgIECBAgQIBAHwEhsU8vVUKAAAECBAgQKBMQEssoTUSAAAECBAgQ6CMgJPbppUoIECBAgAABAmUCQmIZpYkIECBAgAABAn0EhMQ+vVQJAQIECBAgQKBMQEgsozQRAQIECBAgQKCPgJDYp5cqIUCAAAECBAiUCQiJZZQmIkCAAAECBAj0ERAS+/RSJQQIECBAgACBMgEhsYzSRAQIECBAgACBPgJCYp9eqoQAAQIECBAgUCYgJJZRmogAAQIECBAg0EdASOzTS5UQIECAAAECBMoEhMQyShMRIECAAAECBPoICIl9eqkSAgQIECBAgECZgJBYRmkiAgQIECBAgEAfASGxTy9VQoAAAQIECBAoExASyyhNRIAAAQIECBDoIyAk9umlSggQIECAAAECZQJCYhmliQgQIECAAAECfQSExD69VAkBAgQIECBAoExASCyjNBEBAgQIECBAoI+AkNinlyohQIAAAQIECJQJCIlllCYiQIAAAQIECPQREBL79FIlBAgQIECAAIEyASGxjNJEBAgQIECAAIE+AkJin16qhAABAgQIECBQJiAkllGaiAABAgQIECDQR0BI7NNLlRAgQIAAAQIEygSExDJKExEgQIAAAQIE+ggIiX16qRICBAgQIECAQJmAkFhGaSICBAgQIECAQB8BIbFPL1VCgAABAgQIECgTEBLLKE1EgAABAgQIEOgjICT26aVKCBAgQIAAAQJlAkJiGaWJCBAgQIAAAQJ9BITEPr1UCQECBAgQIECgTEBILKM0EQECBAgQIECgj4CQ2KeXKiFAgAABAgQIlAkIiWWUJiJAgAABAgQI9BEQEvv0UiUECBAgQIAAgTIBIbGM0kQECBAgQIAAgT4CQmKfXqqEAAECBAgQIFAmICSWUZqIAAECBAgQINBHQEjs00uVECBAgAABAgTKBITEMkoTESBAgAABAgT6CAiJfXqpEgIECBAgQIBAmYCQWEZpIgIECBAgQIBAHwEhsU8vVUKAAAECBAgQKBMQEssoTUSAAAECBAgQ6CMgJPbppUoIECBAgAABAmUC/wdCjwaElSVNlgAAAABJRU5ErkJggg=="
-                        alt="Card Image" class="w-full max-w-[649px] aspect-square object-contain rounded-4xl" />
-                </div>
-                <div class="w-[60%] flex flex-col justify-evenly px-2 gap-3">
-                    <!-- Event Name -->
-                    <input id="eventName" type="text" placeholder="Enter event name" style="caret-color: #e9e9e9;"
-                        class="block w-full text-gray-700 text-4xl leading-tight placeholder:text-4xl placeholder:text-[#BEBCBC] placeholder:font-bold px-4 py-6 focus:outline-none focus:bg-none" />
-
-                    <div class="flex flex-col gap-3">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-[70%] border border-gray-500 py-3 rounded-xl flex items-center justify-center bg-white h-24">
-                                <div class="flex flex-col gap-2 px-5 w-full">
-                                    <div class="flex flex-row w-full gap-2">
-                                        <!-- label 20% -->
-                                        <label
-                                            class="w-[30%] flex items-center text-gray-500 font-semibold">Start</label>
-                                        <!-- input field with placeholder and border with border radius. 40% -->
-                                        <input id="startDate"
-                                            class="w-[40%] border border-gray-300 rounded-full px-3 focus:outline-none focus:border-gray-500"
-                                            type="date" placeholder="Select date" />
-                                        <!-- input field with placeholder and border with border radius. 30% -->
-                                        <input id="startTime"
-                                            class="w-[30%] border border-gray-300 rounded-full px-3 focus:outline-none focus:border-gray-500"
-                                            type="time" placeholder="Select time" />
-                                    </div>
-                                    <div class="flex flex-row w-full gap-2">
-                                        <!-- label 20% -->
-                                        <label class="w-[30%] flex items-center text-gray-500 font-semibold">End</label>
-                                        <!-- input field with placeholder and border with border radius. 40% -->
-                                        <input id="endDate"
-                                            class="w-[40%] border border-gray-300 rounded-full px-3 focus:outline-none focus:border-gray-500"
-                                            type="date" placeholder="Select date" />
-                                        <!-- input field with placeholder and border with border radius. 30% -->
-                                        <input id="endTime"
-                                            class="w-[30%] border border-gray-300 rounded-full px-3 focus:outline-none focus:border-gray-500"
-                                            type="time" placeholder="Select time" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="w-[30%] border border-gray-500 rounded-xl flex items-center justify-center bg-white h-24">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex items-center overflow-hidden border border-gray-500 rounded-xl p-3 bg-white">
-                        <div
-                            class="border border-gray-500 w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
-                            <!-- location icon -->
-                            <i class="fas fa-map-marker-alt text-2xl text-gray-500"></i>
-                        </div>
-                        <!-- Location -->
-                        <input id="eventLocation" type="text" placeholder="Event location or virtual link"
-                            class="w-full px-4 py-3 ml-4 border rounded-lg bg-gray-100 placeholder-gray-400" />
-                    </div>
-                    <div class="flex items-center overflow-hidden border border-gray-500 rounded-xl p-3 bg-white">
-                        <div
-                            class="border border-gray-500 w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
-                            <!-- description icon -->
-                            <i class="fas fa-file-alt text-2xl text-gray-500"></i>
-                        </div>
-                        <!-- Description -->
-                        <textarea id="eventDescription" rows="3" placeholder="Description"
-                            class="w-full px-4 py-3 ml-4 border rounded-lg bg-gray-100 placeholder-gray-400"></textarea>
-                    </div>
-                    <div class="flex items-center overflow-hidden border border-gray-500 rounded-xl p-3 bg-white">
-                        <div
-                            class="border border-gray-500 w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
-                            <!-- member icon -->
-                            <i class="fas fa-user-friends text-2xl text-gray-500"></i>
-                        </div>
-                        <!-- Capacity -->
-                        <input id="eventCapacity" type="number" placeholder="Capacity"
-                            class="w-full px-4 py-3 ml-4 border rounded-lg bg-gray-100 placeholder-gray-400" />
-                    </div>
-                    <button id="createEventBtn"
-                        class="mt-3 w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-4 rounded-xl text-lg transition-colors duration-200">
-                        Create Event
-                    </button>
-                </div>
+    <div class="flex-1 flex flex-col min-h-screen ml-[90px]">
+      <main class="flex-1 p-4 md:p-20">
+        <div class="flex-1 flex flex-col min-h-screen">
+          <div class="flex gap-10 mb-16 items-stretch">
+            <!-- Image preview and file upload -->
+            <div class="w-[50%] flex justify-center items-center">
+              <div
+                class="w-full max-w-[649px] aspect-square rounded-4xl overflow-hidden cursor-pointer"
+              >
+                <img
+                  id="imagePreview"
+                  src="../../src/asset/images/event-img.png"
+                  alt="Card Image"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <input
+                type="file"
+                id="eventImage"
+                accept="image/*"
+                class="hidden"
+              />
             </div>
-        </div>
-    </main>
 
-    <!-- Footer -->
-    <div data-component="footer"></div>
+            <!-- Form inputs -->
+            <div class="w-[50%] flex flex-col justify-evenly px-2 gap-3">
+              <input
+                id="eventName"
+                type="text"
+                placeholder="Enter event name"
+                style="caret-color: #e9e9e9"
+                autocomplete="off"
+                class="block w-full text-white text-4xl leading-tight placeholder:text-4xl placeholder:font-bold placeholder-gray-400 px-4 pb-6 focus:outline-none focus:bg-none"
+              />
+
+              <div class="flex items-stretch gap-4">
+                <!-- Date and time fields -->
+                <div
+                  class="w-[70%] border border-opacity-50 py-3 rounded-xl flex items-center justify-center bg-transparent"
+                  style="box-shadow: 0 0 8px 0px rgba(255, 255, 255, 0.8)"
+                >
+                  <div class="flex flex-col gap-2 px-5 w-full">
+                    <div class="flex flex-row w-full gap-2">
+                      <label
+                        class="w-[30%] flex items-center text-gray-400 font-semibold"
+                        >Start</label
+                      >
+                      <input
+                        id="startDate"
+                        type="date"
+                        class="w-[40%] border border-gray-300 bg-gray-200 rounded-full px-3 text-black placeholder-gray-400"
+                      />
+                      <input
+                        id="startTime"
+                        type="time"
+                        class="w-[30%] border border-gray-300 bg-gray-200 rounded-full px-3 text-black placeholder-gray-400"
+                      />
+                    </div>
+                    <div class="flex flex-row w-full gap-2">
+                      <label
+                        class="w-[30%] flex items-center text-gray-400 font-semibold"
+                        >End</label
+                      >
+                      <input
+                        id="endDate"
+                        type="date"
+                        class="w-[40%] border border-gray-300 bg-gray-200 rounded-full px-3 text-black placeholder-gray-400"
+                      />
+                      <input
+                        id="endTime"
+                        type="time"
+                        class="w-[30%] border border-gray-300 bg-gray-200 rounded-full px-3 text-black placeholder-gray-400"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Timezone display -->
+                <div
+                  id="timezoneDisplay"
+                  class="w-[30%] flex flex-col justify-center items-start text-left px-5 rounded-xl py-3 text-gray-200"
+                  style="box-shadow: 0 0 8px 0px rgba(255, 255, 255, 0.8)"
+                >
+                  <div class="flex items-center gap-2">
+                    <i class="fas fa-globe text-sm"></i>
+                    <span class="text-sm font-medium">GMT</span>
+                  </div>
+                  <div class="text-sm mt-2">Timezone</div>
+                  <div class="text-sm">City</div>
+                </div>
+              </div>
+
+              <!-- Recurrence radio group -->
+              <div
+                class="radio-group flex justify-between items-center gap-4 px-6 py-3 rounded-xl text-white font-medium bg-[#2c3244]"
+                style="box-shadow: 0 0 8px 0px rgba(255, 255, 255, 0.8)"
+              >
+                <label class="flex items-center gap-2"
+                  ><input type="radio" name="recurrence" value="weekly" />
+                  Weekly</label
+                >
+                <label class="flex items-center gap-2"
+                  ><input type="radio" name="recurrence" value="monthly" />
+                  Monthly</label
+                >
+                <label class="flex items-center gap-2"
+                  ><input type="radio" name="recurrence" value="annually" />
+                  Annually</label
+                >
+                <label class="flex items-center gap-2"
+                  ><input type="radio" name="recurrence" value="custom" />
+                  Custom</label
+                >
+              </div>
+
+              <!-- Location -->
+              <div
+                style="box-shadow: 0 0 8px 0px rgba(255, 255, 255, 0.8)"
+                class="flex items-center overflow-hidden border-0 rounded-xl p-3"
+              >
+                <i class="fas fa-map-marker-alt text-2xl text-gray-200"></i>
+                <input
+                  id="eventLocation"
+                  type="text"
+                  placeholder="Add event location (offline or virtual)"
+                  class="ml-4 w-full px-4 py-3 rounded-lg text-white placeholder-gray-400 bg-transparent"
+                />
+              </div>
+
+              <!-- Description and Tags -->
+              <div class="flex gap-3">
+                <div
+                  class="w-1/2 flex items-center overflow-hidden border-0 rounded-xl p-3"
+                  style="box-shadow: 0 0 8px 0px rgba(255, 255, 255, 0.8)"
+                >
+                  <i class="fas fa-align-left text-2xl text-gray-200"></i>
+                  <input
+                    id="eventDescription"
+                    type="text"
+                    placeholder="Add Description"
+                    style="caret-color: #e9e9e9"
+                    class="ml-4 w-full px-4 py-3 rounded-lg text-white placeholder-white bg-transparent"
+                  />
+                </div>
+
+                <div
+                  class="w-1/2 flex flex-col border-0 rounded-xl px-4 py-3"
+                  style="box-shadow: 0 0 8px 0px rgba(255, 255, 255, 0.8)"
+                >
+                  <label
+                    class="flex items-center gap-3 text-white font-semibold mb-2"
+                  >
+                    <i class="fas fa-align-left text-xl"></i> Add Tags
+                  </label>
+                  <div id="tagContainer" class="flex flex-wrap"></div>
+                  <input
+                    id="tagInput"
+                    type="text"
+                    placeholder="Type and press Enter"
+                    class="mt-1 bg-transparent border-none outline-none text-white placeholder-gray-400"
+                  />
+                </div>
+              </div>
+
+              <!-- Capacity -->
+              <div
+                style="box-shadow: 0 0 8px 0px rgba(255, 255, 255, 0.8)"
+                class="flex items-center overflow-hidden py-3 rounded-xl p-3"
+              >
+                <i class="fas fa-user-friends text-lg text-gray-200"></i>
+                <input
+                  id="eventCapacity"
+                  type="number"
+                  placeholder="Capacity"
+                  style="caret-color: #e9e9e9"
+                  class="w-full px-4 py-3 ml-4 rounded-lg text-white placeholder-gray-400 bg-transparent"
+                />
+              </div>
+
+              <!-- Submit -->
+              <div class="flex gap-3">
+                <button
+                  class="mt-3 w-full bg-gray-600 hover:bg-gray-700 text-gray-300 font-medium py-4 rounded-xl text-lg transition-colors duration-200"
+                >
+                  Save as a draft
+                </button>
+                <button
+                  id="createEventBtn"
+                  class="mt-3 w-full luma-gradient-bg overlay-gradient hover:bg-gray-700 text-white font-bold py-4 rounded-xl text-lg transition-colors duration-200"
+                >
+                  Create Event
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Comment Section -->
+        <section class="max-w-3xl mx-auto mt-10">
+          <h2 class="text-2xl font-bold text-white mb-4">Comments</h2>
+          <div class="mb-4">
+            <textarea
+              id="commentInput"
+              rows="2"
+              placeholder="Write a comment..."
+              class="w-full rounded-lg p-3 bg-[#23283a] text-white placeholder-gray-400 focus:outline-none"
+            ></textarea>
+            <button
+              id="postCommentBtn"
+              class="mt-2 px-6 py-2 rounded-lg bg-gradient-to-r from-[#f59275] to-[#f1647a] text-white font-semibold"
+            >
+              Post Comment
+            </button>
+          </div>
+          <div id="commentsList" class="space-y-4"></div>
+        </section>
+      </main>
+
+      <div data-component="footer"></div>
     </div>
 
-    <!-- Scripts -->
+    <!-- App Scripts -->
     <script src="../../js/inject.js" defer></script>
     <script src="../../js/main.js" defer></script>
     <script src="../../js/hero-carousel.js" defer></script>
-
-
-    <!-- Load JS module -->
     <script type="module" src="../../js/handleCreateEvent.js"></script>
-</body>
+    <script type="module">
+      import { postComment, listenForComments } from "../../js/comment.js";
+      import { getCurrentUser } from "../../js/auth/authGuard.js";
 
+      function getEventIdFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("id");
+      }
+
+      const eventId = getEventIdFromUrl();
+      const commentInput = document.getElementById("commentInput");
+      const postCommentBtn = document.getElementById("postCommentBtn");
+      const commentsList = document.getElementById("commentsList");
+
+      if (!eventId) {
+        commentInput.disabled = true;
+        postCommentBtn.disabled = true;
+        postCommentBtn.textContent = "No Event Selected";
+        commentsList.innerHTML =
+          '<div class="text-red-400">No event selected. Comments are disabled.</div>';
+      } else {
+        postCommentBtn.addEventListener("click", async () => {
+          const text = commentInput.value.trim();
+          if (!text) return;
+          const user = getCurrentUser();
+          if (!user || !user.userId) {
+            alert("You must be signed in to post a comment.");
+            return;
+          }
+          await postComment(eventId, text);
+          commentInput.value = "";
+        });
+
+        listenForComments(eventId, (comments) => {
+          commentsList.innerHTML = "";
+          comments.forEach((comment) => {
+            const div = document.createElement("div");
+            div.className = "bg-[#23283a] rounded-lg p-3 text-white";
+            const userLabel = comment.userEmail
+              ? `<span class='font-bold'>${comment.userEmail}:</span> `
+              : "";
+            div.innerHTML = `${userLabel}${comment.text}`;
+            commentsList.appendChild(div);
+          });
+        });
+      }
+    </script>
+  </body>
 </html>

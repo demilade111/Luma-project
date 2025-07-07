@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luma | Settings</title>
+    <link href="../../src/output.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body class="bg-[#1A1F2C] text-white min-h-screen">
+    <div class="flex min-h-screen">
+      <!-- Left Sidebar -->
+      <div class="w-80 bg-[#1A1F2C] border-r border-gray-700 p-6">
+        <h1 class="text-5xl font-bold text-gray-200 mb-12">Settings</h1>
+
+        <nav class="space-y-2">
+          <a
+            href="#"
+            class="block w-full text-left px-6 py-4 rounded-2xl bg-gray-600 text-white font-medium transition-colors"
+          >
+            Edit Profile
+          </a>
+          <a
+            href="#"
+            class="block w-full text-left px-6 py-4 rounded-2xl text-gray-400 hover:bg-gray-700 hover:text-white font-medium transition-colors"
+          >
+            Account
+          </a>
+          <a
+            href="#"
+            class="block w-full text-left px-6 py-4 rounded-2xl text-gray-400 hover:bg-gray-700 hover:text-white font-medium transition-colors"
+          >
+            Subscriptions
+          </a>
+          <a
+            href="#"
+            class="block w-full text-left px-6 py-4 rounded-2xl text-gray-400 hover:bg-gray-700 hover:text-white font-medium transition-colors"
+          >
+            Notifications
+          </a>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="flex-1 p-8">
+        <div class="max-w-4xl mx-auto space-y-8">
+          <!-- Settings Options -->
+          <div class="space-y-6">
+            <!-- Setting Item 1 -->
+            <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+              <div class="flex items-center justify-between">
+                <div class="flex-1">
+                  <h3 class="text-xl font-semibold text-gray-200 mb-2">
+                    Duis libero
+                  </h3>
+                  <p class="text-gray-400 leading-relaxed">
+                    Fusce nec lectus non risus tristique dapibus. Duis
+                    ullamcorper, lacus quis congue ultrices
+                  </p>
+                </div>
+                <div class="ml-6">
+                  <label
+                    class="relative inline-flex items-center cursor-pointer"
+                  >
+                    <input type="checkbox" class="sr-only peer" checked />
+                    <div
+                      class="relative w-14 h-7 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-blue-600"
+                    ></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Setting Item 2 -->
+            <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+              <div class="flex items-center justify-between">
+                <div class="flex-1">
+                  <h3 class="text-xl font-semibold text-gray-200 mb-2">
+                    Duis libero
+                  </h3>
+                  <p class="text-gray-400 leading-relaxed">
+                    Fusce nec lectus non risus tristique dapibus. Duis
+                    ullamcorper, lacus quis congue ultrices
+                  </p>
+                </div>
+                <div class="ml-6">
+                  <label
+                    class="relative inline-flex items-center cursor-pointer"
+                  >
+                    <input type="checkbox" class="sr-only peer" checked />
+                    <div
+                      class="relative w-14 h-7 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-blue-600"
+                    ></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Setting Item 3 -->
+            <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+              <div class="flex items-center justify-between">
+                <div class="flex-1">
+                  <h3 class="text-xl font-semibold text-gray-200 mb-2">
+                    Duis libero
+                  </h3>
+                  <p class="text-gray-400 leading-relaxed">
+                    Fusce nec lectus non risus tristique dapibus. Duis
+                    ullamcorper, lacus quis congue ultrices
+                  </p>
+                </div>
+                <div class="ml-6">
+                  <label
+                    class="relative inline-flex items-center cursor-pointer"
+                  >
+                    <input type="checkbox" class="sr-only peer" checked />
+                    <div
+                      class="relative w-14 h-7 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-blue-600"
+                    ></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Add interactivity to toggle switches
+      document.querySelectorAll('input[type="checkbox"]').forEach((toggle) => {
+        toggle.addEventListener("change", function () {
+          console.log("Setting toggled:", this.checked);
+        });
+      });
+    </script>
+  </body>
+</html>

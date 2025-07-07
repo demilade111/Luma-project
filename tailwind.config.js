@@ -1,6 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./views/**/*.{html,js}", "./src/**/*.{html,js}"],
+  content: [
+    // "./views/**/*.{html,js}",
+    // "./src/**/*.{html,js}",
+    // "./components/**/*.{html,js}",
+    // "./index.html",
+  ],
+  safelist: [
+    "bg-[#1A1F2C]",
+    "bg-[#23293a]",
+    "bg-[#2F364A]",
+    "bg-[#181D2B]",
+    "bg-[#262C3D]",
+  ],
   theme: {
     extend: {
       fontFamily: {

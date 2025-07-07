@@ -1,8 +1,10 @@
+<!-- Mobile sidebar toggle button -->
 <button
   id="sidebar-toggle"
-  class="fixed text-left cursor-pointer z-50 p-5"
+  class="fixed top-6 left-6 z-50 p-2 text-white rounded-lg lg:hidden w-full"
   aria-label="Open menu"
   type="button"
+  style="background: #2a2f3c; width: 100%"
 >
   <img
     src="../../src/asset/images/Luma - Icon 1.png"
@@ -11,20 +13,148 @@
   />
 </button>
 
+<!-- Mobile sidebar overlay -->
+<div
+  id="sidebar-overlay"
+  class="fixed inset-0 z-40 bg-black bg-opacity-50 hidden lg:hidden"
+></div>
+
+<!-- Desktop Sidebar -->
 <aside
   id="sidebar"
-  class="fixed top-0 left-0 z-40 hidden h-screen w-[90px] bg-[#1A1F2C] flex-shrink-0 sm:flex flex-col justify-between items-center py-6 sidebar-shadow"
+  class="fixed top-0 left-0 z-40 flex-shrink-0 flex-col items-center hidden lg:flex transform -translate-x-full lg:translate-x-0 transition-transform duration-300 w-full"
+  style="
+    background: #1a1f2c;
+    width: 100%;
+    max-width: 80px;
+    height: 900px;
+    border: 0.8px solid rgba(255, 255, 255, 0.471);
+  "
   aria-label="Sidebar"
 >
-  <!-- <nav class="flex flex-col items-center space-y-10 mb-6">
-    <a href="#" class="text-gray-400 hover:text-white">
-      <i class="fa-regular fa-bookmark fa-lg"></i>
-    </a>
-    <a href="#" class="text-gray-400 hover:text-white">
-      <i class="fa-regular fa-comment fa-lg"></i>
-    </a>
-    <a href="#" class="text-gray-400 hover:text-white">
-      <i class="fa-regular fa-heart fa-lg"></i>
-    </a>
-  </nav> -->
+  <!-- Navigation Icons -->
+  <nav class="flex flex-col items-center space-y-3 w-full pt-6 pb-10">
+    <!-- Logo/Brand -->
+    <button
+      class="flex items-center justify-center hover:bg-gray-800 transition-all w-15 h-15 rounded-lg"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="28"
+        height="28"
+        viewBox="0 0 67 67"
+        fill="none"
+        class="w-10 h-10"
+      >
+        <path
+          d="M25.1673 41.0269C26.7541 42.3252 26.9386 44.6993 25.647 46.2573C24.9089 47.1105 23.8388 47.5927 22.8055 47.5927C21.9567 47.5927 21.1079 47.296 20.4437 46.7024L8.45021 36.6126C7.45383 35.7965 7.011 34.5724 7.15861 33.3854C7.011 32.1983 7.45383 30.9742 8.45021 30.1581L20.4437 20.0312C21.9936 18.7329 24.3185 18.9183 25.647 20.5134C26.9386 22.0714 26.7541 24.4084 25.1673 25.7438L16.0891 33.3854L25.1673 41.0269Z"
+          fill="url(#paint0_linear_483_7900)"
+        />
+        <path
+          d="M41.0358 41.0269C39.449 42.3252 39.2644 44.6993 40.556 46.2573C41.2941 47.1105 42.3643 47.5927 43.3976 47.5927C44.2463 47.5927 45.0951 47.296 45.7594 46.7024L57.7528 36.6126C58.7492 35.7965 59.1921 34.5724 59.0444 33.3854C59.1921 32.1983 58.7492 30.9742 57.7528 30.1581L45.7594 20.0312C44.2094 18.7329 41.8846 18.9183 40.556 20.5134C39.2644 22.0714 39.449 24.4084 41.0358 25.7438L50.1139 33.3854L41.0358 41.0269Z"
+          fill="url(#paint1_linear_483_7900)"
+        />
+        <defs>
+          <linearGradient
+            id="paint0_linear_483_7900"
+            x1="23.8431"
+            y1="21.7565"
+            x2="6.59576"
+            y2="22.0046"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0.129808" stop-color="#F59275" />
+            <stop offset="0.841346" stop-color="#F1647A" />
+          </linearGradient>
+          <linearGradient
+            id="paint1_linear_483_7900"
+            x1="56.4144"
+            y1="21.7565"
+            x2="39.167"
+            y2="22.0046"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0.129808" stop-color="#F59275" />
+            <stop offset="0.841346" stop-color="#F1647A" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </button>
+
+    <!-- Search -->
+    <button
+      class="w-10 h-10 flex items-center justify-center text-white hover:bg-gray-800 rounded-lg transition-all"
+    >
+      <i class="fas fa-search text-2xl"></i>
+    </button>
+
+    <!-- Crown/Premium -->
+    <button
+      class="w-10 h-10 flex items-center justify-center text-white hover:bg-gray-800 rounded-lg transition-all"
+    >
+      <i class="fas fa-crown text-2xl"></i>
+    </button>
+
+    <!-- Grid/Apps -->
+    <button
+      class="w-10 h-10 flex items-center justify-center text-white hover:bg-gray-800 rounded-lg transition-all"
+    >
+      <i class="fas fa-th text-2xl"></i>
+    </button>
+
+    <!-- Play/Video -->
+    <button
+      class="w-10 h-10 flex items-center justify-center text-white hover:bg-gray-800 rounded-lg transition-all"
+    >
+      <i class="fas fa-play text-2xl"></i>
+    </button>
+
+    <!-- Book/Help -->
+    <button
+      class="w-10 h-10 flex items-center justify-center text-white hover:bg-gray-800 rounded-lg transition-all"
+    >
+      <i class="fas fa-book text-2xl"></i>
+    </button>
+
+    <!-- Rocket/Launch -->
+    <button
+      class="w-10 h-10 flex items-center justify-center text-white hover:bg-gray-800 rounded-lg transition-all"
+    >
+      <i class="fas fa-rocket text-2xl"></i>
+    </button>
+
+    <!-- Calendar -->
+    <button
+      class="w-10 h-10 flex items-center justify-center text-white hover:bg-gray-800 rounded-lg transition-all"
+    >
+      <i class="fas fa-calendar text-2xl"></i>
+    </button>
+
+    <!-- Bell/Notifications -->
+    <button
+      class="w-10 h-10 flex items-center justify-center text-white hover:bg-gray-800 rounded-lg transition-all"
+    >
+      <i class="fas fa-bell text-2xl"></i>
+    </button>
+
+    <!-- Settings -->
+    <button
+      class="w-10 h-10 flex items-center justify-center text-white hover:bg-gray-800 rounded-lg transition-all"
+    >
+      <i class="fas fa-cog text-2xl"></i>
+    </button>
+  </nav>
+
+  <!-- Spacer to push user to bottom -->
+  <div class="flex-1"></div>
+
+  <!-- User Profile at Bottom -->
+  <div class="mt-auto pb-1">
+    <button
+      class="w-10 h-10 flex items-center justify-center text-white hover:bg-gray-800 rounded-lg transition-all"
+    >
+      <i class="fas fa-user text-2xl"></i>
+    </button>
+  </div>
 </aside>
+

@@ -13,283 +13,599 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom Styles -->
+    <style>
+      .gradient-text {
+        background: linear-gradient(269deg, #f59275 24.95%, #f1647a 87.01%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    </style>
   </head>
 
-  <body class="text-white px-2">
+  <body class="text-white font-nunito px-6">
     <div data-component="sidebar"></div>
 
     <header class="relative">
-      <!-- <div data-component="navbar"></div> -->
       <div id="hero-container" data-component="hero"></div>
     </header>
-    <div>
-      <main class="flex-1 p-4 md:p-10">
-  
 
-    <div class="flex font-nunito bg-[#1A1F2C] flex-col min-h-screen pb-28">
-      <main class="px-20">
-        <section class="px-4 sm:px-6 lg:px-12 space-y-16 rounded-lg">
-          <div>
-            <a href="event/index.html">
-              <h2
-                class="text-2xl font-bold mb-6 flex-shrink-0 font-nunito text-[81px] luma-gradient"
+    <main class="flex-1">
+      <div
+        class="flex font-nunito p-4 md:p-10 bg-[#1A1F2C] flex-col min-h-screen"
+      >
+        <div class="px-4 sm:px-6 lg:px-20 py-4">
+          <section class="space-y-16 rounded-lg">
+            <!-- Events Section -->
+            <div class="w-full">
+              <!-- Events Header with Gradient Background -->
+              <div
+                class="pl-4 sm:px-6 lg:px-12 space-y-16 rounded-lg"
               >
-                Events
-              </h2>
-            </a>
+                <a href="/views/event/event.html">
+                  <h2
+                    class="text-2xl font-bold mb-6 flex-shrink-0 font-nunito text-[64px] luma-gradient"
+                  >
+                    Events
+                  </h2>
+                </a>
+              </div>
 
-            <div class="mb-10">
-              <h3
-                class="mb-4 flex-shrink-0 font-nunito text-[40px] text-[#DADADC]"
-              >
-                Trending
-              </h3>
-              <div class="scroll-container overflow-x-auto pb-4">
-                <div class="flex space-x-4 min-w-max">
-                  <div class="relative cursor-pointer">
-                    <div
-                      class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                    ></div>
-                    <div
-                      class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10"
-                      style="
-                        background-image: url('../../src/asset/images/fea-cal-1.png');
-                      "
-                    ></div>
+              <!-- Events Content -->
+              <div class="pl-4 sm:px-6 lg:px-12">
+                <!-- Trending Events -->
+                <div class="mb-10">
+                  <h3
+                    class="mb-4 flex-shrink-0 font-nunito text-[32px] font-bold text-[#FFA489]"
+                  >
+                    Trending
+                  </h3>
+                  <div class="scroll-container overflow-x-auto pb-4">
+                    <div class="flex space-x-4 min-w-max">
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-1.png');
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-2.png');
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-3.png');
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-4.png');
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex flex-col justify-center items-center w-[250px] h-[400px] z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-5.png');
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex flex-col justify-center items-center w-[250px] h-[400px] z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-6.png');
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex flex-col justify-center items-center w-[250px] h-[400px] z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-7.png');
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex flex-col justify-center items-center w-[250px] h-[400px] z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-8.png');
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex flex-col justify-center items-center w-[250px] h-[400px] z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-9.png');
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex flex-col justify-center items-center w-[250px] h-[400px] z-10"
+                          style="
+                            background-image: url('../../src/asset/images/helsinki.png');
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex flex-col justify-center items-center w-[250px] h-[400px] z-10"
+                          style="
+                            background-image: url('../../src/asset/images/map.png');
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex flex-col justify-center items-center w-[250px] h-[400px] z-10"
+                          style="
+                            background-image: url('../../src/asset/images/montreal.png');
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex flex-col justify-center items-center w-[250px] h-[400px] z-10"
+                          style="
+                            background-image: url('../../src/asset/images/seattle.png');
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex flex-col justify-center items-center w-[250px] h-[400px] z-10"
+                          style="
+                            background-image: url('../../src/asset/images/toronto.png');
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex flex-col justify-center items-center w-[250px] h-[400px] z-10"
+                          style="
+                            background-image: url('../../src/asset/images/vancouver.png');
+                          "
+                        ></div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="relative cursor-pointer">
-                    <div
-                      class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                    ></div>
-                    <div
-                      class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10"
-                      style="
-                        background-image: url('../../src/asset/images/fea-cal-2.png');
-                      "
-                    ></div>
-                  </div>
-                  <div class="relative cursor-pointer">
-                    <div
-                      class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                    ></div>
-                    <div
-                      class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10"
-                      style="
-                        background-image: url('../../src/asset/images/fea-cal-2.png');
-                      "
-                    ></div>
-                  </div>
-                  <div class="relative cursor-pointer">
-                    <div
-                      class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                    ></div>
-                    <div
-                      class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10"
-                      style="
-                        background-image: url('../../src/asset/images/fea-cal-3.png');
-                      "
-                    ></div>
-                  </div>
-                  <div class="relative cursor-pointer">
-                    <div
-                      class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                    ></div>
-                    <div
-                      class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10"
-                      style="
-                        background-image: url('../../src/asset/images/fea-cal-4.png');
-                      "
-                    ></div>
-                  </div>
-                  <div class="relative cursor-pointer">
-                    <div
-                      class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                    ></div>
-                    <div
-                      class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex flex-col justify-center items-center w-[250px] h-[400px] z-10"
-                    ></div>
+                </div>
+
+                <!-- Upcoming Events -->
+                <div>
+                  <h3
+                    class="mb-4 flex-shrink-0 font-nunito text-[32px] font-bold text-[#FFA489]"
+                  >
+                    Upcoming
+                  </h3>
+                  <div class="scroll-container overflow-x-auto pb-4">
+                    <div class="flex space-x-4 min-w-max">
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-5.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-6.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-7.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-8.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-9.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-1.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-2.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-3.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/fea-cal-4.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/helsinki.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/map.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/montreal.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/seattle.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/toronto.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/vancouver.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div>
-              <h3https://github.com/demilade111/safe-mind-flow.git
-                class="mb-4 flex-shrink-0 font-nunito text-[40px] text-[#DADADC]"
+            <!-- Games Section -->
+            <div class="w-full">
+              <!-- Games Header with Gradient Background -->
+              <div
+                class="px-4 sm:px-6 lg:px-12 space-y-16 rounded-lg"
               >
-                Upcoming
-              </h3https:>
-              <div class="scroll-container overflow-x-auto pb-4">
-                <div class="flex space-x-4 min-w-max">
-                  <div class="relative cursor-pointer">
+                <h2
+                  class="text-2xl font-bold mb-6 flex-shrink-0 font-nunito text-[64px] luma-gradient"
+                >
+                  Games
+                </h2>
+              </div>
+
+              <!-- Games Content -->
+              <div class="px-4 sm:px-6 lg:px-12">
+                <!-- Trending Games -->
+                <div class="mb-10">
+                  <h3
+                    class="mb-4 flex-shrink-0 font-nunito text-[32px] font-bold text-[#FFA489]"
+                  >
+                    Trending
+                  </h3>
+
+                  <!-- Loading state for games -->
+                  <div id="home-games-loading" class="text-center py-8">
                     <div
-                      class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                      class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white"
                     ></div>
-                    <div
-                      class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
-                      style="
-                        background-image: url('../../src/asset/images/fea-cal-5.png');
-                        background-size: 103.925% 184.755%;
-                        background-position: -3.541px -22.94px;
-                      "
-                    ></div>
+                    <p class="mt-2 text-gray-400">Loading games...</p>
                   </div>
-                  <div class="relative cursor-pointer">
-                    <div
-                      class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                    ></div>
-                    <div
-                      class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
-                      style="
-                        background-image: url('../../src/asset/images/fea-cal-6.png');
-                        background-size: 103.925% 184.755%;
-                        background-position: -3.541px -22.94px;
-                      "
-                    ></div>
+
+                  <!-- Error state for games -->
+                  <div id="home-games-error" class="text-center py-8 hidden">
+                    <p class="text-red-400 mb-4">Failed to load games</p>
+                    <button
+                      id="retry-games"
+                      class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                    >
+                      Retry
+                    </button>
                   </div>
-                  <div class="relative cursor-pointer">
-                    <div
-                      class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                    ></div>
-                    <div
-                      class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
-                      style="
-                        background-image: url('../../src/asset/images/fea-cal-7.png');
-                        background-size: 103.925% 184.755%;
-                        background-position: -3.541px -22.94px;
-                      "
-                    ></div>
+
+                  <!-- Dynamic games container -->
+                  <div
+                    id="home-games-container"
+                    class="scroll-container overflow-x-auto pb-4 hidden"
+                  >
+                    <div class="flex space-x-4 min-w-max" id="home-games-list">
+                      <!-- Dynamic games will be inserted here -->
+                    </div>
                   </div>
-                  <div class="relative cursor-pointer">
-                    <div
-                      class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                    ></div>
-                    <div
-                      class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
-                      style="
-                        background-image: url('../../src/asset/images/fea-cal-8.png');
-                        background-size: 103.925% 184.755%;
-                        background-position: -3.541px -22.94px;
-                      "
-                    ></div>
-                  </div>
-                  <div class="relative cursor-pointer">
-                    <div
-                      class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                    ></div>
-                    <div
-                      class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex justify-center items-center w-[297px] h-[297px] aspect-square z-10"
-                    ></div>
+                </div>
+
+                <!-- Continue Learning -->
+                <div>
+                  <h3
+                    class="mb-4 flex-shrink-0 font-nunito text-[32px] font-bold text-[#FFA489]"
+                  >
+                    Continue Learning
+                  </h3>
+                  <div class="scroll-container overflow-x-auto pb-4">
+                    <div class="flex space-x-4 min-w-max">
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/helsinki.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/map.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/montreal.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/seattle.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/toronto.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                      <div class="relative cursor-pointer">
+                        <div
+                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
+                        ></div>
+                        <div
+                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
+                          style="
+                            background-image: url('../../src/asset/images/vancouver.png');
+                            background-size: 103.925% 184.755%;
+                            background-position: -3.541px -22.94px;
+                          "
+                        ></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div>
-            <h2
-              class="text-2xl font-bold mb-6 flex-shrink-0 font-nunito text-[81px] luma-gradient"
-            >
-              Games
-            </h2>
-
-            <div class="mb-10">
-              <h3
-                class="mb-4 flex-shrink-0 font-nunito text-[40px] text-[#DADADC]"
-              >
-                Trending
-              </h3>
-              
-              <!-- Loading state for games -->
-              <div id="home-games-loading" class="text-center py-8">
-                <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-                <p class="mt-2 text-gray-400">Loading games...</p>
-              </div>
-
-              <!-- Error state for games -->
-              <div id="home-games-error" class="text-center py-8 hidden">
-                <p class="text-red-400 mb-4">Failed to load games</p>
-                <button id="retry-games" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
-                  Retry
-                </button>
-              </div>
-
-              <!-- Dynamic games container -->
-              <div id="home-games-container" class="scroll-container overflow-x-auto pb-4 hidden">
-                <div class="flex space-x-4 min-w-max" id="home-games-list">
-                  <!-- Dynamic games will be inserted here -->
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h3
-                class="mb-4 flex-shrink-0 font-nunito text-[40px] text-[#DADADC]"
-              >
-                Continue Learning
-              </h3>
-              <div class="scroll-container overflow-x-auto pb-4">
-                <div class="flex space-x-4 min-w-max">
-                  <div class="relative cursor-pointer">
-                    <div
-                      class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                    ></div>
-                    <div
-                      class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
-                      style="
-                        background-image: url('../../src/asset/images/helsinki.png');
-                        background-size: 103.925% 184.755%;
-                        background-position: -3.541px -22.94px;
-                      "
-                    ></div>
-                  </div>
-                  <div class="relative cursor-pointer">
-                    <div
-                      class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                    ></div>
-                    <div
-                      class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
-                      style="
-                        background-image: url('../../src/asset/images/map.png');
-                        background-size: 103.925% 184.755%;
-                        background-position: -3.541px -22.94px;
-                      "
-                    ></div>
-                  </div>
-                  <div class="relative cursor-pointer">
-                    <div
-                      class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                    ></div>
-                    <div
-                      class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex justify-center items-center w-[297px] h-[297px] aspect-square z-10"
-                    ></div>
-                  </div>
-                  <div class="relative cursor-pointer">
-                    <div
-                      class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                    ></div>
-                    <div
-                      class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex justify-center items-center w-[297px] h-[297px] aspect-square z-10"
-                    ></div>
-                  </div>
-                  <div class="relative cursor-pointer">
-                    <div
-                      class="absolute inset-0 bg-black opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                    ></div>
-                    <div
-                      class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 flex justify-center items-center w-[297px] h-[297px] aspect-square z-10"
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-
+          </section>
+        </div>
+      </div>
       <div data-component="footer"></div>
-    </div>
+    </main>
 
+    <script type="module">
+      import { initAuthGuard } from "../../js/auth/authGuard.js";
+      initAuthGuard();
+    </script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="../../service/gameService.js"></script>
