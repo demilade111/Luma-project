@@ -54,9 +54,10 @@ async function renderEventDetails() {
           ${start.dateStr ? start.dateStr.split(" ")[1] : ""}
         </div>
         <div class="flex flex-col">
-          <span class="font-bold text-gray-200">${start.dateStr || ""}</span>
-          <span class="text-gray-400">${start.timeStr || ""}${end.timeStr ? " - " + end.timeStr : ""
-      }</span>
+          <span class="font-bold text-white">${start.dateStr || ""}</span>
+          <span class="text-gray-300">${start.timeStr || ""}${
+      end.timeStr ? " - " + end.timeStr : ""
+    }</span>
         </div>
       </div>`;
     endTimeEl.innerHTML = "";
@@ -64,9 +65,26 @@ async function renderEventDetails() {
       <div class="flex items-center gap-3 mt-2">
         <i class="fas fa-map-marker-alt text-2xl text-white"></i>
         <div class="flex flex-col">
-          <span class="font-bold text-gray-200">${event.location || ""}</span>
+          <span class="font-bold text-white">${event.location || ""}</span>
         </div>
       </div>`;
+  }
+
+  // Add Google Maps embed for event location
+  const mapDiv = document.getElementById("eventMap");
+  if (mapDiv && event.location) {
+    const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(
+      event.location
+    )}&output=embed`;
+    mapDiv.innerHTML = `<iframe
+      width="100%"
+      height="100%"
+      style="border:0; border-radius: 1.5rem;"
+      loading="lazy"
+      allowfullscreen
+      referrerpolicy="no-referrer-when-downgrade"
+      src="${mapSrc}">
+    </iframe>`;
   }
 }
 
@@ -100,30 +118,19 @@ function setupComments() {
         user
       )}&background=random`;
 
-      // Outer wrapper to simulate gradient border
-      const wrapper = document.createElement("div");
-      wrapper.className = "p-[2px] rounded-2xl bg-gradient-to-r from-[#f59275] to-[#f1647a]";
-
-      // Your original div with background, padding, etc.
       const div = document.createElement("div");
       div.className =
-        "rounded-2xl p-5 bg-[#23243a] shadow-md bg-clip-padding relative h-full";
+        "rounded-2xl p-5 bg-[#23243a] border-2 border-transparent shadow-md bg-clip-padding relative";
+      div.style.borderImage = "linear-gradient(90deg, #f59275, #f1647a) 1";
 
-      // Content inside the inner box
       div.innerHTML = `
-  <div class="flex items-center gap-4 mb-3">
-    <img src="${avatarUrl}" alt="${user}" class="w-10 h-10 rounded-full object-cover" />
-    <span class="text-white font-semibold text-sm">${user}</span>
-  </div>
-  <p class="text-gray-300 text-sm">${comment.text}</p>
-`;
-
-      // Nest inner box inside the gradient wrapper
-      wrapper.appendChild(div);
-
-      // Append to the comment grid
-      commentGrid.appendChild(wrapper);
-
+        <div class="flex items-center gap-4 mb-3">
+          <img src="${avatarUrl}" alt="${user}" class="w-10 h-10 rounded-full object-cover border-2 border-white" />
+          <span class="text-white font-semibold text-sm">${user}</span>
+        </div>
+        <p class="text-gray-300 text-sm">${comment.text}</p>
+      `;
+      commentGrid.appendChild(div);
     });
   });
 }
