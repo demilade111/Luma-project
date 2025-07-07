@@ -3147,6 +3147,13 @@
       }
     }
   }
+  .hover\:bg-\[\#3A4258\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #3A4258;
+      }
+    }
+  }
   .hover\:bg-\[\#23283a\] {
     &:hover {
       @media (hover: hover) {
