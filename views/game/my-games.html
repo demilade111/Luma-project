@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../../src/output.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <title>Luma | My Games</title>
+</head>
+<body class="text-white bg-[#1A1F2C] ">
+  <!--Sidebar section-->
+<div data-component="sidebar"></div>
+ <!--Navigation bar section-->
+ <header class="relative bg-white">
+  <!--<div id="hero-container" data-component="hero"></div>-->
+</header>
+<!--Main container-->
+<main class="px-40 flex flex-col text-white bg-[#1A1F2C] min-h-screen ">
+    <div class="my-games-container">
+        <div class="w-40 h-40 border-2 rounded-2xl"></div>
+        <div class="w-40 h-40 border-2 rounded-2xl"></div>
+        <div class="w-40 h-40 border-2 rounded-2xl"></div>
+        <div class="w-40 h-40 border-2 rounded-2xl"></div>
+        <div class="w-40 h-40 border-2 rounded-2xl"></div>
+    </div>
+
+    <div class="continue-section"></div>
+   
+  </main>
+  <!--Footer section-->
+
+  <div data-component="footer"></div>
+
+
+  <!--script-->
+  <script src="../../service/gameService.js" defer></script>
+  <script src="../../js/inject.js" defer></script>
+  <script src="../../js/main.js" defer></script>
+  <script src="../../js/hero-carousel.js" defer></script>
+
+
+
+</body>
+
+</html>
