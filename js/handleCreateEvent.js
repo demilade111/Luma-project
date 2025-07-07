@@ -6,6 +6,16 @@ import {
   Timestamp,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+const auth = getAuth();
+const currentUser = auth.currentUser;
+
+if (!currentUser) {
+  alert("You must be signed in to create an event.");
+  return;
+}
+
+const host_user_id = currentUser.uid;
+
 // Cloudinary Config
 const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dhg2zrff9/image/upload";
 const CLOUDINARY_UPLOAD_PRESET = "event_upload";
@@ -27,13 +37,13 @@ const uploadImage = async (file) => {
   return data.secure_url;
 };
 
-
 function updateTimezoneDisplay(offsetMinutes, timeZoneId, label = null) {
   const timezoneDisplay = document.getElementById("timezoneDisplay");
   if (!timezoneDisplay) return;
 
   const offsetHours = offsetMinutes / 60;
-  const offsetLabel = offsetHours >= 0 ? `GMT +${offsetHours}` : `GMT ${offsetHours}`;
+  const offsetLabel =
+    offsetHours >= 0 ? `GMT +${offsetHours}` : `GMT ${offsetHours}`;
   const locationLabel = label || "Local Time";
 
   timezoneDisplay.innerHTML = `
@@ -46,14 +56,12 @@ function updateTimezoneDisplay(offsetMinutes, timeZoneId, label = null) {
   `;
 }
 
-
 function setDefaultLocalTimezone() {
   const now = new Date();
   const offsetMinutes = -now.getTimezoneOffset(); // JS offset is opposite
   const timeZoneName = Intl.DateTimeFormat().resolvedOptions().timeZone;
   updateTimezoneDisplay(offsetMinutes, timeZoneName);
 }
-
 
 async function fetchTimezone(lat, lng, label) {
   const timestamp = Math.floor(Date.now() / 1000);
@@ -138,7 +146,8 @@ async function handleCreateEvent() {
   const startTime = document.getElementById("startTime").value;
   const endDate = document.getElementById("endDate").value;
   const endTime = document.getElementById("endTime").value;
-  const recurrence = document.querySelector('input[name="recurrence"]:checked')?.value || null;
+  const recurrence =
+    document.querySelector('input[name="recurrence"]:checked')?.value || null;
   const fileInput = document.getElementById("eventImage");
   const imagePreview = document.getElementById("imagePreview");
   const file = fileInput.files[0];
@@ -165,7 +174,7 @@ async function handleCreateEvent() {
     const imageUrl = await uploadImage(file);
 
     const newEvent = {
-      host_user_id: "user_123",
+      host_user_id,
       city_id: "city_456",
       name,
       location,
@@ -179,7 +188,7 @@ async function handleCreateEvent() {
     };
 
     const docRef = await addDoc(collection(db, "events"), newEvent);
-    alert("✅ Event created successfully" );
+    alert("✅ Event created successfully");
 
     // Reset form
     document.getElementById("eventName").value = "";
@@ -190,7 +199,9 @@ async function handleCreateEvent() {
     document.getElementById("startTime").value = "";
     document.getElementById("endDate").value = "";
     document.getElementById("endTime").value = "";
-    document.querySelectorAll('input[name="recurrence"]').forEach((r) => (r.checked = false));
+    document
+      .querySelectorAll('input[name="recurrence"]')
+      .forEach((r) => (r.checked = false));
     fileInput.value = null;
     imagePreview.src = "../../src/asset/images/event-img.png";
     tags.clear();
@@ -227,5 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  document.getElementById("createEventBtn").addEventListener("click", handleCreateEvent);
+  document
+    .getElementById("createEventBtn")
+    .addEventListener("click", handleCreateEvent);
 });
