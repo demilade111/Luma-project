@@ -1,16 +1,15 @@
-// handleCreateEvent.js
+// /js/handleCreateEvent.js
 import { db } from "../config/firebase.js";
 import {
   collection,
   addDoc,
   Timestamp,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-// Cloudinary Config
 const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dhg2zrff9/image/upload";
 const CLOUDINARY_UPLOAD_PRESET = "event_upload";
 
-// Upload to Cloudinary
 const uploadImage = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
@@ -27,13 +26,13 @@ const uploadImage = async (file) => {
   return data.secure_url;
 };
 
-
 function updateTimezoneDisplay(offsetMinutes, timeZoneId, label = null) {
   const timezoneDisplay = document.getElementById("timezoneDisplay");
   if (!timezoneDisplay) return;
 
   const offsetHours = offsetMinutes / 60;
-  const offsetLabel = offsetHours >= 0 ? `GMT +${offsetHours}` : `GMT ${offsetHours}`;
+  const offsetLabel =
+    offsetHours >= 0 ? `GMT +${offsetHours}` : `GMT ${offsetHours}`;
   const locationLabel = label || "Local Time";
 
   timezoneDisplay.innerHTML = `
@@ -46,23 +45,21 @@ function updateTimezoneDisplay(offsetMinutes, timeZoneId, label = null) {
   `;
 }
 
-
 function setDefaultLocalTimezone() {
   const now = new Date();
-  const offsetMinutes = -now.getTimezoneOffset(); // JS offset is opposite
+  const offsetMinutes = -now.getTimezoneOffset();
   const timeZoneName = Intl.DateTimeFormat().resolvedOptions().timeZone;
   updateTimezoneDisplay(offsetMinutes, timeZoneName);
 }
-
 
 async function fetchTimezone(lat, lng, label) {
   const timestamp = Math.floor(Date.now() / 1000);
   const apiKey = "AIzaSyAMMYHYEQXmjD3xG1Q5yasCDQbSPoLnwDk";
 
-  const response = await fetch(
+  const res = await fetch(
     `https://maps.googleapis.com/maps/api/timezone/json?location=${lat},${lng}&timestamp=${timestamp}&key=${apiKey}`
   );
-  const data = await response.json();
+  const data = await res.json();
 
   if (data.status === "OK") {
     updateTimezoneDisplay(data.rawOffset / 60, data.timeZoneName, label);
@@ -71,9 +68,10 @@ async function fetchTimezone(lat, lng, label) {
   }
 }
 
-// Set up Google Places autocomplete
 function initAutocomplete() {
   const input = document.getElementById("eventLocation");
+  if (!input) return;
+
   const autocomplete = new google.maps.places.Autocomplete(input, {
     types: ["geocode"],
   });
@@ -89,27 +87,47 @@ function initAutocomplete() {
   });
 }
 
-// Tag handling
+// Make initAutocomplete globally accessible before script loads
+window.initAutocomplete = initAutocomplete;
+
+function loadGoogleMapsScript() {
+  if (window.google && window.google.maps) {
+    initAutocomplete();
+    return;
+  }
+
+  const script = document.createElement("script");
+  script.src =
+    "https://maps.googleapis.com/maps/api/js?key=AIzaSyAMMYHYEQXmjD3xG1Q5yasCDQbSPoLnwDk&libraries=places&callback=initAutocomplete";
+  script.async = true;
+  script.defer = true;
+  document.head.appendChild(script);
+}
+
+// TAGS
 const tags = new Set();
 
 function renderTags() {
   const tagContainer = document.getElementById("tagContainer");
+  if (!tagContainer) return;
   tagContainer.innerHTML = "";
+
   tags.forEach((tag) => {
-    const tagEl = document.createElement("span");
-    tagEl.className = "tag";
-    tagEl.innerHTML = `${tag} <button type="button" data-tag="${tag}">×</button>`;
-    tagContainer.appendChild(tagEl);
+    const el = document.createElement("span");
+    el.className = "tag";
+    el.innerHTML = `${tag} <button type="button" data-tag="${tag}">×</button>`;
+    tagContainer.appendChild(el);
   });
 }
 
 function handleTagEvents() {
   const tagInput = document.getElementById("tagInput");
   const tagContainer = document.getElementById("tagContainer");
+  if (!tagInput || !tagContainer) return;
 
   tagInput.addEventListener("keydown", (e) => {
     const value = tagInput.value.trim();
-    if (e.key === "Enter" && value !== "") {
+    if (e.key === "Enter" && value) {
       e.preventDefault();
       if (!tags.has(value)) {
         tags.add(value);
@@ -128,8 +146,16 @@ function handleTagEvents() {
   });
 }
 
-// Save the form to Firestore
 async function handleCreateEvent() {
+  const auth = getAuth();
+  const currentUser = auth.currentUser;
+  if (!currentUser) {
+    alert("You must be signed in to create an event.");
+    return;
+  }
+
+  const host_user_id = currentUser.uid;
+
   const name = document.getElementById("eventName").value.trim();
   const location = document.getElementById("eventLocation").value.trim();
   const description = document.getElementById("eventDescription").value.trim();
@@ -138,7 +164,8 @@ async function handleCreateEvent() {
   const startTime = document.getElementById("startTime").value;
   const endDate = document.getElementById("endDate").value;
   const endTime = document.getElementById("endTime").value;
-  const recurrence = document.querySelector('input[name="recurrence"]:checked')?.value || null;
+  const recurrence =
+    document.querySelector('input[name="recurrence"]:checked')?.value || null;
   const fileInput = document.getElementById("eventImage");
   const imagePreview = document.getElementById("imagePreview");
   const file = fileInput.files[0];
@@ -165,7 +192,7 @@ async function handleCreateEvent() {
     const imageUrl = await uploadImage(file);
 
     const newEvent = {
-      host_user_id: "user_123",
+      host_user_id,
       city_id: "city_456",
       name,
       location,
@@ -178,19 +205,23 @@ async function handleCreateEvent() {
       recurrence,
     };
 
-    const docRef = await addDoc(collection(db, "events"), newEvent);
-    alert("✅ Event created successfully" );
+    await addDoc(collection(db, "events"), newEvent);
+    alert("✅ Event created successfully");
 
-    // Reset form
-    document.getElementById("eventName").value = "";
-    document.getElementById("eventLocation").value = "";
-    document.getElementById("eventDescription").value = "";
-    document.getElementById("eventCapacity").value = "";
-    document.getElementById("startDate").value = "";
-    document.getElementById("startTime").value = "";
-    document.getElementById("endDate").value = "";
-    document.getElementById("endTime").value = "";
-    document.querySelectorAll('input[name="recurrence"]').forEach((r) => (r.checked = false));
+    [
+      "eventName",
+      "eventLocation",
+      "eventDescription",
+      "eventCapacity",
+      "startDate",
+      "startTime",
+      "endDate",
+      "endTime",
+    ].forEach((id) => (document.getElementById(id).value = ""));
+
+    document
+      .querySelectorAll('input[name="recurrence"]')
+      .forEach((r) => (r.checked = false));
     fileInput.value = null;
     imagePreview.src = "../../src/asset/images/event-img.png";
     tags.clear();
@@ -205,10 +236,8 @@ async function handleCreateEvent() {
   }
 }
 
-// Initialize everything on load
 document.addEventListener("DOMContentLoaded", () => {
   setDefaultLocalTimezone();
-  initAutocomplete();
   handleTagEvents();
 
   const imagePreview = document.getElementById("imagePreview");
@@ -227,5 +256,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  document.getElementById("createEventBtn").addEventListener("click", handleCreateEvent);
+  document
+    .getElementById("createEventBtn")
+    .addEventListener("click", handleCreateEvent);
+
+  loadGoogleMapsScript(); // load Google Maps AFTER window.initAutocomplete is defined
 });
