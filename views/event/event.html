@@ -640,5 +640,11 @@
     <!-- Firebase & JS -->
     <script type="module" src="../../config/firebase.js"></script>
     <script type="module" src="../../js/event.js"></script>
+
+    <!-- Authentication Guard -->
+    <script type="module">
+      import { initAuthGuard } from "../../js/auth/authGuard.js";
+      initAuthGuard();
+    </script>
   </body>
 </html>
