@@ -1,21 +1,14 @@
-const events = [
-  {
-    day: "Today Sunday",
-    entries: [
-      {
-        time: "08:00 PM",
-        title: "Jazzopoly Board Game Night",
-        host: "Kevin McMillan",
-        location: "Langara College B Building",
-        attendees: "2259 Ava, Sarah, and 28 others",
-      },
-    ],
-  },
-];
+import { db, auth } from "../config/firebase.js";
+import {
+  doc,
+  setDoc,
+  deleteDoc,
+  getDoc,
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const container = document.getElementById("events");
 
-// Only run events code if the events container exists (home page)
 if (container) {
   events.forEach((group) => {
     const dayBlock = document.createElement("div");
@@ -118,7 +111,7 @@ async function loadGames() {
     }
 
     allGamesData = result.games;
-    console.log(allGamesData)
+    console.log(allGamesData);
     currentPage = 1;
     console.log(`✅ Loaded ${allGamesData.length} games`);
 
@@ -324,16 +317,17 @@ function createGameCard(game) {
          data-game-id="${gameId}" 
          data-game-data='${JSON.stringify(game).replace(/'/g, "&apos;")}'>
       <div class="w-48 h-48 border rounded-2xl shrink-0 overflow-hidden bg-gray-100">
-        ${image
-      ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover" 
+        ${
+          image
+            ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover" 
                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
            <div class="w-full h-full flex items-center justify-center text-gray-400" style="display:none;">
              <i class="fas fa-dice text-3xl"></i>
            </div>`
-      : `<div class="w-full h-full flex items-center justify-center text-gray-400">
+            : `<div class="w-full h-full flex items-center justify-center text-gray-400">
              <i class="fas fa-dice text-3xl"></i>
            </div>`
-    }
+        }
       </div>
       
       <div class="p-4 flex flex-col justify-between items-start flex-1">
@@ -347,19 +341,20 @@ function createGameCard(game) {
             ${truncatedDescription}
           </p>
           
-          ${categories.length > 0
-      ? `<div class="flex flex-wrap gap-1 mb-3">
+          ${
+            categories.length > 0
+              ? `<div class="flex flex-wrap gap-1 mb-3">
               ${categories
-        .slice(0, 3)
-        .map(
-          (cat) =>
-            `<span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
+                .slice(0, 3)
+                .map(
+                  (cat) =>
+                    `<span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
                        data-category="${cat}">${cat}</span>`
-        )
-        .join("")}
+                )
+                .join("")}
             </div>`
-      : ""
-    }
+              : ""
+          }
           
           <div class="flex items-center gap-6 text-sm text-gray-600">
             <div class="flex items-center gap-1">
@@ -368,22 +363,25 @@ function createGameCard(game) {
             </div>
             <div class="flex items-center gap-1">
               <i class="fas fa-users"></i>
-              <span>${minPlayers}${maxPlayers !== minPlayers ? `-${maxPlayers}` : ""
-    }</span>
+              <span>${minPlayers}${
+    maxPlayers !== minPlayers ? `-${maxPlayers}` : ""
+  }</span>
             </div>
-            ${rating !== "?"
-      ? `<div class="flex items-center gap-1">
+            ${
+              rating !== "?"
+                ? `<div class="flex items-center gap-1">
                 <i class="fas fa-star text-yellow-400"></i>
                 <span>${rating}</span>
               </div>`
-      : ""
-    }
-            ${age !== "?"
-      ? `<div class="border border-gray-400 rounded-full px-2 py-1">
+                : ""
+            }
+            ${
+              age !== "?"
+                ? `<div class="border border-gray-400 rounded-full px-2 py-1">
                 <span>${age}+</span>
               </div>`
-      : ""
-    }
+                : ""
+            }
           </div>
         </div>
       </div>
@@ -553,11 +551,9 @@ function loadGameDetails() {
 
   // Update publishers
   if (game.publishers && game.publishers.length > 0) {
-    console.log(game)
+    console.log(game);
     document.getElementById("publishers-list").innerHTML = game.publishers
-      .map(
-        (publisher) => `<p class="text-base text-gray-400">${publisher}</p>`
-      )
+      .map((publisher) => `<p class="text-base text-gray-400">${publisher}</p>`)
       .join("");
   } else {
     document.getElementById("publishers-list").innerHTML =
@@ -604,6 +600,93 @@ function loadGameDetails() {
       tutorialBtn.disabled = true;
     }
   }
+
+  // --- Bookmark and Share logic ---
+  const bookmarkBtn = document.getElementById("bookmark-btn");
+  const shareBtn = document.getElementById("share-btn");
+  let currentUser = null;
+  let isBookmarked = false;
+
+  function updateBookmarkBtn() {
+    if (!bookmarkBtn) return;
+    if (isBookmarked) {
+      bookmarkBtn.innerHTML =
+        '<i class="fa-solid fa-bookmark m-2 text-yellow-400"></i>Bookmarked';
+    } else {
+      bookmarkBtn.innerHTML =
+        '<i class="fa-regular fa-bookmark m-2 text-gray-500"></i>Bookmark';
+    }
+  }
+
+  async function checkBookmark(user) {
+    if (!user) return;
+    const docRef = doc(db, "users", user.uid, "bookmarks", game.id);
+    const snap = await getDoc(docRef);
+    isBookmarked = snap.exists();
+    updateBookmarkBtn();
+  }
+
+  async function toggleBookmark(user) {
+    if (!user) {
+      alert("Please sign in to bookmark games.");
+      return;
+    }
+    const docRef = doc(db, "users", user.uid, "bookmarks", game.id);
+    if (isBookmarked) {
+      await deleteDoc(docRef);
+      isBookmarked = false;
+      updateBookmarkBtn();
+      alert("Bookmark removed.");
+    } else {
+      const info = {
+        gameId: game.id,
+        title: game.name,
+        image: game.image || game.thumbnail || "",
+      };
+      await setDoc(docRef, info);
+      isBookmarked = true;
+      updateBookmarkBtn();
+      alert("Game bookmarked successfully!");
+    }
+  }
+
+  if (bookmarkBtn) {
+    bookmarkBtn.onclick = () => {
+      if (!currentUser) {
+        alert("Please sign in to bookmark games.");
+        return;
+      }
+      toggleBookmark(currentUser);
+    };
+  }
+
+  if (shareBtn) {
+    shareBtn.onclick = async () => {
+      const url = window.location.href;
+      const title = game.name || "Check out this game!";
+      if (navigator.share) {
+        try {
+          await navigator.share({ title, url });
+        } catch (e) {
+          // User cancelled share
+        }
+      } else {
+        await navigator.clipboard.writeText(url);
+        shareBtn.textContent = "Copied!";
+        setTimeout(() => (shareBtn.textContent = "Share"), 1200);
+      }
+    };
+  }
+
+  onAuthStateChanged(auth, (user) => {
+    currentUser = user;
+    if (user) {
+      checkBookmark(user);
+    } else {
+      isBookmarked = false;
+      updateBookmarkBtn();
+    }
+  });
 }
 
 function setupPDFModal() {
@@ -844,4 +927,3 @@ document.getElementById(`DOMContentLoad`, () => {
     window.location.href = `tutorial.html`;
   });
 });
-
