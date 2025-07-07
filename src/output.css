@@ -1493,6 +1493,9 @@
   .h-\[5\.09px\] {
     height: 5.09px;
   }
+  .h-\[6\] {
+    height: 6;
+  }
   .h-\[74px\] {
     height: 74px;
   }
@@ -1507,6 +1510,12 @@
   }
   .h-\[500px\] {
     height: 500px;
+  }
+  .h-\[600\] {
+    height: 600;
+  }
+  .h-\[600px\] {
+    height: 600px;
   }
   .h-\[745\.20px\] {
     height: 745.20px;
@@ -2023,6 +2032,9 @@
   }
   .overflow-x-auto {
     overflow-x: auto;
+  }
+  .overflow-y-auto {
+    overflow-y: auto;
   }
   .rounded {
     border-radius: 0.25rem;
