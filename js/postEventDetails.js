@@ -2,6 +2,10 @@ import { db } from "../config/firebase.js";
 import {
   doc,
   getDoc,
+  collection,
+  setDoc,
+  deleteDoc,
+  onSnapshot,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { postComment, listenForComments } from "./comment.js";
 import { getCurrentUser } from "./auth/authGuard.js";
@@ -98,6 +102,90 @@ async function renderEventDetails() {
   }
 }
 
+// --- Registration Logic ---
+async function registerForEvent(eventId, user) {
+  const attendeeRef = doc(db, "events", eventId, "attendees", user.userId);
+  await setDoc(attendeeRef, {
+    userId: user.userId,
+    userName: user.email?.split("@")[0] || user.userId,
+    userEmail: user.email,
+    registeredAt: new Date(),
+  });
+}
+
+async function unregisterForEvent(eventId, user) {
+  const attendeeRef = doc(db, "events", eventId, "attendees", user.userId);
+  await deleteDoc(attendeeRef);
+}
+
+function setupRegistration() {
+  const registerBtn = document.getElementById("event-register-btn");
+  const goingCountEl = document.getElementById("eventGoingCount");
+  const goingListEl = document.getElementById("eventGoingList");
+  const user = getCurrentUser();
+  if (!registerBtn) return;
+
+  // Listen for real-time updates to attendees
+  const attendeesCol = collection(db, "events", eventId, "attendees");
+  onSnapshot(attendeesCol, (snapshot) => {
+    const attendees = snapshot.docs.map((doc) => doc.data());
+    // Update count with correct singular/plural
+    if (goingCountEl) {
+      if (attendees.length === 1) {
+        goingCountEl.textContent = `1 person is going`;
+      } else {
+        goingCountEl.textContent = `${attendees.length} people are going`;
+      }
+    }
+    // Update list (show up to 2 names, then 'and X others')
+    if (goingListEl) {
+      if (attendees.length === 0) {
+        goingListEl.textContent = "";
+      } else {
+        const names = attendees.map(
+          (a) => a.userName || a.userEmail?.split("@")[0] || "Anonymous"
+        );
+        if (names.length <= 2) {
+          goingListEl.textContent = names.join(", ");
+        } else {
+          goingListEl.textContent = `${names[0]}, ${names[1]} and ${
+            names.length - 2
+          } others`;
+        }
+      }
+    }
+    // Update button state
+    const isRegistered = attendees.some((a) => a.userId === user.userId);
+    if (isRegistered) {
+      registerBtn.textContent = "Registered";
+      registerBtn.classList.add("bg-green-600", "text-white");
+      registerBtn.classList.remove("bg-[#2F364A]", "hover:bg-[#3A4258]");
+    } else {
+      registerBtn.textContent = "Register";
+      registerBtn.classList.remove("bg-green-600", "text-white");
+      registerBtn.classList.add("bg-[#2F364A]", "hover:bg-[#3A4258]");
+    }
+    registerBtn.disabled = false;
+  });
+
+  // Register/unregister on click
+  registerBtn.onclick = async () => {
+    registerBtn.disabled = true;
+    const attendeesCol = collection(db, "events", eventId, "attendees");
+    const snapshot = await getDoc(
+      doc(db, "events", eventId, "attendees", user.userId)
+    );
+    if (snapshot.exists()) {
+      // Already registered, unregister
+      await unregisterForEvent(eventId, user);
+    } else {
+      // Not registered, register
+      await registerForEvent(eventId, user);
+    }
+    registerBtn.disabled = false;
+  };
+}
+
 function setupComments() {
   const commentInput = document.getElementById("commentInput");
   const postCommentBtn = document.getElementById("postCommentBtn");
@@ -147,7 +235,33 @@ function setupComments() {
   });
 }
 
+function setupShareButton() {
+  const shareBtn = document.querySelector(
+    "#event-register-btn"
+  ).nextElementSibling;
+  if (!shareBtn) return;
+  shareBtn.onclick = async () => {
+    const url = window.location.href;
+    const eventName =
+      document.getElementById("eventName")?.textContent ||
+      "Check out this event!";
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: eventName, url });
+      } catch (e) {
+        // User cancelled share
+      }
+    } else {
+      await navigator.clipboard.writeText(url);
+      shareBtn.textContent = "Copied!";
+      setTimeout(() => (shareBtn.textContent = "Share"), 1200);
+    }
+  };
+}
+
 window.addEventListener("DOMContentLoaded", () => {
   renderEventDetails();
   setupComments();
+  setupRegistration();
+  setupShareButton();
 });
