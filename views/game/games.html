@@ -28,13 +28,25 @@
         </div>
 
         <div class="flex flex-col gap-6 max-w-[700px]">
-          <h3 id="game-title" class="font-extrabold text-[42px] luma-gradient">Loading...</h3>
+          <h3 id="game-title" class="font-extrabold text-[42px] luma-gradient">
+            Loading...
+          </h3>
           <div>
-            <h4 id="game-subtitle" class="font-semibold text-[28px] text-gray-600 mb-2">...</h4>
-            <p id="game-description" class="text-gray-500">Loading description...</p>
+            <h4
+              id="game-subtitle"
+              class="font-semibold text-[28px] text-gray-600 mb-2"
+            >
+              ...
+            </h4>
+            <p id="game-description" class="text-gray-500">
+              Loading description...
+            </p>
           </div>
 
-          <div id="game-stats" class="flex gap-6 text-sm text-gray-700 flex-wrap">
+          <div
+            id="game-stats"
+            class="flex gap-6 text-sm text-gray-700 flex-wrap"
+          >
             <p id="playing-time" class="flex items-center gap-2">
               <i class="fas fa-hourglass text-gray-400"></i>
               <span class="time-value">...</span>
@@ -43,7 +55,10 @@
               <i class="fas fa-users text-gray-400"></i>
               <span class="players-value">...</span>
             </p>
-            <p id="age-rating" class="border border-gray-400 text-gray-600 rounded-full px-3 py-1 text-xs">
+            <p
+              id="age-rating"
+              class="border border-gray-400 text-gray-600 rounded-full px-3 py-1 text-xs"
+            >
               <span class="age-value">...</span>
             </p>
             <p id="game-rating" class="flex items-center gap-2">
@@ -89,19 +104,25 @@
               <h3 class="text-3xl font-semibold font-sans text-gray-500">
                 Designer
               </h3>
-              <div id="designers-list" class="text-custom-gray text-2xl">Loading...</div>
+              <div id="designers-list" class="text-custom-gray text-2xl">
+                Loading...
+              </div>
             </div>
             <div id="publishers-section">
               <h3 class="text-3xl font-semibold font-sans text-gray-500">
                 Publisher
               </h3>
-              <div id="publishers-list" class="text-custom-gray text-2xl">Loading...</div>
+              <div id="publishers-list" class="text-custom-gray text-2xl">
+                Loading...
+              </div>
             </div>
             <div id="categories-section">
               <h3 class="text-3xl font-semibold font-sans text-gray-500">
                 Categories
               </h3>
-              <div id="categories-list" class="text-custom-gray text-2xl">Loading...</div>
+              <div id="categories-list" class="text-custom-gray text-2xl">
+                Loading...
+              </div>
             </div>
           </div>
           <div class="flex flex-col gap-6 max-w-[40%]">
@@ -115,11 +136,17 @@
 
       <!-- Comments Section -->
       <div class="comments px-8 py-12">
-        <h1 class="text-5xl font-bold text-center text-gray-700 mb-8">Comments</h1>
+        <h1 class="text-5xl font-bold text-center text-gray-700 mb-8">
+          Comments
+        </h1>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
           <!-- Input Card -->
-          <div class="md:row-span-2 bg-white border border-black rounded-2xl p-4 flex flex-col justify-between">
-            <div class="border border-black rounded-2xl p-3 flex flex-col h-full flex-grow">
+          <div
+            class="md:row-span-2 bg-white border border-black rounded-2xl p-4 flex flex-col justify-between"
+          >
+            <div
+              class="border border-black rounded-2xl p-3 flex flex-col h-full flex-grow"
+            >
               <textarea
                 id="commentInput"
                 class="w-full resize-none border border-gray-300 p-3 rounded-md focus:outline-none"
@@ -136,7 +163,10 @@
           </div>
 
           <!-- Comments List -->
-          <div id="commentsList" class="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
+            id="commentsList"
+            class="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
             <!-- Comments will be inserted here dynamically -->
           </div>
         </div>
@@ -153,12 +183,19 @@
         <div class="bg-white rounded-lg max-w-4xl max-h-[90vh] w-full mx-4">
           <div class="flex justify-between items-center p-4 border-b">
             <h3 class="text-lg font-semibold">Game Rules</h3>
-            <button id="close-pdf-modal" class="text-gray-500 hover:text-gray-700">
+            <button
+              id="close-pdf-modal"
+              class="text-gray-500 hover:text-gray-700"
+            >
               <i class="fas fa-times text-xl"></i>
             </button>
           </div>
           <div class="p-4 h-[80vh] overflow-hidden">
-            <iframe id="pdf-viewer" src="" class="w-full h-full border-0"></iframe>
+            <iframe
+              id="pdf-viewer"
+              src=""
+              class="w-full h-full border-0"
+            ></iframe>
           </div>
           <div class="flex gap-4 p-4 border-t bg-gray-50">
             <button
@@ -184,5 +221,11 @@
     <script src="../../js/main.js" defer></script>
     <script type="module" src="../../js/auth/signout.js"></script>
     <script type="module" src="../../js/gameDetails.js"></script>
+
+    <!-- Authentication Guard -->
+    <script type="module">
+      import { initAuthGuard } from "../../js/auth/authGuard.js";
+      initAuthGuard();
+    </script>
   </body>
 </html>

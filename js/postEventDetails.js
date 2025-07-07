@@ -75,16 +75,26 @@ async function renderEventDetails() {
   if (mapDiv && event.location) {
     const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(
       event.location
-    )}&output=embed`;
+    )}&output=embed&zoom=15`;
     mapDiv.innerHTML = `<iframe
       width="100%"
       height="100%"
-      style="border:0; border-radius: 1.5rem;"
+      style="border:0;"
       loading="lazy"
       allowfullscreen
       referrerpolicy="no-referrer-when-downgrade"
       src="${mapSrc}">
     </iframe>`;
+  } else if (mapDiv) {
+    // Show placeholder if no location is available
+    mapDiv.innerHTML = `
+      <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500">
+        <div class="text-center">
+          <i class="fas fa-map-marker-alt text-4xl mb-2"></i>
+          <p>Location not available</p>
+        </div>
+      </div>
+    `;
   }
 }
 
@@ -113,7 +123,9 @@ function setupComments() {
     }
 
     comments.forEach((comment) => {
-      const user = comment.userEmail || comment.userName || "Anonymous";
+      // Prioritize userName, then userEmail, then fallback to Anonymous
+      const user =
+        comment.userName || comment.userEmail?.split("@")[0] || "Anonymous";
       const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
         user
       )}&background=random`;

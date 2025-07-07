@@ -490,5 +490,11 @@
 
     <script src="../../js/inject.js" defer></script>
     <script src="../../js/main.js" defer></script>
+    
+    <!-- Authentication Guard -->
+    <script type="module">
+      import { initAuthGuard } from "../../js/auth/authGuard.js";
+      initAuthGuard();
+    </script>
   </body>
 </html>
