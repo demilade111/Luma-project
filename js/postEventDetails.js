@@ -54,10 +54,9 @@ async function renderEventDetails() {
           ${start.dateStr ? start.dateStr.split(" ")[1] : ""}
         </div>
         <div class="flex flex-col">
-          <span class="font-bold text-white">${start.dateStr || ""}</span>
-          <span class="text-gray-300">${start.timeStr || ""}${
-      end.timeStr ? " - " + end.timeStr : ""
-    }</span>
+          <span class="font-bold text-gray-200">${start.dateStr || ""}</span>
+          <span class="text-gray-400">${start.timeStr || ""}${end.timeStr ? " - " + end.timeStr : ""
+      }</span>
         </div>
       </div>`;
     endTimeEl.innerHTML = "";
@@ -65,7 +64,7 @@ async function renderEventDetails() {
       <div class="flex items-center gap-3 mt-2">
         <i class="fas fa-map-marker-alt text-2xl text-white"></i>
         <div class="flex flex-col">
-          <span class="font-bold text-white">${event.location || ""}</span>
+          <span class="font-bold text-gray-200">${event.location || ""}</span>
         </div>
       </div>`;
   }
@@ -101,19 +100,30 @@ function setupComments() {
         user
       )}&background=random`;
 
+      // Outer wrapper to simulate gradient border
+      const wrapper = document.createElement("div");
+      wrapper.className = "p-[2px] rounded-2xl bg-gradient-to-r from-[#f59275] to-[#f1647a]";
+
+      // Your original div with background, padding, etc.
       const div = document.createElement("div");
       div.className =
-        "rounded-2xl p-5 bg-[#23243a] border-2 border-transparent shadow-md bg-clip-padding relative";
-      div.style.borderImage = "linear-gradient(90deg, #f59275, #f1647a) 1";
+        "rounded-2xl p-5 bg-[#23243a] shadow-md bg-clip-padding relative h-full";
 
+      // Content inside the inner box
       div.innerHTML = `
-        <div class="flex items-center gap-4 mb-3">
-          <img src="${avatarUrl}" alt="${user}" class="w-10 h-10 rounded-full object-cover border-2 border-white" />
-          <span class="text-white font-semibold text-sm">${user}</span>
-        </div>
-        <p class="text-gray-300 text-sm">${comment.text}</p>
-      `;
-      commentGrid.appendChild(div);
+  <div class="flex items-center gap-4 mb-3">
+    <img src="${avatarUrl}" alt="${user}" class="w-10 h-10 rounded-full object-cover" />
+    <span class="text-white font-semibold text-sm">${user}</span>
+  </div>
+  <p class="text-gray-300 text-sm">${comment.text}</p>
+`;
+
+      // Nest inner box inside the gradient wrapper
+      wrapper.appendChild(div);
+
+      // Append to the comment grid
+      commentGrid.appendChild(wrapper);
+
     });
   });
 }

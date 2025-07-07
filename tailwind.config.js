@@ -27,6 +27,9 @@ export default {
           "linear-gradient(to top, rgba(0,0,0,0.9), transparent)",
         "picsum-1": "url('https://picsum.photos/1')",
       },
+      borderImage: {
+        'gradient-r': 'linear-gradient(90deg, #f59275, #f1647a) 1',
+      }
     },
   },
   plugins: [],
