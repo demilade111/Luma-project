@@ -45,7 +45,7 @@ async function loadPopularEvents() {
 
     const card = document.createElement("div");
     card.className =
-      "flex items-center overflow-hidden cursor-pointer hover:bg-[#23283a] transition";
+      "flex items-center overflow-hidden cursor-pointer transition";
     card.innerHTML = `
       <img src="${event.image_url}" alt="${event.name}" class="w-48 h-48 border-[0.5px] object-cover rounded-2xl" />
       <div class="p-4 flex flex-col justify-between">
