@@ -927,7 +927,6 @@ document.getElementById(`DOMContentLoad`, () => {
     window.location.href = `tutorial.html`;
   });
 });
-<<<<<<< HEAD
 
 
  //Loading Games in the Continue Learning boxes
@@ -961,5 +960,5 @@ document.getElementById(`DOMContentLoad`, () => {
   }
  }
  document.addEventListener("DOMContentLoaded", resistance);
-=======
->>>>>>> 0d60716701f156093187db478dd3f31be9cae471
+
+  
