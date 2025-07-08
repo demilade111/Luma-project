@@ -259,9 +259,42 @@ function setupShareButton() {
   };
 }
 
+function setupAddToCalendar() {
+  const addToCalendarBtn = document.getElementById("add-to-calendar-btn");
+  if (!addToCalendarBtn || !eventId) return;
+  const user = getCurrentUser();
+  if (!user || !user.userId) {
+    addToCalendarBtn.disabled = true;
+    addToCalendarBtn.textContent = "Sign in to add to calendar";
+    return;
+  }
+  addToCalendarBtn.disabled = false;
+  addToCalendarBtn.onclick = async () => {
+    addToCalendarBtn.disabled = true;
+    try {
+      // Get event details
+      const eventDoc = await getDoc(doc(db, "events", eventId));
+      if (!eventDoc.exists()) throw new Error("Event not found");
+      const event = eventDoc.data();
+      // Save to user's calendar collection
+      await setDoc(doc(db, "users", user.userId, "calendar", eventId), {
+        ...event,
+        eventId,
+        addedAt: new Date(),
+      });
+      addToCalendarBtn.textContent = "Added to Calendar";
+      alert("Event added to calendar");
+    } catch (err) {
+      addToCalendarBtn.disabled = false;
+      alert("Failed to add event to calendar: " + err.message);
+    }
+  };
+}
+
 window.addEventListener("DOMContentLoaded", () => {
   renderEventDetails();
   setupComments();
   setupRegistration();
   setupShareButton();
+  setupAddToCalendar();
 });

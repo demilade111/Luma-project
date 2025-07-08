@@ -1,30 +1,36 @@
 [
   {
-    "id": "420095",
-    "name": "Rolling Realms: Terraforming Mars Promo Pack",
-    "year": "2024",
+    "id": "306709",
+    "name": "The Night Cage",
+    "year": "2021",
     "minPlayers": "1",
-    "maxPlayers": "6",
-    "playingTime": "30",
-    "minPlayTime": "10",
-    "maxPlayTime": "30",
+    "maxPlayers": "5",
+    "playingTime": "60",
+    "minPlayTime": "40",
+    "maxPlayTime": "60",
     "age": "",
-    "image": "https://cf.geekdo-images.com/3IteA6DsmjCjATfklxuT7A__original/img/lF7BT5MfcLv6gruk7XhwzPBvEQg=/0x0/filters:format(png)/pic8171912.png",
-    "thumbnail": "https://cf.geekdo-images.com/3IteA6DsmjCjATfklxuT7A__thumb/img/6gIX85etZG1YmmsI5fcTr2rVwPQ=/fit-in/200x150/filters:strip_icc()/pic8171912.png",
-    "description": "Expand your copy of Rolling Realms with this set of 6 promo cards, inspired by Terraforming Mars.  To play this realm you will use your dice to mark outlined cards. Cards are outlined by fulfilling conditions, based on the number of resources you gain. Play the other realms smart to maximize the number of outlined cards and gain the best rewards in this realm.   description from the publisher",
-    "rating": "7.4",
-    "ratingCount": "46",
-    "complexity": "0.0",
-    "rank": "",
-    "categories": [
-      "Expansion for Base-game"
+    "image": "https://cf.geekdo-images.com/txQ7QzbQz89AO5BmVv7OqA__original/img/sj4Qg_VXKyNZFLftFjRv7p4-RKk=/0x0/filters:format(png)/pic5331288.png",
+    "thumbnail": "https://cf.geekdo-images.com/txQ7QzbQz89AO5BmVv7OqA__thumb/img/sneKRoRyk2ylPHxapTVVu66XbH4=/fit-in/200x150/filters:strip_icc()/pic5331288.png",
+    "description": "You awaken in the dark, your skin cold, your mind blank. You have nothing but your fear, a flickering candle, and a question: How long will your light last?  Trapped and crawling your way through a pitch-black labyrinth, equipped with nothing but dim candles, you must work together to explore the maze and escape. Unfortunately, your weak candlelight illuminates only your immediate surroundings. Worse still, horrifying Wax Eaters   monsters who despise the light   lurk in the suffocating darkn...",
+    "rating": "7.1",
+    "ratingCount": "2850",
+    "complexity": "2.1",
+    "rank": "1721",
+    "categories": ["Fantasy", "Horror", "Maze"],
+    "mechanics": [
+      "Cooperative Game",
+      "Grid Movement",
+      "Pieces as Map",
+      "Sudden Death Ending",
+      "Tile Placement"
     ],
-    "mechanics": [],
-    "designers": [],
-    "publishers": [
-      "Stonemaier Games"
+    "designers": [
+      "Christopher Ryan Chan",
+      "Chris McMahon",
+      "Rosswell Saunders"
     ],
-    "rulebook": "https://cdn.1j1ju.com/medias/13/3f/fb-terraforming-mars-rule.pdf"
+    "publishers": ["Smirk & Laughter Games", "Banana Games", "IELLO"],
+    "rulebook": "https://cdn.1j1ju.com/medias/63/bb/3f-the-night-cage-rulebook.pdf"
   },
   {
     "id": "178900",
@@ -57,14 +63,8 @@
       "Race",
       "Team-Based Game"
     ],
-    "designers": [
-      "Vlaada Chvátil"
-    ],
-    "publishers": [
-      "Czech Games Edition",
-      "asmodee",
-      "Boardgame Space"
-    ],
+    "designers": ["Vlaada Chvátil"],
+    "publishers": ["Czech Games Edition", "asmodee", "Boardgame Space"],
     "rulebook": "https://cdn.1j1ju.com/medias/89/5e/99-codenames-rule.pdf"
   },
   {
@@ -98,9 +98,7 @@
       "Campaign / Battle Card Driven",
       "Cooperative Game"
     ],
-    "designers": [
-      "R. Eric Reuss"
-    ],
+    "designers": ["R. Eric Reuss"],
     "publishers": [
       "Greater Than Games, LLC",
       "Fox in the Box",
@@ -125,23 +123,10 @@
     "ratingCount": "284",
     "complexity": "1.5",
     "rank": "",
-    "categories": [
-      "Card Game",
-      "City Building",
-      "Dice"
-    ],
-    "mechanics": [
-      "Dice Rolling",
-      "Open Drafting"
-    ],
-    "designers": [
-      "Masao Suganuma"
-    ],
-    "publishers": [
-      "Devir",
-      "FoxGames",
-      "Hobby World"
-    ],
+    "categories": ["Card Game", "City Building", "Dice"],
+    "mechanics": ["Dice Rolling", "Open Drafting"],
+    "designers": ["Masao Suganuma"],
+    "publishers": ["Devir", "FoxGames", "Hobby World"],
     "rulebook": "https://cdn.1j1ju.com/medias/2b/01/3c-machi-koro-legacy-rulebook.pdf"
   },
   {
@@ -161,11 +146,7 @@
     "ratingCount": "75032",
     "complexity": "3.6",
     "rank": "60",
-    "categories": [
-      "Animals",
-      "Economic",
-      "Farming"
-    ],
+    "categories": ["Animals", "Economic", "Farming"],
     "mechanics": [
       "Automatic Resource Growth",
       "Closed Drafting",
@@ -173,14 +154,8 @@
       "Increase Value of Unchosen Resources",
       "Solo / Solitaire Game"
     ],
-    "designers": [
-      "Uwe Rosenberg"
-    ],
-    "publishers": [
-      "Lookout Games",
-      "999 Games",
-      "Brain Games"
-    ],
+    "designers": ["Uwe Rosenberg"],
+    "publishers": ["Lookout Games", "999 Games", "Brain Games"],
     "rulebook": "https://cdn.1j1ju.com/medias/dd/16/f5-agricola-rulebook.pdf"
   },
   {
@@ -212,12 +187,8 @@
       "Modular Board",
       "Network and Route Building"
     ],
-    "designers": [
-      "Jean-Claude Adelmand"
-    ],
-    "publishers": [
-      "(Web published)"
-    ],
+    "designers": ["Jean-Claude Adelmand"],
+    "publishers": ["(Web published)"],
     "rulebook": "https://cdn.1j1ju.com/medias/b0/c9/53-power-grid-the-new-power-plant-cards-rulebook.pdf"
   },
   {
@@ -237,12 +208,7 @@
     "ratingCount": "49832",
     "complexity": "2.9",
     "rank": "59",
-    "categories": [
-      "Fantasy",
-      "Fighting",
-      "Miniatures",
-      "Mythology"
-    ],
+    "categories": ["Fantasy", "Fighting", "Miniatures", "Mythology"],
     "mechanics": [
       "Action Points",
       "Area Majority / Influence",
@@ -250,14 +216,8 @@
       "Card Play Conflict Resolution",
       "Closed Drafting"
     ],
-    "designers": [
-      "Eric M. Lang"
-    ],
-    "publishers": [
-      "Cool Mini Or Not",
-      "Arclight Games",
-      "asmodee"
-    ],
+    "designers": ["Eric M. Lang"],
+    "publishers": ["Cool Mini Or Not", "Arclight Games", "asmodee"],
     "rulebook": "https://cdn.1j1ju.com/medias/88/21/c2-blood-rage-rulebook.pdf"
   }
 ]
