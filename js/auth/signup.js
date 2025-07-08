@@ -6,6 +6,8 @@ import {
   where,
   getDocs,
   addDoc,
+  updateDoc,
+  doc as firestoreDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { checkIfLoggedIn } from "./authGuard.js";
 
@@ -24,6 +26,10 @@ form.addEventListener("submit", async (e) => {
   const username = form.username.value.trim();
   const email = form.email.value.trim();
   const password = form.password.value;
+  // Get selected categories
+  const categories = Array.from(
+    form.querySelectorAll('input[name="categories"]:checked')
+  ).map((cb) => cb.value);
 
   if (!username || !email || !password) {
     errorMsg.textContent = "All fields are required.";
@@ -51,6 +57,7 @@ form.addEventListener("submit", async (e) => {
       uid,
       username,
       email,
+      categories, // Save selected categories
     });
 
     // Store session information
@@ -72,3 +79,27 @@ form.addEventListener("submit", async (e) => {
     }
   }
 });
+
+// Utility: Add default categories to all existing users if missing
+export async function addDefaultCategoriesToUsers(
+  defaultCategories = ["Strategy", "Family"]
+) {
+  const usersRef = collection(db, "users");
+  const snapshot = await getDocs(usersRef);
+  for (const userDoc of snapshot.docs) {
+    const data = userDoc.data();
+    if (
+      !data.categories ||
+      !Array.isArray(data.categories) ||
+      data.categories.length === 0
+    ) {
+      await updateDoc(firestoreDoc(db, "users", userDoc.id), {
+        categories: defaultCategories,
+      });
+    }
+  }
+  console.log("Default categories added to users where missing.");
+}
+
+// TEMP: Run the utility to add default categories to all users
+addDefaultCategoriesToUsers();
