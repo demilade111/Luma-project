@@ -9,6 +9,9 @@ import {
   query,
   orderBy,
   limit,
+  addDoc,
+  serverTimestamp,
+  onSnapshot,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
@@ -230,8 +233,8 @@ function setupGameCardClickHandlers() {
       // Store game data in localStorage for the details page
       localStorage.setItem("selectedGame", JSON.stringify(gameData));
 
-      // Redirect to game details page
-      window.location.href = "./game-details.html";
+      // Redirect to game details page with id in URL
+      window.location.href = `./game-details.html?id=${gameId}`;
     });
   });
 
@@ -468,6 +471,12 @@ function setupGameDetailsPage() {
 
   loadGameDetails();
   setupPDFModal();
+  if (window.location.pathname.includes("game-details.html")) {
+    setupGameComments();
+    onAuthStateChanged(auth, () => {
+      renderSuggestedGames();
+    });
+  }
 }
 
 function loadGameDetails() {
@@ -856,7 +865,7 @@ function setupHomeGameCardClickHandlers() {
         gameService.getGameById(gameId).then((result) => {
           if (result.success) {
             localStorage.setItem("selectedGame", JSON.stringify(result.game));
-            window.location.href = "../game/game-details.html";
+            window.location.href = `../game/game-details.html?id=${gameId}`;
           }
         });
       }
@@ -905,24 +914,26 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   // Fallback share URLs
-  fb.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-  tw.href = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+  if (fb) fb.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+  if (tw) tw.href = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
 
-  shareBtn.addEventListener("click", async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: document.title,
-          text: text,
-          url: window.location.href,
-        });
-      } catch (err) {
-        console.error("Share failed:", err);
+  if (shareBtn) {
+    shareBtn.addEventListener("click", async () => {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            text: text,
+            url: window.location.href,
+          });
+        } catch (err) {
+          console.error("Share failed:", err);
+        }
+      } else if (links) {
+        links.classList.toggle("hidden");
       }
-    } else {
-      links.classList.toggle("hidden");
-    }
-  });
+    });
+  }
 });
 
 // BOOKMARK FUNCTIONALITY
@@ -1013,4 +1024,186 @@ async function renderUpcomingEvents() {
   } catch (err) {
     grid.innerHTML = `<p class='text-gray-400'>Failed to load upcoming events.</p>`;
   }
+}
+
+function getGameIdFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("id");
+}
+
+function getCurrentUser() {
+  // Use your existing auth logic or fallback
+  return auth.currentUser
+    ? {
+        userId: auth.currentUser.uid,
+        email: auth.currentUser.email,
+      }
+    : null;
+}
+
+function setupGameComments() {
+  const gameId = getGameIdFromUrl();
+  const commentInput = document.getElementById("commentInput");
+  const postCommentBtn = document.getElementById("postCommentBtn");
+  const commentGrid = document.getElementById("commentGrid");
+
+  if (!gameId) {
+    commentInput.disabled = true;
+    postCommentBtn.disabled = true;
+    postCommentBtn.textContent = "No Game Selected";
+    return;
+  }
+
+  commentInput.disabled = false;
+  postCommentBtn.disabled = false;
+  postCommentBtn.textContent = "Add Comment";
+
+  postCommentBtn.onclick = async () => {
+    const user = getCurrentUser();
+    const text = commentInput.value.trim();
+    if (!user) {
+      alert("Sign in to comment");
+      return;
+    }
+    if (!text) return;
+    postCommentBtn.disabled = true;
+    await postGameComment(gameId, text, user);
+    commentInput.value = "";
+    postCommentBtn.disabled = false;
+  };
+
+  listenForGameComments(gameId, (comments) => {
+    renderGameComments(comments, commentGrid);
+  });
+}
+
+async function postGameComment(gameId, text, user) {
+  const commentsCol = collection(db, "games", gameId, "comments");
+  await addDoc(commentsCol, {
+    text,
+    userId: user.userId,
+    userEmail: user.email,
+    userName: user.email?.split("@")[0] || user.userId,
+    createdAt: serverTimestamp(),
+  });
+}
+
+function listenForGameComments(gameId, callback) {
+  const commentsCol = collection(db, "games", gameId, "comments");
+  const q = query(commentsCol, orderBy("createdAt", "desc"));
+  onSnapshot(q, (snapshot) => {
+    const comments = [];
+    snapshot.forEach((doc) => comments.push({ id: doc.id, ...doc.data() }));
+    callback(comments);
+  });
+}
+
+function renderGameComments(comments, grid) {
+  // Preserve the comment input box (assumed to be the first child)
+  const inputBox = grid.querySelector(".bg-gradient-to-b");
+  grid.innerHTML = "";
+  if (inputBox) grid.appendChild(inputBox);
+
+  if (!comments.length) {
+    const noComments = document.createElement("div");
+    noComments.className = "col-span-full text-gray-400 text-center";
+    noComments.textContent = "No comments yet.";
+    grid.appendChild(noComments);
+    return;
+  }
+  comments.forEach((comment) => {
+    // Prioritize userName, then userEmail, then fallback to Anonymous
+    const user =
+      comment.userName ||
+      (comment.userEmail ? comment.userEmail.split("@")[0] : "") ||
+      "Anonymous";
+    const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+      user
+    )}&background=random`;
+    const card = document.createElement("div");
+    card.className =
+      "rounded-2xl p-5 bg-[#23243a] border-2 border-transparent shadow-md bg-clip-padding relative";
+    card.style.borderImage = "linear-gradient(90deg, #f59275, #f1647a) 1";
+    card.innerHTML = `
+      <div class="flex items-center gap-4 mb-3">
+        <img src="${avatarUrl}" alt="${user}" class="w-10 h-10 rounded-full object-cover border-2 border-white" />
+        <span class="text-white font-semibold text-sm">${user}</span>
+      </div>
+      <p class="text-white text-sm">${comment.text}</p>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+async function renderSuggestedGames() {
+  const section = document.getElementById("suggestedGamesSection");
+  const grid = document.getElementById("suggestedGamesGrid");
+  if (!grid || !section) return;
+  grid.innerHTML = "";
+  const user = getCurrentUser();
+  const currentGameId = getGameIdFromUrl();
+  if (!user || !user.userId) {
+    section.style.display = "none";
+    return;
+  } else {
+    section.style.display = "";
+  }
+  // Fetch user categories
+  let userDoc;
+  try {
+    userDoc = await getDoc(doc(db, "users", user.userId));
+  } catch (e) {
+    userDoc = null;
+  }
+  const categories = userDoc?.exists() ? userDoc.data().categories || [] : [];
+  // Fetch bookmarks
+  const bookmarksSnap = await getDocs(
+    collection(db, "users", user.userId, "bookmarks")
+  );
+  const bookmarkedIds = bookmarksSnap.docs.map((d) => d.id);
+  // Fetch tutorials watched (optional, fallback to empty array)
+  let tutorialsWatched = [];
+  if (userDoc?.exists() && userDoc.data().tutorialsWatched) {
+    tutorialsWatched = userDoc.data().tutorialsWatched;
+  }
+  // Collect all prioritized game IDs
+  const prioritizedIds = Array.from(
+    new Set([...bookmarkedIds, ...tutorialsWatched])
+  );
+  // Fetch all games
+  const gamesSnap = await getDocs(collection(db, "games"));
+  let games = gamesSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
+  // Remove current game
+  games = games.filter((g) => g.id !== currentGameId);
+  // Prioritize: bookmarks & tutorials first, then category matches
+  const prioritizedGames = games.filter((g) => prioritizedIds.includes(g.id));
+  const categoryGames = games.filter(
+    (g) =>
+      !prioritizedIds.includes(g.id) &&
+      g.categories &&
+      g.categories.some((cat) => categories.includes(cat))
+  );
+  // Combine and limit
+  const suggested = [...prioritizedGames, ...categoryGames].slice(0, 10);
+  if (!suggested.length) {
+    grid.innerHTML = '<p class="text-gray-400">No suggestions found.</p>';
+    return;
+  }
+  suggested.forEach((game) => {
+    const card = document.createElement("div");
+    card.className =
+      "rounded-2xl overflow-hidden shadow bg-white flex-shrink-0";
+    card.style.width = "180px";
+    card.style.height = "180px";
+    card.innerHTML = `
+      <img src="${
+        game.image || game.thumbnail || "../../src/asset/images/placeholder.png"
+      }" alt="${game.name}" class="w-full h-full object-cover" />
+    `;
+    card.onclick = () => {
+      localStorage.setItem("selectedGame", JSON.stringify(game));
+      window.location.href = `game-details.html?id=${game.id}`;
+    };
+    grid.appendChild(card);
+  });
 }
