@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luma | Game Details</title>
+    <link href="../../src/output.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="../../src/output.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <body class="bg-gray-100">
+    <div data-component="sidebar"></div>
 
-  <title>Luma | Games</title>
-</head>
-
-<body class="bg-white">
-  <!--Sidebar section-->
-  <div data-component="sidebar"></div>
-  <!--Navigation bar section-->
-  <header class="relative bg-white">
-    <!--<div id="hero-container" data-component="hero"></div>-->
-  </header>
-  <!--Main container-->
-  <main class="px-40 flex flex-col bg-white min-h-screen ">
-    <div class="flex-1 p-0.5 md:pb-10">
-      <!--Pupulalar games section-->
-      <div class="mb-20">
-        <div class="flex justify-between items-center mb-12">
-          <h1 class="text-4xl mt-10 font-nunito font-bold text-gray-500">Popular Games</h1>
-          <div id="games-count" class="text-sm text-gray-500 hidden">
-            <!-- Game count will be shown here -->
+    <main class="px-10">
+      <!-- Game Hero -->
+      <div class="night-cage-wrap flex gap-8 p-8 items-start px-20">
+        <div
+          id="game-image"
+          class="w-full max-w-[649px] aspect-square rounded-4xl overflow-hidden cursor-pointer bg-gray-200 flex items-center justify-center"
+        >
+          <div class="text-center text-gray-600">
+            <i class="fas fa-spinner fa-spin text-4xl"></i>
+            <p class="mt-4">Loading game data...</p>
           </div>
         </div>
 
@@ -134,116 +132,205 @@
                 <circle cx="10.5" cy="66.5" r="2.5" fill="#020202" />
                 <circle cx="47.5" cy="66.5" r="2.5" fill="#020202" />
               </svg>
+        <div class="flex flex-col gap-6 max-w-[700px]">
+          <h3 id="game-title" class="font-extrabold text-[42px] luma-gradient">
+            Loading...
+          </h3>
+          <div>
+            <h4
+              id="game-subtitle"
+              class="font-semibold text-[28px] text-gray-600 mb-2"
+            >
+              ...
+            </h4>
+            <p id="game-description" class="text-gray-500">
+              Loading description...
+            </p>
+          </div>
 
-              <div class="whitespace-nowrap">Strategy Games</div>
-            </div>
+          <div
+            id="game-stats"
+            class="flex gap-6 text-sm text-gray-700 flex-wrap"
+          >
+            <p id="playing-time" class="flex items-center gap-2">
+              <i class="fas fa-hourglass text-gray-400"></i>
+              <span class="time-value">...</span>
+            </p>
+            <p id="player-count" class="flex items-center gap-2">
+              <i class="fas fa-users text-gray-400"></i>
+              <span class="players-value">...</span>
+            </p>
+            <p
+              id="age-rating"
+              class="border border-gray-400 text-gray-600 rounded-full px-3 py-1 text-xs"
+            >
+              <span class="age-value">...</span>
+            </p>
+            <p id="game-rating" class="flex items-center gap-2">
+              <span class="text-yellow-500">&#9733;</span>
+              <span class="rating-value">...</span>
+            </p>
+          </div>
 
-            <!-- More card -->
-            <div
-              class="inline-flex items-center bg-white rounded-2xl p-5 border gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]">
-              <svg width="40" height="40" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M40 49H53.5V61.5H66.5V75.5H27M40 49V36.5M40 49V61.5H27M1 36.5V10.5H15V23.5H40V36.5M1 36.5H40M1 36.5V49M1 49V75.5H27M1 49H27V61.5M27 75.5V61.5M49 1V26.5H62.5V40.5H75.5V14.5H62.5V1H50H49Z"
-                  stroke="black" />
-              </svg>
-              <div class="whitespace-nowrap">Strategy Games</div>
-            </div>
+          <div class="flex gap-4 flex-wrap">
+            <button
+              id="tutorial-btn"
+              class="border border-gray-400 rounded-xl px-6 py-2 bg-white text-gray-700 shadow"
+            >
+              Tutorial
+            </button>
+            <button
+              id="share-btn"
+              class="border border-gray-400 rounded-xl px-6 py-2 bg-white text-gray-700 shadow"
+            >
+              Share
+            </button>
+            <button
+              id="rules-btn"
+              class="border border-gray-400 rounded-xl px-6 py-2 bg-white text-gray-700 shadow"
+            >
+              Rules
+            </button>
+            <button
+              id="bookmark-btn"
+              class="border border-gray-400 rounded-xl px-6 py-2 bg-white text-gray-700 shadow flex items-center"
+            >
+              <i class="fa-regular fa-bookmark m-2 text-gray-500"></i>Bookmark
+            </button>
           </div>
         </div>
-
-
-
-        <!--Continue Learning section-->
-        <div class="continue-l p-6">
-          <h1 class="text-4xl mt-10 font-nunito font-bold text-gray-500">Continue Learning</h1>
-
-          <!--Scrollable div-->
-          <div class="flex overflow-x-auto gap-6 pb-4">
-            <!--Card One-->
-            <div class="title-image min-w-[350px] flex-shrink-0 flex flex-col border rounded-2xl p-3 bg-white">
-              <h3 class="text-lg font-semibold mb-2">The Night Cage</h3>
-              <div class="flex gap-6">
-                <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
-                <div class="text-button flex flex-col justify-between h-40 w-40">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing...</p>
-                  <button type="button" class="border rounded-2xl w-full">Tutorial</button>
-                </div>
-              </div>
-            </div>
-            <!--Card Two-->
-            <div class="title-image min-w-[350px] flex-shrink-0 flex flex-col border rounded-2xl p-3 bg-white">
-              <h3 class="text-lg font-semibold mb-2">Lorem, ipsum.</h3>
-              <div class="flex gap-6">
-                <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
-                <div class="text-button flex flex-col justify-between h-40 w-40">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing...</p>
-                  <button type="button" class="border rounded-2xl w-full">Tutorial</button>
-                </div>
-              </div>
-            </div>
-            <!--Card Three-->
-            <div class="title-image min-w-[350px] flex-shrink-0 flex flex-col border rounded-2xl p-3 bg-white">
-              <h3 class="text-lg font-semibold mb-2">Lorem ipsum dolor sit.</h3>
-              <div class="flex gap-6">
-                <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
-                <div class="text-button flex flex-col justify-between h-40 w-40">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing...</p>
-                  <button type="button" class="border rounded-2xl w-full">Tutorial</button>
-                </div>
-              </div>
-            </div>
-            <!--Card Four-->
-            <div class="title-image min-w-[350px] flex-shrink-0 flex flex-col border rounded-2xl p-3 bg-white">
-              <h3 class="text-lg font-semibold mb-2">Lorem, ipsum dolor.</h3>
-              <div class="flex gap-6">
-                <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
-                <div class="text-button flex flex-col justify-between h-40 w-40">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing...</p>
-                  <button type="button" class="border rounded-2xl w-full">Tutorial</button>
-                </div>
-              </div>
-            </div>
-            <!--Card Five-->
-            <div class="title-image min-w-[350px] flex-shrink-0 flex flex-col border rounded-2xl p-3 bg-white">
-              <h3 class="text-lg font-semibold mb-2">Lorem, ipsum.</h3>
-              <div class="flex gap-6">
-                <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
-                <div class="text-button flex flex-col justify-between h-40 w-40">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing...</p>
-                  <button type="button" class="border rounded-2xl w-full">Tutorial</button>
-                </div>
-              </div>
-            </div>
-            <!--Card Six-->
-            <div class="title-image min-w-[350px] flex-shrink-0 flex flex-col border rounded-2xl p-3 bg-white">
-              <h3 class="text-lg font-semibold mb-2">Lorem ipsum dolor sit.</h3>
-              <div class="flex gap-6">
-                <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
-                <div class="text-button flex flex-col justify-between h-40 w-40">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing...</p>
-                  <button type="button" class="border rounded-2xl w-full">Tutorial</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
       </div>
-  </main>
-  <!--Footer section-->
 
-  <div data-component="footer"></div>
+      <!-- About Game Section -->
+      <div class="py-10 lg:px-20">
+        <div class="about-game flex gap-8 p-8 items-start">
+          <div class="flex flex-col gap-6 max-w-[50%]">
+            <div id="designers-section">
+              <h3 class="text-3xl font-semibold font-sans text-gray-500">
+                Designer
+              </h3>
+              <div id="designers-list" class="text-custom-gray text-2xl">
+                Loading...
+              </div>
+            </div>
+            <div id="publishers-section">
+              <h3 class="text-3xl font-semibold font-sans text-gray-500">
+                Publisher
+              </h3>
+              <div id="publishers-list" class="text-custom-gray text-2xl">
+                Loading...
+              </div>
+            </div>
+            <div id="categories-section">
+              <h3 class="text-3xl font-semibold font-sans text-gray-500">
+                Categories
+              </h3>
+              <div id="categories-list" class="text-custom-gray text-2xl">
+                Loading...
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-6 max-w-[40%]">
+            <h2 class="text-4xl font-extrabold text-gray-500">About Game</h2>
+            <p id="detailed-description" class="text-gray-600">
+              Loading detailed game description...
+            </p>
+          </div>
+        </div>
+      </div>
 
+      <!-- Comments Section -->
+      <div class="comments px-8 py-12">
+        <h1 class="text-5xl font-bold text-center text-gray-700 mb-8">
+          Comments
+        </h1>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <!-- Input Card -->
+          <div
+            class="md:row-span-2 bg-white border border-black rounded-2xl p-4 flex flex-col justify-between"
+          >
+            <div
+              class="border border-black rounded-2xl p-3 flex flex-col h-full flex-grow"
+            >
+              <textarea
+                id="commentInput"
+                class="w-full resize-none border border-gray-300 p-3 rounded-md focus:outline-none"
+                rows="5"
+                placeholder="Leave a comment..."
+              ></textarea>
+            </div>
+            <button
+              id="postCommentBtn"
+              class="mt-4 self-center w-[70%] px-6 py-3 flex items-center gap-2 bg-white border border-black rounded-lg justify-center"
+            >
+              <i class="fas fa-comment-dots text-2xl text-gray-500"></i> Post
+            </button>
+          </div>
 
-  <!--script-->
-  <script src="../../service/gameService.js" defer></script>
-  <script src="../../js/inject.js" defer></script>
-  <script src="../../js/main.js" defer></script>
-  <script src="../../js/hero-carousel.js" defer></script>
+          <!-- Comments List -->
+          <div
+            id="commentsList"
+            class="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            <!-- Comments will be inserted here dynamically -->
+          </div>
+        </div>
+      </div>
 
+      <!-- Footer -->
+      <div data-component="footer"></div>
 
+      <!-- PDF Preview Modal -->
+      <div
+        id="pdf-modal"
+        class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center"
+      >
+        <div class="bg-white rounded-lg max-w-4xl max-h-[90vh] w-full mx-4">
+          <div class="flex justify-between items-center p-4 border-b">
+            <h3 class="text-lg font-semibold">Game Rules</h3>
+            <button
+              id="close-pdf-modal"
+              class="text-gray-500 hover:text-gray-700"
+            >
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
+          <div class="p-4 h-[80vh] overflow-hidden">
+            <iframe
+              id="pdf-viewer"
+              src=""
+              class="w-full h-full border-0"
+            ></iframe>
+          </div>
+          <div class="flex gap-4 p-4 border-t bg-gray-50">
+            <button
+              id="download-pdf"
+              class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              <i class="fas fa-download mr-2"></i>Download PDF
+            </button>
+            <button
+              id="close-pdf-modal-btn"
+              class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
 
-</body>
+    <!-- Scripts -->
+    <script src="../../service/gameService.js" defer></script>
+    <script src="../../js/inject.js" defer></script>
+    <script src="../../js/main.js" defer></script>
+    <script type="module" src="../../js/auth/signout.js"></script>
+    <script type="module" src="../../js/gameDetails.js"></script>
 
+    <!-- Authentication Guard -->
+    <script type="module">
+      import { initAuthGuard } from "../../js/auth/authGuard.js";
+      initAuthGuard();
+    </script>
+  </body>
 </html>
