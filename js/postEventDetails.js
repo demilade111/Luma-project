@@ -268,27 +268,52 @@ function setupAddToCalendar() {
     addToCalendarBtn.textContent = "Sign in to add to calendar";
     return;
   }
-  addToCalendarBtn.disabled = false;
-  addToCalendarBtn.onclick = async () => {
-    addToCalendarBtn.disabled = true;
-    try {
-      // Get event details
-      const eventDoc = await getDoc(doc(db, "events", eventId));
-      if (!eventDoc.exists()) throw new Error("Event not found");
-      const event = eventDoc.data();
-      // Save to user's calendar collection
-      await setDoc(doc(db, "users", user.userId, "calendar", eventId), {
-        ...event,
-        eventId,
-        addedAt: new Date(),
-      });
-      addToCalendarBtn.textContent = "Added to Calendar";
-      alert("Event added to calendar");
-    } catch (err) {
-      addToCalendarBtn.disabled = false;
-      alert("Failed to add event to calendar: " + err.message);
+  // Check if event is already in user's calendar
+  const calendarRef = doc(db, "users", user.userId, "calendar", eventId);
+  function setAddState() {
+    addToCalendarBtn.disabled = false;
+    addToCalendarBtn.textContent = "Add to Calendar";
+    addToCalendarBtn.onclick = async () => {
+      addToCalendarBtn.disabled = true;
+      try {
+        const eventDoc = await getDoc(doc(db, "events", eventId));
+        if (!eventDoc.exists()) throw new Error("Event not found");
+        const event = eventDoc.data();
+        await setDoc(calendarRef, {
+          ...event,
+          eventId,
+          addedAt: new Date(),
+        });
+        setAddedState();
+        alert("Event added to calendar");
+      } catch (err) {
+        addToCalendarBtn.disabled = false;
+        alert("Failed to add event to calendar: " + err.message);
+      }
+    };
+  }
+  function setAddedState() {
+    addToCalendarBtn.disabled = false;
+    addToCalendarBtn.textContent = "Added to Calendar";
+    addToCalendarBtn.onclick = async () => {
+      addToCalendarBtn.disabled = true;
+      try {
+        await deleteDoc(calendarRef);
+        setAddState();
+        alert("Event removed from calendar");
+      } catch (err) {
+        addToCalendarBtn.disabled = false;
+        alert("Failed to remove event from calendar: " + err.message);
+      }
+    };
+  }
+  getDoc(calendarRef).then((docSnap) => {
+    if (docSnap.exists()) {
+      setAddedState();
+    } else {
+      setAddState();
     }
-  };
+  });
 }
 
 window.addEventListener("DOMContentLoaded", () => {
