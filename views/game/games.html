@@ -27,6 +27,111 @@
           </div>
         </div>
 
+        <!--Cards container -->
+        <div id="games-loading" class="text-center py-8">
+          <i class="fas fa-spinner fa-spin text-2xl text-gray-400"></i>
+          <p class="mt-2 text-gray-500">Loading games...</p>
+        </div>
+
+        <div id="games-error" class="hidden text-center py-8">
+          <i class="fas fa-exclamation-triangle text-2xl text-red-400"></i>
+          <p class="mt-2 text-red-500">Error loading games. Please try again.</p>
+          <button id="retry-games" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            Retry
+          </button>
+        </div>
+
+        <div id="games-container" class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 px-4">
+          <!-- Games will be dynamically inserted here -->
+        </div>
+
+        <!--Categories Section-->
+        <div class="mb-12">
+          <h1 class="text-4xl font-nunito mt-10 font-bold mb-12 text-gray-500">Categories</h1>
+
+          <!--Inline cards left scroll-->
+          <div class="flex space-x-4 overflow-x-auto pb-4 px-4 max-w-[100%] ">
+            <!--Puzzle card-->
+            <div
+              class="inline-flex items-center bg-white rounded-2xl p-5 border gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)] cursor-pointer hover:bg-gray-50 category-filter"
+              data-category="Puzzle">
+              <svg width="40" height="40" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M40 49H53.5V61.5H66.5V75.5H27M40 49V36.5M40 49V61.5H27M1 36.5V10.5H15V23.5H40V36.5M1 36.5H40M1 36.5V49M1 49V75.5H27M1 49H27V61.5M27 75.5V61.5M49 1V26.5H62.5V40.5H75.5V14.5H62.5V1H50H49Z"
+                  stroke="black" />
+              </svg>
+              <div class="whitespace-nowrap">Puzzle Games</div>
+            </div>
+
+            <!-- RPG card -->
+            <div
+              class="inline-flex items-center bg-white rounded-2xl p-5 border gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)] cursor-pointer hover:bg-gray-50 category-filter"
+              data-category="Fantasy">
+              <svg width="40" height="40" viewBox="0 0 78 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M53.5 1L76.5 32M53.5 1L15.5 7M53.5 1L42.5 21M76.5 32L65 70.5M76.5 32L42.5 21M76.5 32L50 61M65 70.5L22 74.5M65 70.5L50 61M22 74.5L1 43.5M22 74.5L13.5 43.5M22 74.5L50 61M1 43.5L15.5 7M1 43.5H13.5M15.5 7L42.5 21M15.5 7L13.5 43.5M42.5 21L13.5 43.5M42.5 21L50 61M13.5 43.5L50 61"
+                  stroke="black" />
+                <path
+                  d="M24.8107 44.0545L25.2514 43.1317L30.5294 40.993C31.1484 40.7429 31.6678 40.5167 32.0877 40.3143C32.5093 40.1084 32.8527 39.8904 33.1179 39.6603C33.3882 39.4284 33.6 39.1518 33.7535 38.8305C33.9298 38.4613 33.9936 38.0993 33.9448 37.7444C33.8995 37.3911 33.7598 37.0683 33.5258 36.7761C33.2918 36.4838 32.9851 36.2471 32.6057 36.0659C32.2023 35.8732 31.8103 35.7888 31.4295 35.8126C31.0538 35.8347 30.7129 35.9552 30.4068 36.1742C30.1041 36.3948 29.8572 36.7051 29.6662 37.105L28.4563 36.5271C28.7501 35.9119 29.1499 35.4396 29.6556 35.1102C30.1613 34.7809 30.7206 34.603 31.3335 34.5767C31.9497 34.552 32.5638 34.6858 33.1756 34.978C33.7909 35.2719 34.274 35.6621 34.625 36.1488C34.9761 36.6355 35.1813 37.1638 35.2407 37.7337C35.3002 38.3036 35.2009 38.8586 34.943 39.3986C34.7585 39.7848 34.508 40.1291 34.1916 40.4313C33.8802 40.7317 33.4458 41.0259 32.8885 41.3138C32.3363 41.6 31.6051 41.9224 30.695 42.2811L27.1318 43.6771L27.0926 43.7592L31.9735 46.0904L31.4348 47.2183L24.8107 44.0545ZM36.9086 50.009C36.1361 49.6401 35.5785 49.1156 35.2359 48.4356C34.8948 47.7522 34.7726 46.9403 34.8691 46C34.9672 45.0562 35.289 44.0135 35.8342 42.8719C36.3762 41.7371 36.9826 40.8366 37.6533 40.1705C38.3291 39.5026 39.04 39.0865 39.7859 38.9223C40.5368 38.7562 41.2951 38.856 42.0608 39.2217C42.8264 39.5874 43.3789 40.1137 43.7183 40.8005C44.0628 41.4855 44.1859 42.2999 44.0878 43.2437C43.9947 44.1857 43.6771 45.2241 43.1351 46.3589C42.5899 47.5005 41.981 48.4061 41.3087 49.0756C40.6379 49.7417 39.9296 50.1569 39.1837 50.3212C38.4394 50.482 37.681 50.378 36.9086 50.009ZM37.4473 48.8811C38.2129 49.2468 38.984 49.1617 39.7604 48.6258C40.5369 48.0899 41.2516 47.1384 41.9046 45.7712C42.3389 44.862 42.6112 44.0413 42.7217 43.3091C42.8356 42.5785 42.7913 41.9592 42.589 41.4512C42.3901 40.9448 42.0377 40.5708 41.5318 40.3292C40.773 39.9667 40.0013 40.0578 39.2165 40.6023C38.4333 41.1433 37.7161 42.0958 37.0647 43.4596C36.6305 44.3688 36.3572 45.1869 36.245 45.9141C36.1327 46.6413 36.1769 47.2564 36.3774 47.7593C36.5814 48.2639 36.938 48.6378 37.4473 48.8811Z"
+                  fill="black" />
+              </svg>
+
+              <div class="whitespace-nowrap">Fantasy Games</div>
+            </div>
+
+            <!-- Brewed card -->
+            <div
+              class="inline-flex items-center bg-white rounded-2xl p-5 border gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]">
+              <svg width="40" height="40" viewBox="0 0 62 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M20.0001 52.9999C16.5001 50.6666 9.60006 44.0999 10.0001 36.4999C10.4001 28.8999 10.1667 27.9999 10.0001 28.4999H4.5C3.33333 28.3333 1 27.1001 1 23.5001C1 19.9001 3.33333 19.3334 4.5 19.5001H57C58.1667 19.6668 60.5 20.7001 60.5 23.5001C60.5 26.3 58.1667 27.3333 57 27.5H51.5V36.4999C51.6667 40.4999 50.2 49.3999 43 52.9999M50.5 52L54.3571 55M43 59.5C44.2433 60.4325 46.1532 61.8649 48 63.25M48 63.25C50.1143 64.8357 52.146 66.3595 53 67C55 68.5 57 68.5 59.5 66C61.5 64 60.4995 59.5 59.5 59L54.3571 55M48 63.25L54.3571 55"
+                  stroke="black" />
+                <path
+                  d="M12.1035 52L8.24637 55M19.6035 59.5C18.3602 60.4325 16.4503 61.8649 14.6035 63.25M14.6035 63.25C12.4892 64.8357 10.4575 66.3595 9.60352 67C7.60352 68.5 5.60352 68.5 3.10352 66C1.10352 64 1.49927 61 3.10352 59L8.24637 55M14.6035 63.25L8.24637 55"
+                  stroke="black" />
+                <path
+                  d="M26.4044 56.8933L26.376 61.7797M36.7907 56.8932C36.7544 58.4469 36.8445 59.5795 36.7906 61.8873M36.7906 61.8873C36.7288 64.5295 36.6695 67.0684 36.6446 68.1356C36.5862 70.635 35.3491 72.2065 31.8384 72.6246C29.0298 72.9591 26.9173 70.7925 26.338 68.2949L26.376 61.7797M36.7906 61.8873L26.376 61.7797"
+                  stroke="black" />
+                <circle cx="25.5" cy="8.5" r="4" stroke="black" />
+                <circle cx="9.5" cy="3.5" r="2" stroke="black" />
+                <line x1="45.5" x2="45.5" y2="14" stroke="black" />
+                <line x1="38" y1="6.5" x2="52" y2="6.5" stroke="black" />
+              </svg>
+
+              <div class="whitespace-nowrap">Puzzle Games</div>
+            </div>
+
+            <!-- Tournament -->
+            <div
+              class="inline-flex items-center bg-white rounded-2xl p-5 border gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]">
+              <svg width="40" height="40" viewBox="0 0 76 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="38" cy="44" r="12" stroke="black" />
+                <circle cx="66" cy="55" r="8" stroke="black" />
+                <circle cx="10" cy="55" r="8" stroke="black" />
+                <path
+                  d="M18.5 77.5C18.8194 75.5833 19.5675 73.0544 20.8549 70.5M57 77.5C56.6273 75.5833 55.809 73.0544 54.4506 70.5M75 69C71.6338 66.0165 62.8112 62.1395 54.4506 70.5M54.4506 70.5C51.5567 65.0579 46.2111 59.5 37.5 59.5C28.7889 59.5 23.5977 65.0579 20.8549 70.5M20.8549 70.5C18.0699 67.1667 10.2 62.2 1 69M21 16.5V2L30.5 13.5L37.5 2L45.5 13.5L55.5 2V16.5M21 16.5V24C21.8333 25 24.6 27 29 27C33.4 27 43.1667 27 47.5 27C49.8333 26.8333 54.7 26 55.5 24V16.5M21 16.5C22.1667 17.8333 25.4 20.5 29 20.5C32.6 20.5 42.8333 20.5 47.5 20.5C50 20.1667 55.1 18.9 55.5 16.5"
+                  stroke="black" />
+              </svg>
+
+              <div class="whitespace-nowrap">Home Brewed</div>
+            </div>
+
+            <!-- Strategy -->
+            <div
+              class="inline-flex items-center bg-white rounded-2xl p-5 border gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)] cursor-pointer hover:bg-gray-50 category-filter"
+              data-category="Abstract Strategy">
+              <svg width="40" height="40" viewBox="0 0 77 77" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0.5" y="0.5" width="76" height="76" rx="18.5" stroke="black" />
+                <path d="M37.9932 0V76M56.7432 0V76M76 39H1M1 57H76M76 20H1M19 0.5V76" stroke="black" />
+                <circle cx="29.5" cy="11.5" r="2.5" fill="#020202" />
+                <circle cx="47.5" cy="29.5" r="2.5" fill="#020202" />
+                <circle cx="66.5" cy="47.5" r="2.5" fill="#020202" />
+                <circle cx="66.5" cy="11.5" r="2.5" fill="#020202" />
+                <circle cx="10.5" cy="29.5" r="2.5" fill="#020202" />
+                <circle cx="29.5" cy="47.5" r="2.5" fill="#020202" />
+                <circle cx="10.5" cy="66.5" r="2.5" fill="#020202" />
+                <circle cx="47.5" cy="66.5" r="2.5" fill="#020202" />
+              </svg>
         <div class="flex flex-col gap-6 max-w-[700px]">
           <h3 id="game-title" class="font-extrabold text-[42px] luma-gradient">
             Loading...
