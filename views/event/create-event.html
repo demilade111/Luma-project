@@ -327,6 +327,12 @@
     <script src="../../js/main.js" defer></script>
     <script src="../../js/hero-carousel.js" defer></script>
     <script type="module" src="../../js/handleCreateEvent.js"></script>
+
+    <!-- Authentication Guard -->
+    <script type="module">
+      import { initAuthGuard } from "../../js/auth/authGuard.js";
+      initAuthGuard();
+    </script>
     <script type="module">
       import { postComment, listenForComments } from "../../js/comment.js";
       import { getCurrentUser } from "../../js/auth/authGuard.js";
@@ -365,9 +371,11 @@
           comments.forEach((comment) => {
             const div = document.createElement("div");
             div.className = "bg-[#23283a] rounded-lg p-3 text-white";
-            const userLabel = comment.userEmail
-              ? `<span class='font-bold'>${comment.userEmail}:</span> `
-              : "";
+            const user =
+              comment.userName ||
+              comment.userEmail?.split("@")[0] ||
+              "Anonymous";
+            const userLabel = `<span class='font-bold'>${user}:</span> `;
             div.innerHTML = `${userLabel}${comment.text}`;
             commentsList.appendChild(div);
           });

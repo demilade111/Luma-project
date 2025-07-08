@@ -46,22 +46,26 @@
                                     <span class="text-base text-white" id="eventCapacity"></span>
                                 </span>
                             </div>
+                            <div class="flex flex-col">
+                                <span class="text-gray-200 text-lg font-semibold" id="eventGoingCount">0 people are going</span>
+                                <span class="text-base text-gray-400" id="eventGoingList"></span>
+                            </div>
                         </div>
 
                         <!-- Action Buttons -->
                         <div class="flex gap-4 flex-wrap mt-5">
                             <button id="event-register-btn"
                                 style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
-                                class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200">
+                                class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200 cursor-pointer hover:bg-[#3A4258] transition-colors">
                                 Register
                             </button>
                             <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
-                                class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200">
+                                class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200 cursor-pointer hover:bg-[#3A4258] transition-colors">
                                 Share
                             </button>
                             <button id="add-to-calendar-btn"
                                 style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
-                                class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200">
+                                class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200 cursor-pointer hover:bg-[#3A4258] transition-colors">
                                 Add to Calendar
                             </button>
                         </div>
@@ -79,13 +83,10 @@
                                 <span class="text-gray-200 text-lg font-semibold">Hosted by</span>
                                 <span class="text-base text-gray-400" id="eventHost"></span>
                             </div>
-                            <div class="flex flex-col">
-                                <span class="text-gray-200 text-lg font-semibold">36 people are going</span>
-                                <span class="text-base text-gray-400">Valentina, Amandeep and 34 others</span>
-                            </div>
                             <div class="w-full">
-                                <img src="../../src/asset/images/map.png" alt="Card Image"
-                                    class="w-full h-64 md:h-80 lg:h-96 object-cover rounded-4xl border border-gray-500" />
+                                <div id="eventMap" class="w-full h-64 md:h-80 lg:h-96 rounded-4xl border border-gray-500 overflow-hidden">
+                                    <!-- Map will be loaded here dynamically -->
+                                </div>
                             </div>
                         </div>
                         <div class="w-[60%] flex flex-col px-2">
@@ -166,6 +167,12 @@
     <script src="../../js/hero-carousel.js" defer></script>
     <script type="module" src="../../js/auth/signout.js"></script>
     <script type="module" src="../../js/postEventDetails.js"></script>
+    
+    <!-- Authentication Guard -->
+    <script type="module">
+      import { initAuthGuard } from "../../js/auth/authGuard.js";
+      initAuthGuard();
+    </script>
 </body>
 
 </html>
