@@ -2450,6 +2450,9 @@
   .p-10 {
     padding: calc(var(--spacing) * 10);
   }
+  .p-\[2px\] {
+    padding: 2px;
+  }
   .p-\[3px\] {
     padding: 3px;
   }
