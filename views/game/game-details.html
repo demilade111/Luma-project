@@ -1,53 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luma | Game Details</title>
-    <link href="../../src/output.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-  </head>
 
-  <body class="bg-gray-100">
-    <div data-component="sidebar"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luma | Game Details</title>
+  <link href="../../src/output.css" rel="stylesheet" />
 
-    <main class="px-10">
-      <div class="night-cage-wrap flex gap-8 p-8 items-start px-20">
-        <!-- Game Image -->
-        <div
-          id="game-image"
-          class="w-full max-w-[649px] aspect-square rounded-4xl overflow-hidden cursor-pointer"
-        >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+
+<body class="bg-gray-100">
+  <div data-component="sidebar"></div>
+
+  <!-- Header with Navbar and Hero -->
+  <header class="relative bg-white">
+    <!-- <div id="hero-container" data-component="hero"></div> -->
+  </header>
+  <div class="flex-1 flex flex-col min-h-screen ml-[90px] pt-10">
+
+    <!--Game Details section-->
+    <main class="flex-1 p-4 md:py-10 md:px-20">
+      <div class="night-cage-wrap flex gap-16 items-start">
+        <div id="game-image" class="w-full max-w-[649px] aspect-square rounded-4xl overflow-hidden cursor-pointer">
           <div class="loading-game-data">
             <i class="fas fa-spinner fa-spin text-4xl text-gray-400"></i>
             <p class="mt-4 text-gray-600">Loading game data...</p>
           </div>
         </div>
 
-        <!-- Game Info -->
         <div class="flex flex-col gap-6 max-w-[700px]">
           <h3 id="game-title" class="font-extrabold text-[42px] luma-gradient">
             Loading...
           </h3>
           <div class="gap-6">
-            <h4
-              id="game-subtitle"
-              class="font-semibold text-[32px] text-gray-200 mb-4"
-            >
+            <h4 id="game-subtitle" class="font-semibold text-[32px] text-gray-200 mb-4">
               ...
             </h4>
-            <p
-              id="game-description"
-              class="text-lg text-gray-400 pb-6 max-w-[80%]"
-            >
+            <p id="game-description" class="text-lg text-gray-400 pb-6 w-full">
               Loading game description...
             </p>
           </div>
-
-          <!-- Stats -->
           <div id="game-stats" class="flex gap-6 text-sm text-gray-600">
             <p id="playing-time" class="text-gray-200">
               <span class="ml-2"><i class="fas fa-hourglass"></i></span>
@@ -57,10 +50,7 @@
               <span class="ml-2"><i class="fas fa-users"></i></span>
               <span class="players-value">...</span>
             </p>
-            <p
-              id="age-rating"
-              class="border border-gray-200 text-gray-200 rounded-full p-0.5"
-            >
+            <p id="age-rating" class="border border-gray-200 text-gray-200 rounded-full p-0.5">
               <span class="mx-2 age-value">...</span>
             </p>
             <p id="game-rating" class="text-gray-200">
@@ -69,299 +59,271 @@
             </p>
           </div>
 
-          <!-- Buttons -->
           <div class="flex gap-4 flex-wrap">
-            <button
-              id="tutorial-btn"
-              class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200 shadow-[inset_-3px_-3px_8px_rgba(255,255,255,0.8)]"
-            >
+            <button id="tutorial-btn" style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+              class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200">
               Tutorial
             </button>
-            <button
-              id="share-btn"
-              class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200 shadow-[inset_-3px_-3px_8px_rgba(255,255,255,0.8)]"
-            >
+            <button id="share-btn" style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+              class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200">
               Share
             </button>
-            <button
-              id="rules-btn"
-              class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200 shadow-[inset_-3px_-3px_8px_rgba(255,255,255,0.8)]"
-            >
+            <button id="rules-btn" style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+              class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200">
               Rules
             </button>
-            <button
-              id="bookmark-btn"
-              class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200 shadow-[inset_-3px_-3px_8px_rgba(255,255,255,0.8)]"
-            >
-              <i class="fa-regular fa-bookmark m-2 text-gray-500"></i>Bookmark
+            <button id="bookmark-btn" style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+              class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200">
+              <i class="fa-solid fa-bookmark m-2 text-gray-500"></i>
+              Bookmarks
             </button>
           </div>
         </div>
       </div>
+      <div class="py-10 lg:px-10">
 
-      <!-- Description, Categories -->
-      <div class="py-10 lg:px-20">
-        <div class="about-game flex gap-8 p-8 items-start">
-          <div class="flex flex-col gap-6 max-w-[50%]">
-            <div id="designers-section">
-              <h3 class="text-3xl font-semibold font-sans text-gray-500">
-                Designer
-              </h3>
-              <div id="designers-list" class="text-custom-gray text-2xl">
-                Loading...
+        <section class="mb-[90px]">
+          <div class="flex gap-10 my-6">
+            <div class="w-[40%] flex flex-col justify-start gap-8">
+              <div id="designers-section" class="flex flex-col">
+                <span class="text-gray-200 text-lg font-semibold mb-3">Designer</span>
+                <span id="designers-list" class="text-base text-[#5E5E5E]">Loading...</span>
+              </div>
+              <div id="publishers-section" class="flex flex-col">
+                <span class="text-gray-200 text-lg font-semibold mb-3">Publisher</span>
+                <span id="publishers-list" class="text-base text-[#5E5E5E]">Loading...</span>
               </div>
             </div>
-            <div id="publishers-section">
-              <h3 class="text-3xl font-semibold font-sans text-gray-500">
-                Publisher
-              </h3>
-              <div id="publishers-list" class="text-custom-gray text-2xl">
-                Loading...
-              </div>
-            </div>
-            <div id="categories-section">
-              <h3 class="text-3xl font-semibold font-sans text-gray-500">
-                Categories
-              </h3>
-              <div id="categories-list" class="text-custom-gray text-2xl">
-                Loading...
-              </div>
-            </div>
-          </div>
-
-          <div class="flex flex-col gap-6 max-w-[40%]">
-            <h2 class="text-4xl font-extrabold text-gray-500">About Game</h2>
-            <p id="detailed-description">
-              Loading detailed game description...
-            </p>
-          </div>
-        </div>
-
-        <!-- Comments Section -->
-        <div class="comments p-4">
-          <h1
-            class="text-6xl font-extrabold text-gray-500 gap-4 font-sans p-4 text-center"
-          >
-            Comments
-          </h1>
-          <div class="grid grid-cols-4 gap-4">
-            <div
-              class="row-span-2 bg-white border border-black rounded-2xl p-4 flex flex-col justify-between"
-            >
-              <div
-                class="border border-black rounded-2xl p-3 flex flex-col h-full flex-grow"
-              >
-                <p class="mb-2">
-                  Ut in odio efficitur, pharetra ipsum id,porta dolor.
+            <div class="w-[60%] flex flex-col">
+              <h1 class="text-2xl font-bold luma-gradient leading-tight mb-3">
+                About Game
+              </h1>
+              <div class="flex flex-col gap-2">
+                <p id="detailed-description" class="text-base text-gray-400 leading-relaxed">
+                  Loading...
                 </p>
-                <p class="mb-2">
-                  Orci varius natoque penatibus et magnis dis parturient montes,
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!--Strategy-->
+        <div class="strategy gap-4">
+          <!--Puzzle card-->
+          <div id="categories-section">
+            <!-- <svg width="40" height="40" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M40 49H53.5V61.5H66.5V75.5H27M40 49V36.5M40 49V61.5H27M1 36.5V10.5H15V23.5H40V36.5M1 36.5H40M1 36.5V49M1 49V75.5H27M1 49H27V61.5M27 75.5V61.5M49 1V26.5H62.5V40.5H75.5V14.5H62.5V1H50H49Z"
+                stroke="black" />
+            </svg> -->
+            <span id="categories-list" class="text-base text-[#5E5E5E]">Loading...</span>
+          </div>
+
+          <!--Strategy card-->
+          <!-- <div
+          class="inline-flex items-center mr-6 bg-white rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]">
+          <svg width="40" height="40" viewBox="0 0 77 77" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.5" width="76" height="76" rx="18.5" stroke="black" />
+            <path d="M37.9932 0V76M56.7432 0V76M76 39H1M1 57H76M76 20H1M19 0.5V76" stroke="black" />
+            <circle cx="29.5" cy="11.5" r="2.5" fill="#020202" />
+            <circle cx="47.5" cy="29.5" r="2.5" fill="#020202" />
+            <circle cx="66.5" cy="47.5" r="2.5" fill="#020202" />
+            <circle cx="66.5" cy="11.5" r="2.5" fill="#020202" />
+            <circle cx="10.5" cy="29.5" r="2.5" fill="#020202" />
+            <circle cx="29.5" cy="47.5" r="2.5" fill="#020202" />
+            <circle cx="10.5" cy="66.5" r="2.5" fill="#020202" />
+            <circle cx="47.5" cy="66.5" r="2.5" fill="#020202" />
+          </svg>
+
+          <div class="whitespace-nowrap">Strategy Games</div>
+        </div> -->
+
+          <!--Co-op card-->
+          <!-- <div
+          class="inline-flex items-center bg-white rounded-2xl p-5 border border-black gap-3 w-fit whitespace-nowrap min-w-[240px] justify-center shadow-[inset_0_4px_8px_rgba(255,255,255,0.8),0_6px_12px_rgba(255,255,255,0.8)]">
+          <svg width="40" height="40" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M40 49H53.5V61.5H66.5V75.5H27M40 49V36.5M40 49V61.5H27M1 36.5V10.5H15V23.5H40V36.5M1 36.5H40M1 36.5V49M1 49V75.5H27M1 49H27V61.5M27 75.5V61.5M49 1V26.5H62.5V40.5H75.5V14.5H62.5V1H50H49Z"
+              stroke="black" />
+          </svg>
+          <div class="whitespace-nowrap">Co-Op</div>
+        </div>
+      </div> -->
+
+          <!--Comments-->
+          <div class="comments">
+            <h1 class="text-[42px] font-extrabold luma-gradient gap-4 font-sans mt-20 mb-10 text-center">
+              Comments
+            </h1>
+            <div class="grid grid-cols-4 gap-4">
+              <div class="row-span-2 bg-white border border-black rounded-2xl p-4 flex flex-col justify-between">
+                <div class="border border-black rounded-2xl p-3 flex flex-col h-full flex-grow">
+                  <p class="mb-2">
+                    Ut in odio efficitur, pharetra ipsum id,porta dolor.
+                  </p>
+                  <p class="mb-2">
+                    Orci varius natoque penatibus et magnis dis parturient montes,
+                    nascetur ridiculus mus.
+                  </p>
+                </div>
+                <button
+                  class="mt-4 self-center w-[70%] px-6 py-3 flex items-center gap-2 bg-white border border-black rounded-lg justify-center">
+                  <i class="fas fa-comment-dots text-3xl text-gray-500"></i>
+                </button>
+              </div>
+              <div class="bg-white border border-black rounded-2xl p-4">
+                <p class="flex items-center gap-2 mb-2">
+                  <img src="https://i.pravatar.cc/20?img=1" alt="User Avatar"
+                    class="w-[76px] h-[74px] rounded-full bg-white border border-black" />User_Name
+                </p>
+                <p>
+                  Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
+                  varius natoque penatibus et magnis dis parturient montes,
                   nascetur ridiculus mus.
                 </p>
               </div>
-              <button
-                class="mt-4 self-center w-[70%] px-6 py-3 flex items-center gap-2 bg-white border border-black rounded-lg justify-center"
-              >
-                <i class="fas fa-comment-dots text-3xl text-gray-500"></i>
+              <div class="bg-white border border-black rounded-2xl p-4">
+                <p class="flex items-center gap-2 mb-2">
+                  <img src="https://i.pravatar.cc/20?img=2" alt="User Avatar"
+                    class="w-[76px] h-[74px] rounded-full bg-white border border-black" />User_Name
+                </p>
+                <p>
+                  Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
+                  varius natoque penatibus et magnis dis parturient montes,
+                  nascetur ridiculus mus.
+                </p>
+              </div>
+              <div class="bg-white border border-black rounded-2xl p-4">
+                <p class="flex items-center gap-2 mb-2">
+                  <img src="https://i.pravatar.cc/20?img=3" alt="User Avatar"
+                    class="w-[76px] h-[74px] rounded-full bg-white border border-black" />User_Name
+                </p>
+                <p>
+                  Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
+                  varius natoque penatibus et magnis dis parturient montes,
+                  nascetur ridiculus mus.
+                </p>
+              </div>
+              <div class="bg-white border border-black rounded-2xl p-4">
+                <p class="flex items-center gap-2 mb-2">
+                  <img src="https://i.pravatar.cc/20?img=4" alt="User Avatar"
+                    class="w-[76px] h-[74px] rounded-full bg-white border border-black" />User_Name
+                </p>
+                <p>
+                  Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
+                  varius natoque penatibus et magnis dis parturient montes,
+                  nascetur ridiculus mus.
+                </p>
+              </div>
+              <div class="bg-white border border-black rounded-2xl p-4">
+                <p class="flex items-center gap-2 mb-2">
+                  <img src="https://i.pravatar.cc/20?img=5" alt="User Avatar"
+                    class="w-[76px] h-[74px] rounded-full bg-white border border-black" />User_Name
+                </p>
+                <p>
+                  Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
+                  varius natoque penatibus et magnis dis parturient montes,
+                  nascetur ridiculus mus.
+                </p>
+              </div>
+              <div class="bg-white border border-black rounded-2xl p-4">
+                <p class="flex items-center gap-2 mb-2">
+                  <img src="https://i.pravatar.cc/20?img=6" alt="User Avatar"
+                    class="w-[76px] h-[74px] rounded-full bg-white border border-black" />User_Name
+                </p>
+                <p>
+                  Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
+                  varius natoque penatibus et magnis dis parturient montes,
+                  nascetur ridiculus mus.
+                </p>
+              </div>
+              <div class="bg-white border border-black rounded-2xl p-4">
+                <p class="flex items-center gap-2 mb-2">
+                  <img src="https://i.pravatar.cc/20?img=7" alt="User Avatar"
+                    class="w-[76px] h-[74px] rounded-full bg-white border border-black" />User_Name
+                </p>
+                <p>
+                  Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
+                  varius natoque penatibus et magnis dis parturient montes,
+                  nascetur ridiculus mus.
+                </p>
+              </div>
+              <div class="bg-white border border-black rounded-2xl p-4">
+                <p class="flex items-center gap-2 mb-2">
+                  <img src="https://i.pravatar.cc/20?img=8" alt="User Avatar"
+                    class="w-[76px] h-[74px] rounded-full bg-white border border-black" />User_Name
+                </p>
+                <p>
+                  Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
+                  varius natoque penatibus et magnis dis parturient montes,
+                  nascetur ridiculus mus.
+                </p>
+              </div>
+              <div class="bg-white border border-black rounded-2xl p-4">
+                <p class="flex items-center gap-2 mb-2">
+                  <img src="https://i.pravatar.cc/20?img=9" alt="User Avatar"
+                    class="w-[76px] h-[74px] rounded-full bg-white border border-black" />User_Name
+                </p>
+                <p>
+                  Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
+                  varius natoque penatibus et magnis dis parturient montes,
+                  nascetur ridiculus mus.
+                </p>
+              </div>
+              <div class="bg-white border border-black rounded-2xl p-4">
+                <p class="flex items-center gap-2 mb-2">
+                  <img src="https://i.pravatar.cc/20?img=10" alt="User Avatar"
+                    class="w-[76px] h-[74px] rounded-full bg-white border border-black" />User_Name
+                </p>
+                <p>
+                  Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
+                  varius natoque penatibus et magnis dis parturient montes,
+                  nascetur ridiculus mus.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PDF Preview Modal -->
+        <div id="pdf-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+          <div class="bg-white rounded-lg max-w-4xl max-h-[90vh] w-full mx-4">
+            <div class="flex justify-between items-center p-4 border-b">
+              <h3 class="text-lg font-semibold">Game Rules</h3>
+              <button id="close-pdf-modal" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times text-xl"></i>
               </button>
             </div>
-            <div class="bg-white border border-black rounded-2xl p-4">
-              <p class="flex items-center gap-2 mb-2">
-                <img
-                  src="https://i.pravatar.cc/20?img=1"
-                  alt="User Avatar"
-                  class="w-[76px] h-[74px] rounded-full bg-white border border-black"
-                />User_Name
-              </p>
-              <p>
-                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
-                varius natoque penatibus et magnis dis parturient montes,
-                nascetur ridiculus mus.
-              </p>
+            <div class="p-4 h-[80vh] overflow-hidden">
+              <iframe id="pdf-viewer" src="" class="w-full h-full border-0"></iframe>
             </div>
-            <div class="bg-white border border-black rounded-2xl p-4">
-              <p class="flex items-center gap-2 mb-2">
-                <img
-                  src="https://i.pravatar.cc/20?img=2"
-                  alt="User Avatar"
-                  class="w-[76px] h-[74px] rounded-full bg-white border border-black"
-                />User_Name
-              </p>
-              <p>
-                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
-                varius natoque penatibus et magnis dis parturient montes,
-                nascetur ridiculus mus.
-              </p>
-            </div>
-            <div class="bg-white border border-black rounded-2xl p-4">
-              <p class="flex items-center gap-2 mb-2">
-                <img
-                  src="https://i.pravatar.cc/20?img=3"
-                  alt="User Avatar"
-                  class="w-[76px] h-[74px] rounded-full bg-white border border-black"
-                />User_Name
-              </p>
-              <p>
-                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
-                varius natoque penatibus et magnis dis parturient montes,
-                nascetur ridiculus mus.
-              </p>
-            </div>
-            <div class="bg-white border border-black rounded-2xl p-4">
-              <p class="flex items-center gap-2 mb-2">
-                <img
-                  src="https://i.pravatar.cc/20?img=4"
-                  alt="User Avatar"
-                  class="w-[76px] h-[74px] rounded-full bg-white border border-black"
-                />User_Name
-              </p>
-              <p>
-                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
-                varius natoque penatibus et magnis dis parturient montes,
-                nascetur ridiculus mus.
-              </p>
-            </div>
-            <div class="bg-white border border-black rounded-2xl p-4">
-              <p class="flex items-center gap-2 mb-2">
-                <img
-                  src="https://i.pravatar.cc/20?img=5"
-                  alt="User Avatar"
-                  class="w-[76px] h-[74px] rounded-full bg-white border border-black"
-                />User_Name
-              </p>
-              <p>
-                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
-                varius natoque penatibus et magnis dis parturient montes,
-                nascetur ridiculus mus.
-              </p>
-            </div>
-            <div class="bg-white border border-black rounded-2xl p-4">
-              <p class="flex items-center gap-2 mb-2">
-                <img
-                  src="https://i.pravatar.cc/20?img=6"
-                  alt="User Avatar"
-                  class="w-[76px] h-[74px] rounded-full bg-white border border-black"
-                />User_Name
-              </p>
-              <p>
-                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
-                varius natoque penatibus et magnis dis parturient montes,
-                nascetur ridiculus mus.
-              </p>
-            </div>
-            <div class="bg-white border border-black rounded-2xl p-4">
-              <p class="flex items-center gap-2 mb-2">
-                <img
-                  src="https://i.pravatar.cc/20?img=7"
-                  alt="User Avatar"
-                  class="w-[76px] h-[74px] rounded-full bg-white border border-black"
-                />User_Name
-              </p>
-              <p>
-                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
-                varius natoque penatibus et magnis dis parturient montes,
-                nascetur ridiculus mus.
-              </p>
-            </div>
-            <div class="bg-white border border-black rounded-2xl p-4">
-              <p class="flex items-center gap-2 mb-2">
-                <img
-                  src="https://i.pravatar.cc/20?img=8"
-                  alt="User Avatar"
-                  class="w-[76px] h-[74px] rounded-full bg-white border border-black"
-                />User_Name
-              </p>
-              <p>
-                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
-                varius natoque penatibus et magnis dis parturient montes,
-                nascetur ridiculus mus.
-              </p>
-            </div>
-            <div class="bg-white border border-black rounded-2xl p-4">
-              <p class="flex items-center gap-2 mb-2">
-                <img
-                  src="https://i.pravatar.cc/20?img=9"
-                  alt="User Avatar"
-                  class="w-[76px] h-[74px] rounded-full bg-white border border-black"
-                />User_Name
-              </p>
-              <p>
-                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
-                varius natoque penatibus et magnis dis parturient montes,
-                nascetur ridiculus mus.
-              </p>
-            </div>
-            <div class="bg-white border border-black rounded-2xl p-4">
-              <p class="flex items-center gap-2 mb-2">
-                <img
-                  src="https://i.pravatar.cc/20?img=10"
-                  alt="User Avatar"
-                  class="w-[76px] h-[74px] rounded-full bg-white border border-black"
-                />User_Name
-              </p>
-              <p>
-                Ut in odio efficitur, pharetra ipsum id, porta dolor. Orci
-                varius natoque penatibus et magnis dis parturient montes,
-                nascetur ridiculus mus.
-              </p>
+            <div class="flex gap-4 p-4 border-t bg-gray-50">
+              <button id="download-pdf" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                <i class="fas fa-download mr-2"></i>Download PDF
+              </button>
+              <button id="close-pdf-modal-btn" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                Close
+              </button>
             </div>
           </div>
         </div>
-      </div>
-
-      <div data-component="footer"></div>
-
-      <!-- PDF Preview Modal -->
-      <div
-        id="pdf-modal"
-        class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center"
-      >
-        <div class="bg-white rounded-lg max-w-4xl max-h-[90vh] w-full mx-4">
-          <div class="flex justify-between items-center p-4 border-b">
-            <h3 class="text-lg font-semibold">Game Rules</h3>
-            <button
-              id="close-pdf-modal"
-              class="text-gray-500 hover:text-gray-700"
-            >
-              <i class="fas fa-times text-xl"></i>
-            </button>
-          </div>
-          <div class="p-4 h-[80vh] overflow-hidden">
-            <iframe
-              id="pdf-viewer"
-              src=""
-              class="w-full h-full border-0"
-            ></iframe>
-          </div>
-          <div class="flex gap-4 p-4 border-t bg-gray-50">
-            <button
-              id="download-pdf"
-              class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-              <i class="fas fa-download mr-2"></i>Download PDF
-            </button>
-            <button
-              id="close-pdf-modal-btn"
-              class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
     </main>
+  </div>
+  <div data-component="footer"></div>
 
-    <!-- Script Includes -->
-    <script src="../../service/gameService.js" defer></script>
-    <script src="../../js/inject.js" defer></script>
-    <script type="module" src="../../js/main.js"></script>
-    <script src="../../js/hero-carousel.js" defer></script>
-    <script type="module" src="../../js/auth/signout.js"></script>
+  <!--Script-->
+  <script src="../../service/gameService.js" defer></script>
+  <script src="../../js/inject.js" defer></script>
+  <script type="module" src="../../js/main.js" defer></script>
+  <script src="../../js/hero-carousel.js" defer></script>
+  <script type="module" src="../../js/auth/signout.js"></script>
 
-    <!-- Authentication Guard -->
-    <script type="module">
-      import { initAuthGuard } from "../../js/auth/authGuard.js";
-      initAuthGuard();
-    </script>
-  </body>
+
+  <!-- Authentication Guard -->
+  <script type="module">
+    import { initAuthGuard } from "../../js/auth/authGuard.js";
+    initAuthGuard();
+  </script>
+</body>
+
 </html>
