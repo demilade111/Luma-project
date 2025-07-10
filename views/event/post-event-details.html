@@ -8,6 +8,8 @@
     <link href="../../src/output.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 
 <body class="bg-gray-100">
@@ -84,7 +86,7 @@
                                 <span class="text-base text-gray-400" id="eventHost"></span>
                             </div>
                             <div class="w-full">
-                                <div id="eventMap" class="w-full h-64 md:h-80 lg:h-96 rounded-4xl border border-gray-500 overflow-hidden">
+                                <div id="eventMap" class="w-full h-64 md:h-80 lg:h-96 rounded-4xl border border-gray-500 overflow-hidden" style="height: 350px;">
                                     <!-- Map will be loaded here dynamically -->
                                 </div>
                             </div>
@@ -167,6 +169,8 @@
     <script src="../../js/hero-carousel.js" defer></script>
     <script type="module" src="../../js/auth/signout.js"></script>
     <script type="module" src="../../js/postEventDetails.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     
     <!-- Authentication Guard -->
     <script type="module">

@@ -74,21 +74,36 @@ async function renderEventDetails() {
       </div>`;
   }
 
-  // Add Google Maps embed for event location
+  // Add Leaflet map for event location
   const mapDiv = document.getElementById("eventMap");
   if (mapDiv && event.location) {
-    const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(
-      event.location
-    )}&output=embed&zoom=15`;
-    mapDiv.innerHTML = `<iframe
-      width="100%"
-      height="100%"
-      style="border:0;"
-      loading="lazy"
-      allowfullscreen
-      referrerpolicy="no-referrer-when-downgrade"
-      src="${mapSrc}">
-    </iframe>`;
+    // Geocode the address to lat/lng using Nominatim
+    fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+        event.location
+      )}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.length > 0) {
+          const lat = parseFloat(data[0].lat);
+          const lon = parseFloat(data[0].lon);
+          mapDiv.innerHTML = ""; // Clear previous content
+          // Create map
+          const map = L.map(mapDiv).setView([lat, lon], 15);
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          }).addTo(map);
+          // Add marker
+          L.marker([lat, lon]).addTo(map).bindPopup(event.location).openPopup();
+        } else {
+          mapDiv.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500"><div class="text-center"><i class="fas fa-map-marker-alt text-4xl mb-2"></i><p>Location not found</p></div></div>`;
+        }
+      })
+      .catch(() => {
+        mapDiv.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500"><div class="text-center"><i class="fas fa-map-marker-alt text-4xl mb-2"></i><p>Map error</p></div></div>`;
+      });
   } else if (mapDiv) {
     // Show placeholder if no location is available
     mapDiv.innerHTML = `
@@ -220,7 +235,8 @@ function setupComments() {
 
       // Outer wrapper to simulate gradient border
       const wrapper = document.createElement("div");
-      wrapper.className = "p-[2px] rounded-2xl bg-gradient-to-r from-[#f59275] to-[#f1647a]";
+      wrapper.className =
+        "p-[2px] rounded-2xl bg-gradient-to-r from-[#f59275] to-[#f1647a]";
 
       // Your original div with background, padding, etc.
       const div = document.createElement("div");
