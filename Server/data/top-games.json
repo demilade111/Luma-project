@@ -13,10 +13,14 @@
     "thumbnail": "https://cf.geekdo-images.com/txQ7QzbQz89AO5BmVv7OqA__thumb/img/sneKRoRyk2ylPHxapTVVu66XbH4=/fit-in/200x150/filters:strip_icc()/pic5331288.png",
     "description": "You awaken in the dark, your skin cold, your mind blank. You have nothing but your fear, a flickering candle, and a question: How long will your light last?  Trapped and crawling your way through a pitch-black labyrinth, equipped with nothing but dim candles, you must work together to explore the maze and escape. Unfortunately, your weak candlelight illuminates only your immediate surroundings. Worse still, horrifying Wax Eaters   monsters who despise the light   lurk in the suffocating darkn...",
     "rating": "7.1",
-    "ratingCount": "2850",
+    "ratingCount": "2857",
     "complexity": "2.1",
-    "rank": "1721",
-    "categories": ["Fantasy", "Horror", "Maze"],
+    "rank": "1722",
+    "categories": [
+      "Fantasy",
+      "Horror",
+      "Maze"
+    ],
     "mechanics": [
       "Cooperative Game",
       "Grid Movement",
@@ -29,195 +33,117 @@
       "Chris McMahon",
       "Rosswell Saunders"
     ],
-    "publishers": ["Smirk & Laughter Games", "Banana Games", "IELLO"],
+    "publishers": [
+      "Smirk & Laughter Games",
+      "Banana Games",
+      "IELLO"
+    ],
     "rulebook": "https://cdn.1j1ju.com/medias/63/bb/3f-the-night-cage-rulebook.pdf"
   },
   {
-    "id": "178900",
-    "name": "Codenames",
-    "year": "2015",
-    "minPlayers": "2",
-    "maxPlayers": "8",
-    "playingTime": "15",
-    "minPlayTime": "15",
-    "maxPlayTime": "15",
-    "age": "",
-    "image": "https://cf.geekdo-images.com/nC6ifPCDnAItwoKSKXVrnw__original/img/Id-jjIer_61ZbvI2_RVRCeBZFY4=/0x0/filters:format(jpeg)/pic8907965.jpg",
-    "thumbnail": "https://cf.geekdo-images.com/nC6ifPCDnAItwoKSKXVrnw__thumb/img/1iZav_8ZqurrDbvkZA9GcFhB5x0=/fit-in/200x150/filters:strip_icc()/pic8907965.jpg",
-    "description": "Two rival spymasters know the secret identities of 25 agents. Their teammates know the agents only by their codenames   single-word labels like  disease ,  Germany , and  carrot . Yes, carrot. It's a legitimate codename. Each spymaster wants their team to identify their agents first...without uncovering the assassin by mistake.  In Codenames, two teams compete to see who can make contact with all of their agents first. Lay out 25 cards, each bearing a single word. The spymasters look at a car...",
-    "rating": "7.5",
-    "ratingCount": "98627",
-    "complexity": "1.3",
-    "rank": "156",
-    "categories": [
-      "Card Game",
-      "Deduction",
-      "Party Game",
-      "Spies / Secret Agents",
-      "Word Game"
-    ],
-    "mechanics": [
-      "Communication Limits",
-      "Deduction",
-      "Memory",
-      "Race",
-      "Team-Based Game"
-    ],
-    "designers": ["Vlaada Chvátil"],
-    "publishers": ["Czech Games Edition", "asmodee", "Boardgame Space"],
-    "rulebook": "https://cdn.1j1ju.com/medias/89/5e/99-codenames-rule.pdf"
-  },
-  {
-    "id": "367498",
-    "name": "Horizons of Spirit Island",
-    "year": "2022",
-    "minPlayers": "1",
-    "maxPlayers": "3",
-    "playingTime": "120",
-    "minPlayTime": "90",
-    "maxPlayTime": "120",
-    "age": "",
-    "image": "https://cf.geekdo-images.com/jQ9g8pqZZuchIX_Pv3bHRQ__original/img/3bufrC3AVthPgq80bD32sLS-TDs=/0x0/filters:format(jpeg)/pic6972881.jpg",
-    "thumbnail": "https://cf.geekdo-images.com/jQ9g8pqZZuchIX_Pv3bHRQ__thumb/img/jIVtfyieZGB3j6WkwZEo8yteeok=/fit-in/200x150/filters:strip_icc()/pic6972881.jpg",
-    "description": "Horizons of Spirit Island features the core mechanisms of Spirit Island, but features a new double-sided game board with a streamlined set-up, punchboard components, and five new Spirits designed to be ideal for those playing a Spirit Island game for the first time. These new Spirits are compatible with all existing Spirit Island components, but to play with expansions like Jagged Earth, you would need a copy of Spirit Island itself.",
-    "rating": "8.2",
-    "ratingCount": "2835",
-    "complexity": "3.5",
-    "rank": "551",
-    "categories": [
-      "Age of Reason",
-      "Environmental",
-      "Fantasy",
-      "Fighting",
-      "Mythology"
-    ],
-    "mechanics": [
-      "Action Retrieval",
-      "Area Majority / Influence",
-      "Automatic Resource Growth",
-      "Campaign / Battle Card Driven",
-      "Cooperative Game"
-    ],
-    "designers": ["R. Eric Reuss"],
-    "publishers": [
-      "Greater Than Games, LLC",
-      "Fox in the Box",
-      "Gém Klub Kft."
-    ],
-    "rulebook": "https://cdn.1j1ju.com/medias/87/39/54-spirit-island-rulebook.pdf"
-  },
-  {
-    "id": "185817",
-    "name": "Metropolia",
-    "year": "2014",
-    "minPlayers": "2",
-    "maxPlayers": "5",
-    "playingTime": "30",
-    "minPlayTime": "30",
-    "maxPlayTime": "30",
-    "age": "",
-    "image": "https://cf.geekdo-images.com/3DhBvnKkvKqLrukmrVhqOA__original/img/33-dapPfDHAH4zPRvm2eTBxgYNw=/0x0/filters:format(jpeg)/pic1955316.jpg",
-    "thumbnail": "https://cf.geekdo-images.com/3DhBvnKkvKqLrukmrVhqOA__thumb/img/evmdFsXsqMaNVsQ6Jf6ONZdPnrg=/fit-in/200x150/filters:strip_icc()/pic1955316.jpg",
-    "description": "Welcome to the city of Machi Koro. You've just been elected Mayor. Congrats! Unfortunately the citizens have some pretty big demands: jobs, a theme park, a couple of cheese factories and maybe even a radio tower. A tough proposition since the city currently consists of a wheat field, a bakery and a single die.  Armed only with your trusty die and a dream, you must grow Machi Koro into the largest city in the region. You will need to collect income from developments, build public works, and st...",
-    "rating": "6.6",
-    "ratingCount": "284",
-    "complexity": "1.5",
-    "rank": "",
-    "categories": ["Card Game", "City Building", "Dice"],
-    "mechanics": ["Dice Rolling", "Open Drafting"],
-    "designers": ["Masao Suganuma"],
-    "publishers": ["Devir", "FoxGames", "Hobby World"],
-    "rulebook": "https://cdn.1j1ju.com/medias/2b/01/3c-machi-koro-legacy-rulebook.pdf"
-  },
-  {
-    "id": "31260",
-    "name": "Agricola",
-    "year": "2007",
-    "minPlayers": "1",
-    "maxPlayers": "5",
-    "playingTime": "150",
-    "minPlayTime": "30",
-    "maxPlayTime": "150",
-    "age": "",
-    "image": "https://cf.geekdo-images.com/dDDo2Hexl80ucK1IlqTk-g__original/img/toobKoejPiHpfpHk4SYd1UAJafw=/0x0/filters:format(jpeg)/pic831744.jpg",
-    "thumbnail": "https://cf.geekdo-images.com/dDDo2Hexl80ucK1IlqTk-g__thumb/img/GHGdnCfeysoP_34gLnofJcNivW8=/fit-in/200x150/filters:strip_icc()/pic831744.jpg",
-    "description": "In Agricola, you're a farmer in a wooden shack with your spouse and little else. At first, on a turn, your family gets to take only two actions, one for you and one for your spouse, as might be found among all the possibilities on a farm: plowing fields; collecting materials; building fences, and so on. There are numerous choices available, and while the game progresses you'll have more and more, as each round a new action card is flipped over, offering one more possible action. You might thi...",
-    "rating": "7.9",
-    "ratingCount": "75032",
-    "complexity": "3.6",
-    "rank": "60",
-    "categories": ["Animals", "Economic", "Farming"],
-    "mechanics": [
-      "Automatic Resource Growth",
-      "Closed Drafting",
-      "Enclosure",
-      "Increase Value of Unchosen Resources",
-      "Solo / Solitaire Game"
-    ],
-    "designers": ["Uwe Rosenberg"],
-    "publishers": ["Lookout Games", "999 Games", "Brain Games"],
-    "rulebook": "https://cdn.1j1ju.com/medias/dd/16/f5-agricola-rulebook.pdf"
-  },
-  {
-    "id": "22355",
-    "name": "Atolla Modulis (fan expansion for Funkenschlag)",
-    "year": "2006",
-    "minPlayers": "2",
+    "id": "134277",
+    "name": "World Wonders (fan expansion for Catan)",
+    "year": "2012",
+    "minPlayers": "3",
     "maxPlayers": "6",
-    "playingTime": "120",
-    "minPlayTime": "120",
-    "maxPlayTime": "120",
+    "playingTime": "60",
+    "minPlayTime": "60",
+    "maxPlayTime": "60",
     "age": "",
-    "image": "https://cf.geekdo-images.com/sBW_8FpXXubZ08UPETCnuw__original/img/6xBzusRPODLqqk6krO8POxe0Llg=/0x0/filters:format(jpeg)/pic573929.jpg",
-    "thumbnail": "https://cf.geekdo-images.com/sBW_8FpXXubZ08UPETCnuw__thumb/img/rH3BDHlUylMyb3j69rraDLBJI_g=/fit-in/200x150/filters:strip_icc()/pic573929.jpg",
-    "description": "Atolla Modulis is a free modular expansion to Friedemann Friese's Power Grid (aka Funkenschlag 2nd Ed.). The Atolla Modulis system allows players to play a different game every time as there are thousands of possible combinations! Other than the initial setup, the Atolla Modulis plays with the same rules as the base game. A copy of Funkenschlag/Powergrid is required to play this expansion.  For helpful hints on building your own version, visit the BGG Wiki page on Print and Play Games",
-    "rating": "7.5",
-    "ratingCount": "186",
-    "complexity": "3.4",
+    "image": "https://cf.geekdo-images.com/Ulqf4hNwO0ORsbq_Bo5tZQ__original/img/hFjrKCFQWsW2tA6YzoEZPCP2MNE=/0x0/filters:format(jpeg)/pic1488780.jpg",
+    "thumbnail": "https://cf.geekdo-images.com/Ulqf4hNwO0ORsbq_Bo5tZQ__thumb/img/M5v2cBTqpsw9Lcb82vLX8MX6zz4=/fit-in/200x150/filters:strip_icc()/pic1488780.jpg",
+    "description": "The Island of Catan is rich with resources and beauty. The great nations meet upon the island for a decade-long festival of culture and trade... and a grand competition. Living solely off of the land, they must build the greatest society they can in a short time. To do this, the nations decide to recreate the Wonders of the Ancient World. But only one of each Wonder can exist, and there are only so many Wonders that the land can support!  This expansion, which has been in development for over...",
+    "rating": "7.7",
+    "ratingCount": "32",
+    "complexity": "3.0",
     "rank": "",
     "categories": [
-      "Economic",
+      "Civilization",
       "Expansion for Base-game",
       "Fan Expansion",
-      "Industry / Manufacturing",
-      "Print & Play"
+      "Negotiation"
     ],
     "mechanics": [
-      "Auction / Bidding",
-      "Modular Board",
-      "Network and Route Building"
+      "Dice Rolling",
+      "Hand Management",
+      "Trading",
+      "Variable Player Powers"
     ],
-    "designers": ["Jean-Claude Adelmand"],
-    "publishers": ["(Web published)"],
-    "rulebook": "https://cdn.1j1ju.com/medias/b0/c9/53-power-grid-the-new-power-plant-cards-rulebook.pdf"
+    "designers": [
+      "Scot Eaton"
+    ],
+    "publishers": [
+      "(Self-Published)"
+    ],
+    "rulebook": "https://cdn.1j1ju.com/medias/8d/db/3c-catan-explorers-pirates-rulebook.pdf"
   },
   {
-    "id": "170216",
-    "name": "Blood Rage",
-    "year": "2015",
+    "id": "248808",
+    "name": "In the Stocks (fan expansion for Carcassonne)",
+    "year": "2010",
+    "minPlayers": "2",
+    "maxPlayers": "5",
+    "playingTime": "45",
+    "minPlayTime": "30",
+    "maxPlayTime": "45",
+    "age": "",
+    "image": "https://cf.geekdo-images.com/SWZsqB01D7CqFCplr1wifw__original/img/0uC9UsIk0rp4EhHnNoNTFnYO7wg=/0x0/filters:format(jpeg)/pic4071747.jpg",
+    "thumbnail": "https://cf.geekdo-images.com/SWZsqB01D7CqFCplr1wifw__thumb/img/RZW6CbAR1RCFh28iUV174CmdH90=/fit-in/200x150/filters:strip_icc()/pic4071747.jpg",
+    "description": "When a player draws a tile with stocks he must play it to an existing city. The player is free to deploy his follower  to the city or he may place a follower into the stocks.  A player is not obligated either to deploy a follower to the city or detain a follower in the stocks. If the tile cannot be played, it is removed from the game and a new tile drawn to replace it.  Approved by carcassonnecentral and carcassonne-forum",
+    "rating": "5.5",
+    "ratingCount": "4",
+    "complexity": "0.0",
+    "rank": "",
+    "categories": [
+      "Expansion for Base-game",
+      "Fan Expansion",
+      "Medieval"
+    ],
+    "mechanics": [
+      "Tile Placement"
+    ],
+    "designers": [
+      "Jonathan Warren"
+    ],
+    "publishers": [
+      "(Web published)"
+    ],
+    "rulebook": "https://cdn.1j1ju.com/medias/fc/5c/3e-carcassonne-rulebook.pdf"
+  },
+  {
+    "id": "283819",
+    "name": "Ancient Times (fan expansion for Dominion)",
+    "year": "2019",
     "minPlayers": "2",
     "maxPlayers": "4",
-    "playingTime": "90",
-    "minPlayTime": "60",
-    "maxPlayTime": "90",
+    "playingTime": "45",
+    "minPlayTime": "30",
+    "maxPlayTime": "45",
     "age": "",
-    "image": "https://cf.geekdo-images.com/HkZSJfQnZ3EpS214xtuplg__original/img/Myy6IPDJDzLoPdXrPXVZcddBQoQ=/0x0/filters:format(jpeg)/pic2439223.jpg",
-    "thumbnail": "https://cf.geekdo-images.com/HkZSJfQnZ3EpS214xtuplg__thumb/img/NLhVdU8xazrgS5dA6nVCYmN2DNI=/fit-in/200x150/filters:strip_icc()/pic2439223.jpg",
-    "description": "Life is Battle; Battle is Glory; Glory is ALL   In Blood Rage, players control the warriors, leader, and ship of their own Viking clan. Ragnar k has come and it s the end of the world! It s the Vikings  last chance to go down in a blaze of glory and secure their places in Valhalla at Odin s side! As a Viking you can pursue one of many pathways to glory. You can: invade and pillage the land for its rewards; crush your opponents in battle: fulfill quests: increase your clan's stats: or even die...",
-    "rating": "7.9",
-    "ratingCount": "49832",
-    "complexity": "2.9",
-    "rank": "59",
-    "categories": ["Fantasy", "Fighting", "Miniatures", "Mythology"],
-    "mechanics": [
-      "Action Points",
-      "Area Majority / Influence",
-      "Area Movement",
-      "Card Play Conflict Resolution",
-      "Closed Drafting"
+    "image": "https://cf.geekdo-images.com/NAc09l0qZS2NzeCugeQOCA__original/img/mRwXh8G2X6LYTd7ReQrEy57hyIY=/0x0/filters:format(png)/pic4896003.png",
+    "thumbnail": "https://cf.geekdo-images.com/NAc09l0qZS2NzeCugeQOCA__thumb/img/Lhf-c5qs83_E1_L5WtQlrhfCQLI=/fit-in/200x150/filters:strip_icc()/pic4896003.png",
+    "description": "This is an unofficial fan-made expansion, and is not affiliated with Donald X. Vaccarino or Rio Grande Games. Permission has been granted from Rio Grande Games and Donald X. Vaccarino to create a fan expansion, use any trademarks and copyrighted materials of Dominion and list  Ancient Time  on Board Game Geek.  This fan expansion focuses on deck stability, especially in turn 3 and 4, that is, early stage of a game. Also, it contains many trashers that help you build stable decks by throwing a...",
+    "rating": "6.3",
+    "ratingCount": "4",
+    "complexity": "0.0",
+    "rank": "",
+    "categories": [
+      "Ancient",
+      "Card Game",
+      "Expansion for Base-game",
+      "Fan Expansion"
     ],
-    "designers": ["Eric M. Lang"],
-    "publishers": ["Cool Mini Or Not", "Arclight Games", "asmodee"],
-    "rulebook": "https://cdn.1j1ju.com/medias/88/21/c2-blood-rage-rulebook.pdf"
+    "mechanics": [
+      "Deck, Bag, and Pool Building",
+      "Hand Management",
+      "Open Drafting"
+    ],
+    "designers": [
+      "Hiroaki Kambayashi"
+    ],
+    "publishers": [
+      "(Web published)"
+    ],
+    "rulebook": "https://cdn.1j1ju.com/medias/59/e6/c2-dominion-rulebook.pdf"
   }
 ]
