@@ -3611,6 +3611,11 @@
       grid-column: span 2 / span 2;
     }
   }
+  .sm\:mb-5 {
+    @media (width >= 40rem) {
+      margin-bottom: calc(var(--spacing) * 5);
+    }
+  }
   .sm\:-ml-\[26\.5px\] {
     @media (width >= 40rem) {
       margin-left: calc(26.5px * -1);
