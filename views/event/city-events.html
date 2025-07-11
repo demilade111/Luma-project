@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luma | City Events</title>
+    <link href="../../src/output.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+
+<body class="bg-gray-100">
+
+    <div data-component="sidebar"></div>
+
+    <div class="flex min-h-screen">
+
+        <!-- Main Content Area -->
+        <div class="flex-1 flex flex-col md:ml-[80px]">
+
+            <main class="flex-1">
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
+
+                    <!-- Featured Section with overlayed text -->
+                    <div class="col-span-1 sm:col-span-2 h-[50vh] sm:h-[90vh] relative">
+                        <!-- Overlayed text content -->
+                        <div class="absolute inset-0 flex flex-col justify-center items-start px-6 sm:px-16 z-10">
+                            <h4 class="text-base sm:text-lg text-gray-200 mb-2 px-3 py-1 font-light">What’s Happening in
+                            </h4>
+                            <h1 class="text-3xl sm:text-5xl font-bold text-gray-100 mb-4 px-3 py-2">Vancouver
+                            </h1>
+                            <p class="text-gray-300 text-sm sm:text-lg mb-6 max-w-xl px-3 py-2">
+                                Join the relaxing tabletop sessions and totally chill strategy showdowns hosted by the
+                                one and only Kevin McMillan, beloved jazz connoisseur and benevolent overlord of CSS
+                                assignments. Whether you're a board game rookie or a battle-hardened all-nighter
+                                veteran, Kevin’s events offer the perfect chance to bond over dice rolls, existential
+                                dread, and the sweet sound of deadlines swooshing by. Bring snacks, bring stamina and a
+                                backup laptop.
+                            </p>
+                            <div class="px-3">
+                                <button
+                                    class="bg-gradient-to-bl text-base px-6 rounded-full py-2 text-gray-200 font-medium cursor-pointershadow-sm shadow-gray-600 from-[#F59275] to-[#F1647A] transition-colors shadow">
+                                    Subscribe
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Featured Image (full width) -->
+                        <img src="/src/asset/images/vancouver-city-events.jpg" alt="Featured"
+                            class="w-full h-full object-cover rounded-xl" />
+                        <!-- dark overlay for better text contrast -->
+                        <div class="absolute inset-0 rounded-xl"
+                            style="background: linear-gradient(to right, rgba(19, 19, 19, 0.7) 0%, rgba(78, 81, 130, 0.2) 100%);">
+                        </div>
+                    </div>
+
+                    <!-- Content Section side-by-side on sm+ but stacked on smaller -->
+                    <div class="flex items-center justify-center text-xl font-bold p-2 sm:pl-10">
+                        <div
+                            class="grid grid-rows-5 sm:grid-rows-none gap-6 w-full h-full px-2 sm:px-5 border-l-2 border-dotted border-gray-200">
+                            <!-- Increased gap from gap-2 to gap-6 for more space between events -->
+
+                            <!-- Event 1 -->
+                            <div class="flex flex-col gap-1">
+                                <!-- Title with dot -->
+                                <div class="relative">
+                                    <span
+                                        class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-gray-200 border-2 border-white shadow -ml-[15px] sm:-ml-[26.5px]"></span>
+                                    <h4 class="text-sm text-gray-500 ml-2">Featured Event</h4>
+                                </div>
+
+                                <!-- Card -->
+                                <div
+                                    class="bg-[#262C3D] shadow-md shadow-[#262C3D] rounded-xl p-4 text-white min-h-[160px] sm:min-h-[180px] flex flex-col justify-center">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                                        <!-- Left: Content -->
+                                        <div class="flex flex-col justify-center">
+                                            <div class="text-sm text-gray-300 mb-2">Date: June 15, 2024</div>
+                                            <div class="text-xl font-bold luma-gradient mb-2">Vancouver Summer Festival
+                                            </div>
+                                            <div class="text-sm text-gray-300 mb-2">Author: John Doe</div>
+                                            <div class="text-sm text-gray-300">Location: Downtown Vancouver</div>
+                                        </div>
+                                        <!-- Right: Image -->
+                                        <div class="flex items-center justify-center">
+                                            <img src="/src/asset/images/event-thumb.jpg" alt="Event"
+                                                class="rounded-xl shadow-md w-full h-32 object-cover" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Event 2 -->
+                            <div class="flex flex-col gap-1">
+                                <div class="relative">
+                                    <span
+                                        class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-gray-200 border-2 border-white shadow -ml-[15px] sm:-ml-[26.5px]"></span>
+                                    <h4 class="text-sm text-gray-500 ml-2">Popular Event</h4>
+                                </div>
+                                <div class="bg-[#262C3D] shadow-md shadow-[#262C3D] rounded-xl p-4 text-white">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                                        <div class="flex flex-col justify-center">
+                                            <div class="text-sm text-gray-300 mb-2">Date: June 22, 2024</div>
+                                            <div class="text-xl font-bold luma-gradient mb-2">Sunset Music Bash</div>
+                                            <div class="text-sm text-gray-300 mb-2">Author: Jane Smith</div>
+                                            <div class="text-sm text-gray-300">Location: Kitsilano Beach</div>
+                                        </div>
+                                        <div class="flex items-center justify-center">
+                                            <img src="/src/asset/images/event-thumb.jpg" alt="Event"
+                                                class="rounded-xl shadow-md w-full h-32 object-cover" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Event 3 -->
+                            <div class="flex flex-col gap-1">
+                                <div class="relative">
+                                    <span
+                                        class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-gray-200 border-2 border-white shadow -ml-[15px] sm:-ml-[26.5px]"></span>
+                                    <h4 class="text-sm text-gray-500 ml-2">New Listing</h4>
+                                </div>
+                                <div class="bg-[#262C3D] shadow-md shadow-[#262C3D] rounded-xl p-4 text-white">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                                        <div class="flex flex-col justify-center">
+                                            <div class="text-sm text-gray-300 mb-2">Date: July 1, 2024</div>
+                                            <div class="text-xl font-bold luma-gradient mb-2">Canada Day Celebration
+                                            </div>
+                                            <div class="text-sm text-gray-300 mb-2">Author: Alex Chan</div>
+                                            <div class="text-sm text-gray-300">Location: Canada Place</div>
+                                        </div>
+                                        <div class="flex items-center justify-center">
+                                            <img src="/src/asset/images/event-thumb.jpg" alt="Event"
+                                                class="rounded-xl shadow-md w-full h-32 object-cover" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Event 4 -->
+                            <div class="flex flex-col gap-1">
+                                <div class="relative">
+                                    <span
+                                        class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-gray-200 border-2 border-white shadow -ml-[15px] sm:-ml-[26.5px]"></span>
+                                    <h4 class="text-sm text-gray-500 ml-2">Editor's Pick</h4>
+                                </div>
+                                <div class="bg-[#262C3D] shadow-md shadow-[#262C3D] rounded-xl p-4 text-white">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                                        <div class="flex flex-col justify-center">
+                                            <div class="text-sm text-gray-300 mb-2">Date: July 10, 2024</div>
+                                            <div class="text-xl font-bold luma-gradient mb-2">Vancouver Night Market
+                                            </div>
+                                            <div class="text-sm text-gray-300 mb-2">Author: Maria Lopez</div>
+                                            <div class="text-sm text-gray-300">Location: Richmond</div>
+                                        </div>
+                                        <div class="flex items-center justify-center">
+                                            <img src="/src/asset/images/event-thumb.jpg" alt="Event"
+                                                class="rounded-xl shadow-md w-full h-32 object-cover" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Event 5 -->
+                            <div class="flex flex-col gap-1">
+                                <div class="relative">
+                                    <span
+                                        class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-gray-200 border-2 border-white shadow -ml-[15px] sm:-ml-[26.5px]"></span>
+                                    <h4 class="text-sm text-gray-500 ml-2">Local Highlight</h4>
+                                </div>
+                                <div class="bg-[#262C3D] shadow-md shadow-[#262C3D] rounded-xl p-4 text-white">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                                        <div class="flex flex-col justify-center">
+                                            <div class="text-sm text-gray-300 mb-2">Date: July 15, 2024</div>
+                                            <div class="text-xl font-bold luma-gradient mb-2">Community Art Walk</div>
+                                            <div class="text-sm text-gray-300 mb-2">Author: Leo Wong</div>
+                                            <div class="text-sm text-gray-300">Location: Mount Pleasant</div>
+                                        </div>
+                                        <div class="flex items-center justify-center">
+                                            <img src="/src/asset/images/event-thumb.jpg" alt="Event"
+                                                class="rounded-xl shadow-md w-full h-32 object-cover" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- events' location map -->
+                    <div class="my-5 p-2 sm:pr-10">
+                        <!-- Gradient border wrapper with sticky positioning -->
+                        <div
+                            class="sm:sticky sm:top-5 p-[2px] rounded-2xl bg-gradient-to-r from-[#f59275] to-[#f1647a]">
+                            <!-- Inner content box -->
+                            <div
+                                class="flex flex-col text-xl font-bold p-8 sm:p-10 rounded-2xl gap-3 bg-[#23243a] shadow-md bg-clip-padding">
+                                <h3 class="text-2xl mb-2 luma-gradient">Vancouver</h3>
+                                <p class="text-base text-gray-400 mb-4">
+                                    Discover where each event is happening around the city.
+                                    Click below to view the interactive map.
+                                </p>
+                                <div class="flex justify-start">
+
+                                    <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
+                                        class="border border-gray-700 text-base rounded-full px-6 py-2 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                                        Subscribe
+                                    </button>
+                                </div>
+                                <img src="/src/asset/images/event-thumb.jpg" alt="Event Location Map"
+                                    class="rounded-xl shadow-md w-full h-32 object-cover" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </main>
+
+        </div>
+    </div>
+
+
+
+    <div data-component="footer"></div>
+
+    <script src="../../js/inject.js" defer></script>
+
+    <!-- Authentication Guard -->
+    <script type="module">
+        import { initAuthGuard } from "../../js/auth/authGuard.js";
+        initAuthGuard();
+    </script>
+</body>
+
+</html>
