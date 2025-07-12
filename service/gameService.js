@@ -1,3 +1,4 @@
+
 // Board Games API Service
 // Base API URL - update this if your API runs on a different port
 const API_BASE_URL = 'http://localhost:3000/api';
