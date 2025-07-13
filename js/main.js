@@ -936,78 +936,209 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+<<<<<<< HEAD
 //Adding tutorial videos
- document.addEventListener("DOMContentLoaded", function (){
+=======
+>>>>>>> b42120ed0de4db211691e148df04689572545421
+// Tutorial Video System Implementation
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("DOM Content Loaded - checking for tutorial page...");
+
+  // Only run on tutorial page
+  if (!document.querySelector(".tutorial-1")) {
+    console.log("Tutorial page not found, skipping tutorial initialization");
+    return;
+  }
+
+  console.log("Tutorial page found, initializing...");
+
   const playButton = document.querySelector(".play-buttons");
   const videos = document.querySelectorAll(".tutorial-1 video");
   const videoControls = document.getElementById("video-controls");
   const replayBtn = document.getElementById("replay-btn");
   const nextBtn = document.getElementById("next-btn");
   const prevBtn = document.getElementById("prev-btn");
+  const introText = document.getElementById("text-tutorial-intro");
+  const backgroundImage = document.querySelector(".tutorial-1 img");
 
   let currentIndex = 0;
+  let isPlaying = false;
 
+  // Initialize tutorial system
+  function initTutorial() {
+    console.log("Initializing tutorial system...");
+    console.log("Play button found:", !!playButton);
+    console.log("Videos found:", videos.length);
+    console.log("Video controls found:", !!videoControls);
+    console.log("Replay button found:", !!replayBtn);
+    console.log("Next button found:", !!nextBtn);
+    console.log("Prev button found:", !!prevBtn);
+    console.log("Intro text found:", !!introText);
+    console.log("Background image found:", !!backgroundImage);
+
+    if (!playButton || !videos.length) {
+      console.warn("Tutorial elements not found");
+      return;
+    }
+
+    // Set up event listeners
+    playButton.addEventListener("click", function (e) {
+      console.log("Play button clicked!");
+<<<<<<< HEAD
+=======
+      alert("Play button clicked! Starting tutorial...");
+>>>>>>> b42120ed0de4db211691e148df04689572545421
+      startTutorial();
+    });
+    replayBtn.addEventListener("click", replayCurrentVideo);
+    nextBtn.addEventListener("click", nextVideo);
+    prevBtn.addEventListener("click", previousVideo);
+
+    // Set up video event listeners for auto-advance
+    videos.forEach((video, index) => {
+      video.addEventListener("ended", () => {
+        if (index < videos.length - 1) {
+          currentIndex = index + 1;
+          showVideo(currentIndex);
+        }
+      });
+    });
+
+    // Update button states
+    updateButtonStates();
+  }
+
+  // Start tutorial - hide intro, show first video
+  function startTutorial() {
+    console.log("Starting tutorial...");
+    isPlaying = true;
+
+    // Hide intro elements
+    console.log("Hiding intro elements...");
+    playButton.parentElement.style.display = "none";
+    introText.style.display = "none";
+    backgroundImage.style.display = "none";
+
+    // Show first video and controls
+    console.log("Showing first video...");
+    showVideo(0);
+  }
+
+  // Show specific video
   function showVideo(index) {
-    videos.forEach((video, i) =>{
+    console.log("Showing video at index:", index);
+    if (index < 0 || index >= videos.length) {
+      console.warn("Invalid video index:", index);
+      return;
+    }
+
+    currentIndex = index;
+
+    // Hide all videos first
+    videos.forEach((video, i) => {
       if (i === index) {
+        console.log("Showing video", i);
         video.classList.remove("hidden");
-        video.play();
+        video.play().catch((err) => {
+          console.warn("Video play failed:", err);
+          console.log("Video src:", video.querySelector("source")?.src);
+        });
       } else {
         video.pause();
         video.classList.add("hidden");
       }
     });
-    videoControls.classList.remove("hidden");
-  }
-  playButton.addEventListener("click", function () {
-   playButton.parentElement.style.display = "none";
-   document.getElementById("text-tutorial-intro").style.display = "none";
-   showVideo(currentIndex);
-  });
-  replayBtn.addEventListener("click", function () {
-    videos[currentIndex].currentTime = 0;
-    videos[currentIndex].play();
-  });
 
-  nextBtn.addEventListener("click", function () {
-    if (currentIndex < videos.length -1) {
+    // Show controls
+    console.log("Showing video controls");
+    videoControls.classList.remove("hidden");
+
+    // Update button states
+    updateButtonStates();
+  }
+
+  // Replay current video
+  function replayCurrentVideo() {
+    if (videos[currentIndex]) {
+      videos[currentIndex].currentTime = 0;
+      videos[currentIndex]
+        .play()
+        .catch((err) => console.warn("Video replay failed:", err));
+    }
+  }
+
+  // Next video
+  function nextVideo() {
+    if (currentIndex < videos.length - 1) {
       currentIndex++;
       showVideo(currentIndex);
     }
-  });
-
-  prevBtn.addEventListener("click", function () {
-    if (currentIndex > 0) {
-      currentIndex--;
-      showVideo(currentIndex)
-    }
-    else {
-      videos[currentIndex].pause();
-      videos[currentIndex].classList.add("hidden");
-      document.querySelector(".play-buttons").parentElement.style.display = "flex";
-      videoControls.classList.add("hidden");
   }
-  });
 
- });
+  // Previous video or back to intro
+  function previousVideo() {
+    if (currentIndex > 0) {
+      // Go to previous video
+      currentIndex--;
+      showVideo(currentIndex);
+    } else {
+      // Return to intro screen
+      returnToIntro();
+    }
+  }
 
+  // Return to intro screen
+  function returnToIntro() {
+    isPlaying = false;
 
-<<<<<<< HEAD
+    // Stop and hide all videos
+    videos.forEach((video) => {
+      video.pause();
+      video.classList.add("hidden");
+    });
 
- //Loading Games in the Continue Learning boxes
- async function resistance(){
+    // Hide controls
+    videoControls.classList.add("hidden");
+
+    // Show intro elements
+    playButton.parentElement.style.display = "flex";
+    introText.style.display = "block";
+    backgroundImage.style.display = "block";
+
+    // Reset to first video
+    currentIndex = 0;
+  }
+
+  // Update button states based on current position
+  function updateButtonStates() {
+    // Previous button - always enabled (can go back to intro)
+    prevBtn.disabled = false;
+
+    // Next button - disabled on last video
+    nextBtn.disabled = currentIndex >= videos.length - 1;
+
+    // Replay button - always enabled when video is playing
+    replayBtn.disabled = !isPlaying;
+  }
+
+  // Initialize the tutorial system
+  initTutorial();
+});
+
+// Loading Games in the Continue Learning boxes
+async function resistance() {
   try {
     const resp = await fetch("./data/top-games.json");
     const games = await resp.json();
 
-    const game = games.find(g => g.name === "The Resistance");
+    const game = games.find((g) => g.name === "The Resistance");
     if (!game) {
       console.warn("The Resistance was not found in JSON");
       return;
     }
     //adding image of the game in the box
     const divBox = document.querySelector(".resistance-box");
-    divBox.innerHTML =`<img src="${game.thumbnail}" alt="${game.name}" class="w-full h-full object-cover rounded-2xl"/>`;
+    divBox.innerHTML = `<img src="${game.thumbnail}" alt="${game.name}" class="w-full h-full object-cover rounded-2xl"/>`;
 
     //adding description
     const desc = document.getElementById("resistance-desc");
@@ -1018,16 +1149,11 @@ document.addEventListener("DOMContentLoaded", () => {
     tutorialBtn.addEventListener("click", () => {
       if (game.rulebook) window.open(game.rulebook, "_blank");
     });
-
+  } catch (err) {
+    console.error("failed to load game:", err);
   }
-  catch (err) {
-    console.error("failed to load game:", err)
-  }
- }
- document.addEventListener("DOMContentLoaded", resistance);
-
-  
-=======
+}
+document.addEventListener("DOMContentLoaded", resistance);
 document.addEventListener("DOMContentLoaded", () => {
   renderTrendingEvents();
   renderUpcomingEvents();
@@ -1196,6 +1322,7 @@ function renderGameComments(comments, grid) {
     return;
   }
   comments.forEach((comment) => {
+    if (!comment.text || !comment.text.trim()) return; // Skip empty comments
     // Prioritize userName, then userEmail, then fallback to Anonymous
     const user =
       comment.userName ||
@@ -1206,12 +1333,11 @@ function renderGameComments(comments, grid) {
     )}&background=random`;
     const card = document.createElement("div");
     card.className =
-      "rounded-2xl p-5 bg-[#23243a] border-2 border-transparent shadow-md bg-clip-padding relative";
-    card.style.borderImage = "linear-gradient(90deg, #f59275, #f1647a) 1";
+      "rounded-2xl p-5 bg-[#23243a] border border-[#f59275] shadow-md flex flex-col gap-2";
     card.innerHTML = `
-      <div class="flex items-center gap-4 mb-3">
+      <div class="flex items-center gap-3 mb-2">
         <img src="${avatarUrl}" alt="${user}" class="w-10 h-10 rounded-full object-cover border-2 border-white" />
-        <span class="text-white font-semibold text-sm">${user}</span>
+        <span class="text-white font-bold text-base">${user}</span>
       </div>
       <p class="text-white text-sm">${comment.text}</p>
     `;
@@ -1291,7 +1417,3 @@ async function renderSuggestedGames() {
     grid.appendChild(card);
   });
 }
->>>>>>> c5b19c9736bb7263cb8b22f6c8609b1926b62c1c
-
-
- 
