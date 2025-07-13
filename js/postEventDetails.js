@@ -74,21 +74,36 @@ async function renderEventDetails() {
       </div>`;
   }
 
-  // Add Google Maps embed for event location
+  // Add Leaflet map for event location
   const mapDiv = document.getElementById("eventMap");
   if (mapDiv && event.location) {
-    const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(
-      event.location
-    )}&output=embed&zoom=15`;
-    mapDiv.innerHTML = `<iframe
-      width="100%"
-      height="100%"
-      style="border:0;"
-      loading="lazy"
-      allowfullscreen
-      referrerpolicy="no-referrer-when-downgrade"
-      src="${mapSrc}">
-    </iframe>`;
+    // Geocode the address to lat/lng using Nominatim
+    fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+        event.location
+      )}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.length > 0) {
+          const lat = parseFloat(data[0].lat);
+          const lon = parseFloat(data[0].lon);
+          mapDiv.innerHTML = ""; // Clear previous content
+          // Create map
+          const map = L.map(mapDiv).setView([lat, lon], 15);
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          }).addTo(map);
+          // Add marker
+          L.marker([lat, lon]).addTo(map).bindPopup(event.location).openPopup();
+        } else {
+          mapDiv.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500"><div class="text-center"><i class="fas fa-map-marker-alt text-4xl mb-2"></i><p>Location not found</p></div></div>`;
+        }
+      })
+      .catch(() => {
+        mapDiv.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500"><div class="text-center"><i class="fas fa-map-marker-alt text-4xl mb-2"></i><p>Map error</p></div></div>`;
+      });
   } else if (mapDiv) {
     // Show placeholder if no location is available
     mapDiv.innerHTML = `
@@ -218,19 +233,30 @@ function setupComments() {
         user
       )}&background=random`;
 
+      // Outer wrapper to simulate gradient border
+      const wrapper = document.createElement("div");
+      wrapper.className =
+        "p-[2px] rounded-2xl bg-gradient-to-r from-[#f59275] to-[#f1647a]";
+
+      // Your original div with background, padding, etc.
       const div = document.createElement("div");
       div.className =
-        "rounded-2xl p-5 bg-[#23243a] border-2 border-transparent shadow-md bg-clip-padding relative";
-      div.style.borderImage = "linear-gradient(90deg, #f59275, #f1647a) 1";
+        "rounded-2xl p-5 bg-[#23243a] shadow-md bg-clip-padding relative h-full";
 
+      // Content inside the inner box
       div.innerHTML = `
-        <div class="flex items-center gap-4 mb-3">
-          <img src="${avatarUrl}" alt="${user}" class="w-10 h-10 rounded-full object-cover border-2 border-white" />
-          <span class="text-white font-semibold text-sm">${user}</span>
-        </div>
-        <p class="text-gray-300 text-sm">${comment.text}</p>
-      `;
-      commentGrid.appendChild(div);
+  <div class="flex items-center gap-4 mb-3">
+    <img src="${avatarUrl}" alt="${user}" class="w-10 h-10 rounded-full object-cover" />
+    <span class="text-white font-semibold text-sm">${user}</span>
+  </div>
+  <p class="text-gray-300 text-sm">${comment.text}</p>
+`;
+
+      // Nest inner box inside the gradient wrapper
+      wrapper.appendChild(div);
+
+      // Append to the comment grid
+      commentGrid.appendChild(wrapper);
     });
   });
 }
@@ -259,9 +285,67 @@ function setupShareButton() {
   };
 }
 
+function setupAddToCalendar() {
+  const addToCalendarBtn = document.getElementById("add-to-calendar-btn");
+  if (!addToCalendarBtn || !eventId) return;
+  const user = getCurrentUser();
+  if (!user || !user.userId) {
+    addToCalendarBtn.disabled = true;
+    addToCalendarBtn.textContent = "Sign in to add to calendar";
+    return;
+  }
+  // Check if event is already in user's calendar
+  const calendarRef = doc(db, "users", user.userId, "calendar", eventId);
+  function setAddState() {
+    addToCalendarBtn.disabled = false;
+    addToCalendarBtn.textContent = "Add to Calendar";
+    addToCalendarBtn.onclick = async () => {
+      addToCalendarBtn.disabled = true;
+      try {
+        const eventDoc = await getDoc(doc(db, "events", eventId));
+        if (!eventDoc.exists()) throw new Error("Event not found");
+        const event = eventDoc.data();
+        await setDoc(calendarRef, {
+          ...event,
+          eventId,
+          addedAt: new Date(),
+        });
+        setAddedState();
+        alert("Event added to calendar");
+      } catch (err) {
+        addToCalendarBtn.disabled = false;
+        alert("Failed to add event to calendar: " + err.message);
+      }
+    };
+  }
+  function setAddedState() {
+    addToCalendarBtn.disabled = false;
+    addToCalendarBtn.textContent = "Added to Calendar";
+    addToCalendarBtn.onclick = async () => {
+      addToCalendarBtn.disabled = true;
+      try {
+        await deleteDoc(calendarRef);
+        setAddState();
+        alert("Event removed from calendar");
+      } catch (err) {
+        addToCalendarBtn.disabled = false;
+        alert("Failed to remove event from calendar: " + err.message);
+      }
+    };
+  }
+  getDoc(calendarRef).then((docSnap) => {
+    if (docSnap.exists()) {
+      setAddedState();
+    } else {
+      setAddState();
+    }
+  });
+}
+
 window.addEventListener("DOMContentLoaded", () => {
   renderEventDetails();
   setupComments();
   setupRegistration();
   setupShareButton();
+  setupAddToCalendar();
 });

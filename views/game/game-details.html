@@ -20,10 +20,10 @@
 =======
 >>>>>>> 0d60716701f156093187db478dd3f31be9cae471
 
-  <body class="bg-gray-100">
+  <body class="bg-white font-nunito">
     <div data-component="sidebar"></div>
 
-    <main class="px-10">
+    <main class="px-10 text-white font-nunito">
       <div class="night-cage-wrap flex gap-8 p-8 items-start px-20">
         <!-- Game Image -->
         <div
@@ -38,19 +38,22 @@
 
         <!-- Game Info -->
         <div class="flex flex-col gap-6 max-w-[700px]">
-          <h3 id="game-title" class="font-extrabold text-[42px] luma-gradient">
+          <h3
+            id="game-title"
+            class="font-extrabold text-[42px] luma-gradient text-white"
+          >
             Loading...
           </h3>
           <div class="gap-6">
             <h4
               id="game-subtitle"
-              class="font-semibold text-[32px] text-gray-200 mb-4"
+              class="font-semibold text-[32px] text-white mb-4"
             >
               ...
             </h4>
             <p
               id="game-description"
-              class="text-lg text-gray-400 pb-6 max-w-[80%]"
+              class="text-lg text-white pb-6 max-w-[80%]"
             >
               Loading game description...
             </p>
@@ -111,41 +114,42 @@
       <!-- Description, Categories -->
       <div class="py-10 lg:px-20">
         <div class="about-game flex gap-8 p-8 items-start">
-          <div class="flex flex-col gap-6 max-w-[50%]">
+          <div class="flex flex-col gap-6 max-w-[50%] text-white">
             <div id="designers-section">
-              <h3 class="text-3xl font-semibold font-sans text-gray-500">
+              <h3 class="text-3xl font-semibold font-sans text-white">
                 Designer
               </h3>
-              <div id="designers-list" class="text-custom-gray text-2xl">
+              <div id="designers-list" class="text-white text-2xl">
                 Loading...
               </div>
             </div>
             <div id="publishers-section">
-              <h3 class="text-3xl font-semibold font-sans text-gray-500">
+              <h3 class="text-3xl font-semibold font-sans text-white">
                 Publisher
               </h3>
-              <div id="publishers-list" class="text-custom-gray text-2xl">
+              <div id="publishers-list" class="text-white text-2xl">
                 Loading...
               </div>
             </div>
             <div id="categories-section">
-              <h3 class="text-3xl font-semibold font-sans text-gray-500">
+              <h3 class="text-3xl font-semibold font-sans text-white">
                 Categories
               </h3>
-              <div id="categories-list" class="text-custom-gray text-2xl">
+              <div id="categories-list" class="text-white text-2xl">
                 Loading...
               </div>
             </div>
           </div>
 
-          <div class="flex flex-col gap-6 max-w-[40%]">
-            <h2 class="text-4xl font-extrabold text-gray-500">About Game</h2>
-            <p id="detailed-description">
+          <div class="flex flex-col gap-6 max-w-[40%] text-white">
+            <h2 class="text-4xl font-extrabold text-white">About Game</h2>
+            <p id="detailed-description" class="text-white">
               Loading detailed game description...
             </p>
           </div>
         </div>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         <!-- PDF Preview Modal -->
 <<<<<<< HEAD
@@ -159,28 +163,64 @@
               <button id="close-pdf-modal" class="text-gray-500 hover:text-gray-700">
                 <i class="fas fa-times text-xl"></i>
 =======
+=======
+        <!-- Suggested Games Section -->
+        <div id="suggestedGamesSection" class="mb-10">
+          <h2 class="text-3xl font-extrabold mb-4" style="color: #f59275">
+            Suggested Games
+          </h2>
+          <div id="suggestedGamesGrid" class="flex gap-6 overflow-x-auto"></div>
+        </div>
+
+>>>>>>> c5b19c9736bb7263cb8b22f6c8609b1926b62c1c
         <!-- Comments Section -->
-        <div class="comments p-4">
+        <div class="comments p-4 text-white">
           <h1
-            class="text-6xl font-extrabold text-gray-500 gap-4 font-sans p-4 text-center"
+            class="text-6xl font-extrabold font-nunito gap-4 mb-4 p-4 text-center luma-gradient"
+            style="
+              background: linear-gradient(
+                269deg,
+                #f59275 24.95%,
+                #f1647a 87.01%
+              );
+              background-clip: text;
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              color: transparent;
+            "
           >
             Comments
           </h1>
-          <div class="grid grid-cols-4 gap-4">
+          <div class="max-w-7xl mx-auto">
             <div
-              class="row-span-2 bg-white border border-black rounded-2xl p-4 flex flex-col justify-between"
+              id="commentGrid"
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
             >
+              <!-- Comment Input -->
               <div
-                class="border border-black rounded-2xl p-3 flex flex-col h-full flex-grow"
+                class="bg-gradient-to-b from-[#F59275] to-[#F1647A] p-[3px] rounded-2xl h-full"
               >
-                <p class="mb-2">
-                  Ut in odio efficitur, pharetra ipsum id,porta dolor.
-                </p>
-                <p class="mb-2">
-                  Orci varius natoque penatibus et magnis dis parturient montes,
-                  nascetur ridiculus mus.
-                </p>
+                <div
+                  class="rounded-[16px] p-5 h-full flex flex-col justify-between"
+                >
+                  <textarea
+                    id="commentInput"
+                    style="
+                      box-shadow: inset 0px 0px 18px -5px rgb(77 77 77 / 80%);
+                    "
+                    placeholder="Enter your comment..."
+                    class="bg-[#FFC4C5] placeholder:text-gray-500 text-gray-700 rounded-lg p-4 resize-none h-48 focus:outline-none mb-4"
+                  ></textarea>
+                  <button
+                    id="postCommentBtn"
+                    style="box-shadow: 0px 0px 7px 0px rgb(77 77 77 / 80%)"
+                    class="bg-gradient-to-r from-[#FF8E53] to-[#FE6B8B] text-white font-semibold px-6 py-3 rounded-2xl shadow-md"
+                  >
+                    Comment
+                  </button>
+                </div>
               </div>
+<<<<<<< HEAD
               <button
                 class="mt-4 self-center w-[70%] px-6 py-3 flex items-center gap-2 bg-white border border-black rounded-lg justify-center"
               >
@@ -327,6 +367,8 @@
                 varius natoque penatibus et magnis dis parturient montes,
                 nascetur ridiculus mus.
               </p>
+=======
+>>>>>>> c5b19c9736bb7263cb8b22f6c8609b1926b62c1c
             </div>
           </div>
         </div>

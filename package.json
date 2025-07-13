@@ -8,6 +8,7 @@
     "generate-games": "node Server/generate-top-games.js",
     "start": "node Server/api.js",
     "dev": "node Server/api.js",
+    "build": "tailwindcss -i ./src/input.css -o ./src/output.css",
     "build-css": "tailwindcss -i ./src/input.css -o ./src/output.css --watch",
     "build-css-once": "tailwindcss -i ./src/input.css -o ./src/output.css"
   },
