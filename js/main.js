@@ -1315,6 +1315,7 @@ function renderGameComments(comments, grid) {
     return;
   }
   comments.forEach((comment) => {
+    if (!comment.text || !comment.text.trim()) return; // Skip empty comments
     // Prioritize userName, then userEmail, then fallback to Anonymous
     const user =
       comment.userName ||
@@ -1325,12 +1326,11 @@ function renderGameComments(comments, grid) {
     )}&background=random`;
     const card = document.createElement("div");
     card.className =
-      "rounded-2xl p-5 bg-[#23243a] border-2 border-transparent shadow-md bg-clip-padding relative";
-    card.style.borderImage = "linear-gradient(90deg, #f59275, #f1647a) 1";
+      "rounded-2xl p-5 bg-[#23243a] border border-[#f59275] shadow-md flex flex-col gap-2";
     card.innerHTML = `
-      <div class="flex items-center gap-4 mb-3">
+      <div class="flex items-center gap-3 mb-2">
         <img src="${avatarUrl}" alt="${user}" class="w-10 h-10 rounded-full object-cover border-2 border-white" />
-        <span class="text-white font-semibold text-sm">${user}</span>
+        <span class="text-white font-bold text-base">${user}</span>
       </div>
       <p class="text-white text-sm">${comment.text}</p>
     `;
