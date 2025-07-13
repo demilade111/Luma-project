@@ -938,8 +938,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Tutorial Video System Implementation
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("DOM Content Loaded - checking for tutorial page...");
+
   // Only run on tutorial page
-  if (!document.querySelector(".tutorial-1")) return;
+  if (!document.querySelector(".tutorial-1")) {
+    console.log("Tutorial page not found, skipping tutorial initialization");
+    return;
+  }
+
+  console.log("Tutorial page found, initializing...");
 
   const playButton = document.querySelector(".play-buttons");
   const videos = document.querySelectorAll(".tutorial-1 video");
@@ -973,6 +980,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Set up event listeners
     playButton.addEventListener("click", function (e) {
       console.log("Play button clicked!");
+      alert("Play button clicked! Starting tutorial...");
       startTutorial();
     });
     replayBtn.addEventListener("click", replayCurrentVideo);
@@ -1011,15 +1019,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Show specific video
   function showVideo(index) {
-    if (index < 0 || index >= videos.length) return;
+    console.log("Showing video at index:", index);
+    if (index < 0 || index >= videos.length) {
+      console.warn("Invalid video index:", index);
+      return;
+    }
 
     currentIndex = index;
 
     // Hide all videos first
     videos.forEach((video, i) => {
       if (i === index) {
+        console.log("Showing video", i);
         video.classList.remove("hidden");
-        video.play().catch((err) => console.warn("Video play failed:", err));
+        video.play().catch((err) => {
+          console.warn("Video play failed:", err);
+          console.log("Video src:", video.querySelector("source")?.src);
+        });
       } else {
         video.pause();
         video.classList.add("hidden");
@@ -1027,6 +1043,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Show controls
+    console.log("Showing video controls");
     videoControls.classList.remove("hidden");
 
     // Update button states
