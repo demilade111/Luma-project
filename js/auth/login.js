@@ -1,63 +1,50 @@
-import { db } from "../config/firebase.js";
-import {
-  getAuth,
-  onAuthStateChanged,
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import {
-  collection,
-  getDocs,
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { auth } from "../../config/firebase.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { checkIfLoggedIn } from "./authGuard.js";
 
-// Helper to get the bookmarks container
-function getBookmarkContainer() {
-  return document.getElementById("bookmark-list");
-}
+// Check if user is already logged in
+checkIfLoggedIn();
 
-// Renders a bookmark card
-function createBookmarkCard(bookmark) {
-  const div = document.createElement("div");
-  div.className =
-    "bg-white border border-black rounded-2xl p-4 shadow flex flex-col justify-between";
-  div.innerHTML = `
-    <img src="${bookmark.image}" alt="${bookmark.title}" class="w-full h-40 object-cover rounded-xl mb-4">
-    <h2 class="text-xl font-semibold text-gray-800">${bookmark.title}</h2>
-  `;
-  return div;
-}
+// Get form elements
+const form = document.querySelector("form");
+const errorMsg = document.createElement("p");
+errorMsg.className = "text-red-500 text-sm mt-2";
+form.appendChild(errorMsg);
 
-// Load bookmarks from Firestore
-async function loadBookmarks(user) {
-  const container = getBookmarkContainer();
-  container.innerHTML = `<p class="text-gray-500">Loading...</p>`;
+// Handle form submission
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  errorMsg.textContent = "";
+
+  const email = form.username.value.trim();
+  const password = form.password.value;
+
+  if (!email || !password) {
+    errorMsg.textContent = "All fields are required.";
+    return;
+  }
 
   try {
-    const ref = collection(db, "users", user.uid, "bookmarks");
-    const snap = await getDocs(ref);
-    container.innerHTML = "";
+    const userCred = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCred.user;
 
-    if (snap.empty) {
-      container.innerHTML = `<p class="text-gray-400 text-center">No bookmarks found.</p>`;
-      return;
-    }
+    // Store session information
+    sessionStorage.setItem("userToken", user.accessToken || "authenticated");
+    sessionStorage.setItem("userEmail", user.email);
+    sessionStorage.setItem("userId", user.uid);
 
-    snap.forEach((doc) => {
-      const data = doc.data();
-      const card = createBookmarkCard(data);
-      container.appendChild(card);
-    });
+    // Redirect to home page
+    window.location.href = "/views/home/index.html";
   } catch (err) {
-    container.innerHTML = `<p class="text-red-500">Error loading bookmarks</p>`;
-    console.error("Bookmark load error:", err);
-  }
-}
-
-// Wait for auth state and trigger load
-onAuthStateChanged(getAuth(), (user) => {
-  if (user) {
-    loadBookmarks(user);
-  } else {
-    const container = getBookmarkContainer();
-    container.innerHTML =
-      "<p class='text-red-500 text-center'>You must be signed in to view bookmarks.</p>";
+    console.error(err);
+    if (err.code === "auth/user-not-found") {
+      errorMsg.textContent = "No account found with this email.";
+    } else if (err.code === "auth/wrong-password") {
+      errorMsg.textContent = "Incorrect password.";
+    } else if (err.code === "auth/invalid-email") {
+      errorMsg.textContent = "Invalid email format.";
+    } else {
+      errorMsg.textContent = "Login failed. Please try again.";
+    }
   }
 });

@@ -218,9 +218,12 @@
             class="flex space-x-28 overflow-x-auto pb-4 hide-scrollbar px-10"
           >
             <!-- Vancouver -->
-            <div class="flex flex-col items-center min-w-[120px] relative">
+            <div
+              class="flex flex-col items-center min-w-[120px] relative"
+              data-city="Vancouver"
+            >
               <div
-                class="w-48 h-48 rounded-full border-[0.5px] border-white shadow-[0_6px_12px_rgba(0,0,0,0.3)] overflow-hidden flex items-center justify-center relative"
+                class="w-48 h-48 rounded-full border-[0.5px] border-white shadow-[0_6px_12px_rgba(0,0,0,0.3)] overflow-hidden flex items-center justify-center relative city-image-container"
               >
                 <div
                   class="absolute inset-0 rounded-full shadow-[inset_0_4px_8px_rgba(255,255,255,0.9)] pointer-events-none z-10"
@@ -228,10 +231,13 @@
                 <img
                   src="../../src/asset/images/vancouver.png"
                   alt="Vancouver"
-                  class="object-cover w-full h-full z-0"
+                  class="object-cover w-full h-full z-0 city-bg"
                 />
+                <div
+                  class="event-preview absolute left-0 right-0 bottom-2 z-20 flex flex-col items-center"
+                ></div>
                 <span
-                  class="absolute bottom-0 w-full text-center text-white tracking-wide text-base font-semibold pb-6 pt-2 z-20 bg-gradient-to-top-dark"
+                  class="absolute bottom-0 w-full text-center text-white tracking-wide text-base font-semibold pb-6 pt-2 z-20 bg-gradient-to-top-dark city-name"
                 >
                   Vancouver
                 </span>
@@ -239,9 +245,12 @@
             </div>
 
             <!-- Toronto -->
-            <div class="flex flex-col items-center min-w-[120px] relative">
+            <div
+              class="flex flex-col items-center min-w-[120px] relative"
+              data-city="Toronto"
+            >
               <div
-                class="w-48 h-48 rounded-full border-[0.5px] border-white shadow-[0_6px_12px_rgba(0,0,0,0.3)] overflow-hidden flex items-center justify-center relative"
+                class="w-48 h-48 rounded-full border-[0.5px] border-white shadow-[0_6px_12px_rgba(0,0,0,0.3)] overflow-hidden flex items-center justify-center relative city-image-container"
               >
                 <div
                   class="absolute inset-0 rounded-full shadow-[inset_0_4px_8px_rgba(255,255,255,0.9)] pointer-events-none z-10"
@@ -249,10 +258,13 @@
                 <img
                   src="../../src/asset/images/toronto.png"
                   alt="Toronto"
-                  class="object-cover w-full h-full z-0"
+                  class="object-cover w-full h-full z-0 city-bg"
                 />
+                <div
+                  class="event-preview absolute left-0 right-0 bottom-2 z-20 flex flex-col items-center"
+                ></div>
                 <span
-                  class="absolute bottom-0 w-full text-center text-white tracking-wide text-base font-semibold pb-6 pt-2 z-20 bg-gradient-to-top-dark"
+                  class="absolute bottom-0 w-full text-center text-white tracking-wide text-base font-semibold pb-6 pt-2 z-20 bg-gradient-to-top-dark city-name"
                 >
                   Toronto
                 </span>
@@ -260,9 +272,12 @@
             </div>
 
             <!-- Montreal -->
-            <div class="flex flex-col items-center min-w-[120px] relative">
+            <div
+              class="flex flex-col items-center min-w-[120px] relative"
+              data-city="Montreal"
+            >
               <div
-                class="w-48 h-48 rounded-full border-[0.5px] border-white shadow-[0_6px_12px_rgba(0,0,0,0.3)] overflow-hidden flex items-center justify-center relative"
+                class="w-48 h-48 rounded-full border-[0.5px] border-white shadow-[0_6px_12px_rgba(0,0,0,0.3)] overflow-hidden flex items-center justify-center relative city-image-container"
               >
                 <div
                   class="absolute inset-0 rounded-full shadow-[inset_0_4px_8px_rgba(255,255,255,0.9)] pointer-events-none z-10"
@@ -270,10 +285,13 @@
                 <img
                   src="../../src/asset/images/montreal.png"
                   alt="Montreal"
-                  class="object-cover w-full h-full z-0"
+                  class="object-cover w-full h-full z-0 city-bg"
                 />
+                <div
+                  class="event-preview absolute left-0 right-0 bottom-2 z-20 flex flex-col items-center"
+                ></div>
                 <span
-                  class="absolute bottom-0 w-full text-center text-white tracking-wide text-base font-semibold pb-6 pt-2 z-20 bg-gradient-to-top-dark"
+                  class="absolute bottom-0 w-full text-center text-white tracking-wide text-base font-semibold pb-6 pt-2 z-20 bg-gradient-to-top-dark city-name"
                 >
                   Montreal
                 </span>
@@ -281,9 +299,12 @@
             </div>
 
             <!-- Helsinki -->
-            <div class="flex flex-col items-center min-w-[120px] relative">
+            <div
+              class="flex flex-col items-center min-w-[120px] relative"
+              data-city="Helsinki"
+            >
               <div
-                class="w-48 h-48 rounded-full border-[0.5px] border-white shadow-[0_6px_12px_rgba(0,0,0,0.3)] overflow-hidden flex items-center justify-center relative"
+                class="w-48 h-48 rounded-full border-[0.5px] border-white shadow-[0_6px_12px_rgba(0,0,0,0.3)] overflow-hidden flex items-center justify-center relative city-image-container"
               >
                 <div
                   class="absolute inset-0 rounded-full shadow-[inset_0_4px_8px_rgba(255,255,255,0.9)] pointer-events-none z-10"
@@ -291,10 +312,13 @@
                 <img
                   src="../../src/asset/images/helsinki.png"
                   alt="Helsinki"
-                  class="object-cover w-full h-full z-0"
+                  class="object-cover w-full h-full z-0 city-bg"
                 />
+                <div
+                  class="event-preview absolute left-0 right-0 bottom-2 z-20 flex flex-col items-center"
+                ></div>
                 <span
-                  class="absolute bottom-0 w-full text-center text-white tracking-wide text-base font-semibold pb-6 pt-2 z-20 bg-gradient-to-top-dark"
+                  class="absolute bottom-0 w-full text-center text-white tracking-wide text-base font-semibold pb-6 pt-2 z-20 bg-gradient-to-top-dark city-name"
                 >
                   Helsinki
                 </span>
@@ -302,9 +326,12 @@
             </div>
 
             <!-- Seattle -->
-            <div class="flex flex-col items-center min-w-[120px] relative">
+            <div
+              class="flex flex-col items-center min-w-[120px] relative"
+              data-city="Seattle"
+            >
               <div
-                class="w-48 h-48 rounded-full border-[0.5px] border-white shadow-[0_6px_12px_rgba(0,0,0,0.3)] overflow-hidden flex items-center justify-center relative"
+                class="w-48 h-48 rounded-full border-[0.5px] border-white shadow-[0_6px_12px_rgba(0,0,0,0.3)] overflow-hidden flex items-center justify-center relative city-image-container"
               >
                 <div
                   class="absolute inset-0 rounded-full shadow-[inset_0_4px_8px_rgba(255,255,255,0.9)] pointer-events-none z-10"
@@ -312,10 +339,13 @@
                 <img
                   src="../../src/asset/images/seattle.png"
                   alt="Seattle"
-                  class="object-cover w-full h-full z-0"
+                  class="object-cover w-full h-full z-0 city-bg"
                 />
+                <div
+                  class="event-preview absolute left-0 right-0 bottom-2 z-20 flex flex-col items-center"
+                ></div>
                 <span
-                  class="absolute bottom-0 w-full text-center text-white tracking-wide text-base font-semibold pb-6 pt-2 z-20 bg-gradient-to-top-dark"
+                  class="absolute bottom-0 w-full text-center text-white tracking-wide text-base font-semibold pb-6 pt-2 z-20 bg-gradient-to-top-dark city-name"
                 >
                   Seattle
                 </span>
@@ -323,9 +353,12 @@
             </div>
 
             <!-- Quebec -->
-            <div class="flex flex-col items-center min-w-[120px] relative">
+            <div
+              class="flex flex-col items-center min-w-[120px] relative"
+              data-city="Quebec"
+            >
               <div
-                class="w-48 h-48 rounded-full border-[0.5px] border-white shadow-[0_6px_12px_rgba(0,0,0,0.3)] overflow-hidden flex items-center justify-center relative"
+                class="w-48 h-48 rounded-full border-[0.5px] border-white shadow-[0_6px_12px_rgba(0,0,0,0.3)] overflow-hidden flex items-center justify-center relative city-image-container"
               >
                 <div
                   class="absolute inset-0 rounded-full shadow-[inset_0_4px_8px_rgba(255,255,255,0.9)] pointer-events-none z-10"
@@ -333,10 +366,13 @@
                 <img
                   src="https://picsum.photos/100?random=1"
                   alt="Quebec"
-                  class="object-cover w-full h-full z-0"
+                  class="object-cover w-full h-full z-0 city-bg"
                 />
+                <div
+                  class="event-preview absolute left-0 right-0 bottom-2 z-20 flex flex-col items-center"
+                ></div>
                 <span
-                  class="absolute bottom-0 w-full text-center text-white tracking-wide text-base font-semibold pb-6 pt-2 z-20 bg-gradient-to-top-dark"
+                  class="absolute bottom-0 w-full text-center text-white tracking-wide text-base font-semibold pb-6 pt-2 z-20 bg-gradient-to-top-dark city-name"
                 >
                   Quebec
                 </span>
@@ -344,6 +380,11 @@
             </div>
           </div>
         </section>
+        <!-- Dynamic city events will be injected here -->
+        <div
+          id="cityEventsGrid"
+          class="grid gap-6 md:grid-cols-3 px-4 mb-8"
+        ></div>
 
         <!-- Featured Calendars Section -->
         <section class="mb-16">
@@ -353,278 +394,14 @@
             Featured Calendars
           </h1>
 
-          <div class="grid gap-6 md:grid-cols-3 px-4">
-            <!-- Repeat for all cards -->
-            <div class="bg-white rounded-2xl p-5 overflow-hidden w-full shadow">
-              <h2
-                class="text-xl font-semibold mb-4 text-start mx-2 text-[#3F434E]"
-              >
-                Indie Game Night
-              </h2>
-              <div class="flex">
-                <div class="w-1/2 flex justify-center items-start px-2">
-                  <img
-                    src="../../src/asset/images/fea-cal-1.png"
-                    alt="Card Image"
-                    class="w-40 h-40 border-[0.5px] object-cover rounded-2xl"
-                  />
-                </div>
-                <div class="w-1/2 flex flex-col justify-center px-2">
-                  <p class="text-base text-gray-600 mb-3">
-                    Lorem ipsum dolor sit amet, consectetur labore et dolore
-                    consectetur...
-                  </p>
-                  <div class="text-base text-gray-500">
-                    <button
-                      class="bg-transparent rounded-full text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent"
-                    >
-                      Subscribe
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <!-- User's Calendar Events will be injected here -->
+          <div
+            id="userCalendarsGrid"
+            class="grid gap-6 md:grid-cols-3 px-4 mb-8"
+          ></div>
 
-            <div class="bg-white rounded-2xl p-5 overflow-hidden w-full shadow">
-              <h2
-                class="text-xl font-semibold mb-4 text-start mx-2 text-[#3F434E]"
-              >
-                Indie Game Night
-              </h2>
-              <div class="flex">
-                <div class="w-1/2 flex justify-center items-start px-2">
-                  <img
-                    src="../../src/asset/images/fea-cal-2.png"
-                    alt="Card Image"
-                    class="w-40 h-40 border-[0.5px] object-cover rounded-2xl"
-                  />
-                </div>
-                <div class="w-1/2 flex flex-col justify-center px-2">
-                  <p class="text-base text-gray-600 mb-3">
-                    Lorem ipsum dolor sit amet, consectetur labore et dolore
-                    consectetur...
-                  </p>
-                  <div class="text-base text-gray-500">
-                    <button
-                      class="bg-transparent rounded-full text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent"
-                    >
-                      Subscribe
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-2xl p-5 overflow-hidden w-full shadow">
-              <h2
-                class="text-xl font-semibold mb-4 text-start mx-2 text-[#3F434E]"
-              >
-                Indie Game Night
-              </h2>
-              <div class="flex">
-                <div class="w-1/2 flex justify-center items-start px-2">
-                  <img
-                    src="../../src/asset/images/fea-cal-3.png"
-                    alt="Card Image"
-                    class="w-40 h-40 border-[0.5px] object-cover rounded-2xl"
-                  />
-                </div>
-                <div class="w-1/2 flex flex-col justify-center px-2">
-                  <p class="text-base text-gray-600 mb-3">
-                    Lorem ipsum dolor sit amet, consectetur labore et dolore
-                    consectetur...
-                  </p>
-                  <div class="text-base text-gray-500">
-                    <button
-                      class="bg-transparent rounded-full text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent"
-                    >
-                      Subscribe
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-2xl p-5 overflow-hidden w-full shadow">
-              <h2
-                class="text-xl font-semibold mb-4 text-start mx-2 text-[#3F434E]"
-              >
-                Indie Game Night
-              </h2>
-              <div class="flex">
-                <div class="w-1/2 flex justify-center items-start px-2">
-                  <img
-                    src="../../src/asset/images/fea-cal-4.png"
-                    alt="Card Image"
-                    class="w-40 h-40 border-[0.5px] object-cover rounded-2xl"
-                  />
-                </div>
-                <div class="w-1/2 flex flex-col justify-center px-2">
-                  <p class="text-base text-gray-600 mb-3">
-                    Lorem ipsum dolor sit amet, consectetur labore et dolore
-                    consectetur...
-                  </p>
-                  <div class="text-base text-gray-500">
-                    <button
-                      class="bg-transparent rounded-full text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent"
-                    >
-                      Subscribe
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-2xl p-5 overflow-hidden w-full shadow">
-              <h2
-                class="text-xl font-semibold mb-4 text-start mx-2 text-[#3F434E]"
-              >
-                Indie Game Night
-              </h2>
-              <div class="flex">
-                <div class="w-1/2 flex justify-center items-start px-2">
-                  <img
-                    src="../../src/asset/images/fea-cal-5.png"
-                    alt="Card Image"
-                    class="w-40 h-40 border-[0.5px] object-cover rounded-2xl"
-                  />
-                </div>
-                <div class="w-1/2 flex flex-col justify-center px-2">
-                  <p class="text-base text-gray-600 mb-3">
-                    Lorem ipsum dolor sit amet, consectetur labore et dolore
-                    consectetur...
-                  </p>
-                  <div class="text-base text-gray-500">
-                    <button
-                      class="bg-transparent rounded-full text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent"
-                    >
-                      Subscribe
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-2xl p-5 overflow-hidden w-full shadow">
-              <h2
-                class="text-xl font-semibold mb-4 text-start mx-2 text-[#3F434E]"
-              >
-                Indie Game Night
-              </h2>
-              <div class="flex">
-                <div class="w-1/2 flex justify-center items-start px-2">
-                  <img
-                    src="../../src/asset/images/fea-cal-6.png"
-                    alt="Card Image"
-                    class="w-40 h-40 border-[0.5px] object-cover rounded-2xl"
-                  />
-                </div>
-                <div class="w-1/2 flex flex-col justify-center px-2">
-                  <p class="text-base text-gray-600 mb-3">
-                    Lorem ipsum dolor sit amet, consectetur labore et dolore
-                    consectetur...
-                  </p>
-                  <div class="text-base text-gray-500">
-                    <button
-                      class="bg-transparent rounded-full text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent"
-                    >
-                      Subscribe
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-2xl p-5 overflow-hidden w-full shadow">
-              <h2
-                class="text-xl font-semibold mb-4 text-start mx-2 text-[#3F434E]"
-              >
-                Indie Game Night
-              </h2>
-              <div class="flex">
-                <div class="w-1/2 flex justify-center items-start px-2">
-                  <img
-                    src="../../src/asset/images/fea-cal-7.png"
-                    alt="Card Image"
-                    class="w-40 h-40 border-[0.5px] object-cover rounded-2xl"
-                  />
-                </div>
-                <div class="w-1/2 flex flex-col justify-center px-2">
-                  <p class="text-base text-gray-600 mb-3">
-                    Lorem ipsum dolor sit amet, consectetur labore et dolore
-                    consectetur...
-                  </p>
-                  <div class="text-base text-gray-500">
-                    <button
-                      class="bg-transparent rounded-full text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent"
-                    >
-                      Subscribe
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-2xl p-5 overflow-hidden w-full shadow">
-              <h2
-                class="text-xl font-semibold mb-4 text-start mx-2 text-[#3F434E]"
-              >
-                Indie Game Night
-              </h2>
-              <div class="flex">
-                <div class="w-1/2 flex justify-center items-start px-2">
-                  <img
-                    src="../../src/asset/images/fea-cal-8.png"
-                    alt="Card Image"
-                    class="w-40 h-40 border-[0.5px] object-cover rounded-2xl"
-                  />
-                </div>
-                <div class="w-1/2 flex flex-col justify-center px-2">
-                  <p class="text-base text-gray-600 mb-3">
-                    Lorem ipsum dolor sit amet, consectetur labore et dolore
-                    consectetur...
-                  </p>
-                  <div class="text-base text-gray-500">
-                    <button
-                      class="bg-transparent rounded-full text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent"
-                    >
-                      Subscribe
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-2xl p-5 overflow-hidden w-full shadow">
-              <h2
-                class="text-xl font-semibold mb-4 text-start mx-2 text-[#3F434E]"
-              >
-                Indie Game Night
-              </h2>
-              <div class="flex">
-                <div class="w-1/2 flex justify-center items-start px-2">
-                  <img
-                    src="../../src/asset/images/fea-cal-9.png"
-                    alt="Card Image"
-                    class="w-40 h-40 border-[0.5px] object-cover rounded-2xl"
-                  />
-                </div>
-                <div class="w-1/2 flex flex-col justify-center px-2">
-                  <p class="text-base text-gray-600 mb-3">
-                    Lorem ipsum dolor sit amet, consectetur labore et dolore
-                    consectetur...
-                  </p>
-                  <div class="text-base text-gray-500">
-                    <button
-                      class="bg-transparent rounded-full text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent"
-                    >
-                      Subscribe
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!-- Removed static placeholder cards -->
+          <div class="grid gap-6 md:grid-cols-3 px-4"></div>
         </section>
       </main>
 
@@ -640,5 +417,31 @@
     <!-- Firebase & JS -->
     <script type="module" src="../../config/firebase.js"></script>
     <script type="module" src="../../js/event.js"></script>
+
+    <!-- Authentication Guard -->
+    <script type="module">
+      import { initAuthGuard } from "../../js/auth/authGuard.js";
+      initAuthGuard();
+    </script>
+
+    <!-- Temporary Migration Script -->
+    <script type="module">
+      import { migrateComments } from "../../js/migrateComments.js";
+
+      // Add migration button (temporary)
+      setTimeout(() => {
+        const migrationBtn = document.createElement("button");
+        migrationBtn.onclick = () => {
+          if (
+            confirm(
+              "Run comment migration? This will update existing comments with user information."
+            )
+          ) {
+            migrateComments();
+          }
+        };
+        document.body.appendChild(migrationBtn);
+      }, 2000);
+    </script>
   </body>
 </html>

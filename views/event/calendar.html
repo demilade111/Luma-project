@@ -1,628 +1,425 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calendar Page</title>
+    <title>Luma | Event Details</title>
     <link href="../../src/output.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-  </head>
-  <body class="bg-[#23293a] text-white font-nunito min-h-screen flex flex-col">
-    <!-- Sidebar -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <style>
+        /* Tailwind-inspired Flatpickr customization */
+        .flatpickr-day.selected,
+        .flatpickr-day.today {
+            background-color: #1f2937 !important;
+            /* gray-800 */
+            color: #f59275 !important;
+            /* yellow-400 */
+        }
+
+        .flatpickr-day:hover {
+            background-color: #4b5563 !important;
+            /* gray-600 */
+        }
+
+        .flatpickr-calendar {
+            /* border: 2px solid #f59275; */
+            /* Change to your desired border color */
+            background: transparent !important;
+            backdrop-filter: blur(8px);
+            /* Optional: adds a blur effect */
+            border-radius: 0.5rem;
+            /* Optional: rounded corners */
+            box-shadow: none;
+            /* Optional: remove default shadow */
+        }
+
+        .flatpickr-months .flatpickr-prev-month,
+        .flatpickr-months .flatpickr-next-month,
+        .flatpickr-current-month {
+            color: white;
+            fill: white;
+        }
+
+        span.flatpickr-weekday {
+            color: rgb(255 255 255 / 54%);
+        }
+
+        .flatpickr-day {
+            color: #a4a4a4;
+        }
+
+        .flatpickr-day.prevMonthDay,
+        .flatpickr-day.nextMonthDay {
+            color: rgb(183 183 183 / 30%);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
     <div data-component="sidebar"></div>
 
-    <!-- Main Content -->
-    <div class="w-[1728px] h-[3567.60px] relative bg-gradient-to-b from-gray-900 via-slate-800 to-gray-900 shadow-[0px_3.5999999046325684px_3.5999999046325684px_0px_rgba(0,0,0,0.25)] overflow-hidden">
-      <div class="w-[1586.70px] h-32 left-[141.30px] top-0 absolute"></div>
-      <div class="w-[656.10px] h-16 left-[209.70px] top-[1483.20px] absolute justify-center text-red-400 text-4xl font-extrabold font-['Inter']">Subscribed Calendars</div>
-      <div class="w-[656.10px] h-16 left-[209.70px] top-[984.60px] absolute justify-center text-red-400 text-4xl font-extrabold font-['Inter']">Suggested Calendars</div>
-      <div class="w-[1430.10px] h-[826.20px] left-[209.70px] top-[81px] absolute bg-card-background rounded-3xl shadow-[-3.2763400077819824px_-6.426666736602783px_6.048627853393555px_0px_rgba(46,51,62,0.70)] shadow-[3.2763400077819824px_6.426666736602783px_6.048627853393555px_0px_rgba(0,5,16,0.50)] overflow-hidden">
-        <div class="w-[739.80px] h-28 left-[660.60px] top-[44.10px] absolute bg-card-background rounded-2xl shadow-[-3.2763400077819824px_-6.426666736602783px_6.048627853393555px_0px_rgba(46,51,62,0.70)] shadow-[3.2763400077819824px_6.426666736602783px_6.048627853393555px_0px_rgba(0,5,16,0.50)]"></div>
-        <img class="w-[600.30px] h-[745.20px] left-[29.70px] top-[40.50px] absolute rounded-2xl" src="https://placehold.co/600x745" />
-        <div class="w-24 h-24 left-[1300.50px] top-[262.80px] absolute bg-gradient-to-bl from-red-400 to-red-400 rounded-2xl shadow-[inset_-3.2763402462005615px_-6.552680492401123px_8.266458511352539px_0px_rgba(56,61,72,0.70)] shadow-[inset_3.2763402462005615px_6.552680492401123px_8.266458511352539px_0px_rgba(0,0,7,0.70)]"></div>
-        <div class="w-24 h-24 left-[982.80px] top-[473.40px] absolute rounded-2xl shadow-[-3.2763400077819824px_-6.426666736602783px_6.048627853393555px_0px_rgba(46,51,62,0.70)] shadow-[3.2763400077819824px_6.426666736602783px_6.048627853393555px_0px_rgba(0,5,16,0.50)] border-[5.40px] border-red-400"></div>
-        <div class="w-24 h-24 left-[771.30px] top-[578.70px] absolute rounded-2xl shadow-[-3.2763400077819824px_-6.426666736602783px_6.048627853393555px_0px_rgba(46,51,62,0.70)] shadow-[3.2763400077819824px_6.426666736602783px_6.048627853393555px_0px_rgba(0,5,16,0.50)] border-[5.40px] border-red-400"></div>
-        <div class="w-28 h-28 px-10 py-8 left-[660.60px] top-[151.20px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-3xl font-bold font-['Nunito_Sans'] leading-9">Su</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[766.28px] top-[151.20px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-3xl font-bold font-['Nunito_Sans'] leading-9">Mo</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[871.97px] top-[151.20px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-3xl font-bold font-['Nunito_Sans'] leading-9">Tu</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[977.66px] top-[151.20px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-3xl font-bold font-['Nunito_Sans'] leading-9">We</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1083.34px] top-[151.20px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-3xl font-bold font-['Nunito_Sans'] leading-9">Th</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1189.03px] top-[151.20px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-3xl font-bold font-['Nunito_Sans'] leading-9">Fr</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1294.71px] top-[151.20px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-3xl font-bold font-['Nunito_Sans'] leading-9">Sa</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[660.60px] top-[256.89px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white/40 text-4xl font-semibold font-['Nunito_Sans'] leading-9">27</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[766.28px] top-[256.89px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white/40 text-4xl font-semibold font-['Nunito_Sans'] leading-9">28</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[871.97px] top-[256.89px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">1</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[977.66px] top-[256.89px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">2</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1083.34px] top-[256.89px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">3</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1189.03px] top-[256.89px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">4</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1295.10px] top-[256.50px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-#171C27 text-4xl font-semibold font-['Nunito_Sans'] leading-9">5</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[660.60px] top-[362.57px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">6</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[660.60px] top-[468.26px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">13</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[766.28px] top-[362.57px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">7</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[871.97px] top-[362.57px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">8</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[977.66px] top-[362.57px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">9</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1083.34px] top-[362.57px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">10</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1189.03px] top-[362.57px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">11</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1294.71px] top-[362.57px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">12</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[766.28px] top-[468.26px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">14</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[871.97px] top-[468.26px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">15</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[977.66px] top-[468.26px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">16</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1083.34px] top-[468.26px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">17</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1189.03px] top-[468.26px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">18</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1294.71px] top-[468.26px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">19</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[660.60px] top-[573.95px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">20</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[660.60px] top-[679.63px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">27</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[766.28px] top-[573.95px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">21</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[766.28px] top-[679.63px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">28</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[871.97px] top-[573.95px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">22</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[871.97px] top-[679.63px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">29</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[977.66px] top-[573.95px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">23</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[977.66px] top-[679.63px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">30</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1083.34px] top-[573.95px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">24</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1083.34px] top-[679.63px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">31</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1189.03px] top-[573.95px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">25</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1189.03px] top-[679.63px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-zinc-300/40 text-4xl font-semibold font-['Nunito_Sans'] leading-9">1</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1294.71px] top-[573.95px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-white text-4xl font-semibold font-['Nunito_Sans'] leading-9">26</div>
-        </div>
-        <div class="w-28 h-28 px-10 py-8 left-[1294.71px] top-[679.63px] absolute rounded-2xl inline-flex flex-col justify-center items-center gap-7">
-          <div class="text-center justify-center text-zinc-300/40 text-4xl font-semibold font-['Nunito_Sans'] leading-9">2</div>
-        </div>
-        <div class="w-24 h-24 left-[877.50px] top-[261.90px] absolute rounded-2xl shadow-[-3.2763400077819824px_-6.426666736602783px_6.048627853393555px_0px_rgba(46,51,62,0.70)] shadow-[3.2763400077819824px_6.426666736602783px_6.048627853393555px_0px_rgba(0,5,16,0.50)] border-[5.40px] border-red-400"></div>
-        <div class="left-[765px] top-[67.50px] absolute text-center justify-start text-white text-5xl font-extrabold font-['Nunito_Sans']">September</div>
-        <div class="w-11 h-11 left-[1044.90px] top-[75.60px] absolute origin-top-left rotate-90 overflow-hidden">
-          <div class="w-11 h-11 left-0 top-0 absolute"></div>
-          <div class="w-3.5 h-2.5 left-[15.37px] top-[17.62px] absolute bg-white"></div>
-        </div>
-        <div class="left-[1200.60px] top-[67.50px] absolute text-center justify-start text-white text-5xl font-extrabold font-['Nunito_Sans']">2025</div>
-        <div class="w-11 h-11 left-[1353.60px] top-[75.60px] absolute origin-top-left rotate-90 overflow-hidden">
-          <div class="w-11 h-11 left-0 top-0 absolute"></div>
-          <div class="w-3.5 h-2.5 left-[15.38px] top-[17.62px] absolute bg-white"></div>
-        </div>
-      </div>
-      <div class="w-[685.80px] h-64 left-[209.70px] top-[1113.30px] absolute">
-        <div class="w-[685.80px] h-64 left-0 top-0 absolute bg-card-background rounded-[45.90px] shadow-[-7.199999809265137px_-7.199999809265137px_9px_0px_rgba(46,55,77,1.00)] shadow-[1.7999999523162842px_1.7999999523162842px_4.5px_0px_rgba(0,0,0,1.00)] shadow-[7.199999809265137px_7.199999809265137px_9px_0px_rgba(24,29,43,1.00)] border-1 border-slate-600"></div>
-        <div data-property-1="Default" class="w-96 h-9 left-[275.40px] top-[39.60px] absolute">
-          <div class="w-96 left-0 top-[-2.70px] absolute justify-center text-white text-3xl font-bold font-['Nunito_Sans']">Kevin McMillan</div>
-        </div>
-        <div data-show-icon="false" data-show-text="true" class="w-36 h-11 px-4 py-2 left-[502.20px] top-[189px] absolute bg-button-background rounded-3xl shadow-[-3.5999999046325684px_-3.5999999046325684px_9px_0px_rgba(69,83,116,1.00)] shadow-[3.5999999046325684px_3.5999999046325684px_9px_0px_rgba(24,29,43,1.00)] inline-flex justify-center items-center gap-2">
-          <div class="w-20 h-5 text-center justify-start text-button-text-color text-base font-bold font-['Nunito_Sans']">Subscribe</div>
-        </div>
-        <div class="w-44 h-7 left-[275.40px] top-[196.20px] absolute overflow-hidden">
-          <div class="w-32 h-7 left-[55.80px] top-0 absolute justify-center text-button-text-color text-sm font-semibold font-['Nunito_Sans']">users subscribed</div>
-          <div class="w-6 h-7 left-[31.50px] top-0 absolute justify-center text-button-text-color text-sm font-semibold font-['Nunito_Sans']">35</div>
-          <div data-size="Default" class="w-6 h-6 left-0 top-[1.80px] absolute">
-            <div class="w-2 h-2 left-[10.71px] top-[3.80px] absolute bg-button-text-color"></div>
-            <div class="w-3 h-1.5 left-[8.22px] top-[13.30px] absolute bg-button-text-color"></div>
-            <div class="w-1.5 h-1.5 left-[3.45px] top-[3.76px] absolute bg-button-text-color"></div>
-            <div class="w-2.5 h-1 left-[1.37px] top-[11.69px] absolute bg-button-text-color"></div>
-            <div class="w-6 h-6 left-0 top-0 absolute"></div>
-          </div>
-        </div>
-        <img class="w-56 h-52 left-[32.40px] top-[27px] absolute rounded-3xl" src="https://placehold.co/218x215" />
-        <div class="w-96 h-20 left-[280.80px] top-[87.30px] absolute justify-start text-white text-xl font-medium font-['Nunito_Sans']">Jazz lover, board game guru, and CSS wizard. Kevin hosts laid-back game nights with brainy vibes and witty...</div>
-      </div>
-      <div class="w-[685.80px] h-64 left-[922.50px] top-[1113.30px] absolute">
-        <div class="w-[685.80px] h-64 left-0 top-0 absolute bg-card-background rounded-[45.90px] shadow-[-7.199999809265137px_-7.199999809265137px_9px_0px_rgba(46,55,77,1.00)] shadow-[1.7999999523162842px_1.7999999523162842px_4.5px_0px_rgba(0,0,0,1.00)] shadow-[7.199999809265137px_7.199999809265137px_9px_0px_rgba(24,29,43,1.00)] border-1 border-slate-600"></div>
-        <div data-property-1="Default" class="w-96 h-9 left-[275.40px] top-[39.60px] absolute">
-          <div class="w-96 left-0 top-[-2.70px] absolute justify-center text-white text-3xl font-bold font-['Nunito_Sans']">Kevin McMillan</div>
-        </div>
-        <div data-show-icon="false" data-show-text="true" class="w-36 h-11 px-4 py-2 left-[502.20px] top-[189px] absolute bg-button-background rounded-3xl shadow-[-3.5999999046325684px_-3.5999999046325684px_9px_0px_rgba(69,83,116,1.00)] shadow-[3.5999999046325684px_3.5999999046325684px_9px_0px_rgba(24,29,43,1.00)] inline-flex justify-center items-center gap-2">
-          <div class="w-20 h-5 text-center justify-start text-button-text-color text-base font-bold font-['Nunito_Sans']">Subscribe</div>
-        </div>
-        <div class="w-44 h-7 left-[275.40px] top-[196.20px] absolute overflow-hidden">
-          <div class="w-32 h-7 left-[55.80px] top-0 absolute justify-center text-button-text-color text-sm font-semibold font-['Nunito_Sans']">users subscribed</div>
-          <div class="w-6 h-7 left-[31.50px] top-0 absolute justify-center text-button-text-color text-sm font-semibold font-['Nunito_Sans']">35</div>
-          <div data-size="Default" class="w-6 h-6 left-0 top-[1.80px] absolute">
-            <div class="w-2 h-2 left-[10.71px] top-[3.80px] absolute bg-button-text-color"></div>
-            <div class="w-3 h-1.5 left-[8.22px] top-[13.30px] absolute bg-button-text-color"></div>
-            <div class="w-1.5 h-1.5 left-[3.45px] top-[3.76px] absolute bg-button-text-color"></div>
-            <div class="w-2.5 h-1 left-[1.37px] top-[11.69px] absolute bg-button-text-color"></div>
-            <div class="w-6 h-6 left-0 top-0 absolute"></div>
-          </div>
-        </div>
-        <img class="w-56 h-52 left-[32.40px] top-[27px] absolute rounded-3xl" src="https://placehold.co/218x215" />
-        <div class="w-96 h-20 left-[280.80px] top-[87.30px] absolute justify-start text-white text-xl font-medium font-['Nunito_Sans']">Jazz lover, board game guru, and CSS wizard. Kevin hosts laid-back game nights with brainy vibes and witty...</div>
-      </div>
-      <div class="w-[685.80px] h-64 left-[1635.30px] top-[1113.30px] absolute">
-        <div class="w-[685.80px] h-64 left-0 top-0 absolute bg-card-background rounded-[45.90px] shadow-[-7.199999809265137px_-7.199999809265137px_9px_0px_rgba(46,55,77,1.00)] shadow-[1.7999999523162842px_1.7999999523162842px_4.5px_0px_rgba(0,0,0,1.00)] shadow-[7.199999809265137px_7.199999809265137px_9px_0px_rgba(24,29,43,1.00)] border-1 border-slate-600"></div>
-        <div data-property-1="Default" class="w-96 h-9 left-[275.40px] top-[39.60px] absolute">
-          <div class="w-96 left-0 top-[-2.70px] absolute justify-center text-white text-3xl font-bold font-['Nunito_Sans']">Kevin McMillan</div>
-        </div>
-        <div data-show-icon="false" data-show-text="true" class="w-36 h-11 px-4 py-2 left-[502.20px] top-[189px] absolute bg-button-background rounded-3xl shadow-[-3.5999999046325684px_-3.5999999046325684px_9px_0px_rgba(69,83,116,1.00)] shadow-[3.5999999046325684px_3.5999999046325684px_9px_0px_rgba(24,29,43,1.00)] inline-flex justify-center items-center gap-2">
-          <div class="w-20 h-5 text-center justify-start text-button-text-color text-base font-bold font-['Nunito_Sans']">Subscribe</div>
-        </div>
-        <div class="w-44 h-7 left-[275.40px] top-[196.20px] absolute overflow-hidden">
-          <div class="w-32 h-7 left-[55.80px] top-0 absolute justify-center text-button-text-color text-sm font-semibold font-['Nunito_Sans']">users subscribed</div>
-          <div class="w-6 h-7 left-[31.50px] top-0 absolute justify-center text-button-text-color text-sm font-semibold font-['Nunito_Sans']">35</div>
-          <div data-size="Default" class="w-6 h-6 left-0 top-[1.80px] absolute">
-            <div class="w-2 h-2 left-[10.71px] top-[3.80px] absolute bg-button-text-color"></div>
-            <div class="w-3 h-1.5 left-[8.22px] top-[13.30px] absolute bg-button-text-color"></div>
-            <div class="w-1.5 h-1.5 left-[3.45px] top-[3.76px] absolute bg-button-text-color"></div>
-            <div class="w-2.5 h-1 left-[1.37px] top-[11.69px] absolute bg-button-text-color"></div>
-            <div class="w-6 h-6 left-0 top-0 absolute"></div>
-          </div>
-        </div>
-        <img class="w-56 h-52 left-[32.40px] top-[27px] absolute rounded-3xl" src="https://placehold.co/218x215" />
-        <div class="w-96 h-20 left-[280.80px] top-[87.30px] absolute justify-start text-white text-xl font-medium font-['Nunito_Sans']">Jazz lover, board game guru, and CSS wizard. Kevin hosts laid-back game nights with brainy vibes and witty...</div>
-      </div>
-      <div class="w-[1728px] h-36 left-0 top-[3413.70px] absolute bg-card-background overflow-hidden">
-        <div class="w-[1728px] h-36 left-0 top-0 absolute bg-card-background"></div>
-        <div class="left-[1574.10px] top-[318.60px] absolute justify-start text-white text-base font-normal font-['Nunito_Sans']">Copy right</div>
-        <div class="left-[457.20px] top-[55.80px] absolute inline-flex justify-start items-center gap-20">
-          <div class="w-16 justify-start text-button-text-color text-2xl font-normal font-['Nunito_Sans']">Home</div>
-          <div class="w-28 justify-start text-button-text-color text-2xl font-normal font-['Nunito_Sans']">About us</div>
-          <div class="w-24 justify-start text-button-text-color text-2xl font-normal font-['Nunito_Sans']">Contact</div>
-          <div class="w-12 justify-start text-button-text-color text-2xl font-normal font-['Nunito_Sans']">FAQ</div>
-        </div>
-        <div class="w-28 h-16 left-[171.90px] top-[40.50px] absolute">
-          <div class="w-2.5 h-2.5 left-[71.78px] top-[31.20px] absolute bg-rose-500 rounded-full shadow-[inset_-16.23590660095215px_16.23590660095215px_19.807804107666016px_0px_rgba(140,32,61,1.00)] outline outline-1 outline-white/60"></div>
-          <div class="w-2.5 h-2.5 left-[71.78px] top-[17.60px] absolute bg-rose-500 rounded-full shadow-[inset_-16.23590660095215px_16.23590660095215px_19.807804107666016px_0px_rgba(140,32,61,1.00)] outline outline-1 outline-white/60"></div>
-          <div class="w-2.5 h-2.5 left-[85.43px] top-[17.60px] absolute bg-rose-500 rounded-full shadow-[inset_-16.23590660095215px_16.23590660095215px_19.807804107666016px_0px_rgba(140,32,61,1.00)] outline outline-1 outline-white/60"></div>
-          <div class="w-2.5 h-2.5 left-[85.43px] top-[31.46px] absolute bg-rose-500 rounded-full shadow-[inset_-16.23590660095215px_16.23590660095215px_19.807804107666016px_0px_rgba(140,32,61,1.00)] outline outline-1 outline-white/60"></div>
-        </div>
-        <div class="left-[1278.90px] top-[46.80px] absolute inline-flex justify-start items-center gap-3">
-          <div class="w-12 h-12 relative overflow-hidden">
-            <div class="w-12 h-12 left-[-0.06px] top-[51.37px] absolute origin-top-left rotate-[-89.87deg]"></div>
-            <div class="w-9 h-6 left-[7.50px] top-[12.24px] absolute bg-button-text-color"></div>
-          </div>
-          <div class="w-12 h-12 relative overflow-hidden">
-            <div class="w-12 h-12 left-[-0.06px] top-[51.37px] absolute origin-top-left rotate-[-89.87deg]"></div>
-            <div class="w-9 h-8 left-[8.32px] top-[10.66px] absolute bg-button-text-color"></div>
-          </div>
-          <div class="w-12 h-12 relative overflow-hidden">
-            <div class="w-12 h-12 left-[-0.06px] top-[51.37px] absolute origin-top-left rotate-[-89.87deg]"></div>
-            <div class="w-9 h-6 left-[7.92px] top-[13.14px] absolute bg-button-text-color"></div>
-          </div>
-          <div class="w-12 h-12 relative overflow-hidden">
-            <div class="w-12 h-12 left-[-0.06px] top-[51.37px] absolute origin-top-left rotate-[-89.87deg]"></div>
-            <div class="w-2 h-1.5 left-[26.64px] top-[16.65px] absolute bg-button-text-color"></div>
-            <div class="w-7 h-8 left-[13.11px] top-[9.89px] absolute bg-button-text-color"></div>
-          </div>
-          <div class="w-12 h-12 relative overflow-hidden">
-            <div class="w-12 h-12 left-[-0.06px] top-[51.37px] absolute origin-top-left rotate-[-89.87deg]"></div>
-            <div class="w-9 h-9 left-[7.62px] top-[7.20px] absolute bg-button-text-color"></div>
-          </div>
-          <div class="w-12 h-12 relative overflow-hidden">
-            <div class="w-12 h-12 left-0 top-0 absolute"></div>
-            <div class="w-7 h-7 left-[11.73px] top-[12.02px] absolute bg-button-text-color"></div>
-          </div>
-        </div>
-      </div>
-      <div class="w-[695.70px] h-96 left-[209.70px] top-[2043px] absolute shadow-[-7.199999809265137px_-7.199999809265137px_9px_0px_rgba(46,55,77,1.00)] shadow-[1.7999999523162842px_1.7999999523162842px_4.5px_0px_rgba(0,0,0,1.00)] shadow-[7.199999809265137px_7.199999809265137px_9px_0px_rgba(24,29,43,1.00)]">
-        <div class="w-[695.70px] h-96 left-0 top-0 absolute bg-card-background rounded-3xl"></div>
-        <div class="w-80 h-6 left-[285.30px] top-[36.64px] absolute justify-center text-#Luma-white text-xl font-semibold font-['Nunito_Sans']">Zeus Calendar</div>
-        <div class="w-96 h-16 left-[285.30px] top-[86.14px] absolute justify-center text-#Luma-white text-sm font-normal font-['Nunito_Sans']">Join the relaxing tabletop sessions and totally chill strategy showdowns hosted by the one and only Kevin McMillan, beloved jazz connoisseur ...</div>
-        <div data-show-icon="false" data-show-text="true" data-size="Medium" data-state="Default" class="w-52 h-14 p-2 left-[38.70px] top-[284.27px] absolute bg-button-background rounded-3xl shadow-[-3.5999999046325684px_-3.5999999046325684px_9px_0px_rgba(69,83,116,1.00)] shadow-[3.5999999046325684px_3.5999999046325684px_9px_0px_rgba(24,29,43,1.00)] inline-flex justify-center items-center gap-2">
-          <div class="text-center justify-start text-white text-2xl font-semibold font-['Nunito_Sans']">View Calendar</div>
-        </div>
-        <div class="w-44 h-6 left-[313.20px] top-[197.10px] absolute justify-center text-button-text-color text-base font-bold font-['Nunito_Sans']">by Rafaela Lopes</div>
-        <img class="w-6 h-6 left-[283.50px] top-[197.10px] absolute rounded-full" src="https://placehold.co/24x24" />
-        <div class="w-6 h-6 left-[283.50px] top-[242.10px] absolute overflow-hidden">
-          <div class="w-6 h-6 left-0 top-0 absolute"></div>
-          <div class="w-3.5 h-5 left-[5.29px] top-[2.71px] absolute bg-button-text-color"></div>
-        </div>
-        <div class="w-64 h-6 left-[313.20px] top-[242.10px] absolute justify-center text-button-text-color text-base font-bold font-['Nunito_Sans']">Langara College B Building</div>
-        <div data-size="Default" class="w-6 h-6 left-[283.50px] top-[300.60px] absolute">
-          <div class="w-2 h-2 left-[11.57px] top-[4.10px] absolute bg-button-text-color"></div>
-          <div class="w-3.5 h-1.5 left-[8.88px] top-[14.36px] absolute bg-button-text-color"></div>
-          <div class="w-2 h-2 left-[3.73px] top-[4.06px] absolute bg-button-text-color"></div>
-          <div class="w-3 h-[4.91px] left-[1.48px] top-[12.62px] absolute bg-button-text-color"></div>
-          <div class="w-6 h-6 left-0 top-0 absolute"></div>
-        </div>
-        <div class="w-72 h-6 left-[361.80px] top-[300.60px] absolute justify-center text-button-text-color text-sm font-normal font-['Nunito_Sans']">Ana Paola, Mekhala, Sahil and 19 others</div>
-        <div class="w-11 h-6 left-[313.20px] top-[300.60px] absolute justify-center text-button-text-color text-sm font-normal font-['Nunito_Sans']">22/35</div>
-        <div data-property-1="Variant3" class="w-56 h-60 left-[31.50px] top-[28.80px] absolute">
-          <img class="w-56 h-60 left-0 top-0 absolute rounded-xl" src="https://placehold.co/221x238" />
-        </div>
-      </div>
-      <div class="w-[695.70px] h-96 left-[939.60px] top-[2043px] absolute shadow-[-7.199999809265137px_-7.199999809265137px_9px_0px_rgba(46,55,77,1.00)] shadow-[1.7999999523162842px_1.7999999523162842px_4.5px_0px_rgba(0,0,0,1.00)] shadow-[7.199999809265137px_7.199999809265137px_9px_0px_rgba(24,29,43,1.00)]">
-        <div class="w-[695.70px] h-96 left-0 top-0 absolute bg-card-background rounded-3xl"></div>
-        <div class="w-80 h-6 left-[285.30px] top-[36.64px] absolute justify-center text-#Luma-white text-xl font-semibold font-['Nunito_Sans']">Poseidon Calendar</div>
-        <div class="w-96 h-16 left-[285.30px] top-[86.14px] absolute justify-center text-#Luma-white text-sm font-normal font-['Nunito_Sans']">Join the relaxing tabletop sessions and totally chill strategy showdowns hosted by the one and only Kevin McMillan, beloved jazz connoisseur ...</div>
-        <div data-show-icon="false" data-show-text="true" data-size="Medium" data-state="Default" class="w-52 h-14 p-2 left-[38.70px] top-[284.27px] absolute bg-button-background rounded-3xl shadow-[-3.5999999046325684px_-3.5999999046325684px_9px_0px_rgba(69,83,116,1.00)] shadow-[3.5999999046325684px_3.5999999046325684px_9px_0px_rgba(24,29,43,1.00)] inline-flex justify-center items-center gap-2">
-          <div class="text-center justify-start text-white text-2xl font-semibold font-['Nunito_Sans']">View Calendar</div>
-        </div>
-        <div class="w-44 h-6 left-[313.20px] top-[197.10px] absolute justify-center text-button-text-color text-base font-bold font-['Nunito_Sans']">by Don Productions</div>
-        <img class="w-6 h-6 left-[283.50px] top-[197.10px] absolute rounded-full" src="https://placehold.co/24x24" />
-        <div class="w-6 h-6 left-[283.50px] top-[242.10px] absolute overflow-hidden">
-          <div class="w-6 h-6 left-0 top-0 absolute"></div>
-          <div class="w-3.5 h-5 left-[5.29px] top-[2.71px] absolute bg-button-text-color"></div>
-        </div>
-        <div class="w-64 h-6 left-[313.20px] top-[242.10px] absolute justify-center text-button-text-color text-base font-bold font-['Nunito_Sans']">Langara College B Building</div>
-        <div data-size="Default" class="w-6 h-6 left-[283.50px] top-[300.60px] absolute">
-          <div class="w-2 h-2 left-[11.57px] top-[4.10px] absolute bg-button-text-color"></div>
-          <div class="w-3.5 h-1.5 left-[8.88px] top-[14.36px] absolute bg-button-text-color"></div>
-          <div class="w-2 h-2 left-[3.73px] top-[4.06px] absolute bg-button-text-color"></div>
-          <div class="w-3 h-[4.91px] left-[1.48px] top-[12.62px] absolute bg-button-text-color"></div>
-          <div class="w-6 h-6 left-0 top-0 absolute"></div>
-        </div>
-        <div class="w-72 h-6 left-[361.80px] top-[300.60px] absolute justify-center text-button-text-color text-sm font-normal font-['Nunito_Sans']">Ana Paola, Mekhala, Sahil and 19 others</div>
-        <div class="w-11 h-6 left-[313.20px] top-[300.60px] absolute justify-center text-button-text-color text-sm font-normal font-['Nunito_Sans']">22/35</div>
-        <div data-property-1="Variant4" class="w-56 h-60 left-[31.50px] top-[28.80px] absolute">
-          <img class="w-56 h-60 left-0 top-0 absolute rounded-xl" src="https://placehold.co/221x238" />
-        </div>
-      </div>
-      <div class="w-[695.70px] h-96 left-[209.70px] top-[2488.50px] absolute shadow-[-7.199999809265137px_-7.199999809265137px_9px_0px_rgba(46,55,77,1.00)] shadow-[1.7999999523162842px_1.7999999523162842px_4.5px_0px_rgba(0,0,0,1.00)] shadow-[7.199999809265137px_7.199999809265137px_9px_0px_rgba(24,29,43,1.00)]">
-        <div class="w-[695.70px] h-96 left-0 top-0 absolute bg-card-background rounded-3xl"></div>
-        <div class="w-80 h-6 left-[285.30px] top-[36.64px] absolute justify-center text-#Luma-white text-xl font-semibold font-['Nunito_Sans']">Gregory Calendar</div>
-        <div class="w-96 h-16 left-[285.30px] top-[86.14px] absolute justify-center text-#Luma-white text-sm font-normal font-['Nunito_Sans']">Join the relaxing tabletop sessions and totally chill strategy showdowns hosted by the one and only Kevin McMillan, beloved jazz connoisseur ...</div>
-        <div data-show-icon="false" data-show-text="true" data-size="Medium" data-state="Default" class="w-52 h-14 p-2 left-[38.70px] top-[284.27px] absolute bg-button-background rounded-3xl shadow-[-3.5999999046325684px_-3.5999999046325684px_9px_0px_rgba(69,83,116,1.00)] shadow-[3.5999999046325684px_3.5999999046325684px_9px_0px_rgba(24,29,43,1.00)] inline-flex justify-center items-center gap-2">
-          <div class="text-center justify-start text-white text-2xl font-semibold font-['Nunito_Sans']">View Calendar</div>
-        </div>
-        <div class="w-44 h-6 left-[313.20px] top-[197.10px] absolute justify-center text-button-text-color text-base font-bold font-['Nunito_Sans']">by Gregorio Pecorio</div>
-        <img class="w-6 h-6 left-[283.50px] top-[197.10px] absolute rounded-full" src="https://placehold.co/24x24" />
-        <div class="w-6 h-6 left-[283.50px] top-[242.10px] absolute overflow-hidden">
-          <div class="w-6 h-6 left-0 top-0 absolute"></div>
-          <div class="w-3.5 h-5 left-[5.29px] top-[2.71px] absolute bg-button-text-color"></div>
-        </div>
-        <div class="w-64 h-6 left-[313.20px] top-[242.10px] absolute justify-center text-button-text-color text-base font-bold font-['Nunito_Sans']">Langara College B Building</div>
-        <div data-size="Default" class="w-6 h-6 left-[283.50px] top-[300.60px] absolute">
-          <div class="w-2 h-2 left-[11.57px] top-[4.10px] absolute bg-button-text-color"></div>
-          <div class="w-3.5 h-1.5 left-[8.88px] top-[14.36px] absolute bg-button-text-color"></div>
-          <div class="w-2 h-2 left-[3.73px] top-[4.06px] absolute bg-button-text-color"></div>
-          <div class="w-3 h-[4.91px] left-[1.48px] top-[12.62px] absolute bg-button-text-color"></div>
-          <div class="w-6 h-6 left-0 top-0 absolute"></div>
-        </div>
-        <div class="w-72 h-6 left-[361.80px] top-[300.60px] absolute justify-center text-button-text-color text-sm font-normal font-['Nunito_Sans']">Ana Paola, Mekhala, Sahil and 19 others</div>
-        <div class="w-11 h-6 left-[313.20px] top-[300.60px] absolute justify-center text-button-text-color text-sm font-normal font-['Nunito_Sans']">22/35</div>
-        <div data-property-1="Variant5" class="w-56 h-60 left-[31.50px] top-[28.80px] absolute">
-          <img class="w-56 h-60 left-0 top-0 absolute rounded-xl" src="https://placehold.co/221x238" />
-        </div>
-      </div>
-      <div class="w-[695.70px] h-96 left-[939.60px] top-[2488.50px] absolute shadow-[-7.199999809265137px_-7.199999809265137px_9px_0px_rgba(46,55,77,1.00)] shadow-[1.7999999523162842px_1.7999999523162842px_4.5px_0px_rgba(0,0,0,1.00)] shadow-[7.199999809265137px_7.199999809265137px_9px_0px_rgba(24,29,43,1.00)]">
-        <div class="w-[695.70px] h-96 left-0 top-0 absolute bg-card-background rounded-3xl"></div>
-        <div class="w-80 h-6 left-[285.30px] top-[36.64px] absolute justify-center text-#Luma-white text-xl font-semibold font-['Nunito_Sans']">Dino Calendar</div>
-        <div class="w-96 h-16 left-[285.30px] top-[86.14px] absolute justify-center text-#Luma-white text-sm font-normal font-['Nunito_Sans']">Join the relaxing tabletop sessions and totally chill strategy showdowns hosted by the one and only Kevin McMillan, beloved jazz connoisseur ...</div>
-        <div data-show-icon="false" data-show-text="true" data-size="Medium" data-state="Default" class="w-52 h-14 p-2 left-[38.70px] top-[284.27px] absolute bg-button-background rounded-3xl shadow-[-3.5999999046325684px_-3.5999999046325684px_9px_0px_rgba(69,83,116,1.00)] shadow-[3.5999999046325684px_3.5999999046325684px_9px_0px_rgba(24,29,43,1.00)] inline-flex justify-center items-center gap-2">
-          <div class="text-center justify-start text-white text-2xl font-semibold font-['Nunito_Sans']">View Calendar</div>
-        </div>
-        <div class="w-44 h-6 left-[313.20px] top-[197.10px] absolute justify-center text-button-text-color text-base font-bold font-['Nunito_Sans']">by Science World</div>
-        <img class="w-6 h-6 left-[283.50px] top-[197.10px] absolute rounded-full" src="https://placehold.co/24x24" />
-        <div class="w-6 h-6 left-[283.50px] top-[242.10px] absolute overflow-hidden">
-          <div class="w-6 h-6 left-0 top-0 absolute"></div>
-          <div class="w-3.5 h-5 left-[5.29px] top-[2.71px] absolute bg-button-text-color"></div>
-        </div>
-        <div class="w-64 h-6 left-[313.20px] top-[242.10px] absolute justify-center text-button-text-color text-base font-bold font-['Nunito_Sans']">Langara College B Building</div>
-        <div data-size="Default" class="w-6 h-6 left-[283.50px] top-[300.60px] absolute">
-          <div class="w-2 h-2 left-[11.57px] top-[4.10px] absolute bg-button-text-color"></div>
-          <div class="w-3.5 h-1.5 left-[8.88px] top-[14.36px] absolute bg-button-text-color"></div>
-          <div class="w-2 h-2 left-[3.73px] top-[4.06px] absolute bg-button-text-color"></div>
-          <div class="w-3 h-[4.91px] left-[1.48px] top-[12.62px] absolute bg-button-text-color"></div>
-          <div class="w-6 h-6 left-0 top-0 absolute"></div>
-        </div>
-        <div class="w-72 h-6 left-[361.80px] top-[300.60px] absolute justify-center text-button-text-color text-sm font-normal font-['Nunito_Sans']">Ana Paola, Mekhala, Sahil and 19 others</div>
-        <div class="w-11 h-6 left-[313.20px] top-[300.60px] absolute justify-center text-button-text-color text-sm font-normal font-['Nunito_Sans']">22/35</div>
-        <div data-property-1="Variant8" class="w-56 h-60 left-[31.50px] top-[28.80px] absolute">
-          <img class="w-56 h-60 left-0 top-0 absolute rounded-xl" src="https://placehold.co/221x238" />
-        </div>
-      </div>
-      <div class="w-[695.70px] h-96 left-[209.70px] top-[2933.10px] absolute shadow-[-7.199999809265137px_-7.199999809265137px_9px_0px_rgba(46,55,77,1.00)] shadow-[1.7999999523162842px_1.7999999523162842px_4.5px_0px_rgba(0,0,0,1.00)] shadow-[7.199999809265137px_7.199999809265137px_9px_0px_rgba(24,29,43,1.00)]">
-        <div class="w-[695.70px] h-96 left-0 top-0 absolute bg-card-background rounded-3xl"></div>
-        <div class="w-80 h-6 left-[285.30px] top-[36.64px] absolute justify-center text-#Luma-white text-xl font-semibold font-['Nunito_Sans']">Amber Calendar</div>
-        <div class="w-96 h-16 left-[285.30px] top-[86.14px] absolute justify-center text-#Luma-white text-sm font-normal font-['Nunito_Sans']">Join the relaxing tabletop sessions and totally chill strategy showdowns hosted by the one and only Kevin McMillan, beloved jazz connoisseur ...</div>
-        <div data-show-icon="false" data-show-text="true" data-size="Medium" data-state="Default" class="w-52 h-14 p-2 left-[38.70px] top-[284.27px] absolute bg-button-background rounded-3xl shadow-[-3.5999999046325684px_-3.5999999046325684px_9px_0px_rgba(69,83,116,1.00)] shadow-[3.5999999046325684px_3.5999999046325684px_9px_0px_rgba(24,29,43,1.00)] inline-flex justify-center items-center gap-2">
-          <div class="text-center justify-start text-white text-2xl font-semibold font-['Nunito_Sans']">View Calendar</div>
-        </div>
-        <div class="w-44 h-6 left-[313.20px] top-[197.10px] absolute justify-center text-button-text-color text-base font-bold font-['Nunito_Sans']">by Ana Morais</div>
-        <img class="w-6 h-6 left-[283.50px] top-[197.10px] absolute rounded-full" src="https://placehold.co/24x24" />
-        <div class="w-6 h-6 left-[283.50px] top-[242.10px] absolute overflow-hidden">
-          <div class="w-6 h-6 left-0 top-0 absolute"></div>
-          <div class="w-3.5 h-5 left-[5.29px] top-[2.71px] absolute bg-button-text-color"></div>
-        </div>
-        <div class="w-64 h-6 left-[313.20px] top-[242.10px] absolute justify-center text-button-text-color text-base font-bold font-['Nunito_Sans']">Langara College B Building</div>
-        <div data-size="Default" class="w-6 h-6 left-[283.50px] top-[300.60px] absolute">
-          <div class="w-2 h-2 left-[11.57px] top-[4.10px] absolute bg-button-text-color"></div>
-          <div class="w-3.5 h-1.5 left-[8.88px] top-[14.36px] absolute bg-button-text-color"></div>
-          <div class="w-2 h-2 left-[3.73px] top-[4.06px] absolute bg-button-text-color"></div>
-          <div class="w-3 h-[4.91px] left-[1.48px] top-[12.62px] absolute bg-button-text-color"></div>
-          <div class="w-6 h-6 left-0 top-0 absolute"></div>
-        </div>
-        <div class="w-72 h-6 left-[361.80px] top-[300.60px] absolute justify-center text-button-text-color text-sm font-normal font-['Nunito_Sans']">Ana Paola, Mekhala, Sahil and 19 others</div>
-        <div class="w-11 h-6 left-[313.20px] top-[300.60px] absolute justify-center text-button-text-color text-sm font-normal font-['Nunito_Sans']">22/35</div>
-        <div data-property-1="Variant6" class="w-56 h-60 left-[31.50px] top-[28.80px] absolute">
-          <img class="w-56 h-60 left-0 top-0 absolute rounded-xl" src="https://placehold.co/221x238" />
-        </div>
-      </div>
-      <div class="w-[695.70px] h-96 left-[939.60px] top-[2933.10px] absolute shadow-[-7.199999809265137px_-7.199999809265137px_9px_0px_rgba(46,55,77,1.00)] shadow-[1.7999999523162842px_1.7999999523162842px_4.5px_0px_rgba(0,0,0,1.00)] shadow-[7.199999809265137px_7.199999809265137px_9px_0px_rgba(24,29,43,1.00)]">
-        <div class="w-[695.70px] h-96 left-0 top-0 absolute bg-card-background rounded-3xl"></div>
-        <div class="w-80 h-6 left-[285.30px] top-[36.64px] absolute justify-center text-#Luma-white text-xl font-semibold font-['Nunito_Sans']">RPGaymers Calendar</div>
-        <div class="w-96 h-16 left-[285.30px] top-[86.14px] absolute justify-center text-#Luma-white text-sm font-normal font-['Nunito_Sans']">Join the relaxing tabletop sessions and totally chill strategy showdowns hosted by the one and only Kevin McMillan, beloved jazz connoisseur ...</div>
-        <div data-show-icon="false" data-show-text="true" data-size="Medium" data-state="Default" class="w-52 h-14 p-2 left-[38.70px] top-[284.27px] absolute bg-button-background rounded-3xl shadow-[-3.5999999046325684px_-3.5999999046325684px_9px_0px_rgba(69,83,116,1.00)] shadow-[3.5999999046325684px_3.5999999046325684px_9px_0px_rgba(24,29,43,1.00)] inline-flex justify-center items-center gap-2">
-          <div class="text-center justify-start text-white text-2xl font-semibold font-['Nunito_Sans']">View Calendar</div>
-        </div>
-        <div class="w-44 h-6 left-[313.20px] top-[197.10px] absolute justify-center text-button-text-color text-base font-bold font-['Nunito_Sans']">by RPGaymers</div>
-        <img class="w-6 h-6 left-[283.50px] top-[197.10px] absolute rounded-full" src="https://placehold.co/24x24" />
-        <div class="w-6 h-6 left-[283.50px] top-[242.10px] absolute overflow-hidden">
-          <div class="w-6 h-6 left-0 top-0 absolute"></div>
-          <div class="w-3.5 h-5 left-[5.29px] top-[2.71px] absolute bg-button-text-color"></div>
-        </div>
-        <div class="w-64 h-6 left-[313.20px] top-[242.10px] absolute justify-center text-button-text-color text-base font-bold font-['Nunito_Sans']">Langara College B Building</div>
-        <div data-size="Default" class="w-6 h-6 left-[283.50px] top-[300.60px] absolute">
-          <div class="w-2 h-2 left-[11.57px] top-[4.10px] absolute bg-button-text-color"></div>
-          <div class="w-3.5 h-1.5 left-[8.88px] top-[14.36px] absolute bg-button-text-color"></div>
-          <div class="w-2 h-2 left-[3.73px] top-[4.06px] absolute bg-button-text-color"></div>
-          <div class="w-3 h-[4.91px] left-[1.48px] top-[12.62px] absolute bg-button-text-color"></div>
-          <div class="w-6 h-6 left-0 top-0 absolute"></div>
-        </div>
-        <div class="w-72 h-6 left-[361.80px] top-[300.60px] absolute justify-center text-button-text-color text-sm font-normal font-['Nunito_Sans']">Ana Paola, Mekhala, Sahil and 19 others</div>
-        <div class="w-11 h-6 left-[313.20px] top-[300.60px] absolute justify-center text-button-text-color text-sm font-normal font-['Nunito_Sans']">22/35</div>
-        <div data-property-1="Variant10" class="w-56 h-60 left-[31.50px] top-[28.80px] absolute bg-white rounded-xl">
-          <img class="w-56 h-60 left-0 top-0 absolute rounded-xl" src="https://placehold.co/221x238" />
-        </div>
-      </div>
-      <div class="w-[695.70px] h-96 left-[209.70px] top-[1598.40px] absolute shadow-[-7.199999809265137px_-7.199999809265137px_9px_0px_rgba(46,55,77,1.00)] shadow-[1.7999999523162842px_1.7999999523162842px_4.5px_0px_rgba(0,0,0,1.00)] shadow-[7.199999809265137px_7.199999809265137px_9px_0px_rgba(24,29,43,1.00)]">
-        <div class="w-[695.70px] h-96 left-0 top-0 absolute bg-card-background rounded-3xl"></div>
-        <div class="w-80 h-6 left-[285.30px] top-[36.64px] absolute justify-center text-#Luma-white text-xl font-semibold font-['Nunito_Sans']">Kevin McMillan Calendar</div>
-        <div class="w-96 h-16 left-[285.30px] top-[86.14px] absolute justify-center text-#Luma-white text-sm font-normal font-['Nunito_Sans']">Join the relaxing tabletop sessions and totally chill strategy showdowns hosted by the one and only Kevin McMillan, beloved jazz connoisseur ...</div>
-        <div data-show-icon="false" data-show-text="true" data-size="Medium" data-state="Default" class="w-52 h-14 p-2 left-[38.70px] top-[284.27px] absolute bg-button-background rounded-3xl shadow-[-3.5999999046325684px_-3.5999999046325684px_9px_0px_rgba(69,83,116,1.00)] shadow-[3.5999999046325684px_3.5999999046325684px_9px_0px_rgba(24,29,43,1.00)] inline-flex justify-center items-center gap-2">
-          <div class="text-center justify-start text-white text-2xl font-semibold font-['Nunito_Sans']">View Calendar</div>
-        </div>
-        <div class="w-44 h-6 left-[313.20px] top-[197.10px] absolute justify-center text-button-text-color text-base font-bold font-['Nunito_Sans']">by Kevin McMillan</div>
-        <img class="w-6 h-6 left-[283.50px] top-[197.10px] absolute rounded-full" src="https://placehold.co/24x24" />
-        <div class="w-6 h-6 left-[283.50px] top-[242.10px] absolute overflow-hidden">
-          <div class="w-6 h-6 left-0 top-0 absolute"></div>
-          <div class="w-3.5 h-5 left-[5.29px] top-[2.71px] absolute bg-button-text-color"></div>
-        </div>
-        <div class="w-64 h-6 left-[313.20px] top-[242.10px] absolute justify-center text-button-text-color text-base font-bold font-['Nunito_Sans']">Langara College B Building</div>
-        <div data-size="Default" class="w-6 h-6 left-[283.50px] top-[300.60px] absolute">
-          <div class="w-2 h-2 left-[11.57px] top-[4.10px] absolute bg-button-text-color"></div>
-          <div class="w-3.5 h-1.5 left-[8.88px] top-[14.36px] absolute bg-button-text-color"></div>
-          <div class="w-2 h-2 left-[3.73px] top-[4.06px] absolute bg-button-text-color"></div>
-          <div class="w-3 h-[4.91px] left-[1.48px] top-[12.62px] absolute bg-button-text-color"></div>
-          <div class="w-6 h-6 left-0 top-0 absolute"></div>
-        </div>
-        <div class="w-72 h-6 left-[361.80px] top-[300.60px] absolute justify-center text-button-text-color text-sm font-normal font-['Nunito_Sans']">Ana Paola, Mekhala, Sahil and 19 others</div>
-        <div class="w-11 h-6 left-[313.20px] top-[300.60px] absolute justify-center text-button-text-color text-sm font-normal font-['Nunito_Sans']">22/35</div>
-        <div data-property-1="Default" class="w-56 h-60 left-[31.50px] top-[28.80px] absolute">
-          <img class="w-56 h-60 left-0 top-0 absolute rounded-xl" src="https://placehold.co/221x238" />
-        </div>
-      </div>
-      <div class="w-[695.70px] h-96 left-[939.60px] top-[1598.40px] absolute shadow-[-7.199999809265137px_-7.199999809265137px_9px_0px_rgba(46,55,77,1.00)] shadow-[1.7999999523162842px_1.7999999523162842px_4.5px_0px_rgba(0,0,0,1.00)] shadow-[7.199999809265137px_7.199999809265137px_9px_0px_rgba(24,29,43,1.00)]">
-        <div class="w-[695.70px] h-96 left-0 top-0 absolute bg-card-background rounded-3xl"></div>
-        <div class="w-80 h-6 left-[285.30px] top-[36.64px] absolute justify-center text-#Luma-white text-xl font-semibold font-['Nunito_Sans']">Rafa Lopes Calendar</div>
-        <div class="w-96 h-16 left-[285.30px] top-[86.14px] absolute justify-center text-#Luma-white text-sm font-normal font-['Nunito_Sans']">Join the relaxing tabletop sessions and totally chill strategy showdowns hosted by the one and only Kevin McMillan, beloved jazz connoisseur ...</div>
-        <div data-show-icon="false" data-show-text="true" data-size="Medium" data-state="Default" class="w-52 h-14 p-2 left-[38.70px] top-[284.27px] absolute bg-button-background rounded-3xl shadow-[-3.5999999046325684px_-3.5999999046325684px_9px_0px_rgba(69,83,116,1.00)] shadow-[3.5999999046325684px_3.5999999046325684px_9px_0px_rgba(24,29,43,1.00)] inline-flex justify-center items-center gap-2">
-          <div class="text-center justify-start text-white text-2xl font-semibold font-['Nunito_Sans']">View Calendar</div>
-        </div>
-        <div class="w-44 h-6 left-[313.20px] top-[197.10px] absolute justify-center text-button-text-color text-base font-bold font-['Nunito_Sans']">by Kevin McMillan</div>
-        <img class="w-6 h-6 left-[283.50px] top-[197.10px] absolute rounded-full" src="https://placehold.co/24x24" />
-        <div class="w-6 h-6 left-[283.50px] top-[242.10px] absolute overflow-hidden">
-          <div class="w-6 h-6 left-0 top-0 absolute"></div>
-          <div class="w-3.5 h-5 left-[5.29px] top-[2.71px] absolute bg-button-text-color"></div>
-        </div>
-        <div class="w-64 h-6 left-[313.20px] top-[242.10px] absolute justify-center text-button-text-color text-base font-bold font-['Nunito_Sans']">Langara College B Building</div>
-        <div data-size="Default" class="w-6 h-6 left-[283.50px] top-[300.60px] absolute">
-          <div class="w-2 h-2 left-[11.57px] top-[4.10px] absolute bg-button-text-color"></div>
-          <div class="w-3.5 h-1.5 left-[8.88px] top-[14.36px] absolute bg-button-text-color"></div>
-          <div class="w-2 h-2 left-[3.73px] top-[4.06px] absolute bg-button-text-color"></div>
-          <div class="w-3 h-[4.91px] left-[1.48px] top-[12.62px] absolute bg-button-text-color"></div>
-          <div class="w-6 h-6 left-0 top-0 absolute"></div>
-        </div>
-        <div class="w-72 h-6 left-[361.80px] top-[300.60px] absolute justify-center text-button-text-color text-sm font-normal font-['Nunito_Sans']">Ana Paola, Mekhala, Sahil and 19 others</div>
-        <div class="w-11 h-6 left-[313.20px] top-[300.60px] absolute justify-center text-button-text-color text-sm font-normal font-['Nunito_Sans']">22/35</div>
-        <div data-property-1="Variant2" class="w-56 h-60 left-[31.50px] top-[28.80px] absolute">
-          <img class="w-56 h-60 left-0 top-0 absolute rounded-xl" src="https://placehold.co/221x238" />
-        </div>
-      </div>
-      <div class="w-28 h-[900px] left-[-6869.70px] top-[54px] absolute">
-        <div class="w-28 h-[900px] left-0 top-0 absolute bg-background-color rounded-tr-2xl rounded-br-2xl border-1 border-white/60"></div>
-        <div class="w-10 h-10 left-[36.91px] top-[135.92px] absolute">
-          <div class="w-9 h-9 left-[2.14px] top-[2.14px] absolute bg-button-text-color"></div>
-          <div class="w-10 h-10 left-0 top-0 absolute"></div>
-        </div>
-        <div class="w-10 h-10 left-[37.12px] top-[736.57px] absolute"></div>
-        <div class="w-20 h-0 left-[11.10px] top-[110.61px] absolute outline outline-[0.69px] outline-offset-[-0.35px] outline-zinc-300/50"></div>
-        <div class="w-20 h-0 left-[11.10px] top-[494.88px] absolute outline outline-[0.69px] outline-offset-[-0.35px] outline-zinc-300/50"></div>
-        <div class="w-20 h-0 left-[11.10px] top-[283.12px] absolute outline outline-[0.69px] outline-offset-[-0.35px] outline-zinc-300/50"></div>
-        <div class="w-20 h-0 left-[11.10px] top-[653.32px] absolute outline outline-[0.69px] outline-offset-[-0.35px] outline-zinc-300/50"></div>
-        <div data-size="Default" class="w-10 h-10 left-[36.81px] top-[683.74px] absolute overflow-hidden">
-          <div class="w-6 h-5 left-[7.07px] top-[5.71px] absolute bg-button-text-color"></div>
-          <div class="w-2 h-[3.40px] left-[15.53px] top-[29.42px] absolute bg-button-text-color"></div>
-          <div class="w-10 h-10 left-0 top-0 absolute"></div>
-        </div>
-        <div data-size="Default" class="w-10 h-10 left-[36.81px] top-[749.72px] absolute">
-          <div class="w-7 h-7 left-[4.45px] top-[4.45px] absolute bg-button-text-color"></div>
-          <div class="w-10 h-10 left-0 top-0 absolute"></div>
-        </div>
-        <div class="w-10 h-10 left-[36.81px] top-[815.71px] absolute">
-          <div class="w-7 h-7 left-[4.37px] top-[4.39px] absolute bg-button-text-color"></div>
-          <div class="w-10 h-10 left-0 top-0 absolute"></div>
-        </div>
-        <div class="w-10 h-10 left-[36.81px] top-[520.98px] absolute overflow-hidden">
-          <div class="w-10 h-10 left-0 top-0 absolute"></div>
-          <div class="w-7 h-7 left-[4px] top-[8.02px] absolute bg-button-text-color"></div>
-          <div class="w-1.5 h-1.5 left-[27.60px] top-[6.01px] absolute bg-button-text-color"></div>
-          <div class="w-1.5 h-1.5 left-[28.40px] top-[14.86px] absolute bg-button-text-color"></div>
-          <div class="w-1.5 h-1.5 left-[19.69px] top-[5.07px] absolute bg-button-text-color"></div>
-        </div>
-        <div data-size="Default" class="w-10 h-10 left-[36.81px] top-[584.76px] absolute overflow-hidden">
-          <div class="w-10 h-10 left-0 top-0 absolute"></div>
-          <div class="w-7 h-7 left-[6.07px] top-[5.35px] absolute bg-button-text-color"></div>
-        </div>
-        <div class="w-10 h-10 left-[36.81px] top-[306.14px] absolute overflow-hidden">
-          <div class="w-3 h-3 left-[5.99px] top-[6.01px] absolute bg-button-text-color"></div>
-          <div class="w-1.5 h-1.5 left-[9.65px] top-[23.39px] absolute bg-button-text-color"></div>
-          <div class="w-3 h-3 left-[20.05px] top-[6.01px] absolute bg-button-text-color"></div>
-          <div class="w-3 h-3 left-[20.11px] top-[20.15px] absolute bg-button-text-color"></div>
-          <div class="w-3 h-3 left-[6.01px] top-[20.15px] absolute bg-button-text-color"></div>
-          <div class="w-10 h-10 left-0 top-0 absolute"></div>
-        </div>
-        <div data-size="50x50" class="w-10 h-10 left-[36.81px] top-[364.36px] absolute">
-          <div class="w-8 h-6 left-[3.92px] top-[8.20px] absolute bg-button-text-color"></div>
-          <div class="w-10 h-10 left-0 top-0 absolute"></div>
-        </div>
-        <div data-size="Default" class="w-10 h-10 left-[36.81px] top-[433.50px] absolute overflow-hidden">
-          <div class="w-8 h-2.5 left-[3.82px] top-[24.11px] absolute outline outline-[0.69px] outline-offset-[-0.35px] outline-button-text-color"></div>
-          <div class="w-9 h-[5.09px] left-[1.96px] top-[29.31px] absolute bg-button-text-color"></div>
-          <div class="w-5 h-5 left-[9.59px] top-[3.94px] absolute bg-button-text-color"></div>
-          <div class="w-10 h-10 left-0 top-0 absolute"></div>
-        </div>
-        <div data-property-1="expand" class="w-14 h-14 left-[28.62px] top-[29.37px] absolute overflow-hidden">
-          <div class="w-14 h-14 left-0 top-0 absolute"></div>
-          <div class="w-4 h-6 left-[5.88px] top-[15.80px] absolute bg-gradient-to-bl from-red-400 to-red-400"></div>
-          <div class="w-4 h-6 left-[32.71px] top-[15.80px] absolute bg-gradient-to-bl from-red-400 to-red-400"></div>
-        </div>
-        <div data-size="50x50" class="w-10 h-10 left-[36.81px] top-[215.61px] absolute">
-          <div class="w-5 h-[2.87px] left-[8.88px] top-[28.89px] absolute bg-button-text-color"></div>
-          <div class="w-7 h-5 left-[5.56px] top-[5.01px] absolute bg-button-text-color"></div>
-          <div class="w-10 h-10 left-0 top-0 absolute"></div>
-        </div>
-      </div>
-      <div class="w-28 h-[1005.30px] left-0 top-0 absolute"></div>
-      <div data-compressed="compressed" data-state="sidebar-compressed" class="w-32 h-[1120px] left-0 top-[-0.20px] absolute overflow-hidden">
-        <div class="w-28 h-[1120px] left-0 top-0 absolute">
-          <div class="w-28 h-[1120px] left-0 top-0 absolute bg-background-color border-1 border-white/60"></div>
-          <div class="w-11 h-11 left-[40.90px] top-[814.79px] absolute"></div>
-        </div>
-        <div class="w-11 h-11 left-[37px] top-[177.77px] absolute">
-          <div class="w-10 h-10 left-[2.56px] top-[2.56px] absolute bg-button-text-color"></div>
-          <div class="w-11 h-11 left-0 top-0 absolute"></div>
-        </div>
-        <div class="w-24 h-0 left-[13px] top-[144.48px] absolute outline outline-[0.77px] outline-offset-[-0.38px] outline-zinc-300/50"></div>
-        <div class="w-24 h-0 left-[13px] top-[547.36px] absolute outline outline-[0.77px] outline-offset-[-0.38px] outline-zinc-300/50"></div>
-        <div class="w-24 h-0 left-[13px] top-[345.92px] absolute outline outline-[0.77px] outline-offset-[-0.38px] outline-zinc-300/50"></div>
-        <div class="w-24 h-0 left-[13px] top-[831.31px] absolute outline outline-[0.77px] outline-offset-[-0.38px] outline-zinc-300/50"></div>
-        <div data-size="Default" class="w-11 h-12 left-[37px] top-[870.73px] absolute overflow-hidden">
-          <div class="w-7 h-7 left-[8.48px] top-[6.85px] absolute bg-button-text-color"></div>
-          <div class="w-2 h-1 left-[18.63px] top-[35.30px] absolute bg-button-text-color"></div>
-          <div class="w-11 h-12 left-0 top-0 absolute"></div>
-        </div>
-        <div data-size="Default" class="w-11 h-12 left-[37px] top-[953.97px] absolute">
-          <div class="w-9 h-9 left-[5.34px] top-[5.34px] absolute bg-button-text-color"></div>
-          <div class="w-11 h-12 left-0 top-0 absolute"></div>
-        </div>
-        <div class="w-11 h-12 left-[37px] top-[1037.21px] absolute">
-          <div class="w-9 h-9 left-[5.24px] top-[5.27px] absolute bg-button-text-color"></div>
-          <div class="w-11 h-12 left-0 top-0 absolute"></div>
-        </div>
-        <div class="w-11 h-12 left-[37px] top-[667.25px] absolute overflow-hidden">
-          <div class="w-11 h-12 left-0 top-0 absolute"></div>
-          <div class="w-8 h-8 left-[4.80px] top-[9.62px] absolute bg-button-text-color"></div>
-          <div class="w-2 h-1.5 left-[33.10px] top-[7.21px] absolute bg-button-text-color"></div>
-          <div class="w-1.5 h-2 left-[34.06px] top-[17.83px] absolute bg-button-text-color"></div>
-          <div class="w-2 h-1.5 left-[23.62px] top-[6.08px] absolute bg-button-text-color"></div>
-        </div>
-        <div data-size="Default" class="w-11 h-12 left-[37px] top-[750.49px] absolute overflow-hidden">
-          <div class="w-11 h-12 left-0 top-0 absolute"></div>
-          <div class="w-8 h-8 left-[7.28px] top-[6.42px] absolute bg-button-text-color"></div>
-        </div>
-        <div class="w-11 h-11 left-[37px] top-[386.01px] absolute overflow-hidden">
-          <div class="w-3.5 h-3.5 left-[7.18px] top-[7.21px] absolute bg-button-text-color"></div>
-          <div class="w-1.5 h-1.5 left-[11.58px] top-[28.06px] absolute bg-button-text-color"></div>
-          <div class="w-3.5 h-3.5 left-[24.05px] top-[7.21px] absolute bg-button-text-color"></div>
-          <div class="w-3.5 h-3.5 left-[24.12px] top-[24.18px] absolute bg-button-text-color"></div>
-          <div class="w-3.5 h-3.5 left-[7.21px] top-[24.18px] absolute bg-button-text-color"></div>
-          <div class="w-11 h-11 left-0 top-0 absolute"></div>
-        </div>
-        <div data-size="50x50" class="w-11 h-12 left-[37px] top-[464.01px] absolute">
-          <div class="w-9 h-7 left-[4.70px] top-[9.84px] absolute bg-button-text-color"></div>
-          <div class="w-11 h-12 left-0 top-0 absolute"></div>
-        </div>
-        <div data-size="Default" class="w-11 h-11 left-[37px] top-[589.25px] absolute overflow-hidden">
-          <div class="w-9 h-3 left-[4.57px] top-[28.92px] absolute outline outline-[0.77px] outline-offset-[-0.38px] outline-button-text-color"></div>
-          <div class="w-10 h-1.5 left-[2.35px] top-[35.16px] absolute bg-button-text-color"></div>
-          <div class="w-5 h-6 left-[11.50px] top-[4.73px] absolute bg-button-text-color"></div>
-          <div class="w-11 h-11 left-0 top-0 absolute"></div>
-        </div>
-        <div data-property-1="expand" class="w-16 h-16 left-[27px] top-[37px] absolute overflow-hidden">
-          <div class="w-16 h-16 left-0 top-0 absolute"></div>
-          <div class="w-5 h-7 left-[7.13px] top-[19.17px] absolute bg-gradient-to-bl from-red-400 to-red-400"></div>
-          <div class="w-5 h-7 left-[39.70px] top-[19.17px] absolute bg-gradient-to-bl from-red-400 to-red-400"></div>
-        </div>
-        <div data-size="50x50" class="w-11 h-12 left-[37px] top-[260.77px] absolute">
-          <div class="w-6 h-[3.44px] left-[10.66px] top-[34.65px] absolute bg-button-text-color"></div>
-          <div class="w-8 h-7 left-[6.67px] top-[6.01px] absolute bg-button-text-color"></div>
-          <div class="w-11 h-12 left-0 top-0 absolute"></div>
-        </div>
-      </div>
-    </div>
+    <div class="flex-1 flex flex-col min-h-screen  md:ml-[80px] pt-10">
 
-    <!-- Footer -->
+        <!-- Mobile Date Picker -->
+        <div class="block md:hidden mx-2">
+            <label for="calendar-mobile" class="text-2xl font-semibold luma-gradient">Select a Date</label>
+            <input type="text" id="calendar-mobile" placeholder="Choose a date"
+                class="w-full bg-gray-400/70 text-gray-800 p-2 rounded-lg border border-gray-800 mt-10 mb-0" />
+        </div>
+
+        <!-- calendar section -->
+        <main class="flex-1 py-5 md:py-10 px-2 md:px-20">
+            <!-- Container -->
+            <div
+                class="w-full max-w-7xl mx-auto bg-[#262C3D] rounded-2xl shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-[1fr_auto] mb-10">
+
+                <!-- Left: Image -->
+                <div class="p-4 flex items-center justify-center bg-gray-800 w-full">
+                    <img id="calendar-image" src="https://via.placeholder.com/600x400?text=Select+a+Date"
+                        alt="Calendar Image" class="rounded-lg w-full object-cover" />
+                </div>
+
+                <!-- Right: Full Calendar (Desktop only) -->
+                <div class="p-6 hidden md:block">
+                    <h2 class="text-xl font-semibold mb-4 luma-gradient">Select a Date</h2>
+                    <div>
+                        <div id="calendar"
+                            class="bg-transparent rounded-lg text-black p-2 hidden shadow-md border border-[#f1647a]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- horizontal scrollable cards without floating buttons -->
+            <div class="w-full">
+                <h2 class="text-2xl font-semibold mb-10 luma-gradient">Suggested Calendars</h2>
+
+                <div id="scroll-cards" class="flex overflow-x-auto pb-4 no-scrollbar m-0 p-0">
+                    <!-- Card 1 -->
+                    <div
+                        class="flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3">
+                        <img src="https://via.placeholder.com/120x120" alt="Event Image" class="w-32 h-32 object-cover">
+                        <div class="flex flex-col justify-between flex-1 p-0 m-0">
+                            <div>
+                                <h3 class="text-lg font-semibold mb-1 luma-gradient">Event Title 1</h3>
+                                <p class="text-gray-400 text-sm line-clamp-3">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
+                                    laoreet...
+                                </p>
+                            </div>
+                            <div class="flex items-center justify-between pr-2 py-2">
+                                <span class="flex items-center text-gray-400 text-xs">
+                                    <i class="fa-solid fa-user-group mr-1"></i>
+                                    35 users subscribed
+                                </span>
+                                <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
+                                    class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                                    Subscribe
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div
+                        class="flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3">
+                        <img src="https://via.placeholder.com/120x120" alt="Event Image" class="w-32 h-32 object-cover">
+                        <div class="flex flex-col justify-between flex-1 p-0 m-0">
+                            <div>
+                                <h3 class="text-lg font-semibold mb-1 luma-gradient">Event Title 1</h3>
+                                <p class="text-gray-400 text-sm line-clamp-3">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
+                                    laoreet...
+                                </p>
+                            </div>
+                            <div class="flex items-center justify-between pr-2 py-2">
+                                <span class="flex items-center text-gray-400 text-xs">
+                                    <i class="fa-solid fa-user-group mr-1"></i>
+                                    35 users subscribed
+                                </span>
+                                <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
+                                    class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                                    Subscribe
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div
+                        class="flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3">
+                        <img src="https://via.placeholder.com/120x120" alt="Event Image" class="w-32 h-32 object-cover">
+                        <div class="flex flex-col justify-between flex-1 p-0 m-0">
+                            <div>
+                                <h3 class="text-lg font-semibold mb-1 luma-gradient">Event Title 1</h3>
+                                <p class="text-gray-400 text-sm line-clamp-3">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
+                                    laoreet...
+                                </p>
+                            </div>
+                            <div class="flex items-center justify-between pr-2 py-2">
+                                <span class="flex items-center text-gray-400 text-xs">
+                                    <i class="fa-solid fa-user-group mr-1"></i>
+                                    35 users subscribed
+                                </span>
+                                <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
+                                    class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                                    Subscribe
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div
+                        class="flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3">
+                        <img src="https://via.placeholder.com/120x120" alt="Event Image" class="w-32 h-32 object-cover">
+                        <div class="flex flex-col justify-between flex-1 p-0 m-0">
+                            <div>
+                                <h3 class="text-lg font-semibold mb-1 luma-gradient">Event Title 1</h3>
+                                <p class="text-gray-400 text-sm line-clamp-3">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
+                                    laoreet...
+                                </p>
+                            </div>
+                            <div class="flex items-center justify-between pr-2 py-2">
+                                <span class="flex items-center text-gray-400 text-xs">
+                                    <i class="fa-solid fa-user-group mr-1"></i>
+                                    35 users subscribed
+                                </span>
+                                <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
+                                    class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                                    Subscribe
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="w-full">
+                <h2 class="text-2xl font-semibold mb-10 luma-gradient">Subscribed Calendars</h2>
+                <!-- Subscribed Calendars -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <!-- Card -->
+                    <div
+                        class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4">
+                        <!-- Left: Image + Button -->
+                        <div class="flex flex-col justify-between items-center mr-4 h-full">
+                            <img src="https://via.placeholder.com/100x100" alt="Image"
+                                class="w-24 h-24 object-cover rounded-md mb-2">
+                            <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
+                                class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                                Subscribe
+                            </button>
+                        </div>
+
+                        <!-- Right: Title + Subtitles -->
+                        <div class="flex flex-col justify-between flex-1 h-full">
+                            <h3 class="text-lg font-semibold mb-5 text-gray-200">Card Title</h3>
+
+                            <div class="flex flex-col justify-between h-full mb-2">
+                                <p class="text-gray-400 text-sm line-clamp-3 mb-3">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
+                                    laoreet...
+                                </p>
+
+                                <p class="text-gray-400 text-sm flex items-center">
+                                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
+                                    Langara College B Building
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card -->
+                    <div
+                        class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4">
+                        <!-- Left: Image + Button -->
+                        <div class="flex flex-col justify-between items-center mr-4 h-full">
+                            <img src="https://via.placeholder.com/100x100" alt="Image"
+                                class="w-24 h-24 object-cover rounded-md mb-2">
+                            <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
+                                class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                                Subscribe
+                            </button>
+                        </div>
+
+                        <!-- Right: Title + Subtitles -->
+                        <div class="flex flex-col justify-between flex-1 h-full">
+                            <h3 class="text-lg font-semibold mb-5 text-gray-200">Card Title</h3>
+
+                            <div class="flex flex-col justify-between h-full mb-2">
+                                <p class="text-gray-400 text-sm line-clamp-3 mb-3">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
+                                    laoreet...
+                                </p>
+
+                                <p class="text-gray-400 text-sm flex items-center">
+                                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
+                                    Langara College B Building
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card -->
+                    <div
+                        class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4">
+                        <!-- Left: Image + Button -->
+                        <div class="flex flex-col justify-between items-center mr-4 h-full">
+                            <img src="https://via.placeholder.com/100x100" alt="Image"
+                                class="w-24 h-24 object-cover rounded-md mb-2">
+                            <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
+                                class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                                Subscribe
+                            </button>
+                        </div>
+
+                        <!-- Right: Title + Subtitles -->
+                        <div class="flex flex-col justify-between flex-1 h-full">
+                            <h3 class="text-lg font-semibold mb-5 text-gray-200">Card Title</h3>
+
+                            <div class="flex flex-col justify-between h-full mb-2">
+                                <p class="text-gray-400 text-sm line-clamp-3 mb-3">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
+                                    laoreet...
+                                </p>
+
+                                <p class="text-gray-400 text-sm flex items-center">
+                                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
+                                    Langara College B Building
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card -->
+                    <div
+                        class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4">
+                        <!-- Left: Image + Button -->
+                        <div class="flex flex-col justify-between items-center mr-4 h-full">
+                            <img src="https://via.placeholder.com/100x100" alt="Image"
+                                class="w-24 h-24 object-cover rounded-md mb-2">
+                            <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
+                                class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                                Subscribe
+                            </button>
+                        </div>
+
+                        <!-- Right: Title + Subtitles -->
+                        <div class="flex flex-col justify-between flex-1 h-full">
+                            <h3 class="text-lg font-semibold mb-5 text-gray-200">Card Title</h3>
+
+                            <div class="flex flex-col justify-between h-full mb-2">
+                                <p class="text-gray-400 text-sm line-clamp-3 mb-3">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
+                                    laoreet...
+                                </p>
+
+                                <p class="text-gray-400 text-sm flex items-center">
+                                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
+                                    Langara College B Building
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card -->
+                    <div
+                        class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4">
+                        <!-- Left: Image + Button -->
+                        <div class="flex flex-col justify-between items-center mr-4 h-full">
+                            <img src="https://via.placeholder.com/100x100" alt="Image"
+                                class="w-24 h-24 object-cover rounded-md mb-2">
+                            <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
+                                class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                                Subscribe
+                            </button>
+                        </div>
+
+                        <!-- Right: Title + Subtitles -->
+                        <div class="flex flex-col justify-between flex-1 h-full">
+                            <h3 class="text-lg font-semibold mb-5 text-gray-200">Card Title</h3>
+
+                            <div class="flex flex-col justify-between h-full mb-2">
+                                <p class="text-gray-400 text-sm line-clamp-3 mb-3">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
+                                    laoreet...
+                                </p>
+
+                                <p class="text-gray-400 text-sm flex items-center">
+                                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
+                                    Langara College B Building
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tailwind line-clamp plugin required for ... truncation -->
+            <style>
+                .no-scrollbar::-webkit-scrollbar {
+                    display: none;
+                }
+
+                .no-scrollbar {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+            </style>
+
+        </main>
+    </div>
     <div data-component="footer"></div>
     <script src="../../js/inject.js" defer></script>
-  </body>
+
+    <!-- Authentication Guard -->
+    <script type="module">
+        import { initAuthGuard } from "../../js/auth/authGuard.js";
+        initAuthGuard();
+    </script>
+
+    <!-- js calendar -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateImageMap = {
+                "2025-07-12": "https://via.placeholder.com/600x400?text=Image+for+July+12",
+                "2025-07-15": "https://via.placeholder.com/600x400?text=Image+for+July+15",
+                "2025-07-25": "https://via.placeholder.com/600x400?text=Image+for+July+25"
+            };
+
+            const updateImage = (dateStr) => {
+                const img = document.getElementById('calendar-image');
+                img.src = dateImageMap[dateStr] || "https://via.placeholder.com/600x400?text=No+Image+Available";
+            };
+
+            // Desktop calendar
+            flatpickr("#calendar", {
+                inline: true,
+                onChange: function (selectedDates, dateStr) {
+                    updateImage(dateStr);
+                }
+            });
+
+            // Mobile calendar input
+            flatpickr("#calendar-mobile", {
+                dateFormat: "Y-m-d",
+                onChange: function (selectedDates, dateStr) {
+                    updateImage(dateStr);
+                }
+            });
+        });
+    </script>
+</body>
+
 </html>
