@@ -961,6 +961,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   playButton.addEventListener("click", function () {
    playButton.parentElement.style.display = "none";
+   document.getElementById("text-tutorial-intro").style.display = "none";
    showVideo(currentIndex);
   });
   replayBtn.addEventListener("click", function () {
