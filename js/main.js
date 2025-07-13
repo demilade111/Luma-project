@@ -936,14 +936,98 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// BOOKMARK FUNCTIONALITY
-document.getElementById(`DOMContentLoad`, () => {
-  const btn = document.getElementById(`tutorialPage`);
-  btn.addEventListener(`click`, () => {
-    window.location.href = `tutorial.html`;
-  });
-});
+//Adding tutorial videos
+ document.addEventListener("DOMContentLoaded", function (){
+  const playButton = document.querySelector(".play-buttons");
+  const videos = document.querySelectorAll(".tutorial-1 video");
+  const videoControls = document.getElementById("video-controls");
+  const replayBtn = document.getElementById("replay-btn");
+  const nextBtn = document.getElementById("next-btn");
+  const prevBtn = document.getElementById("prev-btn");
 
+  let currentIndex = 0;
+
+  function showVideo(index) {
+    videos.forEach((video, i) =>{
+      if (i === index) {
+        video.classList.remove("hidden");
+        video.play();
+      } else {
+        video.pause();
+        video.classList.add("hidden");
+      }
+    });
+    videoControls.classList.remove("hidden");
+  }
+  playButton.addEventListener("click", function () {
+   playButton.parentElement.style.display = "none";
+   document.getElementById("text-tutorial-intro").style.display = "none";
+   showVideo(currentIndex);
+  });
+  replayBtn.addEventListener("click", function () {
+    videos[currentIndex].currentTime = 0;
+    videos[currentIndex].play();
+  });
+
+  nextBtn.addEventListener("click", function () {
+    if (currentIndex < videos.length -1) {
+      currentIndex++;
+      showVideo(currentIndex);
+    }
+  });
+
+  prevBtn.addEventListener("click", function () {
+    if (currentIndex > 0) {
+      currentIndex--;
+      showVideo(currentIndex)
+    }
+    else {
+      videos[currentIndex].pause();
+      videos[currentIndex].classList.add("hidden");
+      document.querySelector(".play-buttons").parentElement.style.display = "flex";
+      videoControls.classList.add("hidden");
+  }
+  });
+
+ });
+
+
+<<<<<<< HEAD
+
+ //Loading Games in the Continue Learning boxes
+ async function resistance(){
+  try {
+    const resp = await fetch("./data/top-games.json");
+    const games = await resp.json();
+
+    const game = games.find(g => g.name === "The Resistance");
+    if (!game) {
+      console.warn("The Resistance was not found in JSON");
+      return;
+    }
+    //adding image of the game in the box
+    const divBox = document.querySelector(".resistance-box");
+    divBox.innerHTML =`<img src="${game.thumbnail}" alt="${game.name}" class="w-full h-full object-cover rounded-2xl"/>`;
+
+    //adding description
+    const desc = document.getElementById("resistance-desc");
+    desc.textContent = game.description || "No description available";
+
+    //Tutorial button
+    const tutorialBtn = document.getElementById("resistance-tutorial");
+    tutorialBtn.addEventListener("click", () => {
+      if (game.rulebook) window.open(game.rulebook, "_blank");
+    });
+
+  }
+  catch (err) {
+    console.error("failed to load game:", err)
+  }
+ }
+ document.addEventListener("DOMContentLoaded", resistance);
+
+  
+=======
 document.addEventListener("DOMContentLoaded", () => {
   renderTrendingEvents();
   renderUpcomingEvents();
@@ -1207,3 +1291,7 @@ async function renderSuggestedGames() {
     grid.appendChild(card);
   });
 }
+>>>>>>> c5b19c9736bb7263cb8b22f6c8609b1926b62c1c
+
+
+ 
