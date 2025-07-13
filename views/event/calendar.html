@@ -37,9 +37,9 @@
     <div class="flex-1 flex flex-col min-h-screen  md:ml-[80px] pt-10">
 
         <div
-  class="w-full max-w-7xl mx-auto bg-[#262C3D] rounded-2xl shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-2"
+  class="w-full max-w-7xl mx-auto bg-[#262C3D] rounded-2xl shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-[1fr_auto]"
 >
-  <!-- Left: Image -->
+  <!-- Left: Image (takes remaining space) -->
   <div class="p-4 flex items-center justify-center bg-gray-800 w-full">
     <img
       id="calendar-image"
@@ -49,17 +49,18 @@
     />
   </div>
 
-  <!-- Right: Full-width Calendar -->
+  <!-- Right: Calendar (auto width based on content) -->
   <div class="p-6">
     <h2 class="text-xl font-semibold mb-4">Select a Date</h2>
-    <div class="w-full">
+    <div>
       <div
         id="calendar"
-        class="bg-white rounded-lg text-black p-2 shadow-md w-full hidden"
+        class="bg-white rounded-lg text-black p-2 shadow-md hidden"
       ></div>
     </div>
   </div>
 </div>
+
 
 
         <!-- calendar section -->
