@@ -944,6 +944,60 @@ document.getElementById(`DOMContentLoad`, () => {
   });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM FULLY LOADED");
+ 
+    const tutorialSelection = playBtn.closest(".tutorial-1");
+    const playBtn = tutorialSelection.querySelector(".fa-play");
+    const img = tutorialSelection.querySelector("img");
+    const videos = tutorialSelection.querySelectorAll("video");
+    const controls = tutorialSelection.querySelector(".video-controls");
+    const nextBtn = document.getElementById("nextBtn");
+    const prevBtn = document.getElementById("prevBtn");
+
+    if (!img || !playBtn || videos.length === 0) {
+      console.error("Required elements are not found");
+      return;
+    } 
+
+    let currentIndex = 0;
+
+    function showVideo(index) {
+      videos.forEach((video, i) => {
+        if (i === index) {
+          video.classList.remove("hidden");
+          video.play();
+        }else {
+          video.pause();
+          video.classList.add("hidden");
+        }
+      });
+    }
+    //Hiding the image and play the button
+    playBtn.parentElement.addEventListener("click", () =>{
+      console.log("play icon has been clicked");
+    img.style.display = "none";
+    playBtn.parentElement.style.display = "none";
+    controls.classList.remove("hidden");
+    showVideo(currentIndex);
+  });
+     
+  nextBtn.addEventListener("click", () => {
+    if (currentIndex <videos.length - 1) {
+      currentIndex++;
+      showVideo(currentIndex);
+    }
+  });
+
+  prevBtn.addEventListener("click", () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      showVideo(currentIndex);
+    }
+  });
+  });
+   
+
 <<<<<<< HEAD
 
  //Loading Games in the Continue Learning boxes
@@ -1244,3 +1298,4 @@ async function renderSuggestedGames() {
   });
 }
 >>>>>>> c5b19c9736bb7263cb8b22f6c8609b1926b62c1c
+
