@@ -936,67 +936,60 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// BOOKMARK FUNCTIONALITY
-document.getElementById(`DOMContentLoad`, () => {
-  const btn = document.getElementById(`tutorialPage`);
-  btn.addEventListener(`click`, () => {
-    window.location.href = `tutorial.html`;
+//Adding tutorial videos
+ document.addEventListener("DOMContentLoaded", function (){
+  const playButton = document.querySelector(".play-buttons");
+  const videos = document.querySelectorAll(".tutorial-1 video");
+  const videoControls = document.getElementById("video-controls");
+  const replayBtn = document.getElementById("replay-btn");
+  const nextBtn = document.getElementById("next-btn");
+  const prevBtn = document.getElementById("prev-btn");
+
+  let currentIndex = 0;
+
+  function showVideo(index) {
+    videos.forEach((video, i) =>{
+      if (i === index) {
+        video.classList.remove("hidden");
+        video.play();
+      } else {
+        video.pause();
+        video.classList.add("hidden");
+      }
+    });
+    videoControls.classList.remove("hidden");
+  }
+  playButton.addEventListener("click", function () {
+   playButton.parentElement.style.display = "none";
+   showVideo(currentIndex);
   });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("DOM FULLY LOADED");
- 
-    const tutorialSelection = playBtn.closest(".tutorial-1");
-    const playBtn = tutorialSelection.querySelector(".fa-play");
-    const img = tutorialSelection.querySelector("img");
-    const videos = tutorialSelection.querySelectorAll("video");
-    const controls = tutorialSelection.querySelector(".video-controls");
-    const nextBtn = document.getElementById("nextBtn");
-    const prevBtn = document.getElementById("prevBtn");
-
-    if (!img || !playBtn || videos.length === 0) {
-      console.error("Required elements are not found");
-      return;
-    } 
-
-    let currentIndex = 0;
-
-    function showVideo(index) {
-      videos.forEach((video, i) => {
-        if (i === index) {
-          video.classList.remove("hidden");
-          video.play();
-        }else {
-          video.pause();
-          video.classList.add("hidden");
-        }
-      });
-    }
-    //Hiding the image and play the button
-    playBtn.parentElement.addEventListener("click", () =>{
-      console.log("play icon has been clicked");
-    img.style.display = "none";
-    playBtn.parentElement.style.display = "none";
-    controls.classList.remove("hidden");
-    showVideo(currentIndex);
+  replayBtn.addEventListener("click", function () {
+    videos[currentIndex].currentTime = 0;
+    videos[currentIndex].play();
   });
-     
-  nextBtn.addEventListener("click", () => {
-    if (currentIndex <videos.length - 1) {
+
+  nextBtn.addEventListener("click", function () {
+    if (currentIndex < videos.length -1) {
       currentIndex++;
       showVideo(currentIndex);
     }
   });
 
-  prevBtn.addEventListener("click", () => {
+  prevBtn.addEventListener("click", function () {
     if (currentIndex > 0) {
       currentIndex--;
-      showVideo(currentIndex);
+      showVideo(currentIndex)
     }
+    else {
+      videos[currentIndex].pause();
+      videos[currentIndex].classList.add("hidden");
+      document.querySelector(".play-buttons").parentElement.style.display = "flex";
+      videoControls.classList.add("hidden");
+  }
   });
-  });
-   
+
+ });
+
 
 <<<<<<< HEAD
 
@@ -1299,3 +1292,5 @@ async function renderSuggestedGames() {
 }
 >>>>>>> c5b19c9736bb7263cb8b22f6c8609b1926b62c1c
 
+
+ 

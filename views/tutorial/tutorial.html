@@ -18,7 +18,7 @@
 <div class="tutorial-1 relative h-screen w-full">
   <img src="/src/asset/images/nightcage.png" alt="Tutorial Image" class="w-full h-full object-cover">
   <div class="absolute inset-0 flex items-center justify-center cursor-pointer">
-    <i class="fas fa-play text-white text-6xl bg-white/50 p-6 rounded-2xl shadow-lg"></i>
+    <i class="play-buttons fas fa-play text-white text-6xl bg-white/50 p-6 rounded-2xl shadow-lg"></i>
   </div>
 
   <!--hidden tutorials-->
@@ -37,9 +37,15 @@
     Your browser doesn't support the video.
   </video>
   <div class="absolute bottom-6 w-full flex justify-center">
-  <div class="text-white p-6 py-2">
+  <div class="text-white w-[35%] p-6 py-2">
     An interactive play-along tutorial to be used as a companion to the actual tabletop game. This tutorial allows you to learn the game while you play!
   </div>
+  <div id="video-controls" class="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex gap-4 hidden">
+    <button id="prev-btn" class="bg-black/50 px-4 py-2 border border-white rounded-full text-white w-12 h-12 justify-center shadow text-xl"><i class="fas fa-play rotate-180"></i></button>
+    <button id="replay-btn" class="bg-black/50 px-4 py-2 border border-white rounded-full text-white w-12 h-12 justify-center shadow text-xl"><i class="fas fa-pause"></i></button>
+    <button id="next-btn" class="bg-black/50 px-4 py-2 border border-white rounded-full text-white w-12 h-12 justify-center shadow text-xl"><i class="fas fa-play"></i></button>
+  </div>
+  
 </div>
 </div>
 
