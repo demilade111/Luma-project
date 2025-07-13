@@ -24,13 +24,13 @@
             <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
               <div class="mb-8">
                 <p class="text-gray-400 leading-relaxed mb-8">
-                  Fusce nec lectus non risus tristique dapibus. Duis
-                  ullamcorper, lacus quis congue ultrices
+                  Manage your profile information and preferences
                 </p>
 
                 <!-- Profile Image -->
                 <div class="flex justify-center mb-8">
                   <div
+                    id="profile-image"
                     class="w-32 h-32 bg-gray-600 rounded-full flex items-center justify-center border-2 border-gray-500 hover:border-gray-400 transition-colors cursor-pointer"
                   >
                     <i class="fas fa-plus text-3xl text-gray-400"></i>
@@ -39,27 +39,21 @@
               </div>
 
               <!-- City Dropdown -->
-              <div class="mb-6">
+              <div class="mb-6 relative">
                 <label class="block text-gray-300 text-sm font-medium mb-2"
                   >City</label
                 >
-                <div class="relative">
-                  <select
-                    class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 appearance-none"
-                  >
-                    <option>Add City</option>
-                    <option>New York</option>
-                    <option>Los Angeles</option>
-                    <option>Chicago</option>
-                    <option>Toronto</option>
-                    <option>Vancouver</option>
-                  </select>
-                  <div
-                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400"
-                  >
-                    <i class="fas fa-chevron-down"></i>
-                  </div>
-                </div>
+                <input
+                  id="city-select"
+                  type="text"
+                  placeholder="Start typing city..."
+                  autocomplete="off"
+                  class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 appearance-none"
+                />
+                <ul
+                  id="citySuggestions"
+                  class="absolute z-10 bg-white text-black w-full rounded shadow-lg hidden"
+                ></ul>
               </div>
 
               <!-- Gamer Level Dropdown -->
@@ -69,13 +63,14 @@
                 >
                 <div class="relative">
                   <select
+                    id="gamer-level-select"
                     class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 appearance-none"
                   >
-                    <option>Gamer level</option>
-                    <option>Beginner</option>
-                    <option>Intermediate</option>
-                    <option>Advanced</option>
-                    <option>Pro</option>
+                    <option value="">Gamer level</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                    <option value="Pro">Pro</option>
                   </select>
                   <div
                     class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400"
@@ -88,14 +83,15 @@
 
             <!-- Right Column - Form -->
             <div class="space-y-6">
-              <!-- Full Name -->
+              <!-- Username -->
               <div>
                 <label class="block text-gray-300 text-sm font-medium mb-2"
-                  >Full name</label
+                  >Username</label
                 >
                 <input
+                  id="username-input"
                   type="text"
-                  placeholder="Add Name"
+                  placeholder="Add Username"
                   class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 placeholder-gray-500"
                 />
               </div>
@@ -106,6 +102,7 @@
                   >E-mail</label
                 >
                 <input
+                  id="email-input"
                   type="email"
                   placeholder="Add Email"
                   class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 placeholder-gray-500"
@@ -120,21 +117,22 @@
                 <div class="grid grid-cols-3 gap-3">
                   <div class="relative">
                     <select
+                      id="birthday-month"
                       class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 appearance-none"
                     >
-                      <option>Month</option>
-                      <option>January</option>
-                      <option>February</option>
-                      <option>March</option>
-                      <option>April</option>
-                      <option>May</option>
-                      <option>June</option>
-                      <option>July</option>
-                      <option>August</option>
-                      <option>September</option>
-                      <option>October</option>
-                      <option>November</option>
-                      <option>December</option>
+                      <option value="">Month</option>
+                      <option value="January">January</option>
+                      <option value="February">February</option>
+                      <option value="March">March</option>
+                      <option value="April">April</option>
+                      <option value="May">May</option>
+                      <option value="June">June</option>
+                      <option value="July">July</option>
+                      <option value="August">August</option>
+                      <option value="September">September</option>
+                      <option value="October">October</option>
+                      <option value="November">November</option>
+                      <option value="December">December</option>
                     </select>
                     <div
                       class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400"
@@ -144,9 +142,10 @@
                   </div>
                   <div class="relative">
                     <select
+                      id="birthday-day"
                       class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 appearance-none"
                     >
-                      <option>Day</option>
+                      <option value="">Day</option>
                       <!-- Days 1-31 -->
                       <script>
                         for (let i = 1; i <= 31; i++) {
@@ -162,9 +161,10 @@
                   </div>
                   <div class="relative">
                     <select
+                      id="birthday-year"
                       class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 appearance-none"
                     >
-                      <option>Year</option>
+                      <option value="">Year</option>
                       <!-- Years from current year down to 1950 -->
                       <script>
                         const currentYear = new Date().getFullYear();
@@ -191,6 +191,7 @@
                 >
                 <div class="relative">
                   <input
+                    id="password-input"
                     type="password"
                     placeholder="At least 8 characters"
                     class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 pr-10 placeholder-gray-500"
@@ -213,6 +214,7 @@
                 >
                 <div class="relative">
                   <input
+                    id="confirm-password-input"
                     type="password"
                     placeholder="Confirm Password"
                     class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 pr-10 placeholder-gray-500"
@@ -235,17 +237,18 @@
                   class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2 mt-1"
                 />
                 <label class="ml-3 text-sm text-gray-400">
-                  Vestibulum faucibus odio vitae arcu auctor lectus.
+                  I agree to the terms and conditions
                 </label>
               </div>
 
-              <!-- Create Profile Button -->
+              <!-- Update Profile Button -->
               <div class="pt-6">
                 <button
+                  id="update-profile-btn"
                   type="submit"
                   class="w-full bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-lg text-lg px-6 py-4 transition-colors focus:ring-4 focus:ring-gray-500 focus:outline-none"
                 >
-                  Create Profile
+                  Update Profile
                 </button>
               </div>
             </div>
@@ -275,57 +278,80 @@
       }
 
       // Profile image upload handler
-      document
-        .querySelector(".bg-gray-600.rounded-full")
-        .addEventListener("click", function () {
-          const input = document.createElement("input");
-          input.type = "file";
-          input.accept = "image/*";
-          input.onchange = function (event) {
-            const file = event.target.files[0];
-            if (file) {
-              const reader = new FileReader();
-              reader.onload = function (e) {
-                const imageContainer = document.querySelector(
-                  ".bg-gray-600.rounded-full"
-                );
-                imageContainer.style.backgroundImage = `url(${e.target.result})`;
-                imageContainer.style.backgroundSize = "cover";
-                imageContainer.style.backgroundPosition = "center";
-                imageContainer.innerHTML = "";
-              };
-              reader.readAsDataURL(file);
-            }
-          };
-          input.click();
-        });
+      document.addEventListener("DOMContentLoaded", function () {
+        const profileImage = document.querySelector("#profile-image");
+        if (profileImage) {
+          profileImage.addEventListener("click", function () {
+            const input = document.createElement("input");
+            input.type = "file";
+            input.accept = "image/*";
+            input.onchange = function (event) {
+              const file = event.target.files[0];
+              if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                  const imageContainer =
+                    document.querySelector("#profile-image");
+                  imageContainer.style.backgroundImage = `url(${e.target.result})`;
+                  imageContainer.style.backgroundSize = "cover";
+                  imageContainer.style.backgroundPosition = "center";
+                  imageContainer.innerHTML = "";
+                };
+                reader.readAsDataURL(file);
+              }
+            };
+            input.click();
+          });
+        }
+      });
 
-      // Form validation
-      document
-        .querySelector('button[type="submit"]')
-        .addEventListener("click", function (e) {
-          e.preventDefault();
-
-          const password = document.querySelector(
-            'input[placeholder="At least 8 characters"]'
-          ).value;
-          const confirmPassword = document.querySelector(
-            'input[placeholder="Confirm Password"]'
-          ).value;
-
-          if (password !== confirmPassword) {
-            alert("Passwords do not match!");
+      // City autocomplete
+      const cities = [
+        { city: "London", country: "United Kingdom" },
+        { city: "Paris", country: "France" },
+        { city: "New York", country: "United States" },
+        { city: "Lagos", country: "Nigeria" },
+        { city: "Toronto", country: "Canada" },
+        { city: "Vancouver", country: "Canada" },
+        { city: "Montreal", country: "Canada" },
+        { city: "Seattle", country: "United States" },
+        { city: "Helsinki", country: "Finland" },
+        // ...add more as needed
+      ];
+      const cityInput = document.getElementById("city-select");
+      const suggestions = document.getElementById("citySuggestions");
+      if (cityInput && suggestions) {
+        cityInput.addEventListener("input", function () {
+          const value = this.value.toLowerCase();
+          suggestions.innerHTML = "";
+          if (!value) {
+            suggestions.classList.add("hidden");
             return;
           }
-
-          if (password.length < 8) {
-            alert("Password must be at least 8 characters long!");
+          const matches = cities.filter(
+            (c) =>
+              c.city.toLowerCase().startsWith(value) ||
+              c.country.toLowerCase().startsWith(value)
+          );
+          if (matches.length === 0) {
+            suggestions.classList.add("hidden");
             return;
           }
-
-          // If validation passes
-          alert("Profile created successfully!");
+          matches.forEach((c) => {
+            const li = document.createElement("li");
+            li.className = "px-4 py-2 cursor-pointer hover:bg-gray-200";
+            li.textContent = `${c.city}, ${c.country}`;
+            li.addEventListener("mousedown", (e) => {
+              e.preventDefault();
+              cityInput.value = c.city;
+              suggestions.classList.add("hidden");
+            });
+            suggestions.appendChild(li);
+          });
+          suggestions.classList.remove("hidden");
         });
+        // Removed blur handler for better UX
+      }
     </script>
 
     <!-- Authentication Guard -->
