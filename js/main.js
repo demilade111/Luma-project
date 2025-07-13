@@ -936,7 +936,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+<<<<<<< HEAD
 //Adding tutorial videos
+=======
+>>>>>>> b42120ed0de4db211691e148df04689572545421
 // Tutorial Video System Implementation
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM Content Loaded - checking for tutorial page...");
@@ -981,6 +984,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Set up event listeners
     playButton.addEventListener("click", function (e) {
       console.log("Play button clicked!");
+<<<<<<< HEAD
+=======
+      alert("Play button clicked! Starting tutorial...");
+>>>>>>> b42120ed0de4db211691e148df04689572545421
       startTutorial();
     });
     replayBtn.addEventListener("click", replayCurrentVideo);
