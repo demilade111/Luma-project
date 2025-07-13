@@ -23,58 +23,92 @@
       crossorigin="anonymous"
     ></script>
     <style>
-      /* Tailwind-inspired Flatpickr customization */
-      .flatpickr-day.selected,
-      .flatpickr-day.today {
-        background-color: #1f2937 !important;
-        /* gray-800 */
-        color: #facc15 !important;
-        /* yellow-400 */
-      }
+        /* Tailwind-inspired Flatpickr customization */
+        .flatpickr-day.selected,
+        .flatpickr-day.today {
+            background-color: #1f2937 !important;
+            /* gray-800 */
+            color: #f59275 !important;
+            /* yellow-400 */
+        }
 
-      .flatpickr-day:hover {
-        background-color: #4b5563 !important;
-        /* gray-600 */
-      }
+        .flatpickr-day:hover {
+            background-color: #4b5563 !important;
+            /* gray-600 */
+        }
+
+        .flatpickr-calendar {
+            /* border: 2px solid #f59275; */
+            /* Change to your desired border color */
+            background: transparent !important;
+            backdrop-filter: blur(8px);
+            /* Optional: adds a blur effect */
+            border-radius: 0.5rem;
+            /* Optional: rounded corners */
+            box-shadow: none;
+            /* Optional: remove default shadow */
+        }
+
+        .flatpickr-months .flatpickr-prev-month,
+        .flatpickr-months .flatpickr-next-month,
+        .flatpickr-current-month {
+            color: white;
+            fill: white;
+        }
+
+        span.flatpickr-weekday {
+            color: rgb(255 255 255 / 54%);
+        }
+
+        .flatpickr-day {
+            color: #a4a4a4;
+        }
+
+        .flatpickr-day.prevMonthDay,
+        .flatpickr-day.nextMonthDay {
+            color: rgb(183 183 183 / 30%);
+        }
     </style>
   </head>
 
   <body class="bg-gray-100">
     <div data-component="sidebar"></div>
 
-    <div class="flex-1 flex flex-col min-h-screen md:ml-[80px] pt-10">
-      <div
-        class="w-full max-w-7xl mx-auto bg-[#262C3D] rounded-2xl shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-2"
-      >
-        <!-- Left: Image -->
-        <div class="p-4 flex items-center justify-center bg-gray-800 w-full">
-          <img
-            id="calendar-image"
-            src="https://via.placeholder.com/600x400?text=Select+a+Date"
-            alt="Calendar Image"
-            class="rounded-lg w-full object-cover"
-          />
+    <div class="flex-1 flex flex-col min-h-screen  md:ml-[80px] pt-10">
+
+        <!-- Mobile Date Picker -->
+        <div class="block md:hidden mx-2">
+            <label for="calendar-mobile" class="text-2xl font-semibold luma-gradient">Select a Date</label>
+            <input type="text" id="calendar-mobile" placeholder="Choose a date"
+                class="w-full bg-gray-400/70 text-gray-800 p-2 rounded-lg border border-gray-800 mt-10 mb-0" />
         </div>
 
-        <!-- Right: Full-width Calendar -->
-        <div class="p-6">
-          <h2 class="text-xl font-semibold mb-4">Select a Date</h2>
-          <div class="w-full">
+        <!-- calendar section -->
+        <main class="flex-1 py-5 md:py-10 px-2 md:px-20">
+            <!-- Container -->
             <div
-              id="calendar"
-              class="bg-white rounded-lg text-black p-2 shadow-md w-full hidden"
-            ></div>
-          </div>
-        </div>
-      </div>
+                class="w-full max-w-7xl mx-auto bg-[#262C3D] rounded-2xl shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-[1fr_auto] mb-10">
 
-      <!-- calendar section -->
-      <main class="flex-1 py-5 md:py-10 px-2 md:px-20">
-        <!-- horizontal scrollable cards without floating buttons -->
-        <div class="w-full">
-          <h2 class="text-2xl font-semibold mb-10 luma-gradient">
-            Suggested Calendars
-          </h2>
+                <!-- Left: Image -->
+                <div class="p-4 flex items-center justify-center bg-gray-800 w-full">
+                    <img id="calendar-image" src="https://via.placeholder.com/600x400?text=Select+a+Date"
+                        alt="Calendar Image" class="rounded-lg w-full object-cover" />
+                </div>
+
+                <!-- Right: Full Calendar (Desktop only) -->
+                <div class="p-6 hidden md:block">
+                    <h2 class="text-xl font-semibold mb-4 luma-gradient">Select a Date</h2>
+                    <div>
+                        <div id="calendar"
+                            class="bg-transparent rounded-lg text-black p-2 hidden shadow-md border border-[#f1647a]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- horizontal scrollable cards without floating buttons -->
+            <div class="w-full">
+                <h2 class="text-2xl font-semibold mb-10 luma-gradient">Suggested Calendars</h2>
 
           <div
             id="scroll-cards"
@@ -483,14 +517,26 @@
             "https://via.placeholder.com/600x400?text=Image+for+July+25",
         };
 
-        flatpickr("#calendar", {
-          inline: true,
-          onChange: function (selectedDates, dateStr) {
-            const img = document.getElementById("calendar-image");
-            img.src =
-              dateImageMap[dateStr] ||
-              "https://via.placeholder.com/600x400?text=No+Image+Available";
-          },
+            const updateImage = (dateStr) => {
+                const img = document.getElementById('calendar-image');
+                img.src = dateImageMap[dateStr] || "https://via.placeholder.com/600x400?text=No+Image+Available";
+            };
+
+            // Desktop calendar
+            flatpickr("#calendar", {
+                inline: true,
+                onChange: function (selectedDates, dateStr) {
+                    updateImage(dateStr);
+                }
+            });
+
+            // Mobile calendar input
+            flatpickr("#calendar-mobile", {
+                dateFormat: "Y-m-d",
+                onChange: function (selectedDates, dateStr) {
+                    updateImage(dateStr);
+                }
+            });
         });
       });
     </script>
