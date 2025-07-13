@@ -41,6 +41,7 @@
     --color-blue-600: oklch(54.6% 0.245 262.881);
     --color-blue-700: oklch(48.8% 0.243 264.376);
     --color-blue-900: oklch(37.9% 0.146 265.522);
+    --color-indigo-600: oklch(51.1% 0.262 276.966);
     --color-purple-400: oklch(71.4% 0.203 305.504);
     --color-purple-500: oklch(62.7% 0.265 303.9);
     --color-pink-400: oklch(71.8% 0.202 349.761);
@@ -62,6 +63,7 @@
     --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
+    --container-sm: 24rem;
     --container-md: 28rem;
     --container-lg: 32rem;
     --container-xl: 36rem;
@@ -1258,6 +1260,9 @@
   .mx-auto {
     margin-inline: auto;
   }
+  .my-2 {
+    margin-block: calc(var(--spacing) * 2);
+  }
   .my-5 {
     margin-block: calc(var(--spacing) * 5);
   }
@@ -1864,6 +1869,9 @@
   .max-w-lg {
     max-width: var(--container-lg);
   }
+  .max-w-sm {
+    max-width: var(--container-sm);
+  }
   .max-w-xl {
     max-width: var(--container-xl);
   }
@@ -2307,6 +2315,12 @@
   .border-\[\#171C27\] {
     border-color: #171C27;
   }
+  .border-\[\#f1647a\] {
+    border-color: #f1647a;
+  }
+  .border-\[\#f59275\] {
+    border-color: #f59275;
+  }
   .border-black {
     border-color: var(--color-black);
   }
@@ -2348,6 +2362,12 @@
   }
   .border-gray-700 {
     border-color: var(--color-gray-700);
+  }
+  .border-gray-800 {
+    border-color: var(--color-gray-800);
+  }
+  .border-indigo-600 {
+    border-color: var(--color-indigo-600);
   }
   .border-red-400 {
     border-color: var(--color-red-400);
@@ -2462,6 +2482,12 @@
   }
   .bg-gray-400 {
     background-color: var(--color-gray-400);
+  }
+  .bg-gray-400\/70 {
+    background-color: color-mix(in srgb, oklch(70.7% 0.022 261.325) 70%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-gray-400) 70%, transparent);
+    }
   }
   .bg-gray-500 {
     background-color: var(--color-gray-500);
@@ -2965,6 +2991,9 @@
   .text-\[\#FFA489\] {
     color: #FFA489;
   }
+  .text-\[\#f59275\] {
+    color: #f59275;
+  }
   .text-black {
     color: var(--color-black);
   }
@@ -3316,6 +3345,11 @@
   }
   .backdrop-blur-lg {
     --tw-backdrop-blur: blur(var(--blur-lg));
+    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+  }
+  .backdrop-blur-md {
+    --tw-backdrop-blur: blur(var(--blur-md));
     -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
     backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
   }
@@ -3770,9 +3804,19 @@
       margin-bottom: calc(var(--spacing) * 5);
     }
   }
+  .sm\:mb-10 {
+    @media (width >= 40rem) {
+      margin-bottom: calc(var(--spacing) * 10);
+    }
+  }
   .sm\:-ml-\[26\.5px\] {
     @media (width >= 40rem) {
       margin-left: calc(26.5px * -1);
+    }
+  }
+  .sm\:hidden {
+    @media (width >= 40rem) {
+      display: none;
     }
   }
   .sm\:h-\[80vh\] {
@@ -3902,6 +3946,11 @@
       margin-left: 90px;
     }
   }
+  .md\:block {
+    @media (width >= 48rem) {
+      display: block;
+    }
+  }
   .md\:flex {
     @media (width >= 48rem) {
       display: flex;
@@ -4004,6 +4053,11 @@
   .md\:pb-10 {
     @media (width >= 48rem) {
       padding-bottom: calc(var(--spacing) * 10);
+    }
+  }
+  .md\:text-left {
+    @media (width >= 48rem) {
+      text-align: left;
     }
   }
   .md\:text-2xl {
