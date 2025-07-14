@@ -1,197 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luma | Support</title>
+    <title>Luma | Profile</title>
     <link href="../../src/output.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-  </head>
-  <body class="bg-[#1A1F2C] text-white min-h-screen">
-    <div class="min-h-screen p-8">
-      <div class="max-w-4xl mx-auto">
-        <h1 class="text-5xl font-bold text-gray-200 mb-12">Support</h1>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
 
-        <!-- Support Form -->
-        <div class="space-y-8">
-          <!-- Large Text Area -->
-          <div class="bg-gray-800 rounded-2xl p-2 border border-gray-700">
-            <textarea
-              id="supportMessage"
-              rows="12"
-              placeholder="Describe your issue here..."
-              class="w-full bg-transparent text-gray-300 placeholder-gray-500 resize-none focus:outline-none p-6 text-lg leading-relaxed"
-            ></textarea>
-          </div>
+<body class="bg-[#1A1F2C] font-nunito text-white min-h-screen">
+    <div data-component="sidebar"></div>
 
-          <!-- Support Question Section -->
-          <div class="text-center space-y-6">
-            <h2 class="text-3xl font-semibold text-gray-300">
-              Are you facing any problem?
-            </h2>
+    <div class="flex-1 flex flex-col min-h-screen md:ml-[90px] pt-10">
+        <main class="flex-1 p-4 md:py-10 md:px-20">
+            <h1 class="text-[42px] luma-gradient font-bold mb-12">Support</h1>
+            <!-- support section -->
+            <div class="flex flex-col md:flex-row md:items-stretch gap-8">
+                <!-- Left: Image -->
+                <div class="md:w-1/2">
+                    <img src="/src/asset/images/support.jpg" alt="Support Image"
+                        class="w-full h-full md:h-full object-cover rounded-2xl" />
+                </div>
 
-            <p class="text-gray-400 leading-relaxed text-lg max-w-2xl mx-auto">
-              Ut eget lacus iaculis, rutrum libero quis, fermentum orci.
-              Pellentesque pellentesque enim non nisl scelerisque feugiat.
-              Curabitur vulputate metus massa.
-            </p>
-
-            <!-- Action Buttons -->
-            <div class="flex justify-center space-x-6 pt-6">
-              <button
-                id="submitSupport"
-                class="bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-2xl px-8 py-3 transition-colors focus:ring-4 focus:ring-gray-500 focus:outline-none"
-              >
-                Lorem Ipsum
-              </button>
-
-              <button
-                id="cancelSupport"
-                class="bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-2xl px-8 py-3 transition-colors focus:ring-4 focus:ring-gray-500 focus:outline-none"
-              >
-                Lorem Ipsum
-              </button>
+                <!-- Right: Content -->
+                <div class="md:w-1/2 flex flex-col justify-center space-y-6 p-6 rounded-lg">
+                    <h2 class="text-2xl font-medium text-gray-200">Having trouble with the app or a board game? We're
+                        here to help!
+                    </h2>
+                    <p class="text-gray-400">
+                        Can’t find players? Confused by a rule?
+                    </p>
+                    <p class="text-gray-400">
+                        Whether it’s a bug, a billing issue, or a game tutorial  that isn’t loading — we’ve got your
+                        back.
+                    </p>
+                    <p class="text-gray-400">
+                        Check our FAQ or reach out directly. We’ll get you  playing again in no time.
+                    </p>
+                    <div class="flex gap-4">
+                        <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+                            class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200 cursor-pointer hover:bg-[#3A4258] transition-colors">
+                            Email Us
+                        </button>
+                        <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+                            class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200 cursor-pointer hover:bg-[#3A4258] transition-colors">
+                            Browse FAQ
+                        </button>
+                    </div>
+                </div>
             </div>
-          </div>
 
-          <!-- Additional Support Options -->
-          <div class="mt-12 bg-gray-800 rounded-2xl p-6 border border-gray-700">
-            <h3 class="text-xl font-semibold text-gray-200 mb-4">
-              Quick Actions
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <button
-                class="support-option flex items-center p-4 bg-gray-700 hover:bg-gray-600 rounded-xl transition-colors"
-              >
-                <i class="fas fa-bug text-blue-400 mr-3 text-lg"></i>
-                <span class="text-gray-300">Report Bug</span>
-              </button>
 
-              <button
-                class="support-option flex items-center p-4 bg-gray-700 hover:bg-gray-600 rounded-xl transition-colors"
-              >
-                <i class="fas fa-lightbulb text-yellow-400 mr-3 text-lg"></i>
-                <span class="text-gray-300">Feature Request</span>
-              </button>
-
-              <button
-                class="support-option flex items-center p-4 bg-gray-700 hover:bg-gray-600 rounded-xl transition-colors"
-              >
-                <i
-                  class="fas fa-question-circle text-green-400 mr-3 text-lg"
-                ></i>
-                <span class="text-gray-300">General Help</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Contact Information -->
-          <div class="mt-8 text-center">
-            <p class="text-gray-500 text-sm">
-              Need immediate assistance? Contact us at
-              <a
-                href="mailto:support@luma.com"
-                class="text-blue-400 hover:text-blue-300 underline"
-              >
-                support@luma.com
-              </a>
-            </p>
-          </div>
-        </div>
-      </div>
+        </main>
     </div>
 
-    <script>
-      // Character counter for textarea
-      const textarea = document.getElementById("supportMessage");
-      const maxChars = 500;
+    <div data-component="footer"></div>
 
-      // Add character counter
-      const counterDiv = document.createElement("div");
-      counterDiv.className = "text-right text-gray-500 text-sm mt-2";
-      counterDiv.textContent = `0 / ${maxChars}`;
-      textarea.parentNode.appendChild(counterDiv);
+    <!-- External Scripts -->
+    <script src="../../js/inject.js" defer></script>
+</body>
 
-      textarea.addEventListener("input", function () {
-        const currentLength = this.value.length;
-        counterDiv.textContent = `${currentLength} / ${maxChars}`;
-
-        if (currentLength > maxChars) {
-          counterDiv.classList.add("text-red-400");
-          counterDiv.classList.remove("text-gray-500");
-        } else {
-          counterDiv.classList.remove("text-red-400");
-          counterDiv.classList.add("text-gray-500");
-        }
-      });
-
-      // Submit support request
-      document
-        .getElementById("submitSupport")
-        .addEventListener("click", function () {
-          const message = textarea.value.trim();
-
-          if (!message) {
-            alert("Please describe your issue before submitting.");
-            textarea.focus();
-            return;
-          }
-
-          if (message.length > maxChars) {
-            alert(
-              `Message is too long. Please keep it under ${maxChars} characters.`
-            );
-            return;
-          }
-
-          alert(
-            "Support request submitted successfully! We'll get back to you soon."
-          );
-          textarea.value = "";
-          counterDiv.textContent = `0 / ${maxChars}`;
-        });
-
-      // Cancel support request
-      document
-        .getElementById("cancelSupport")
-        .addEventListener("click", function () {
-          if (textarea.value.trim()) {
-            if (confirm("Are you sure you want to discard your message?")) {
-              textarea.value = "";
-              counterDiv.textContent = `0 / ${maxChars}`;
-            }
-          }
-        });
-
-      // Quick action buttons
-      document.querySelectorAll(".support-option").forEach((button) => {
-        button.addEventListener("click", function () {
-          const actionType = this.querySelector("span").textContent;
-          textarea.value = `[${actionType}] `;
-          textarea.focus();
-
-          // Position cursor at the end
-          textarea.setSelectionRange(
-            textarea.value.length,
-            textarea.value.length
-          );
-        });
-      });
-
-      // Auto-resize textarea
-      textarea.addEventListener("input", function () {
-        this.style.height = "auto";
-        this.style.height = this.scrollHeight + "px";
-      });
-    </script>
-
-    <!-- Authentication Guard -->
-    <script type="module">
-      import { initAuthGuard } from "../../js/auth/authGuard.js";
-      initAuthGuard();
-    </script>
-  </body>
 </html>
