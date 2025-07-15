@@ -9,7 +9,7 @@
 
 <!-- Desktop Sidebar -->
 <aside id="sidebar"
-  class="fixed top-0 border-1 border-l-0 border-gray-600/30 shadow-lg drop-shadow-md shadow-[#0e1017]/70 rounded-tr-2xl rounded-br-2xl left-0 z-40 flex-shrink-0 flex-col items-center hidden lg:flex transform -translate-x-full lg:translate-x-0 transition-transform duration-300 w-full"
+  class="fixed top-0 border-1 border-l-0 border-gray-600/30 shadow-lg drop-shadow-md shadow-[#0e1017]/70 rounded-tr-2xl rounded-br-2xl left-0 z-40 flex-shrink-0 flex-col items-center hidden md:flex transform -translate-x-full md:translate-x-0 transition-transform duration-300 w-full"
   style="
     background: #1a1f2c;
     width: 100%;
@@ -49,48 +49,61 @@
     </button> -->
 
     <!-- Crown/Premium -->
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
+    <button
+      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
       <i class="fas fa-crown text-2xl"></i>
     </button>
 
     <!-- Grid/Apps -->
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
+    <button
+      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
       <i class="fas fa-th text-2xl"></i>
     </button>
 
     <!-- Play/Video -->
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
+    <button
+      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
       <i class="fas fa-play text-2xl"></i>
     </button>
 
     <!-- Book/Help -->
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
+    <button
+      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
       <i class="fas fa-book text-2xl"></i>
     </button>
 
     <!-- Rocket/Launch -->
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
+    <button
+      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
       <i class="fas fa-rocket text-2xl"></i>
     </button>
 
     <!-- Calendar -->
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
+    <button
+      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
       <i class="fas fa-calendar text-2xl"></i>
     </button>
 
     <!-- Bell/Notifications -->
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
+    <button
+      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
       <i class="fas fa-bell text-2xl"></i>
     </button>
 
     <!-- Settings -->
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
+    <button
+      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
       <i class="fas fa-cog text-2xl"></i>
     </button>
 
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
+    <button
+      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
       <i class="fas fa-user text-2xl"></i>
     </button>
+
+    <button id="signOut" class="text-black bg-amber-700 text-xl hover:text-blue-200 transition-colors focus:outline-none focus:underline">
+      Sign out
+  </button> 
   </nav>
 
   <!-- Spacer to push user to bottom -->
@@ -128,3 +141,5 @@
     </div>
   </div>
 </div>
+
+<script type="module" src="/js/auth/signout.js"></script> 
