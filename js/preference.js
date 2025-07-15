@@ -3,6 +3,7 @@ import {
   doc,
   updateDoc,
   getDoc,
+  setDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
@@ -55,12 +56,12 @@ function loadUserCategories() {
             selectedCategories.forEach((cat) => {
               document.querySelectorAll(`[data-category="${cat}"]`).forEach((el) => {
                 el.classList.add(
-                    "to-[#F59275]",
-                    "from-[#F1647A]",
-                    "transition-colors",
-                    "shadow",
-                    "shadow-gray-600",
-                    "bg-gradient-to-r"
+                  "to-[#F59275]",
+                  "from-[#F1647A]",
+                  "transition-colors",
+                  "shadow",
+                  "shadow-gray-600",
+                  "bg-gradient-to-r"
                 );
               });
             });
@@ -84,7 +85,7 @@ window.saveCategories = async () => {
 
   try {
     const userRef = doc(db, "users", user.uid);
-    await updateDoc(userRef, { categories: selectedCategories });
+    await setDoc(userRef, { categories: selectedCategories }, { merge: true });
     alert("Categories updated!");
   } catch (err) {
     console.error("Error updating categories:", err);

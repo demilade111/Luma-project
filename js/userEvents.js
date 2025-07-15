@@ -51,8 +51,7 @@ async function loadUserInfo(userId) {
       email: userData.email || "",
       bio:
         userData.bio ||
-        `${
-          userData.username || "Anonymous User"
+        `${userData.username || "Anonymous User"
         } is an active event creator in our community. Join their events to connect with fellow enthusiasts and discover amazing experiences!`,
       profileImg:
         userData.profileImg ||
@@ -140,8 +139,7 @@ async function loadUserEvents(userId) {
     allEventsSnapshot.forEach((doc) => {
       const eventData = doc.data();
       console.log(
-        `Event: ${eventData.name}, host_user_id: ${
-          eventData.host_user_id
+        `Event: ${eventData.name}, host_user_id: ${eventData.host_user_id
         }, matches query: ${eventData.host_user_id === userId}`
       );
     });
@@ -207,9 +205,12 @@ function updatePageContent(user, events) {
   }
 
   // Update hero image if user has a profile image
-  const heroImage = document.querySelector("img[src*='user-events-cover.jpg']");
+  // const heroImage = document.querySelector("img[src*='user-events-cover.jpg']");
+
+  const heroImage = document.getElementById("heroImage");
+  const profileImage = document.getElementById("profileImage");
   if (heroImage && user.profileImg) {
-    heroImage.src = user.profileImg;
+    profileImage.src = user.profileImg;
     console.log("Updated hero image to:", user.profileImg);
   } else {
     console.log("Hero image not found or no profile image available");
@@ -264,24 +265,20 @@ function updatePageContent(user, events) {
         <span class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-gray-200 border-2 border-white shadow -ml-[15px] sm:-ml-[26.5px]"></span>
         <h4 class="text-sm text-gray-500 ml-2">${eventType}</h4>
       </div>
-      <div class="bg-[#262C3D] shadow-md shadow-[#262C3D] rounded-xl p-4 text-white min-h-[160px] sm:min-h-[180px] flex flex-col justify-center cursor-pointer hover:bg-[#2F364A] transition-colors" onclick="window.location.href='post-event-details.html?id=${
-        event.id
+      <div class="bg-[#262C3D] shadow-md shadow-[#262C3D] rounded-xl p-4 text-white min-h-[160px] sm:min-h-[180px] flex flex-col justify-center cursor-pointer hover:bg-[#2F364A] transition-colors" onclick="window.location.href='post-event-details.html?id=${event.id
       }'">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
           <div class="flex flex-col justify-center">
             <div class="text-sm text-gray-300 mb-2">Date: ${startTimeStr}</div>
-            <div class="text-xl font-bold luma-gradient mb-2">${
-              event.name
-            }</div>
-            <div class="text-sm text-gray-300 mb-2">Author: ${
-              user.username
-            }</div>
+            <div class="text-xl font-bold luma-gradient mb-2">${event.name
+      }</div>
+            <div class="text-sm text-gray-300 mb-2">Author: ${user.username
+      }</div>
             <div class="text-sm text-gray-300">Location: ${event.location}</div>
           </div>
           <div class="flex items-center justify-center">
-            <img src="${
-              event.image_url || "../../src/asset/images/event-thumb.jpg"
-            }" alt="Event" class="rounded-xl shadow-md w-full h-32 object-cover" />
+            <img src="${event.image_url || "../../src/asset/images/event-thumb.jpg"
+      }" alt="Event" class="rounded-xl shadow-md w-full h-32 object-cover" />
           </div>
         </div>
       </div>

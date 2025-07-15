@@ -315,36 +315,42 @@ function createGameCard(game) {
   const gameId = game.id || "";
 
   // Truncate description if too long
+  const truncatedName =
+    name.length > 30
+      ? name.substring(0, 27) + "..."
+      : name;
+
+  // Truncate description if too long
   const truncatedDescription =
-    description.length > 150
-      ? description.substring(0, 147) + "..."
+    description.length > 100
+      ? description.substring(0, 97) + "..."
       : description;
 
   return `
-    <div class="flex items-center gap-4 overflow-hidden bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer game-card" 
+    <div class="flex flex-col md:flex-row items-center gap-4 overflow-hidden bg-transparent rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer game-card" 
          data-game-id="${gameId}" 
          data-game-data='${JSON.stringify(game).replace(/'/g, "&apos;")}'>
-      <div class="w-48 h-48 border rounded-2xl shrink-0 overflow-hidden bg-gray-100">
+      <div class="w-full h-48 md:w-48 md:h-auto border rounded-2xl overflow-hidden bg-gray-100 shrink-0">
         ${image
-      ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover" 
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-           <div class="w-full h-full flex items-center justify-center text-gray-400" style="display:none;">
-             <i class="fas fa-dice text-3xl"></i>
-           </div>`
-      : `<div class="w-full h-full flex items-center justify-center text-gray-400">
-             <i class="fas fa-dice text-3xl"></i>
-           </div>`
-    }
+            ? `<img src="${image}" alt="${name}" class="w-full h-full md:w-48 md:h-48 object-cover"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <div class="w-full h-full flex items-center justify-center text-gray-400" style="display:none;">
+              <i class="fas fa-dice text-3xl"></i>
+            </div>`
+            : `<div class="w-full h-full flex items-center justify-center text-gray-400">
+              <i class="fas fa-dice text-3xl"></i>
+            </div>`
+          }
       </div>
-      
-      <div class="p-4 flex flex-col justify-between items-start flex-1">
+
+      <div class="md:p-4 flex flex-col justify-between items-start flex-1">
         <div class="w-full">
           <div class="flex justify-between items-start mb-2">
-            <h2 class="text-lg font-semibold text-gray-800">${name}</h2>
-            ${year ? `<span class="text-sm text-gray-500">${year}</span>` : ""}
+            <h2 class="text-2xl font-semibold text-gray-200">${truncatedName}</h2>
+            ${year ? `<span class="text-sm text-gray-500 hidden">${year}</span>` : ""}
           </div>
           
-          <p class="text-base text-gray-600 mb-3 leading-relaxed">
+          <p class="text-base text-gray-400 mb-3 leading-relaxed">
             ${truncatedDescription}
           </p>
           
@@ -354,7 +360,7 @@ function createGameCard(game) {
         .slice(0, 3)
         .map(
           (cat) =>
-            `<span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
+            `<span class="px-2 py-1 text-xs bg-blue-100 text-gray-700 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
                        data-category="${cat}">${cat}</span>`
         )
         .join("")}
@@ -362,7 +368,7 @@ function createGameCard(game) {
       : ""
     }
           
-          <div class="flex items-center gap-6 text-sm text-gray-600">
+          <div class="flex items-center gap-6 text-sm text-gray-400">
             <div class="flex items-center gap-1">
               <i class="fas fa-hourglass-half"></i>
               <span>${playingTime}m</span>
@@ -374,7 +380,7 @@ function createGameCard(game) {
             </div>
             ${rating !== "?"
       ? `<div class="flex items-center gap-1">
-                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-500"></i>
                 <span>${rating}</span>
               </div>`
       : ""

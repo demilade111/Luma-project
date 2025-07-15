@@ -46,6 +46,7 @@
 
     <!-- Firebase Preference Script -->
     <script type="module" src="/js/preference.js"></script>
+    <script type="module" src="../../js/auth/signout.js"></script>
 
     <!-- Inline Script must come AFTER preference.js -->
     <script type="module">
@@ -130,6 +131,9 @@
                 }, 0);
             }
         }
+
+        // Make function globally accessible
+        window.showContent = showContent;
 
         // Load default section
         window.onload = () => {
