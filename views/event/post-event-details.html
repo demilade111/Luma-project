@@ -49,7 +49,8 @@
                                 </span>
                             </div>
                             <div class="flex flex-col">
-                                <span class="text-gray-200 text-lg font-semibold" id="eventGoingCount">0 people are going</span>
+                                <span class="text-gray-200 text-lg font-semibold" id="eventGoingCount">0 people are
+                                    going</span>
                                 <span class="text-base text-gray-400" id="eventGoingList"></span>
                             </div>
                         </div>
@@ -86,7 +87,9 @@
                                 <span class="text-base text-gray-400" id="eventHost"></span>
                             </div>
                             <div class="w-full">
-                                <div id="eventMap" class="w-full h-64 md:h-80 lg:h-96 rounded-4xl border border-gray-500 overflow-hidden" style="height: 350px;">
+                                <div id="eventMap"
+                                    class="w-full h-64 md:h-80 lg:h-96 rounded-4xl border border-gray-500 overflow-hidden"
+                                    style="height: 350px;">
                                     <!-- Map will be loaded here dynamically -->
                                 </div>
                             </div>
@@ -102,35 +105,34 @@
                     </div>
                 </section>
 
-                <!--Strategy-->
-                <div class="strategy gap-4">
+                <!-- Comments Section -->
+                <div class="comments p-4 text-white">
+                    <h1 class="text-[40px] font-extrabold text-center mb-10 luma-gradient">
+                        Comments
+                    </h1>
 
-                    <!-- Comments Section -->
-                    <section>
-                        <div class="max-w-7xl mx-auto">
-                            <h2 class="text-[40px] font-extrabold text-center mb-10 luma-gradient">
-                                Comments
-                            </h2>
-
-                            <!-- Shared grid: comment input + comments -->
-                            <div id="commentGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                                <!-- Comment Input -->
-                                <div class="bg-gradient-to-b from-[#F59275] to-[#F1647A] p-[3px] rounded-2xl h-full">
-                                    <div class="rounded-[16px] p-5 h-full flex flex-col justify-between">
-                                        <textarea id="commentInput"
-                                            style="box-shadow: inset 0px 0px 18px -5px rgb(77 77 77 / 80%)"
-                                            placeholder="Enter your comment..."
-                                            class="bg-[#FFC4C5] placeholder:text-gray-500 text-gray-700 rounded-lg p-4 resize-none h-48 focus:outline-none mb-4"></textarea>
-                                        <button id="postCommentBtn"
-                                            style="box-shadow: 0px 0px 7px 0px rgb(77 77 77 / 80%)"
-                                            class="bg-gradient-to-r from-[#FF8E53] to-[#FE6B8B] text-white font-semibold px-6 py-3 rounded-2xl shadow-md">
-                                            Comment
-                                        </button>
-                                    </div>
+                    <div class="max-w-7xl mx-auto">
+                        <div id="commentGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div class="bg-gradient-to-b to-[#F59275] from-[#F1647A] p-[3px] rounded-2xl h-full">
+                                <div class="rounded-[16px] p-5 h-full flex flex-col justify-between">
+                                    <textarea id="commentInput" style="
+                                        box-shadow: inset 0px 0px 18px -5px rgb(77 77 77 / 80%);
+                                        " placeholder="Enter your comment..."
+                                        class="bg-[#FFC4C5] placeholder:text-gray-500 text-gray-700 rounded-lg p-4 resize-none h-48 focus:outline-none mb-4"></textarea>
+                                    <button id="postCommentBtn" style="box-shadow: 0px 0px 7px 0px rgb(77 77 77 / 80%)"
+                                        class="text-white bg-gradient-to-b from-[#F59275] to-[#F1647A]
+                                        hover:from-[#F1647A] hover:to-[#F59275]
+                                        hover:shadow-xl hover:-translate-y-1.5
+                                        transition-all duration-300 ease-in-out
+                                        font-semibold px-6 py-3 rounded-2xl shadow-md
+                                        cursor-pointer">
+                                        Add Comment
+                                    </button>
                                 </div>
                             </div>
+                            <!-- Dynamic comments will be rendered here by JS -->
                         </div>
-                    </section>
+                    </div>
                 </div>
 
                 <!-- PDF Preview Modal -->
@@ -171,11 +173,11 @@
     <script type="module" src="../../js/postEventDetails.js"></script>
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    
+
     <!-- Authentication Guard -->
     <script type="module">
-      import { initAuthGuard } from "../../js/auth/authGuard.js";
-      initAuthGuard();
+        import { initAuthGuard } from "../../js/auth/authGuard.js";
+        initAuthGuard();
     </script>
 </body>
 
