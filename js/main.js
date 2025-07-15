@@ -428,13 +428,12 @@ function renderRandomGames(games) {
           <h3 class="text-lg font-semibold mb-4 text-gray-200">${truncatedName}</h3>
           <div class="flex gap-4">
             <div class="w-32 h-32 rounded-2xl overflow-hidden bg-gray-300">
-              ${
-                image
-                  ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling?.style.display='flex'">`
-                  : `<div class="w-full h-full flex items-center justify-center text-gray-400">
+              ${image
+          ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling?.style.display='flex'">`
+          : `<div class="w-full h-full flex items-center justify-center text-gray-400">
                       <i class="fas fa-dice text-3xl"></i>
                     </div>`
-              }
+        }
             </div>
             <div class="text-button flex flex-col justify-between h-32 w-32">
               <p class="text-sm text-gray-400 leading-tight">${truncatedDescription}</p>
@@ -451,7 +450,7 @@ function renderRandomGames(games) {
     .join("");
 }
 
-async function loadRandomGames() {
+export async function loadRandomGames() {
   const loadingDiv = document.getElementById("games-loading");
   const errorDiv = document.getElementById("games-error");
   const gamesContainer = document.getElementById("games-container");
@@ -1362,14 +1361,15 @@ async function renderTrendingEvents() {
     snapshot.forEach((docSnap) => {
       const event = docSnap.data();
       const card = document.createElement("div");
-      card.className = "relative cursor-pointer";
+      card.className = "relative cursor-pointer flex-shrink-0 w-[45vw] sm:w-[200px] md:w-[250px] h-[320px] sm:h-[380px] md:h-[400px]";
       card.innerHTML = `
-        <div class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"></div>
-        <div class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10"
-          style="background-image: url('${event.image_url || "../../src/asset/images/fea-cal-1.png"
-        }');">
-        </div>
-      `;
+  <div class="absolute inset-0 opacity-50 rounded-[30px] translate-x-4 translate-y-4 blur-lg z-0"></div>
+  <div
+    class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat z-10 w-full h-full"
+    style="background-image: url('${event.image_url || "../../src/asset/images/fea-cal-1.png"}');"
+  ></div>
+`;
+
       card.onclick = () => {
         window.location.href = `/views/event/post-event-details.html?id=${docSnap.id}`;
       };
@@ -1394,14 +1394,14 @@ async function renderUpcomingEvents() {
     snapshot.forEach((docSnap) => {
       const event = docSnap.data();
       const card = document.createElement("div");
-      card.className = "relative cursor-pointer";
+      card.className = "relative cursor-pointer flex-shrink-0 w-[45vw] sm:w-[200px] md:w-[250px] h-[320px] sm:h-[380px] md:h-[400px]";
       card.innerHTML = `
-        <div class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"></div>
-        <div class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10"
-          style="background-image: url('${event.image_url || "../../src/asset/images/fea-cal-1.png"
-        }');">
-        </div>
-      `;
+  <div class="absolute inset-0 opacity-50 rounded-[30px] translate-x-4 translate-y-4 blur-lg z-0"></div>
+  <div
+    class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat z-10 w-full h-full"
+    style="background-image: url('${event.image_url || "../../src/asset/images/fea-cal-1.png"}');"
+  ></div>
+`;
       card.onclick = () => {
         window.location.href = `/views/event/post-event-details.html?id=${docSnap.id}`;
       };
