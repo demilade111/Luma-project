@@ -26,8 +26,19 @@ function formatDateTime(timestamp) {
 async function loadPopularEvents() {
   console.log("Loading popular events...");
   const eventsCol = collection(db, "events");
-  const q = query(eventsCol, orderBy("start_time", "asc"), limit(6));
-  const snapshot = await getDocs(q);
+
+  // Try to get events ordered by created_at first (newest created events)
+  let q = query(eventsCol, orderBy("created_at", "desc"), limit(6));
+  let snapshot = await getDocs(q);
+
+  // If no events with created_at found, fallback to start_time ordering
+  if (snapshot.empty) {
+    console.log(
+      "No events with created_at field found, using start_time ordering..."
+    );
+    q = query(eventsCol, orderBy("start_time", "desc"), limit(6));
+    snapshot = await getDocs(q);
+  }
 
   const container = document.getElementById("popularEventsGrid");
   console.log("Popular events container:", container);
@@ -42,6 +53,8 @@ async function loadPopularEvents() {
     container.innerHTML = `<p class="text-gray-500">No events found.</p>`;
     return;
   }
+
+  console.log(`Found ${snapshot.size} events to display`);
 
   snapshot.forEach((doc) => {
     const event = doc.data();
@@ -208,7 +221,16 @@ async function loadFeaturedCalendars() {
     if (!userMap.has(event.host_user_id)) {
       // Use the user object stored in the event, or fallback to individual fields
       const userInfo = event.user || {};
-      const username = userInfo.username || event.username || "Anonymous User";
+      const username = userInfo.username || event.username;
+
+      // Skip users with no username or anonymous users
+      if (
+        !username ||
+        username === "Anonymous User" ||
+        username === "Anonymous"
+      ) {
+        return;
+      }
 
       // Generate avatar URL if no profile image
       const profileImg =

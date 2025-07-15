@@ -8,6 +8,7 @@ import {
   doc,
   getDoc,
   addDoc,
+  limit,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getCurrentUser } from "./auth/authGuard.js";
 
@@ -37,31 +38,72 @@ async function loadUserInfo(userId) {
   console.log("Loading user info for ID:", userId);
   try {
     const userDoc = await getDoc(doc(db, "users", userId));
-    if (!userDoc.exists()) {
-      console.error("User not found in database");
-      return null;
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      console.log("User data loaded from Firestore:", userData);
+
+      const userInfo = {
+        id: userId,
+        username: userData.username || "Anonymous User",
+        email: userData.email || "",
+        bio:
+          userData.bio ||
+          `${
+            userData.username || "Anonymous User"
+          } is an active event creator in our community. Join their events to connect with fellow enthusiasts and discover amazing experiences!`,
+        profileImg:
+          userData.profileImg ||
+          `https://ui-avatars.com/api/?name=${encodeURIComponent(
+            userData.username || "Anonymous User"
+          )}&background=random&size=128&color=fff`,
+      };
+
+      console.log("Processed user info from Firestore:", userInfo);
+      return userInfo;
+    } else {
+      console.log(
+        "User document not found in Firestore, trying to get info from events..."
+      );
+
+      // Fallback: Get user info from their events
+      const eventsCol = collection(db, "events");
+      const q = query(eventsCol, where("host_user_id", "==", userId), limit(1));
+      const eventsSnapshot = await getDocs(q);
+
+      if (!eventsSnapshot.empty) {
+        const eventData = eventsSnapshot.docs[0].data();
+        const userInfo = eventData.user || {};
+
+        console.log("User info from event:", userInfo);
+
+        const fallbackUserInfo = {
+          id: userId,
+          username: userInfo.username || eventData.username || "Anonymous User",
+          email: userInfo.email || eventData.email || "",
+          bio:
+            userInfo.bio ||
+            eventData.bio ||
+            `${
+              userInfo.username || eventData.username || "Anonymous User"
+            } is an active event creator in our community. Join their events to connect with fellow enthusiasts and discover amazing experiences!`,
+          profileImg:
+            userInfo.profileImg ||
+            eventData.profileImg ||
+            `https://ui-avatars.com/api/?name=${encodeURIComponent(
+              userInfo.username || eventData.username || "Anonymous User"
+            )}&background=random&size=128&color=fff`,
+        };
+
+        console.log(
+          "Processed user info from event fallback:",
+          fallbackUserInfo
+        );
+        return fallbackUserInfo;
+      } else {
+        console.error("No events found for user, cannot get user info");
+        return null;
+      }
     }
-
-    const userData = userDoc.data();
-    console.log("User data loaded:", userData);
-
-    const userInfo = {
-      id: userId,
-      username: userData.username || "Anonymous User",
-      email: userData.email || "",
-      bio:
-        userData.bio ||
-        `${userData.username || "Anonymous User"
-        } is an active event creator in our community. Join their events to connect with fellow enthusiasts and discover amazing experiences!`,
-      profileImg:
-        userData.profileImg ||
-        `https://ui-avatars.com/api/?name=${encodeURIComponent(
-          userData.username || "Anonymous User"
-        )}&background=random&size=128&color=fff`,
-    };
-
-    console.log("Processed user info:", userInfo);
-    return userInfo;
   } catch (error) {
     console.error("Error loading user info:", error);
     return null;
@@ -139,15 +181,13 @@ async function loadUserEvents(userId) {
     allEventsSnapshot.forEach((doc) => {
       const eventData = doc.data();
       console.log(
-        `Event: ${eventData.name}, host_user_id: ${eventData.host_user_id
+        `Event: ${eventData.name}, host_user_id: ${
+          eventData.host_user_id
         }, matches query: ${eventData.host_user_id === userId}`
       );
     });
 
-    const q = query(
-      eventsCol,
-      where("host_user_id", "==", userId)
-    );
+    const q = query(eventsCol, where("host_user_id", "==", userId));
     const snapshot = await getDocs(q);
 
     const events = [];
@@ -265,20 +305,24 @@ function updatePageContent(user, events) {
         <span class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-gray-200 border-2 border-white shadow -ml-[15px] sm:-ml-[26.5px]"></span>
         <h4 class="text-sm text-gray-500 ml-2">${eventType}</h4>
       </div>
-      <div class="bg-[#262C3D] shadow-md shadow-[#262C3D] rounded-xl p-4 text-white min-h-[160px] sm:min-h-[180px] flex flex-col justify-center cursor-pointer hover:bg-[#2F364A] transition-colors" onclick="window.location.href='post-event-details.html?id=${event.id
+      <div class="bg-[#262C3D] shadow-md shadow-[#262C3D] rounded-xl p-4 text-white min-h-[160px] sm:min-h-[180px] flex flex-col justify-center cursor-pointer hover:bg-[#2F364A] transition-colors" onclick="window.location.href='post-event-details.html?id=${
+        event.id
       }'">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
           <div class="flex flex-col justify-center">
             <div class="text-sm text-gray-300 mb-2">Date: ${startTimeStr}</div>
-            <div class="text-xl font-bold luma-gradient mb-2">${event.name
-      }</div>
-            <div class="text-sm text-gray-300 mb-2">Author: ${user.username
-      }</div>
+            <div class="text-xl font-bold luma-gradient mb-2">${
+              event.name
+            }</div>
+            <div class="text-sm text-gray-300 mb-2">Author: ${
+              user.username
+            }</div>
             <div class="text-sm text-gray-300">Location: ${event.location}</div>
           </div>
           <div class="flex items-center justify-center">
-            <img src="${event.image_url || "../../src/asset/images/event-thumb.jpg"
-      }" alt="Event" class="rounded-xl shadow-md w-full h-32 object-cover" />
+            <img src="${
+              event.image_url || "../../src/asset/images/event-thumb.jpg"
+            }" alt="Event" class="rounded-xl shadow-md w-full h-32 object-cover" />
           </div>
         </div>
       </div>
