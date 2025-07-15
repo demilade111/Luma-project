@@ -104,7 +104,7 @@
 
     <div class="flex-1 flex flex-col min-h-screen ml-[90px]">
       <main class="flex-1 p-4 md:p-20">
-        <div class="flex-1 flex flex-col min-h-screen">
+        <div clas s="flex-1 flex flex-col min-h-screen">
           <div class="flex gap-10 mb-16 items-stretch">
             <!-- Image preview and file upload -->
             <div class="w-[50%] flex justify-center items-center">
@@ -298,25 +298,6 @@
             </div>
           </div>
         </div>
-        <!-- Comment Section -->
-        <section class="max-w-3xl mx-auto mt-10">
-          <h2 class="text-2xl font-bold text-white mb-4">Comments</h2>
-          <div class="mb-4">
-            <textarea
-              id="commentInput"
-              rows="2"
-              placeholder="Write a comment..."
-              class="w-full rounded-lg p-3 bg-[#23283a] text-white placeholder-gray-400 focus:outline-none"
-            ></textarea>
-            <button
-              id="postCommentBtn"
-              class="mt-2 px-6 py-2 rounded-lg bg-gradient-to-r from-[#f59275] to-[#f1647a] text-white font-semibold"
-            >
-              Post Comment
-            </button>
-          </div>
-          <div id="commentsList" class="space-y-4"></div>
-        </section>
       </main>
 
       <div data-component="footer"></div>
@@ -332,55 +313,6 @@
     <script type="module">
       import { initAuthGuard } from "../../js/auth/authGuard.js";
       initAuthGuard();
-    </script>
-    <script type="module">
-      import { postComment, listenForComments } from "../../js/comment.js";
-      import { getCurrentUser } from "../../js/auth/authGuard.js";
-
-      function getEventIdFromUrl() {
-        const params = new URLSearchParams(window.location.search);
-        return params.get("id");
-      }
-
-      const eventId = getEventIdFromUrl();
-      const commentInput = document.getElementById("commentInput");
-      const postCommentBtn = document.getElementById("postCommentBtn");
-      const commentsList = document.getElementById("commentsList");
-
-      if (!eventId) {
-        commentInput.disabled = true;
-        postCommentBtn.disabled = true;
-        postCommentBtn.textContent = "No Event Selected";
-        commentsList.innerHTML =
-          '<div class="text-red-400">No event selected. Comments are disabled.</div>';
-      } else {
-        postCommentBtn.addEventListener("click", async () => {
-          const text = commentInput.value.trim();
-          if (!text) return;
-          const user = getCurrentUser();
-          if (!user || !user.userId) {
-            alert("You must be signed in to post a comment.");
-            return;
-          }
-          await postComment(eventId, text);
-          commentInput.value = "";
-        });
-
-        listenForComments(eventId, (comments) => {
-          commentsList.innerHTML = "";
-          comments.forEach((comment) => {
-            const div = document.createElement("div");
-            div.className = "bg-[#23283a] rounded-lg p-3 text-white";
-            const user =
-              comment.userName ||
-              comment.userEmail?.split("@")[0] ||
-              "Anonymous";
-            const userLabel = `<span class='font-bold'>${user}:</span> `;
-            div.innerHTML = `${userLabel}${comment.text}`;
-            commentsList.appendChild(div);
-          });
-        });
-      }
     </script>
   </body>
 </html>

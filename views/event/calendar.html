@@ -1,425 +1,561 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Luma | Event Details</title>
     <link href="../../src/output.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/your-fontawesome-kit.js"
+      crossorigin="anonymous"
+    ></script>
     <style>
-        /* Tailwind-inspired Flatpickr customization */
-        .flatpickr-day.selected,
-        .flatpickr-day.today {
-            background-color: #1f2937 !important;
-            /* gray-800 */
-            color: #f59275 !important;
-            /* yellow-400 */
-        }
+      /* Tailwind-inspired Flatpickr customization */
+      .flatpickr-day.selected,
+      .flatpickr-day.today {
+        background-color: #1f2937 !important;
+        /* gray-800 */
+        color: #f59275 !important;
+        /* yellow-400 */
+      }
 
-        .flatpickr-day:hover {
-            background-color: #4b5563 !important;
-            /* gray-600 */
-        }
+      .flatpickr-day:hover {
+        background-color: #4b5563 !important;
+        /* gray-600 */
+      }
 
-        .flatpickr-calendar {
-            /* border: 2px solid #f59275; */
-            /* Change to your desired border color */
-            background: transparent !important;
-            backdrop-filter: blur(8px);
-            /* Optional: adds a blur effect */
-            border-radius: 0.5rem;
-            /* Optional: rounded corners */
-            box-shadow: none;
-            /* Optional: remove default shadow */
-        }
+      .flatpickr-calendar {
+        /* border: 2px solid #f59275; */
+        /* Change to your desired border color */
+        background: transparent !important;
+        backdrop-filter: blur(8px);
+        /* Optional: adds a blur effect */
+        border-radius: 0.5rem;
+        /* Optional: rounded corners */
+        box-shadow: none;
+        /* Optional: remove default shadow */
+      }
 
-        .flatpickr-months .flatpickr-prev-month,
-        .flatpickr-months .flatpickr-next-month,
-        .flatpickr-current-month {
-            color: white;
-            fill: white;
-        }
+      .flatpickr-months .flatpickr-prev-month,
+      .flatpickr-months .flatpickr-next-month,
+      .flatpickr-current-month {
+        color: white;
+        fill: white;
+      }
 
-        span.flatpickr-weekday {
-            color: rgb(255 255 255 / 54%);
-        }
+      span.flatpickr-weekday {
+        color: rgb(255 255 255 / 54%);
+      }
 
-        .flatpickr-day {
-            color: #a4a4a4;
-        }
+      .flatpickr-day {
+        color: #a4a4a4;
+      }
 
-        .flatpickr-day.prevMonthDay,
-        .flatpickr-day.nextMonthDay {
-            color: rgb(183 183 183 / 30%);
-        }
+      .flatpickr-day.prevMonthDay,
+      .flatpickr-day.nextMonthDay {
+        color: rgb(183 183 183 / 30%);
+      }
     </style>
-</head>
+  </head>
 
-<body class="bg-gray-100">
+  <body class="bg-gray-100">
     <div data-component="sidebar"></div>
 
-    <div class="flex-1 flex flex-col min-h-screen  md:ml-[80px] pt-10">
+    <div class="flex-1 flex flex-col min-h-screen md:ml-[80px] pt-10">
+      <!-- Mobile Date Picker -->
+      <div class="block md:hidden mx-2">
+        <label
+          for="calendar-mobile"
+          class="text-2xl font-semibold luma-gradient"
+          >Select a Date</label
+        >
+        <input
+          type="text"
+          id="calendar-mobile"
+          placeholder="Choose a date"
+          class="w-full bg-gray-400/70 text-gray-800 p-2 rounded-lg border border-gray-800 mt-10 mb-0"
+        />
+      </div>
 
-        <!-- Mobile Date Picker -->
-        <div class="block md:hidden mx-2">
-            <label for="calendar-mobile" class="text-2xl font-semibold luma-gradient">Select a Date</label>
-            <input type="text" id="calendar-mobile" placeholder="Choose a date"
-                class="w-full bg-gray-400/70 text-gray-800 p-2 rounded-lg border border-gray-800 mt-10 mb-0" />
+      <!-- calendar section -->
+      <main class="flex-1 py-5 md:py-10 px-2 md:px-20">
+        <!-- Container -->
+        <div
+          class="w-full max-w-7xl mx-auto bg-[#262C3D] rounded-2xl shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-[1fr_auto] mb-10"
+        >
+          <!-- Left: Image -->
+          <div class="p-4 flex items-center justify-center bg-gray-800 w-full">
+            <img
+              id="calendar-image"
+              src="https://via.placeholder.com/600x400?text=Select+a+Date"
+              alt="Calendar Image"
+              class="rounded-lg w-full object-cover"
+            />
+          </div>
+
+          <!-- Right: Full Calendar (Desktop only) -->
+          <div class="p-6 hidden md:block">
+            <h2 class="text-xl font-semibold mb-4 luma-gradient">
+              Select a Date
+            </h2>
+            <div>
+              <div
+                id="calendar"
+                class="bg-transparent rounded-lg text-black p-2 hidden shadow-md border border-[#f1647a]"
+              ></div>
+            </div>
+          </div>
         </div>
 
-        <!-- calendar section -->
-        <main class="flex-1 py-5 md:py-10 px-2 md:px-20">
-            <!-- Container -->
+        <!-- horizontal scrollable cards without floating buttons -->
+        <div class="w-full">
+          <h2 class="text-2xl font-semibold mb-10 luma-gradient">
+            Suggested Calendars
+          </h2>
+
+          <div
+            id="scroll-cards"
+            class="flex overflow-x-auto pb-4 no-scrollbar m-0 p-0"
+          >
+            <!-- Card 1 -->
             <div
-                class="w-full max-w-7xl mx-auto bg-[#262C3D] rounded-2xl shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-[1fr_auto] mb-10">
-
-                <!-- Left: Image -->
-                <div class="p-4 flex items-center justify-center bg-gray-800 w-full">
-                    <img id="calendar-image" src="https://via.placeholder.com/600x400?text=Select+a+Date"
-                        alt="Calendar Image" class="rounded-lg w-full object-cover" />
+              class="flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3"
+            >
+              <img
+                src="https://via.placeholder.com/120x120"
+                alt="Event Image"
+                class="w-32 h-32 object-cover"
+              />
+              <div class="flex flex-col justify-between flex-1 p-0 m-0">
+                <div>
+                  <h3 class="text-lg font-semibold mb-1 luma-gradient">
+                    Event Title 1
+                  </h3>
+                  <p class="text-gray-400 text-sm line-clamp-3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    euismod, nunc ut laoreet...
+                  </p>
                 </div>
-
-                <!-- Right: Full Calendar (Desktop only) -->
-                <div class="p-6 hidden md:block">
-                    <h2 class="text-xl font-semibold mb-4 luma-gradient">Select a Date</h2>
-                    <div>
-                        <div id="calendar"
-                            class="bg-transparent rounded-lg text-black p-2 hidden shadow-md border border-[#f1647a]">
-                        </div>
-                    </div>
+                <div class="flex items-center justify-between pr-2 py-2">
+                  <span class="flex items-center text-gray-400 text-xs">
+                    <i class="fa-solid fa-user-group mr-1"></i>
+                    35 users subscribed
+                  </span>
+                  <button
+                    style="
+                      box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
+                    "
+                    class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
+                  >
+                    Subscribe
+                  </button>
                 </div>
+              </div>
+            </div>
+            <!-- Card 2 -->
+            <div
+              class="flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3"
+            >
+              <img
+                src="https://via.placeholder.com/120x120"
+                alt="Event Image"
+                class="w-32 h-32 object-cover"
+              />
+              <div class="flex flex-col justify-between flex-1 p-0 m-0">
+                <div>
+                  <h3 class="text-lg font-semibold mb-1 luma-gradient">
+                    Event Title 1
+                  </h3>
+                  <p class="text-gray-400 text-sm line-clamp-3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    euismod, nunc ut laoreet...
+                  </p>
+                </div>
+                <div class="flex items-center justify-between pr-2 py-2">
+                  <span class="flex items-center text-gray-400 text-xs">
+                    <i class="fa-solid fa-user-group mr-1"></i>
+                    35 users subscribed
+                  </span>
+                  <button
+                    style="
+                      box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
+                    "
+                    class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
+                  >
+                    Subscribe
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Card 3 -->
+            <div
+              class="flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3"
+            >
+              <img
+                src="https://via.placeholder.com/120x120"
+                alt="Event Image"
+                class="w-32 h-32 object-cover"
+              />
+              <div class="flex flex-col justify-between flex-1 p-0 m-0">
+                <div>
+                  <h3 class="text-lg font-semibold mb-1 luma-gradient">
+                    Event Title 1
+                  </h3>
+                  <p class="text-gray-400 text-sm line-clamp-3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    euismod, nunc ut laoreet...
+                  </p>
+                </div>
+                <div class="flex items-center justify-between pr-2 py-2">
+                  <span class="flex items-center text-gray-400 text-xs">
+                    <i class="fa-solid fa-user-group mr-1"></i>
+                    35 users subscribed
+                  </span>
+                  <button
+                    style="
+                      box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
+                    "
+                    class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
+                  >
+                    Subscribe
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Card 4 -->
+            <div
+              class="flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3"
+            >
+              <img
+                src="https://via.placeholder.com/120x120"
+                alt="Event Image"
+                class="w-32 h-32 object-cover"
+              />
+              <div class="flex flex-col justify-between flex-1 p-0 m-0">
+                <div>
+                  <h3 class="text-lg font-semibold mb-1 luma-gradient">
+                    Event Title 1
+                  </h3>
+                  <p class="text-gray-400 text-sm line-clamp-3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    euismod, nunc ut laoreet...
+                  </p>
+                </div>
+                <div class="flex items-center justify-between pr-2 py-2">
+                  <span class="flex items-center text-gray-400 text-xs">
+                    <i class="fa-solid fa-user-group mr-1"></i>
+                    35 users subscribed
+                  </span>
+                  <button
+                    style="
+                      box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
+                    "
+                    class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
+                  >
+                    Subscribe
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <br />
+
+        <div class="w-full">
+          <h2 class="text-2xl font-semibold mb-10 luma-gradient">
+            Subscribed Calendars
+          </h2>
+          <!-- Subscribed Calendars -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <!-- Card -->
+            <div
+              class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4"
+            >
+              <!-- Left: Image + Button -->
+              <div
+                class="flex flex-col justify-between items-center mr-4 h-full"
+              >
+                <img
+                  src="https://via.placeholder.com/100x100"
+                  alt="Image"
+                  class="w-24 h-24 object-cover rounded-md mb-2"
+                />
+                <button
+                  style="
+                    box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
+                  "
+                  class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
+                >
+                  Subscribe
+                </button>
+              </div>
+
+              <!-- Right: Title + Subtitles -->
+              <div class="flex flex-col justify-between flex-1 h-full">
+                <h3 class="text-lg font-semibold mb-5 text-gray-200">
+                  Card Title
+                </h3>
+
+                <div class="flex flex-col justify-between h-full mb-2">
+                  <p class="text-gray-400 text-sm line-clamp-3 mb-3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    euismod, nunc ut laoreet...
+                  </p>
+
+                  <p class="text-gray-400 text-sm flex items-center">
+                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
+                    Langara College B Building
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <!-- horizontal scrollable cards without floating buttons -->
-            <div class="w-full">
-                <h2 class="text-2xl font-semibold mb-10 luma-gradient">Suggested Calendars</h2>
+            <!-- Card -->
+            <div
+              class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4"
+            >
+              <!-- Left: Image + Button -->
+              <div
+                class="flex flex-col justify-between items-center mr-4 h-full"
+              >
+                <img
+                  src="https://via.placeholder.com/100x100"
+                  alt="Image"
+                  class="w-24 h-24 object-cover rounded-md mb-2"
+                />
+                <button
+                  style="
+                    box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
+                  "
+                  class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
+                >
+                  Subscribe
+                </button>
+              </div>
 
-                <div id="scroll-cards" class="flex overflow-x-auto pb-4 no-scrollbar m-0 p-0">
-                    <!-- Card 1 -->
-                    <div
-                        class="flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3">
-                        <img src="https://via.placeholder.com/120x120" alt="Event Image" class="w-32 h-32 object-cover">
-                        <div class="flex flex-col justify-between flex-1 p-0 m-0">
-                            <div>
-                                <h3 class="text-lg font-semibold mb-1 luma-gradient">Event Title 1</h3>
-                                <p class="text-gray-400 text-sm line-clamp-3">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
-                                    laoreet...
-                                </p>
-                            </div>
-                            <div class="flex items-center justify-between pr-2 py-2">
-                                <span class="flex items-center text-gray-400 text-xs">
-                                    <i class="fa-solid fa-user-group mr-1"></i>
-                                    35 users subscribed
-                                </span>
-                                <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
-                                    class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
-                                    Subscribe
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 2 -->
-                    <div
-                        class="flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3">
-                        <img src="https://via.placeholder.com/120x120" alt="Event Image" class="w-32 h-32 object-cover">
-                        <div class="flex flex-col justify-between flex-1 p-0 m-0">
-                            <div>
-                                <h3 class="text-lg font-semibold mb-1 luma-gradient">Event Title 1</h3>
-                                <p class="text-gray-400 text-sm line-clamp-3">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
-                                    laoreet...
-                                </p>
-                            </div>
-                            <div class="flex items-center justify-between pr-2 py-2">
-                                <span class="flex items-center text-gray-400 text-xs">
-                                    <i class="fa-solid fa-user-group mr-1"></i>
-                                    35 users subscribed
-                                </span>
-                                <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
-                                    class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
-                                    Subscribe
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 3 -->
-                    <div
-                        class="flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3">
-                        <img src="https://via.placeholder.com/120x120" alt="Event Image" class="w-32 h-32 object-cover">
-                        <div class="flex flex-col justify-between flex-1 p-0 m-0">
-                            <div>
-                                <h3 class="text-lg font-semibold mb-1 luma-gradient">Event Title 1</h3>
-                                <p class="text-gray-400 text-sm line-clamp-3">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
-                                    laoreet...
-                                </p>
-                            </div>
-                            <div class="flex items-center justify-between pr-2 py-2">
-                                <span class="flex items-center text-gray-400 text-xs">
-                                    <i class="fa-solid fa-user-group mr-1"></i>
-                                    35 users subscribed
-                                </span>
-                                <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
-                                    class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
-                                    Subscribe
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 4 -->
-                    <div
-                        class="flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3">
-                        <img src="https://via.placeholder.com/120x120" alt="Event Image" class="w-32 h-32 object-cover">
-                        <div class="flex flex-col justify-between flex-1 p-0 m-0">
-                            <div>
-                                <h3 class="text-lg font-semibold mb-1 luma-gradient">Event Title 1</h3>
-                                <p class="text-gray-400 text-sm line-clamp-3">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
-                                    laoreet...
-                                </p>
-                            </div>
-                            <div class="flex items-center justify-between pr-2 py-2">
-                                <span class="flex items-center text-gray-400 text-xs">
-                                    <i class="fa-solid fa-user-group mr-1"></i>
-                                    35 users subscribed
-                                </span>
-                                <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
-                                    class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
-                                    Subscribe
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+              <!-- Right: Title + Subtitles -->
+              <div class="flex flex-col justify-between flex-1 h-full">
+                <h3 class="text-lg font-semibold mb-5 text-gray-200">
+                  Card Title
+                </h3>
+
+                <div class="flex flex-col justify-between h-full mb-2">
+                  <p class="text-gray-400 text-sm line-clamp-3 mb-3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    euismod, nunc ut laoreet...
+                  </p>
+
+                  <p class="text-gray-400 text-sm flex items-center">
+                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
+                    Langara College B Building
+                  </p>
                 </div>
+              </div>
             </div>
 
-            <br>
-            <br>
+            <!-- Card -->
+            <div
+              class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4"
+            >
+              <!-- Left: Image + Button -->
+              <div
+                class="flex flex-col justify-between items-center mr-4 h-full"
+              >
+                <img
+                  src="https://via.placeholder.com/100x100"
+                  alt="Image"
+                  class="w-24 h-24 object-cover rounded-md mb-2"
+                />
+                <button
+                  style="
+                    box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
+                  "
+                  class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
+                >
+                  Subscribe
+                </button>
+              </div>
 
-            <div class="w-full">
-                <h2 class="text-2xl font-semibold mb-10 luma-gradient">Subscribed Calendars</h2>
-                <!-- Subscribed Calendars -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <!-- Card -->
-                    <div
-                        class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4">
-                        <!-- Left: Image + Button -->
-                        <div class="flex flex-col justify-between items-center mr-4 h-full">
-                            <img src="https://via.placeholder.com/100x100" alt="Image"
-                                class="w-24 h-24 object-cover rounded-md mb-2">
-                            <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
-                                class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
-                                Subscribe
-                            </button>
-                        </div>
+              <!-- Right: Title + Subtitles -->
+              <div class="flex flex-col justify-between flex-1 h-full">
+                <h3 class="text-lg font-semibold mb-5 text-gray-200">
+                  Card Title
+                </h3>
 
-                        <!-- Right: Title + Subtitles -->
-                        <div class="flex flex-col justify-between flex-1 h-full">
-                            <h3 class="text-lg font-semibold mb-5 text-gray-200">Card Title</h3>
+                <div class="flex flex-col justify-between h-full mb-2">
+                  <p class="text-gray-400 text-sm line-clamp-3 mb-3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    euismod, nunc ut laoreet...
+                  </p>
 
-                            <div class="flex flex-col justify-between h-full mb-2">
-                                <p class="text-gray-400 text-sm line-clamp-3 mb-3">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
-                                    laoreet...
-                                </p>
-
-                                <p class="text-gray-400 text-sm flex items-center">
-                                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
-                                    Langara College B Building
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card -->
-                    <div
-                        class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4">
-                        <!-- Left: Image + Button -->
-                        <div class="flex flex-col justify-between items-center mr-4 h-full">
-                            <img src="https://via.placeholder.com/100x100" alt="Image"
-                                class="w-24 h-24 object-cover rounded-md mb-2">
-                            <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
-                                class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
-                                Subscribe
-                            </button>
-                        </div>
-
-                        <!-- Right: Title + Subtitles -->
-                        <div class="flex flex-col justify-between flex-1 h-full">
-                            <h3 class="text-lg font-semibold mb-5 text-gray-200">Card Title</h3>
-
-                            <div class="flex flex-col justify-between h-full mb-2">
-                                <p class="text-gray-400 text-sm line-clamp-3 mb-3">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
-                                    laoreet...
-                                </p>
-
-                                <p class="text-gray-400 text-sm flex items-center">
-                                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
-                                    Langara College B Building
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card -->
-                    <div
-                        class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4">
-                        <!-- Left: Image + Button -->
-                        <div class="flex flex-col justify-between items-center mr-4 h-full">
-                            <img src="https://via.placeholder.com/100x100" alt="Image"
-                                class="w-24 h-24 object-cover rounded-md mb-2">
-                            <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
-                                class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
-                                Subscribe
-                            </button>
-                        </div>
-
-                        <!-- Right: Title + Subtitles -->
-                        <div class="flex flex-col justify-between flex-1 h-full">
-                            <h3 class="text-lg font-semibold mb-5 text-gray-200">Card Title</h3>
-
-                            <div class="flex flex-col justify-between h-full mb-2">
-                                <p class="text-gray-400 text-sm line-clamp-3 mb-3">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
-                                    laoreet...
-                                </p>
-
-                                <p class="text-gray-400 text-sm flex items-center">
-                                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
-                                    Langara College B Building
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card -->
-                    <div
-                        class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4">
-                        <!-- Left: Image + Button -->
-                        <div class="flex flex-col justify-between items-center mr-4 h-full">
-                            <img src="https://via.placeholder.com/100x100" alt="Image"
-                                class="w-24 h-24 object-cover rounded-md mb-2">
-                            <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
-                                class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
-                                Subscribe
-                            </button>
-                        </div>
-
-                        <!-- Right: Title + Subtitles -->
-                        <div class="flex flex-col justify-between flex-1 h-full">
-                            <h3 class="text-lg font-semibold mb-5 text-gray-200">Card Title</h3>
-
-                            <div class="flex flex-col justify-between h-full mb-2">
-                                <p class="text-gray-400 text-sm line-clamp-3 mb-3">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
-                                    laoreet...
-                                </p>
-
-                                <p class="text-gray-400 text-sm flex items-center">
-                                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
-                                    Langara College B Building
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card -->
-                    <div
-                        class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4">
-                        <!-- Left: Image + Button -->
-                        <div class="flex flex-col justify-between items-center mr-4 h-full">
-                            <img src="https://via.placeholder.com/100x100" alt="Image"
-                                class="w-24 h-24 object-cover rounded-md mb-2">
-                            <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
-                                class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
-                                Subscribe
-                            </button>
-                        </div>
-
-                        <!-- Right: Title + Subtitles -->
-                        <div class="flex flex-col justify-between flex-1 h-full">
-                            <h3 class="text-lg font-semibold mb-5 text-gray-200">Card Title</h3>
-
-                            <div class="flex flex-col justify-between h-full mb-2">
-                                <p class="text-gray-400 text-sm line-clamp-3 mb-3">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut
-                                    laoreet...
-                                </p>
-
-                                <p class="text-gray-400 text-sm flex items-center">
-                                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
-                                    Langara College B Building
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                  <p class="text-gray-400 text-sm flex items-center">
+                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
+                    Langara College B Building
+                  </p>
                 </div>
+              </div>
             </div>
 
-            <!-- Tailwind line-clamp plugin required for ... truncation -->
-            <style>
-                .no-scrollbar::-webkit-scrollbar {
-                    display: none;
-                }
+            <!-- Card -->
+            <div
+              class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4"
+            >
+              <!-- Left: Image + Button -->
+              <div
+                class="flex flex-col justify-between items-center mr-4 h-full"
+              >
+                <img
+                  src="https://via.placeholder.com/100x100"
+                  alt="Image"
+                  class="w-24 h-24 object-cover rounded-md mb-2"
+                />
+                <button
+                  style="
+                    box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
+                  "
+                  class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
+                >
+                  Subscribe
+                </button>
+              </div>
 
-                .no-scrollbar {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-            </style>
+              <!-- Right: Title + Subtitles -->
+              <div class="flex flex-col justify-between flex-1 h-full">
+                <h3 class="text-lg font-semibold mb-5 text-gray-200">
+                  Card Title
+                </h3>
 
-        </main>
+                <div class="flex flex-col justify-between h-full mb-2">
+                  <p class="text-gray-400 text-sm line-clamp-3 mb-3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    euismod, nunc ut laoreet...
+                  </p>
+
+                  <p class="text-gray-400 text-sm flex items-center">
+                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
+                    Langara College B Building
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card -->
+            <div
+              class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4"
+            >
+              <!-- Left: Image + Button -->
+              <div
+                class="flex flex-col justify-between items-center mr-4 h-full"
+              >
+                <img
+                  src="https://via.placeholder.com/100x100"
+                  alt="Image"
+                  class="w-24 h-24 object-cover rounded-md mb-2"
+                />
+                <button
+                  style="
+                    box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
+                  "
+                  class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
+                >
+                  Subscribe
+                </button>
+              </div>
+
+              <!-- Right: Title + Subtitles -->
+              <div class="flex flex-col justify-between flex-1 h-full">
+                <h3 class="text-lg font-semibold mb-5 text-gray-200">
+                  Card Title
+                </h3>
+
+                <div class="flex flex-col justify-between h-full mb-2">
+                  <p class="text-gray-400 text-sm line-clamp-3 mb-3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    euismod, nunc ut laoreet...
+                  </p>
+
+                  <p class="text-gray-400 text-sm flex items-center">
+                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
+                    Langara College B Building
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tailwind line-clamp plugin required for ... truncation -->
+        <style>
+          .no-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+
+          .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+        </style>
+      </main>
     </div>
     <div data-component="footer"></div>
     <script src="../../js/inject.js" defer></script>
 
     <!-- Authentication Guard -->
     <script type="module">
-        import { initAuthGuard } from "../../js/auth/authGuard.js";
-        initAuthGuard();
+      import { initAuthGuard } from "../../js/auth/authGuard.js";
+      initAuthGuard();
     </script>
 
     <!-- js calendar -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const dateImageMap = {
-                "2025-07-12": "https://via.placeholder.com/600x400?text=Image+for+July+12",
-                "2025-07-15": "https://via.placeholder.com/600x400?text=Image+for+July+15",
-                "2025-07-25": "https://via.placeholder.com/600x400?text=Image+for+July+25"
-            };
+      document.addEventListener("DOMContentLoaded", () => {
+        const dateImageMap = {
+          "2025-07-12":
+            "https://via.placeholder.com/600x400?text=Image+for+July+12",
+          "2025-07-15":
+            "https://via.placeholder.com/600x400?text=Image+for+July+15",
+          "2025-07-25":
+            "https://via.placeholder.com/600x400?text=Image+for+July+25",
+        };
 
-            const updateImage = (dateStr) => {
-                const img = document.getElementById('calendar-image');
-                img.src = dateImageMap[dateStr] || "https://via.placeholder.com/600x400?text=No+Image+Available";
-            };
+        const updateImage = (dateStr) => {
+          const img = document.getElementById("calendar-image");
+          img.src =
+            dateImageMap[dateStr] ||
+            "https://via.placeholder.com/600x400?text=No+Image+Available";
+        };
 
-            // Desktop calendar
-            flatpickr("#calendar", {
-                inline: true,
-                onChange: function (selectedDates, dateStr) {
-                    updateImage(dateStr);
-                }
-            });
-
-            // Mobile calendar input
-            flatpickr("#calendar-mobile", {
-                dateFormat: "Y-m-d",
-                onChange: function (selectedDates, dateStr) {
-                    updateImage(dateStr);
-                }
-            });
+        // Desktop calendar
+        flatpickr("#calendar", {
+          inline: true,
+          onChange: function (selectedDates, dateStr) {
+            updateImage(dateStr);
+          },
         });
-    </script>
-</body>
 
+        // Mobile calendar input
+        flatpickr("#calendar-mobile", {
+          dateFormat: "Y-m-d",
+          onChange: function (selectedDates, dateStr) {
+            updateImage(dateStr);
+          },
+        });
+      });
+    </script>
+  </body>
 </html>
