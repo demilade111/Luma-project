@@ -1,8 +1,9 @@
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-export const firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyChm-EbSEcobq3bIy1APiyzSTj4miZRCKY",
   authDomain: "luma-project-a26e6.firebaseapp.com",
   projectId: "luma-project-a26e6",
