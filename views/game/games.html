@@ -45,29 +45,13 @@
 
       <!-- Categories Section -->
       <div class="mt-16 md:my-28 px-4">
-        <h1 class="font-bold flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient h-20 md:h-28">
+        <h1
+          class="font-bold flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient h-20 md:h-28">
           Categories
         </h1>
 
         <div id="category-scroll" class="flex gap-2 overflow-x-auto pb-4 max-w-full scroll-hide"></div>
       </div>
-
-      <!-- Script imports -->
-      <script type="module">
-        import { categories } from "/Server/categories.js";
-
-        const container = document.getElementById("category-scroll");
-
-        categories.forEach((cat) => {
-          const div = document.createElement("div");
-          div.className =
-            "inline-flex items-center bg-[#2F364A] rounded-2xl p-5 md:px-5 md:py-8 gap-3 w-fit whitespace-nowrap md:min-w-[240px] justify-center cursor-pointer hover:bg-gray-600 category-filter";
-          div.dataset.category = cat;
-          div.innerHTML = `<div class="whitespace-nowrap font-medium text-2xl text-gray-200">${cat}</div>`;
-          container.appendChild(div);
-        });
-      </script>
-
     </main>
   </div>
 
@@ -167,14 +151,27 @@
   <script type="module" src="../../js/auth/signout.js"></script>
   <script type="module" src="../../js/gameDetails.js"></script>
 
+  <!-- Script imports -->
+  <script type="module">
+    import { categories } from "/Server/categories.js";
+
+    const container = document.getElementById("category-scroll");
+
+    categories.forEach((cat) => {
+      const div = document.createElement("div");
+      div.className =
+        "inline-flex items-center bg-[#2F364A] rounded-2xl p-5 md:px-5 md:py-8 gap-3 w-fit whitespace-nowrap md:min-w-[240px] justify-center cursor-pointer hover:bg-gray-600 category-filter";
+      div.dataset.category = cat;
+      div.innerHTML = `<div class="whitespace-nowrap font-medium text-2xl text-gray-200">${cat}</div>`;
+      container.appendChild(div);
+    });
+  </script>
+  
   <!-- Authentication Guard -->
   <script type="module">
     import { initAuthGuard } from "../../js/auth/authGuard.js";
     initAuthGuard();
   </script>
-
-
-
 </body>
 
 </html>

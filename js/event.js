@@ -49,27 +49,27 @@ async function loadPopularEvents() {
 
     const startTimeStr = formatDateTime(event.start_time);
     const descriptionShort =
-      event.description?.length > 200
-        ? event.description.substring(0, 197) + "..."
+      event.description?.length > 80
+        ? event.description.substring(0, 77) + "..."
         : event.description || "";
 
     const card = document.createElement("div");
     card.className =
-      "flex items-center overflow-hidden cursor-pointer hover:bg-[#23283a] transition-all duration-300 rounded-2xl p-4 border border-[#3a3e4a] hover:border-[#f1647a] hover:shadow-lg";
+      "flex items-center overflow-hidden cursor-pointer transition-all duration-300 rounded-2xl p-4";
     card.innerHTML = `
       <img src="${event.image_url}" alt="${event.name}" class="w-48 h-48 object-cover rounded-2xl flex-shrink-0 border border-[#3a3e4a]" />
       <div class="p-6 flex flex-col justify-between flex-1 min-h-[192px]">
         <div class="flex-1">
-          <h2 class="text-2xl font-bold text-white mb-3 leading-tight">${event.name}</h2>
-          <p class="text-base text-gray-300 leading-relaxed mb-6 line-clamp-3">${descriptionShort}</p>
+          <h2 class="text-2xl font-bold text-gray-200 mb-3 leading-tight">${event.name}</h2>
+          <p class="text-base text-gray-400 leading-relaxed mb-6 line-clamp-3">${descriptionShort}</p>
         </div>
         <div class="text-base text-gray-200 space-y-2">
-          <p class="flex items-center text-gray-300">
-            <i class="fa-regular fa-calendar mr-2 text-[#f1647a]"></i>
+          <p class="flex items-center text-gray-400">
+            <i class="fa-regular fa-calendar mr-2 text-gray-200"></i>
             ${startTimeStr}
           </p>
-          <p class="flex items-center text-gray-300">
-            <i class="fa-solid fa-location-dot mr-2 text-[#f1647a]"></i>
+          <p class="flex items-center text-gray-400">
+            <i class="fa-solid fa-location-dot mr-2 text-gray-200"></i>
             ${event.location}
           </p>
         </div>
