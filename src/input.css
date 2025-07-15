@@ -8,9 +8,11 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 body {
   background: var(--background-color, #1a1f2c);
 }
+
 .luma-gradient {
   background: linear-gradient(269deg, #f59275 24.95%, #f1647a 87.01%);
   background-clip: text;
@@ -25,4 +27,12 @@ body {
 
 .luma-gradient-bg {
   background: linear-gradient(269deg, #f59275 24.95%, #f1647a 87.01%);
+}
+
+.scroll-hide {
+  scrollbar-width: none;
+}
+
+.scroll-hide::-webkit-scrollbar {
+  display: none;
 }
