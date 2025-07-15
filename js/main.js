@@ -332,15 +332,15 @@ function createGameCard(game) {
          data-game-data='${JSON.stringify(game).replace(/'/g, "&apos;")}'>
       <div class="w-full h-48 md:w-48 md:h-auto border rounded-2xl overflow-hidden bg-gray-100 shrink-0">
         ${image
-            ? `<img src="${image}" alt="${name}" class="w-full h-full md:w-48 md:h-48 object-cover"
+      ? `<img src="${image}" alt="${name}" class="w-full h-full md:w-48 md:h-48 object-cover"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
             <div class="w-full h-full flex items-center justify-center text-gray-400" style="display:none;">
               <i class="fas fa-dice text-3xl"></i>
             </div>`
-            : `<div class="w-full h-full flex items-center justify-center text-gray-400">
+      : `<div class="w-full h-full flex items-center justify-center text-gray-400">
               <i class="fas fa-dice text-3xl"></i>
             </div>`
-          }
+    }
       </div>
 
       <div class="md:p-4 flex flex-col justify-between items-start flex-1">
@@ -398,6 +398,116 @@ function createGameCard(game) {
   `;
 }
 
+function renderRandomGames(games) {
+  const container = document.getElementById("random-games-container");
+  if (!container || !Array.isArray(games)) return;
+
+  // Shuffle and pick 4 random games
+  const randomFour = [...games].sort(() => 0.5 - Math.random()).slice(0, 4);
+
+  container.innerHTML = randomFour
+    .map((game) => {
+      const name = game.name || "Untitled Game";
+      const description = game.description || "No description available";
+      const image = game.thumbnail || game.image || "";
+
+      const isNightCafe = name === "The Night Cage";
+
+      const truncatedName = name.length > 26 ? name.substring(0, 23) + "..." : name;
+      const truncatedDescription = description.length > 60
+        ? description.substring(0, 57) + "..."
+        : description;
+
+      const disabledAttr = isNightCafe ? "" : "disabled";
+      const buttonClasses = isNightCafe
+        ? "cursor-pointer hover:bg-[#3A4258]"
+        : "opacity-50 cursor-not-allowed";
+
+      return `
+        <div class="min-w-[350px] flex-shrink-0 flex flex-col rounded-2xl py-4 px-6 bg-[#262C3D] shadow-md shadow-gray-500/20">
+          <h3 class="text-lg font-semibold mb-4 text-gray-200">${truncatedName}</h3>
+          <div class="flex gap-4">
+            <div class="w-32 h-32 rounded-2xl overflow-hidden bg-gray-300">
+              ${
+                image
+                  ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling?.style.display='flex'">`
+                  : `<div class="w-full h-full flex items-center justify-center text-gray-400">
+                      <i class="fas fa-dice text-3xl"></i>
+                    </div>`
+              }
+            </div>
+            <div class="text-button flex flex-col justify-between h-32 w-32">
+              <p class="text-sm text-gray-400 leading-tight">${truncatedDescription}</p>
+              <button type="button" ${disabledAttr}
+                style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+                class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200 transition-colors ${buttonClasses}">
+                Tutorial
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+async function loadRandomGames() {
+  const loadingDiv = document.getElementById("games-loading");
+  const errorDiv = document.getElementById("games-error");
+  const gamesContainer = document.getElementById("games-container");
+
+  if (!loadingDiv || !errorDiv || !gamesContainer) return;
+
+  try {
+    // Show loading state
+    loadingDiv.classList.remove("hidden");
+    errorDiv.classList.add("hidden");
+    gamesContainer.classList.add("hidden");
+
+    console.log("🎮 Loading games from API...");
+
+    // Get gameService from global
+    const gameService =
+      window.gameService ||
+      (typeof gameService !== "undefined" ? gameService : null);
+
+    if (!gameService) {
+      throw new Error("Game service not available");
+    }
+
+    const result = await gameService.getAllGames();
+
+    if (!result.success) {
+      throw new Error(result.error || "Failed to load games");
+    }
+
+    // Store all games globally
+    allGamesData = result.games;
+    currentPage = 1;
+
+    console.log(`✅ Loaded ${allGamesData.length} games`);
+
+    // Hide loading
+    loadingDiv.classList.add("hidden");
+    gamesContainer.classList.remove("hidden");
+
+    // Render all games with pagination
+    renderGamesWithPagination();
+
+    // ✅ Render 4 random games in horizontal scroll
+    renderRandomGames(allGamesData);
+  } catch (error) {
+    console.error("❌ Error loading games:", error);
+
+    // Show error state
+    loadingDiv.classList.add("hidden");
+    errorDiv.classList.remove("hidden");
+    gamesContainer.classList.add("hidden");
+  }
+}
+
+
+
 function setupGamesPage() {
   // Only run on games page
   if (!document.getElementById("games-container")) return;
@@ -406,6 +516,8 @@ function setupGamesPage() {
 
   // Load games
   loadGames();
+
+  loadRandomGames();
 
   // Setup retry button
   const retryBtn = document.getElementById("retry-games");

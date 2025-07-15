@@ -52,97 +52,25 @@
 
         <div id="category-scroll" class="flex gap-2 overflow-x-auto pb-4 max-w-full scroll-hide"></div>
       </div>
+
+      <!-- Random Games Scrollable Section -->
+      <div class="my-16 md:mt-24 md:mb-16 px-4">
+        <h1
+          class="font-bold flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient h-20 md:h-28">
+          Continue Learning
+        </h1>
+
+        <!-- Random Games Scrollable Section -->
+        <div class="flex overflow-x-auto gap-6 pb-4 scroll-hide" id="random-games-container">
+          <!-- JS will inject 4 cards here -->
+        </div>
+      </div>
+
     </main>
   </div>
 
-  <!--Main container-->
-  <main class="px-40 flex flex-col text-white bg-[#1A1F2C] min-h-screen">
-    <div class="flex-1 p-0.5 md:pb-10">
-      <!--Pupulalar games section-->
-      <div class="mb-20">
-
-        <!--Continue Learning section-->
-        <div class="continue-l p-6">
-          <h1 class="text-4xl mt-10 font-nunito font-bold text-gray-500">Continue Learning</h1>
-
-          <!--Scrollable div-->
-          <div class="flex overflow-x-auto gap-6 pb-4">
-            <!--Card One-->
-            <div class="title-image min-w-[350px] flex-shrink-0 flex flex-col border rounded-2xl p-3 bg-white">
-              <h3 class="text-lg font-semibold mb-2">The Night Cage</h3>
-              <div class="flex gap-6">
-                <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
-                <div class="text-button flex flex-col justify-between h-40 w-40">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing...</p>
-                  <button type="button" class="border rounded-2xl w-full">Tutorial</button>
-                </div>
-              </div>
-            </div>
-            <!--Card Two-->
-            <div class="title-image min-w-[350px] flex-shrink-0 flex flex-col border rounded-2xl p-3 bg-white">
-              <h3 class="text-lg font-semibold mb-2">Lorem, ipsum.</h3>
-              <div class="flex gap-6">
-                <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
-                <div class="text-button flex flex-col justify-between h-40 w-40">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing...</p>
-                  <button type="button" class="border rounded-2xl w-full">Tutorial</button>
-                </div>
-              </div>
-            </div>
-            <!--Card Three-->
-            <div class="title-image min-w-[350px] flex-shrink-0 flex flex-col border rounded-2xl p-3 bg-white">
-              <h3 class="text-lg font-semibold mb-2">Lorem ipsum dolor sit.</h3>
-              <div class="flex gap-6">
-                <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
-                <div class="text-button flex flex-col justify-between h-40 w-40">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing...</p>
-                  <button type="button" class="border rounded-2xl w-full">Tutorial</button>
-                </div>
-              </div>
-            </div>
-            <!--Card Four-->
-            <div class="title-image min-w-[350px] flex-shrink-0 flex flex-col border rounded-2xl p-3 bg-white">
-              <h3 class="text-lg font-semibold mb-2">Lorem, ipsum dolor.</h3>
-              <div class="flex gap-6">
-                <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
-                <div class="text-button flex flex-col justify-between h-40 w-40">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing...</p>
-                  <button type="button" class="border rounded-2xl w-full">Tutorial</button>
-                </div>
-              </div>
-            </div>
-            <!--Card Five-->
-            <div class="title-image min-w-[350px] flex-shrink-0 flex flex-col border rounded-2xl p-3 bg-white">
-              <h3 class="text-lg font-semibold mb-2">Lorem, ipsum.</h3>
-              <div class="flex gap-6">
-                <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
-                <div class="text-button flex flex-col justify-between h-40 w-40">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing...</p>
-                  <button type="button" class="border rounded-2xl w-full">Tutorial</button>
-                </div>
-              </div>
-            </div>
-            <!--Card Six-->
-            <div class="title-image min-w-[350px] flex-shrink-0 flex flex-col border rounded-2xl p-3 bg-white">
-              <h3 class="text-lg font-semibold mb-2">Lorem ipsum dolor sit.</h3>
-              <div class="flex gap-6">
-                <div class="w-40 h-40 border rounded-2xl bg-gray-200"></div>
-                <div class="text-button flex flex-col justify-between h-40 w-40">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing...</p>
-                  <button type="button" class="border rounded-2xl w-full">Tutorial</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-      </div>
-  </main>
   <!--Footer section-->
-
   <div data-component="footer"></div>
-
 
   <!-- Scripts -->
   <script src="../../service/gameService.js" defer></script>
@@ -166,7 +94,7 @@
       container.appendChild(div);
     });
   </script>
-  
+
   <!-- Authentication Guard -->
   <script type="module">
     import { initAuthGuard } from "../../js/auth/authGuard.js";
