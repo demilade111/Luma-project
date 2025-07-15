@@ -1,58 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luma | Game Details</title>
-    <link href="../../src/output.css" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-  </head>
 
-  <body class="text-white bg-[#1A1F2C] font-nunito">
-    <div data-component="sidebar"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luma | Game Details</title>
+  <link href="../../src/output.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
 
-    <main class="px-10 text-white font-nunito">
-      <div class="night-cage-wrap flex gap-8 p-8 items-start px-20">
+<body class="bg-[#1A1F2C] font-nunito text-white min-h-screen">
+  <div data-component="sidebar"></div>
+
+  <div class="flex-1 flex flex-col min-h-screen md:ml-[90px] pt-10">
+
+    <main class="flex-1 p-4 md:py-10 md:px-20">
+      <!-- Game Header: Image + Info -->
+      <div class="flex flex-col md:flex-row gap-8 items-start mb-12">
         <!-- Game Image -->
-        <div
-          id="game-image"
-          class="w-full max-w-[649px] aspect-square rounded-4xl overflow-hidden cursor-pointer"
-        >
-          <div class="loading-game-data">
+        <div id="game-image" class="w-full md:w-1/2 aspect-square rounded-4xl overflow-hidden cursor-pointer">
+          <div class="loading-game-data w-full h-full flex flex-col items-center justify-center">
             <i class="fas fa-spinner fa-spin text-4xl text-gray-400"></i>
             <p class="mt-4 text-gray-600">Loading game data...</p>
           </div>
         </div>
 
         <!-- Game Info -->
-        <div class="flex flex-col gap-6 max-w-[700px]">
-          <h3
-            id="game-title"
-            class="font-extrabold text-[42px] luma-gradient text-white"
-          >
+        <div class="w-full md:w-1/2 flex flex-col gap-6">
+          <h3 id="game-title" class="font-extrabold text-[42px] luma-gradient text-white">
             Loading...
           </h3>
           <div class="gap-6">
-            <h4
-              id="game-subtitle"
-              class="font-semibold text-[32px] text-white mb-4"
-            >
+            <h4 id="game-subtitle" class="font-semibold text-[32px] text-gray-200 mb-4">
               ...
             </h4>
-            <p
-              id="game-description"
-              class="text-lg text-white pb-6 max-w-[80%]"
-            >
+            <p id="game-description" class="text-lg text-gray-400 pb-6 max-w-[90%]">
               Loading game description...
             </p>
           </div>
 
           <!-- Stats -->
-          <div id="game-stats" class="flex gap-6 text-sm text-gray-600">
+          <div id="game-stats" class="flex flex-wrap gap-6 text-sm text-gray-600">
             <p id="playing-time" class="text-gray-200">
               <span class="ml-2"><i class="fas fa-hourglass"></i></span>
               <span class="time-value">...</span>
@@ -61,10 +49,7 @@
               <span class="ml-2"><i class="fas fa-users"></i></span>
               <span class="players-value">...</span>
             </p>
-            <p
-              id="age-rating"
-              class="border border-gray-200 text-gray-200 rounded-full p-0.5"
-            >
+            <p id="age-rating" class="border border-gray-200 text-gray-200 rounded-full p-0.5">
               <span class="mx-2 age-value">...</span>
             </p>
             <p id="game-rating" class="text-gray-200">
@@ -75,66 +60,49 @@
 
           <!-- Buttons -->
           <div class="flex gap-4 flex-wrap">
-            <button
-              id="tutorial-btn"
-              class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200 shadow-[inset_-3px_-3px_8px_rgba(255,255,255,0.8)]"
-            >
+            <button id="tutorial-btn" style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+              class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200 cursor-pointer hover:bg-[#3A4258] transition-colors">
               Tutorial
             </button>
-            <button
-              id="share-btn"
-              class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200 shadow-[inset_-3px_-3px_8px_rgba(255,255,255,0.8)]"
-            >
+            <button id="share-btn" style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+              class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200 cursor-pointer hover:bg-[#3A4258] transition-colors">
               Share
             </button>
-            <button
-              id="rules-btn"
-              class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200 shadow-[inset_-3px_-3px_8px_rgba(255,255,255,0.8)]"
-            >
+            <button id="rules-btn" style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+              class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200 cursor-pointer hover:bg-[#3A4258] transition-colors">
               Rules
             </button>
-            <button
-              id="bookmark-btn"
-              class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200 shadow-[inset_-3px_-3px_8px_rgba(255,255,255,0.8)]"
-            >
-              <i class="fa-regular fa-bookmark m-2 text-gray-500"></i>Bookmark
+            <button id="bookmark-btn" style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+              class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200 cursor-pointer hover:bg-[#3A4258] transition-colors">
+              <i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Bookmark
             </button>
           </div>
         </div>
       </div>
 
+
       <!-- Description, Categories -->
-      <div class="py-10 lg:px-20">
-        <div class="about-game flex gap-8 p-8 items-start">
-          <div class="flex flex-col gap-6 max-w-[50%] text-white">
+      <div class="py-5 px-2 md:px-10">
+        <div class="about-game flex flex-col md:flex-row gap-8 md:p-8 items-start mb-10">
+          <!-- Left Column -->
+          <div class="flex flex-col gap-6 w-full md:w-1/2 text-white">
             <div id="designers-section">
-              <h3 class="text-3xl font-semibold font-sans text-white">
-                Designer
-              </h3>
-              <div id="designers-list" class="text-white text-2xl">
-                Loading...
-              </div>
+              <h3 class="text-xl font-semibold font-sans text-white">Designer</h3>
+              <div id="designers-list" class="text-white text-2xl">Loading...</div>
             </div>
             <div id="publishers-section">
-              <h3 class="text-3xl font-semibold font-sans text-white">
-                Publisher
-              </h3>
-              <div id="publishers-list" class="text-white text-2xl">
-                Loading...
-              </div>
+              <h3 class="text-xl font-semibold font-sans text-white">Publisher</h3>
+              <div id="publishers-list" class="text-white text-2xl">Loading...</div>
             </div>
             <div id="categories-section">
-              <h3 class="text-3xl font-semibold font-sans text-white">
-                Categories
-              </h3>
-              <div id="categories-list" class="text-white text-2xl">
-                Loading...
-              </div>
+              <h3 class="text-xl font-semibold font-sans text-white">Categories</h3>
+              <div id="categories-list" class="text-white text-2xl">Loading...</div>
             </div>
           </div>
 
-          <div class="flex flex-col gap-6 max-w-[40%] text-white">
-            <h2 class="text-4xl font-extrabold text-white">About Game</h2>
+          <!-- Right Column -->
+          <div class="flex flex-col gap-6 w-full md:w-1/2 text-white">
+            <h2 class="text-2xl font-extrabold luma-gradient">About Game</h2>
             <p id="detailed-description" class="text-white">
               Loading detailed game description...
             </p>
@@ -150,71 +118,41 @@
         </div>
 
         <!-- PDF Preview Modal -->
-        <div
-          id="pdf-modal"
-          class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4"
-        >
+        <div id="pdf-modal"
+          class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
           <div class="bg-white rounded-lg max-w-4xl max-h-[90vh] w-full mx-4">
             <div class="flex justify-between items-center p-4 border-b">
               <h3 class="text-lg font-semibold">Game Rules</h3>
-              <button
-                id="close-pdf-modal"
-                class="text-gray-500 hover:text-gray-700"
-              >
+              <button id="close-pdf-modal" class="text-gray-500 hover:text-gray-700">
                 <i class="fas fa-times text-xl"></i>
               </button>
             </div>
             <div class="p-4">
-              <iframe
-                id="pdf-viewer"
-                class="w-full h-[70vh]"
-                frameborder="0"
-              ></iframe>
+              <iframe id="pdf-viewer" class="w-full h-[70vh]" frameborder="0"></iframe>
             </div>
           </div>
         </div>
+        
         <!-- Comments Section -->
         <div class="comments p-4 text-white">
-          <h1
-            class="text-6xl font-extrabold font-nunito gap-4 mb-4 p-4 text-center luma-gradient"
-            style="
-              background: linear-gradient(
-                269deg,
-                #f59275 24.95%,
-                #f1647a 87.01%
-              );
-              background-clip: text;
-              -webkit-background-clip: text;
-              -webkit-text-fill-color: transparent;
-              color: transparent;
-            "
-          >
+          <h1 class="text-[40px] font-extrabold text-center mb-10 luma-gradient">
             Comments
           </h1>
+
           <div class="max-w-7xl mx-auto">
-            <div
-              id="commentGrid"
-              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
-            >
-              <div
-                class="bg-gradient-to-b from-[#F59275] to-[#F1647A] p-[3px] rounded-2xl h-full"
-              >
-                <div
-                  class="rounded-[16px] p-5 h-full flex flex-col justify-between"
-                >
-                  <textarea
-                    id="commentInput"
-                    style="
+            <div id="gameCommentGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div class="bg-gradient-to-b to-[#F59275] from-[#F1647A] p-[3px] rounded-2xl h-full">
+                <div class="rounded-[16px] p-5 h-full flex flex-col justify-between">
+                  <textarea id="gameCommentInput" style="
                       box-shadow: inset 0px 0px 18px -5px rgb(77 77 77 / 80%);
-                    "
-                    placeholder="Enter your comment..."
-                    class="bg-[#FFC4C5] placeholder:text-gray-500 text-gray-700 rounded-lg p-4 resize-none h-48 focus:outline-none mb-4"
-                  ></textarea>
-                  <button
-                    id="postCommentBtn"
-                    style="box-shadow: 0px 0px 7px 0px rgb(77 77 77 / 80%)"
-                    class="bg-gradient-to-r from-[#FF8E53] to-[#FE6B8B] text-white font-semibold px-6 py-3 rounded-2xl shadow-md"
-                  >
+                    " placeholder="Enter your comment..."
+                    class="bg-[#FFC4C5] placeholder:text-gray-500 text-gray-700 rounded-lg p-4 resize-none h-48 focus:outline-none mb-4"></textarea>
+                  <button id="gamePostCommentBtn" style="box-shadow: 0px 0px 7px 0px rgb(77 77 77 / 80%)" class="text-white bg-gradient-to-b from-[#F59275] to-[#F1647A]
+                    hover:from-[#F1647A] hover:to-[#F59275]
+                    hover:shadow-xl hover:-translate-y-1.5
+                    transition-all duration-300 ease-in-out
+                    font-semibold px-6 py-3 rounded-2xl shadow-md
+                    cursor-pointer">
                     Add Comment
                   </button>
                 </div>
@@ -228,56 +166,42 @@
       <div data-component="footer"></div>
 
       <!-- PDF Preview Modal -->
-      <div
-        id="pdf-modal"
-        class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center"
-      >
+      <div id="pdf-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
         <div class="bg-white rounded-lg max-w-4xl max-h-[90vh] w-full mx-4">
           <div class="flex justify-between items-center p-4 border-b">
             <h3 class="text-lg font-semibold">Game Rules</h3>
-            <button
-              id="close-pdf-modal"
-              class="text-gray-500 hover:text-gray-700"
-            >
+            <button id="close-pdf-modal" class="text-gray-500 hover:text-gray-700">
               <i class="fas fa-times text-xl"></i>
             </button>
           </div>
           <div class="p-4 h-[80vh] overflow-hidden">
-            <iframe
-              id="pdf-viewer"
-              src=""
-              class="w-full h-full border-0"
-            ></iframe>
+            <iframe id="pdf-viewer" src="" class="w-full h-full border-0"></iframe>
           </div>
           <div class="flex gap-4 p-4 border-t bg-gray-50">
-            <button
-              id="download-pdf"
-              class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
+            <button id="download-pdf" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
               <i class="fas fa-download mr-2"></i>Download PDF
             </button>
-            <button
-              id="close-pdf-modal-btn"
-              class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-            >
+            <button id="close-pdf-modal-btn" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
               Close
             </button>
           </div>
         </div>
       </div>
     </main>
+  </div>
 
-    <!-- Script Includes -->
-    <script src="../../service/gameService.js" defer></script>
-    <script src="../../js/inject.js" defer></script>
-    <script type="module" src="../../js/main.js"></script>
-    <script src="../../js/hero-carousel.js" defer></script>
-    <script type="module" src="../../js/auth/signout.js"></script>
+  <!-- Script Includes -->
+  <script src="../../service/gameService.js" defer></script>
+  <script src="../../js/inject.js" defer></script>
+  <script type="module" src="../../js/main.js"></script>
+  <script src="../../js/hero-carousel.js" defer></script>
+  <script type="module" src="../../js/auth/signout.js"></script>
 
-    <!-- Authentication Guard -->
-    <script type="module">
-      import { initAuthGuard } from "../../js/auth/authGuard.js";
-      initAuthGuard();
-    </script>
-  </body>
+  <!-- Authentication Guard -->
+  <script type="module">
+    import { initAuthGuard } from "../../js/auth/authGuard.js";
+    initAuthGuard();
+  </script>
+</body>
+
 </html>

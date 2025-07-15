@@ -59,9 +59,8 @@ async function renderEventDetails() {
         </div>
         <div class="flex flex-col">
           <span class="font-bold text-white">${start.dateStr || ""}</span>
-          <span class="text-gray-300">${start.timeStr || ""}${
-      end.timeStr ? " - " + end.timeStr : ""
-    }</span>
+          <span class="text-gray-300">${start.timeStr || ""}${end.timeStr ? " - " + end.timeStr : ""
+      }</span>
         </div>
       </div>`;
     endTimeEl.innerHTML = "";
@@ -163,9 +162,8 @@ function setupRegistration() {
         if (names.length <= 2) {
           goingListEl.textContent = names.join(", ");
         } else {
-          goingListEl.textContent = `${names[0]}, ${names[1]} and ${
-            names.length - 2
-          } others`;
+          goingListEl.textContent = `${names[0]}, ${names[1]} and ${names.length - 2
+            } others`;
         }
       }
     }
@@ -233,29 +231,25 @@ function setupComments() {
         user
       )}&background=random`;
 
-      // Outer wrapper to simulate gradient border
+      // Outer wrapper with gradient border using inline style
       const wrapper = document.createElement("div");
-      wrapper.className =
-        "p-[2px] rounded-2xl bg-gradient-to-r from-[#f59275] to-[#f1647a]";
+      wrapper.className = "p-[2px] rounded-2xl h-full";
+      wrapper.style.background = "linear-gradient(to right, #f59275, #f1647a)";
 
-      // Your original div with background, padding, etc.
+      // Inner content box
       const div = document.createElement("div");
       div.className =
         "rounded-2xl p-5 bg-[#23243a] shadow-md bg-clip-padding relative h-full";
-
-      // Content inside the inner box
       div.innerHTML = `
-  <div class="flex items-center gap-4 mb-3">
-    <img src="${avatarUrl}" alt="${user}" class="w-10 h-10 rounded-full object-cover" />
-    <span class="text-white font-semibold text-sm">${user}</span>
-  </div>
-  <p class="text-gray-300 text-sm">${comment.text}</p>
-`;
+    <div class="flex items-start gap-4 mb-3">
+      <img src="${avatarUrl}" alt="${user}" class="w-10 h-10 rounded-full object-cover shrink-0" />
+      <span class="text-white font-semibold text-sm break-words overflow-hidden w-full block">${user}</span>
+    </div>
+    <p class="text-gray-300 text-sm break-words whitespace-pre-line">${comment.text}</p>
+  `;
 
-      // Nest inner box inside the gradient wrapper
+      // Nest and append
       wrapper.appendChild(div);
-
-      // Append to the comment grid
       commentGrid.appendChild(wrapper);
     });
   });

@@ -325,17 +325,16 @@ function createGameCard(game) {
          data-game-id="${gameId}" 
          data-game-data='${JSON.stringify(game).replace(/'/g, "&apos;")}'>
       <div class="w-48 h-48 border rounded-2xl shrink-0 overflow-hidden bg-gray-100">
-        ${
-          image
-            ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover" 
+        ${image
+      ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover" 
                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
            <div class="w-full h-full flex items-center justify-center text-gray-400" style="display:none;">
              <i class="fas fa-dice text-3xl"></i>
            </div>`
-            : `<div class="w-full h-full flex items-center justify-center text-gray-400">
+      : `<div class="w-full h-full flex items-center justify-center text-gray-400">
              <i class="fas fa-dice text-3xl"></i>
            </div>`
-        }
+    }
       </div>
       
       <div class="p-4 flex flex-col justify-between items-start flex-1">
@@ -349,20 +348,19 @@ function createGameCard(game) {
             ${truncatedDescription}
           </p>
           
-          ${
-            categories.length > 0
-              ? `<div class="flex flex-wrap gap-1 mb-3">
+          ${categories.length > 0
+      ? `<div class="flex flex-wrap gap-1 mb-3">
               ${categories
-                .slice(0, 3)
-                .map(
-                  (cat) =>
-                    `<span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
+        .slice(0, 3)
+        .map(
+          (cat) =>
+            `<span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
                        data-category="${cat}">${cat}</span>`
-                )
-                .join("")}
+        )
+        .join("")}
             </div>`
-              : ""
-          }
+      : ""
+    }
           
           <div class="flex items-center gap-6 text-sm text-gray-600">
             <div class="flex items-center gap-1">
@@ -371,25 +369,22 @@ function createGameCard(game) {
             </div>
             <div class="flex items-center gap-1">
               <i class="fas fa-users"></i>
-              <span>${minPlayers}${
-    maxPlayers !== minPlayers ? `-${maxPlayers}` : ""
-  }</span>
+              <span>${minPlayers}${maxPlayers !== minPlayers ? `-${maxPlayers}` : ""
+    }</span>
             </div>
-            ${
-              rating !== "?"
-                ? `<div class="flex items-center gap-1">
+            ${rating !== "?"
+      ? `<div class="flex items-center gap-1">
                 <i class="fas fa-star text-yellow-400"></i>
                 <span>${rating}</span>
               </div>`
-                : ""
-            }
-            ${
-              age !== "?"
-                ? `<div class="border border-gray-400 rounded-full px-2 py-1">
+      : ""
+    }
+            ${age !== "?"
+      ? `<div class="border border-gray-400 rounded-full px-2 py-1">
                 <span>${age}+</span>
               </div>`
-                : ""
-            }
+      : ""
+    }
           </div>
         </div>
       </div>
@@ -654,7 +649,7 @@ function loadGameDetails() {
     document.getElementById("categories-list").innerHTML = game.categories
       .map(
         (category) =>
-          `<span style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)" class="inline-flex items-center mr-6 bg-[#2F364A] rounded-xl p-3 border text-gray-200 border-gray-700 gap-3 w-fit whitespace-nowrap min-w-[140px] justify-center">${category}</span>`
+          `<span class="inline-flex items-center mr-6 bg-[#2F364A] text-xl rounded-xl p-3 border text-gray-200 border-gray-700 gap-3 w-fit whitespace-nowrap min-w-[140px] mt-5 justify-center">${category}</span>`
       )
       .join("");
   } else {
@@ -700,10 +695,7 @@ function loadGameDetails() {
     if (!bookmarkBtn) return;
     if (isBookmarked) {
       bookmarkBtn.innerHTML =
-        '<i class="fa-solid fa-bookmark m-2 text-yellow-400"></i>Bookmarked';
-    } else {
-      bookmarkBtn.innerHTML =
-        '<i class="fa-regular fa-bookmark m-2 text-gray-500"></i>Bookmark';
+        '<span class="luma-gradient m-0 p-0"><i class="fa-regular fa-bookmark mr-3"></i>Bookmarked</span>';
     }
   }
 
@@ -1256,9 +1248,8 @@ async function renderTrendingEvents() {
       card.innerHTML = `
         <div class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"></div>
         <div class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10"
-          style="background-image: url('${
-            event.image_url || "../../src/asset/images/fea-cal-1.png"
-          }');">
+          style="background-image: url('${event.image_url || "../../src/asset/images/fea-cal-1.png"
+        }');">
         </div>
       `;
       card.onclick = () => {
@@ -1289,9 +1280,8 @@ async function renderUpcomingEvents() {
       card.innerHTML = `
         <div class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"></div>
         <div class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10"
-          style="background-image: url('${
-            event.image_url || "../../src/asset/images/fea-cal-1.png"
-          }');">
+          style="background-image: url('${event.image_url || "../../src/asset/images/fea-cal-1.png"
+        }');">
         </div>
       `;
       card.onclick = () => {
@@ -1313,17 +1303,17 @@ function getCurrentUser() {
   // Use your existing auth logic or fallback
   return auth.currentUser
     ? {
-        userId: auth.currentUser.uid,
-        email: auth.currentUser.email,
-      }
+      userId: auth.currentUser.uid,
+      email: auth.currentUser.email,
+    }
     : null;
 }
 
 function setupGameComments() {
   const gameId = getGameIdFromUrl();
-  const commentInput = document.getElementById("commentInput");
-  const postCommentBtn = document.getElementById("postCommentBtn");
-  const commentGrid = document.getElementById("commentGrid");
+  const commentInput = document.getElementById("gameCommentInput");
+  const postCommentBtn = document.getElementById("gamePostCommentBtn");
+  const gameCommentGrid = document.getElementById("gameCommentGrid");
 
   if (!gameId) {
     commentInput.disabled = true;
@@ -1351,7 +1341,7 @@ function setupGameComments() {
   };
 
   listenForGameComments(gameId, (comments) => {
-    renderGameComments(comments, commentGrid);
+    renderGameComments(comments, gameCommentGrid);
   });
 }
 
@@ -1391,26 +1381,39 @@ function renderGameComments(comments, grid) {
   }
   comments.forEach((comment) => {
     if (!comment.text || !comment.text.trim()) return; // Skip empty comments
+
     // Prioritize userName, then userEmail, then fallback to Anonymous
     const user =
       comment.userName ||
       (comment.userEmail ? comment.userEmail.split("@")[0] : "") ||
       "Anonymous";
+
     const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
       user
     )}&background=random`;
-    const card = document.createElement("div");
-    card.className =
-      "rounded-2xl p-5 bg-[#23243a] border border-[#f59275] shadow-md flex flex-col gap-2";
-    card.innerHTML = `
-      <div class="flex items-center gap-3 mb-2">
-        <img src="${avatarUrl}" alt="${user}" class="w-10 h-10 rounded-full object-cover border-2 border-white" />
-        <span class="text-white font-bold text-base">${user}</span>
-      </div>
-      <p class="text-white text-sm">${comment.text}</p>
-    `;
-    grid.appendChild(card);
+
+    // Outer wrapper with gradient border using inline style
+    const wrapper = document.createElement("div");
+    wrapper.className = "p-[2px] rounded-2xl h-full";
+    wrapper.style.background = "linear-gradient(to right, #f59275, #f1647a)";
+
+    // Inner content box
+    const div = document.createElement("div");
+    div.className =
+      "rounded-2xl p-5 bg-[#23243a] shadow-md bg-clip-padding relative h-full";
+    div.innerHTML = `
+    <div class="flex items-start gap-4 mb-3">
+      <img src="${avatarUrl}" alt="${user}" class="w-10 h-10 rounded-full object-cover shrink-0" />
+      <span class="text-white font-semibold text-sm break-words overflow-hidden w-full block">${user}</span>
+    </div>
+    <p class="text-gray-300 text-sm break-words whitespace-pre-line">${comment.text}</p>
+  `;
+
+    // Nest and append
+    wrapper.appendChild(div);
+    gameCommentGrid.appendChild(wrapper);
   });
+
 }
 
 async function renderSuggestedGames() {
@@ -1474,8 +1477,7 @@ async function renderSuggestedGames() {
     card.style.width = "180px";
     card.style.height = "180px";
     card.innerHTML = `
-      <img src="${
-        game.image || game.thumbnail || "../../src/asset/images/placeholder.png"
+      <img src="${game.image || game.thumbnail || "../../src/asset/images/placeholder.png"
       }" alt="${game.name}" class="w-full h-full object-cover" />
     `;
     card.onclick = () => {
