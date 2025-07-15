@@ -4,6 +4,8 @@ import {
   collection,
   addDoc,
   Timestamp,
+  doc,
+  getDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
@@ -156,6 +158,24 @@ async function handleCreateEvent() {
 
   const host_user_id = currentUser.uid;
 
+  // Fetch user profile details from Firestore
+  let userProfile = {};
+  try {
+    const userRef = doc(db, "users", host_user_id);
+    const userSnap = await getDoc(userRef);
+    if (userSnap.exists()) {
+      const data = userSnap.data();
+      userProfile = {
+        username: data.username || "",
+        profileImg: data.profileImg || "",
+        email: data.email || "",
+        bio: data.bio || "",
+      };
+    }
+  } catch (err) {
+    console.warn("Could not fetch user profile for event creation", err);
+  }
+
   const name = document.getElementById("eventName").value.trim();
   const location = document.getElementById("eventLocation").value.trim();
   const description = document.getElementById("eventDescription").value.trim();
@@ -193,6 +213,7 @@ async function handleCreateEvent() {
 
     const newEvent = {
       host_user_id,
+      user: userProfile, // Store user info in a 'user' object
       city_id: "city_456",
       name,
       location,
@@ -261,4 +282,5 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("click", handleCreateEvent);
 
   loadGoogleMapsScript(); // load Google Maps AFTER window.initAutocomplete is defined
-});s
+});
+s;
