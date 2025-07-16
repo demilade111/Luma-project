@@ -1164,7 +1164,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Set up event listeners
     playButton.addEventListener("click", function (e) {
       console.log("Play button clicked!");
-      alert("Play button clicked! Starting tutorial...");
+      // alert("Play button clicked! Starting tutorial...");
       startTutorial();
     });
     replayBtn.addEventListener("click", replayCurrentVideo);
