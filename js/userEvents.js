@@ -42,19 +42,25 @@ async function loadUserInfo(userId) {
       const userData = userDoc.data();
       console.log("User data loaded from Firestore:", userData);
 
+      const getEmail = (email) => {
+        if (!email) return "";
+        const [localPart, domain] = email.split('@');
+        return `${localPart}`;
+      };
+
       const userInfo = {
         id: userId,
-        username: userData.username || "Anonymous User",
+        username: userData.username || getEmail(userData.email),
         email: userData.email || "",
         bio:
           userData.bio ||
           `${
-            userData.username || "Anonymous User"
+            userData.username || getEmail(userData.email)
           } is an active event creator in our community. Join their events to connect with fellow enthusiasts and discover amazing experiences!`,
         profileImg:
           userData.profileImg ||
           `https://ui-avatars.com/api/?name=${encodeURIComponent(
-            userData.username || "Anonymous User"
+            userData.username || getEmail(userData.email)
           )}&background=random&size=128&color=fff`,
       };
 
