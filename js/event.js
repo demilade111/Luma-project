@@ -203,7 +203,7 @@ function updateButtonState(button, isSubscribed) {
   }
 }
 
-// --- Featured Calendars: Show users who have created at least one event ---
+// --- Featured Calendars: Show users who have created at least one event (excluding current user) ---
 async function loadFeaturedCalendars() {
   console.log("Loading featured calendars...");
   const container = document.getElementById("userCalendarsGrid");
@@ -214,6 +214,11 @@ async function loadFeaturedCalendars() {
   }
   container.innerHTML = "";
 
+  // Get current user to exclude them from featured calendars
+  const currentUser = getCurrentUser();
+  const currentUserId = currentUser?.userId;
+  console.log("Current user ID:", currentUserId);
+
   // 1. Get all events, collect unique host_user_id and their profile info from event doc
   const eventsCol = collection(db, "events");
   const eventsSnap = await getDocs(eventsCol);
@@ -222,6 +227,12 @@ async function loadFeaturedCalendars() {
   eventsSnap.forEach((doc) => {
     const event = doc.data();
     if (!event.host_user_id) return;
+
+    // Skip if this is the current user's event
+    if (currentUserId && event.host_user_id === currentUserId) {
+      console.log("Skipping current user's event:", event.host_user_id);
+      return;
+    }
 
     // Only add if not already present (first event wins)
     if (!userMap.has(event.host_user_id)) {
@@ -263,7 +274,7 @@ async function loadFeaturedCalendars() {
   });
 
   if (userMap.size === 0) {
-    container.innerHTML = `<p class='text-gray-500 text-center'>No event creators found yet. Create your first event to appear here!</p>`;
+    container.innerHTML = `<p class='text-gray-400'>No event creators found yet...</p>`;
     return;
   }
 
