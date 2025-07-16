@@ -2,10 +2,15 @@ import { db } from "../config/firebase.js";
 import {
   doc,
   getDoc,
-  collection,
   setDoc,
   deleteDoc,
+  collection,
   onSnapshot,
+  addDoc,
+  serverTimestamp,
+  query,
+  orderBy,
+  limit,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { postComment, listenForComments } from "./comment.js";
 import { getCurrentUser } from "./auth/authGuard.js";
@@ -59,8 +64,9 @@ async function renderEventDetails() {
         </div>
         <div class="flex flex-col">
           <span class="font-bold text-white">${start.dateStr || ""}</span>
-          <span class="text-gray-300">${start.timeStr || ""}${end.timeStr ? " - " + end.timeStr : ""
-      }</span>
+          <span class="text-gray-300">${start.timeStr || ""}${
+      end.timeStr ? " - " + end.timeStr : ""
+    }</span>
         </div>
       </div>`;
     endTimeEl.innerHTML = "";
@@ -125,11 +131,34 @@ async function registerForEvent(eventId, user) {
     userEmail: user.email,
     registeredAt: new Date(),
   });
+
+  // Also store in user's registrations collection for calendar
+  const userRegistrationRef = doc(
+    db,
+    "users",
+    user.userId,
+    "registrations",
+    eventId
+  );
+  await setDoc(userRegistrationRef, {
+    eventId,
+    registeredAt: new Date(),
+  });
 }
 
 async function unregisterForEvent(eventId, user) {
   const attendeeRef = doc(db, "events", eventId, "attendees", user.userId);
   await deleteDoc(attendeeRef);
+
+  // Also remove from user's registrations collection
+  const userRegistrationRef = doc(
+    db,
+    "users",
+    user.userId,
+    "registrations",
+    eventId
+  );
+  await deleteDoc(userRegistrationRef);
 }
 
 function setupRegistration() {
@@ -162,8 +191,9 @@ function setupRegistration() {
         if (names.length <= 2) {
           goingListEl.textContent = names.join(", ");
         } else {
-          goingListEl.textContent = `${names[0]}, ${names[1]} and ${names.length - 2
-            } others`;
+          goingListEl.textContent = `${names[0]}, ${names[1]} and ${
+            names.length - 2
+          } others`;
         }
       }
     }
