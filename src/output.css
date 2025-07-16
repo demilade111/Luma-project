@@ -2307,22 +2307,10 @@
   .border-gray-500 {
     border-color: var(--color-gray-500);
   }
-  .border-gray-500\/20 {
-    border-color: color-mix(in srgb, oklch(55.1% 0.027 264.364) 20%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      border-color: color-mix(in oklab, var(--color-gray-500) 20%, transparent);
-    }
-  }
   .border-gray-500\/30 {
     border-color: color-mix(in srgb, oklch(55.1% 0.027 264.364) 30%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       border-color: color-mix(in oklab, var(--color-gray-500) 30%, transparent);
-    }
-  }
-  .border-gray-500\/50 {
-    border-color: color-mix(in srgb, oklch(55.1% 0.027 264.364) 50%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      border-color: color-mix(in oklab, var(--color-gray-500) 50%, transparent);
     }
   }
   .border-gray-600 {
@@ -3372,50 +3360,6 @@
   .placeholder\:text-gray-500 {
     &::placeholder {
       color: var(--color-gray-500);
-    }
-  }
-  .before\:absolute {
-    &::before {
-      content: var(--tw-content);
-      position: absolute;
-    }
-  }
-  .before\:top-0 {
-    &::before {
-      content: var(--tw-content);
-      top: calc(var(--spacing) * 0);
-    }
-  }
-  .before\:left-0 {
-    &::before {
-      content: var(--tw-content);
-      left: calc(var(--spacing) * 0);
-    }
-  }
-  .before\:h-full {
-    &::before {
-      content: var(--tw-content);
-      height: 100%;
-    }
-  }
-  .before\:border-l-2 {
-    &::before {
-      content: var(--tw-content);
-      border-left-style: var(--tw-border-style);
-      border-left-width: 2px;
-    }
-  }
-  .before\:border-dotted {
-    &::before {
-      content: var(--tw-content);
-      --tw-border-style: dotted;
-      border-style: dotted;
-    }
-  }
-  .before\:border-gray-200 {
-    &::before {
-      content: var(--tw-content);
-      border-color: var(--color-gray-200);
     }
   }
   .after\:absolute {
