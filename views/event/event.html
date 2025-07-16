@@ -141,22 +141,6 @@
                 <!-- Scrollable circles container -->
                 <div class="flex space-x-5 sm:space-x-28 overflow-x-auto pb-4 pl-0 pr-6 sm:px-10 scroll-hide">
 
-                    <!-- Hidden Vancouver -->
-                    <div class="flex flex-col items-center min-w-[96px] sm:min-w-[120px] hidden" data-city="Vancouver">
-                        <div
-                            class="w-24 h-24 sm:w-48 sm:h-48 rounded-full border border-white shadow-[0_6px_12px_rgba(0,0,0,0.3)] overflow-hidden flex items-center justify-center relative city-image-container">
-                            <div
-                                class="absolute inset-0 rounded-full shadow-[inset_0_4px_8px_rgba(255,255,255,0.9)] pointer-events-none z-10">
-                            </div>
-                            <img src="../../src/asset/images/vancouver.png" alt="Vancouver"
-                                class="object-cover w-full h-full z-0 city-bg" />
-                            <div class="event-preview absolute left-0 right-0 bottom-2 z-20 flex flex-col items-center">
-                            </div>
-                            <span
-                                class="absolute bottom-0 w-full text-center text-white text-xs sm:text-base font-semibold pb-4 pt-1 sm:pb-6 sm:pt-2 z-20 bg-gradient-to-t from-black/60 to-transparent city-name">Vancouver</span>
-                        </div>
-                    </div>
-
                     <!-- Vancouver -->
                     <div class="flex flex-col items-center min-w-[96px] sm:min-w-[120px]" data-city="Vancouver">
                         <div
@@ -259,7 +243,8 @@
 
             <!-- Featured Calendars Section -->
             <div class="mb-16 px-2">
-                <h1 class="font-bold flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient h-20 md:h-28">
+                <h1
+                    class="font-bold flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient h-20 md:h-28">
                     Featured Calendars
                 </h1>
 
@@ -284,26 +269,6 @@
     <script type="module" src="../../config/firebase.js"></script>
     <script type="module" src="../../js/event.js"></script>
     <script type="module" src="../../js/auth/signout.js"></script>
-
-    <!-- Temporary Migration Script -->
-    <script type="module">
-        import { migrateComments } from "../../js/migrateComments.js";
-
-        // Add migration button (temporary)
-        setTimeout(() => {
-            const migrationBtn = document.createElement("button");
-            migrationBtn.onclick = () => {
-                if (
-                    confirm(
-                        "Run comment migration? This will update existing comments with user information."
-                    )
-                ) {
-                    migrateComments();
-                }
-            };
-            document.body.appendChild(migrationBtn);
-        }, 2000);
-    </script>
 
     <!-- Authentication Guard -->
     <script type="module">
