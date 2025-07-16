@@ -61,6 +61,12 @@ async function loadPopularEvents() {
     const eventId = doc.id;
 
     const startTimeStr = formatDateTime(event.start_time);
+
+    const nameShort =
+      event.name?.length > 30
+        ? event.name.substring(0, 27) + "..."
+        : event.name || "";
+
     const descriptionShort =
       event.description?.length > 80
         ? event.description.substring(0, 77) + "..."
@@ -68,13 +74,13 @@ async function loadPopularEvents() {
 
     const card = document.createElement("div");
     card.className =
-      "flex items-center overflow-hidden cursor-pointer transition-all duration-300 rounded-2xl p-4";
+      "flex flex-col md:flex-row items-center gap-3 overflow-hidden bg-transparent rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer";
     card.innerHTML = `
-      <img src="${event.image_url}" alt="${event.name}" class="w-48 h-48 object-cover rounded-2xl flex-shrink-0 border border-[#3a3e4a]" />
-      <div class="p-6 flex flex-col justify-between flex-1 min-h-[192px]">
+      <img src="${event.image_url}" alt="${event.name}" class="w-full h-48 md:w-48 md:h-48 object-cover rounded-2xl overflow-hidden bg-gray-100 shrink-0" />
+      <div class="md:p-4 flex flex-col justify-between items-start flex-1">
         <div class="flex-1">
-          <h2 class="text-2xl font-bold text-gray-200 mb-3 leading-tight">${event.name}</h2>
-          <p class="text-base text-gray-400 leading-relaxed mb-6 line-clamp-3">${descriptionShort}</p>
+          <h2 class="text-2xl font-semibold text-gray-200">${nameShort}</h2>
+          <p class="text-base text-gray-400 mb-3 leading-relaxed">${descriptionShort}</p>
         </div>
         <div class="text-base text-gray-200 space-y-2">
           <p class="flex items-center text-gray-400">
@@ -121,13 +127,11 @@ async function loadUserCalendars() {
     card.className =
       "bg-white rounded-2xl p-5 overflow-hidden w-full shadow flex flex-col";
     card.innerHTML = `
-      <h2 class="text-2xl font-bold mb-4 text-[#3F434E]">${
-        event.name || "Untitled Event"
+      <h2 class="text-2xl font-bold mb-4 text-[#3F434E]">${event.name || "Untitled Event"
       }</h2>
       <div class="flex items-center gap-6 flex-1">
-        <img src="${
-          event.image_url || "../../src/asset/images/fea-cal-1.png"
-        }" alt="Card Image" class="w-40 h-40 object-cover rounded-2xl border border-gray-200" />
+        <img src="${event.image_url || "../../src/asset/images/fea-cal-1.png"
+      }" alt="Card Image" class="w-40 h-40 object-cover rounded-2xl border border-gray-200" />
         <div class="flex flex-col justify-center flex-1 h-full">
           <p class="text-lg text-gray-600 mb-6 line-clamp-4">${description}</p>
           <button class="bg-transparent rounded-full text-gray-700 font-semibold hover:text-white py-2 px-6 border border-gray-400 hover:bg-gray-700 hover:border-transparent transition w-full max-w-[180px] self-start">Subscribe</button>
@@ -168,8 +172,8 @@ function updateButtonState(button, isSubscribed) {
     button.textContent = "Subscribed";
     button.classList.add(
       "bg-gradient-to-r",
-      "from-[#F59275]",
-      "to-[#F1647A]",
+      "to-[#F59275]",
+      "from-[#F1647A]",
       "border-transparent"
     );
     button.classList.remove(
@@ -183,8 +187,8 @@ function updateButtonState(button, isSubscribed) {
     button.textContent = "Subscribe";
     button.classList.remove(
       "bg-gradient-to-r",
-      "from-[#F59275]",
-      "to-[#F1647A]",
+      "to-[#F59275]",
+      "from-[#F1647A]",
       "border-transparent"
     );
     button.classList.add(
@@ -268,7 +272,7 @@ async function loadFeaturedCalendars() {
   });
 
   if (userMap.size === 0) {
-    container.innerHTML = `<p class='text-gray-500 text-center'>No event creators found yet. Create your first event to appear here!</p>`;
+    container.innerHTML = `<p class='text-gray-400'>No event creators found yet...</p>`;
     return;
   }
 
@@ -276,28 +280,40 @@ async function loadFeaturedCalendars() {
   for (const [userId, user] of userMap) {
     const card = document.createElement("div");
     card.className =
-      "flex flex-col md:flex-row items-center bg-[#23243a] rounded-2xl shadow-lg p-6 mb-6 w-full max-w-2xl mx-auto transition hover:scale-[1.025] hover:shadow-2xl duration-200 min-h-[180px] border border-[#3a3e4a] cursor-pointer";
+      "bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-5 w-full max-w-2xl mx-auto mb-6 transition hover:scale-[1.02] hover:shadow-lg duration-200 border border-[#3a3e4a] cursor-pointer flex flex-col gap-4";
+
     card.innerHTML = `
-      <img src="${
-        user.profileImg
-      }" alt="Avatar" class="w-28 h-28 md:w-32 md:h-32 object-cover rounded-2xl mb-4 md:mb-0 md:mr-8 bg-gray-300 flex-shrink-0 border border-gray-700" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(
-      user.username
-    )}&background=random&size=128&color=fff'" />
-      <div class="flex flex-col flex-1 min-w-0">
-        <h2 class="text-2xl font-bold text-white mb-1 event-name truncate">${
-          user.username
-        }</h2>
-        <p class="text-gray-300 text-base mb-2 break-words line-clamp-3">${
-          user.bio
-        }</p>
-        <div class="flex items-center gap-4 mb-3 flex-wrap">
-          <span class="flex items-center text-gray-400 text-sm"><i class="fa-solid fa-user-group mr-2"></i> Event Creator</span>
+      <h2 class="text-xl font-semibold text-gray-100 truncate">${user.username}</h2>
+
+      <div class="flex flex-col sm:flex-row items-start gap-4">
+        <div class="w-full sm:w-32 h-32 flex-shrink-0 rounded-2xl overflow-hidden bg-gray-300">
+          <img 
+            src="${user.profileImg}" 
+            alt="${user.username}" 
+            class="w-full h-full object-cover"
+            onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(user.username)}&background=random&size=128&color=fff'" 
+          />
         </div>
-        <button class="subscribe-btn bg-[#23243a] border border-gray-400 rounded-full px-6 py-2 text-white font-semibold hover:bg-[#f1647a] hover:border-[#f1647a] transition w-fit mt-auto" data-user-id="${userId}" data-username="${
-      user.username
-    }">Subscribe</button>
+
+        <div class="flex flex-col justify-between flex-1 min-w-0 h-32">
+          <div>
+            <p class="text-sm text-gray-400 leading-tight mb-2 line-clamp-3">${user.bio}</p>
+            <div class="text-xs text-gray-500 flex items-center gap-2 mb-3">
+              <i class="fa-solid fa-user-group text-gray-400"></i> Event Creator
+            </div>
+          </div>
+
+          <button 
+            class="subscribe-btn border border-gray-600 cursor-pointer rounded-xl px-5 py-1.5 text-sm bg-[#2F364A] text-gray-200 hover:bg-[#f1647a] hover:border-[#f1647a] hover:text-white transition w-fit"
+            data-user-id="${userId}"
+            data-username="${user.username}"
+          >
+            Subscribe
+          </button>
+        </div>
       </div>
     `;
+
 
     // Add click handler for the entire card to navigate to user events
     card.addEventListener("click", (e) => {
@@ -409,20 +425,16 @@ function renderCityEvents(events, city) {
     card.className =
       "bg-white rounded-2xl p-5 overflow-hidden w-full shadow flex flex-col";
     card.innerHTML = `
-      <h2 class="text-2xl font-bold mb-4 text-[#3F434E]">${
-        event.name || "Untitled Event"
+      <h2 class="text-2xl font-bold mb-4 text-[#3F434E]">${event.name || "Untitled Event"
       }</h2>
       <div class="flex items-center gap-6 flex-1">
-        <img src="${
-          event.image_url || "../../src/asset/images/fea-cal-1.png"
-        }" alt="Card Image" class="w-40 h-40 object-cover rounded-2xl border border-gray-200" />
+        <img src="${event.image_url || "../../src/asset/images/fea-cal-1.png"
+      }" alt="Card Image" class="w-40 h-40 object-cover rounded-2xl border border-gray-200" />
         <div class="flex flex-col justify-center flex-1 h-full">
           <p class="text-lg text-gray-600 mb-6 line-clamp-4">${description}</p>
-          <button class="subscribe-event-btn bg-transparent rounded-full text-gray-700 font-semibold hover:text-white py-2 px-6 border border-gray-400 hover:bg-gray-700 hover:border-transparent transition w-full max-w-[180px] self-start" data-event-id="${
-            event.id || "unknown"
-          }" data-event-name="${
-      event.name || "Untitled Event"
-    }">Subscribe</button>
+          <button class="subscribe-event-btn bg-transparent rounded-full text-gray-700 font-semibold hover:text-white py-2 px-6 border border-gray-400 hover:bg-gray-700 hover:border-transparent transition w-full max-w-[180px] self-start" data-event-id="${event.id || "unknown"
+      }" data-event-name="${event.name || "Untitled Event"
+      }">Subscribe</button>
         </div>
       </div>
     `;
@@ -483,11 +495,9 @@ async function updateCityPreviews() {
     } else {
       const event = snapshot.docs[0].data();
       previewDiv.innerHTML = `
-        <img src="${
-          event.image_url || "../../src/asset/images/fea-cal-1.png"
+        <img src="${event.image_url || "../../src/asset/images/fea-cal-1.png"
         }" alt="Event" class="w-12 h-12 rounded-full border-2 border-white mx-auto" />
-        <div class="text-xs text-white text-center mt-1 truncate max-w-[80px]">${
-          event.name
+        <div class="text-xs text-white text-center mt-1 truncate max-w-[80px]">${event.name
         }</div>
       `;
     }
