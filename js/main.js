@@ -330,7 +330,7 @@ function createGameCard(game) {
     <div class="flex flex-col md:flex-row items-center gap-4 overflow-hidden bg-transparent rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer game-card" 
          data-game-id="${gameId}" 
          data-game-data='${JSON.stringify(game).replace(/'/g, "&apos;")}'>
-      <div class="w-full h-48 md:w-48 md:h-auto border rounded-2xl overflow-hidden bg-gray-100 shrink-0">
+      <div class="w-full h-48 md:w-48 md:h-auto rounded-2xl overflow-hidden bg-gray-100 shrink-0">
         ${image
       ? `<img src="${image}" alt="${name}" class="w-full h-full md:w-48 md:h-48 object-cover"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
