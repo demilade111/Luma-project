@@ -79,7 +79,7 @@ async function loadPopularEvents() {
       <img src="${event.image_url}" alt="${event.name}" class="w-full h-48 md:w-48 md:h-48 object-cover rounded-2xl overflow-hidden bg-gray-100 shrink-0" />
       <div class="md:p-4 flex flex-col justify-between items-start flex-1">
         <div class="flex-1">
-          <h2 class="text-2xl font-semibold text-gray-200">${nameShort}</h2>
+          <h2 class="text-2xl font-semibold text-gray-200 mb-2">${nameShort}</h2>
           <p class="text-base text-gray-400 mb-3 leading-relaxed">${descriptionShort}</p>
         </div>
         <div class="text-base text-gray-200 space-y-2">
