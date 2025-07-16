@@ -112,6 +112,7 @@
     <script src="../../js/hero-carousel.js" defer></script>
 
     <!-- Show overlay card on video 3 -->
+    <!-- Scripts -->
     <script>
         const overlayCard = document.getElementById("overlay-card");
         const videos = document.querySelectorAll("video");
@@ -129,23 +130,31 @@
                 vid.currentTime = 0;
             });
 
-            // Play the selected video
             videos[index].classList.remove("hidden");
             videos[index].play();
 
             currentVideoIndex = index;
 
-            // Show the overlay card only for the third video (index 2)
-            if (index === 2) {
-                overlayCard.classList.remove("opacity-0");
-                overlayCard.classList.add("opacity-100");
-            } else {
-                overlayCard.classList.remove("opacity-100");
-                overlayCard.classList.add("opacity-0");
-            }
+            // We no longer manually toggle overlay here — handled by play/pause events
         };
 
-        // Initially show the first video
+        // Listen for third video playing to show overlay
+        part3.addEventListener("play", () => {
+            overlayCard.classList.remove("opacity-0");
+            overlayCard.classList.add("opacity-100");
+        });
+
+        part3.addEventListener("pause", () => {
+            overlayCard.classList.remove("opacity-100");
+            overlayCard.classList.add("opacity-0");
+        });
+
+        part3.addEventListener("ended", () => {
+            overlayCard.classList.remove("opacity-100");
+            overlayCard.classList.add("opacity-0");
+        });
+
+        // Initial video setup
         showVideo(currentVideoIndex);
 
         nextBtn.addEventListener("click", () => {
@@ -161,18 +170,25 @@
         });
 
         replayBtn.addEventListener("click", () => {
-            videos[currentVideoIndex].currentTime = 0;
-            videos[currentVideoIndex].play();
+            const current = videos[currentVideoIndex];
+            current.currentTime = 0;
+            current.play();
+        });
 
-            if (currentVideoIndex === 2) {
-                overlayCard.classList.remove("opacity-0");
-                overlayCard.classList.add("opacity-100");
-            } else {
-                overlayCard.classList.remove("opacity-100");
-                overlayCard.classList.add("opacity-0");
-            }
+        // Allow play when clicking the play button over poster
+        document.querySelectorAll(".play-buttons").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                showVideo(currentVideoIndex);
+            });
         });
     </script>
+
+    <!-- Auth -->
+    <script type="module">
+        import { initAuthGuard } from "../../js/auth/authGuard.js";
+        initAuthGuard();
+    </script>
+
 
 
     <!-- Auth -->
