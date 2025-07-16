@@ -274,7 +274,7 @@ function updatePageContent(user, events) {
   }
 
   // Update events section
-  const eventsContainer = document.querySelector(".grid.grid-rows-5");
+  const eventsContainer = document.getElementById("user-events-container");
   if (!eventsContainer) return;
 
   eventsContainer.innerHTML = "";
@@ -288,6 +288,13 @@ function updatePageContent(user, events) {
     `;
     return;
   }
+
+  // const profileUsername = document.getElementById("profile-username");
+  // profileUsername.textContent = user.username;
+
+  // Update profile Bio
+  const profileBio = document.getElementById("profile-bio");
+  profileBio.textContent = `Discover ${user.username}'s events happening around you with the interactive map.`;
 
   events.forEach((event, index) => {
     const eventTypes = [
@@ -303,6 +310,11 @@ function updatePageContent(user, events) {
       ? formatDateTime(event.start_time)
       : "TBD";
 
+    const nameShort =
+      event.name?.length > 30
+        ? event.name.substring(0, 27) + "..."
+        : event.name || "";
+
     const eventDiv = document.createElement("div");
     eventDiv.className = "flex flex-col gap-1";
     eventDiv.innerHTML = `
@@ -310,19 +322,19 @@ function updatePageContent(user, events) {
         <span class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-gray-200 border-2 border-white shadow -ml-[15px] sm:-ml-[26.5px]"></span>
         <h4 class="text-sm text-gray-500 ml-2">${eventType}</h4>
       </div>
-      <div class="bg-[#262C3D] shadow-md shadow-[#262C3D] rounded-xl p-4 text-white min-h-[160px] sm:min-h-[180px] flex flex-col justify-center cursor-pointer hover:bg-[#2F364A] transition-colors" onclick="window.location.href='post-event-details.html?id=${
+      <div class="bg-[#262C3D] shadow-md shadow-[#262C3D] rounded-xl p-4 text-white min-h-[150px] sm:min-h-[170px] flex flex-col justify-center cursor-pointer hover:bg-[#2F364A] transition-colors" onclick="window.location.href='post-event-details.html?id=${
         event.id
       }'">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
           <div class="flex flex-col justify-center">
-            <div class="text-sm text-gray-300 mb-2">Date: ${startTimeStr}</div>
-            <div class="text-xl font-bold luma-gradient mb-2">${
-              event.name
+            <div class="text-xs text-gray-300 mb-2">Date: ${startTimeStr}</div>
+            <div class="text-base font-bold luma-gradient mb-2">${
+              nameShort
             }</div>
-            <div class="text-sm text-gray-300 mb-2">Author: ${
+            <div class="text-xs text-gray-300 mb-2">Author: ${
               user.username
             }</div>
-            <div class="text-sm text-gray-300">Location: ${event.location}</div>
+            <div class="text-xs font-medium text-gray-300">Location: ${event.location}</div>
           </div>
           <div class="flex items-center justify-center">
             <img src="${
@@ -432,7 +444,7 @@ async function initUserEventsPage() {
     updatePageContent(user, events);
 
     // Add subscribe button functionality and check subscription status
-    const subscribeBtn = document.querySelector("button");
+    const subscribeBtn = document.getElementById("profile-subscribe-btn");
     if (subscribeBtn && subscribeBtn.textContent.includes("Subscribe")) {
       console.log("Setting up subscribe button...");
       // Check if user is already subscribed
