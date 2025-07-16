@@ -16,8 +16,7 @@ import { getCurrentUser } from "./auth/authGuard.js";
 function getUserIdFromUrl() {
   const urlParams = new URLSearchParams(window.location.search);
   const userId = urlParams.get("id");
-  console.log("URL parameters:", window.location.search);
-  console.log("Extracted user ID from URL:", userId);
+
   return userId;
 }
 
@@ -35,12 +34,12 @@ function formatDateTime(timestamp) {
 
 // Load user information
 async function loadUserInfo(userId) {
-  console.log("Loading user info for ID:", userId);
+
   try {
     const userDoc = await getDoc(doc(db, "users", userId));
     if (userDoc.exists()) {
       const userData = userDoc.data();
-      console.log("User data loaded from Firestore:", userData);
+     
 
       const getEmail = (email) => {
         if (!email) return "";
