@@ -127,11 +127,13 @@ async function loadUserCalendars() {
     card.className =
       "bg-white rounded-2xl p-5 overflow-hidden w-full shadow flex flex-col";
     card.innerHTML = `
-      <h2 class="text-2xl font-bold mb-4 text-[#3F434E]">${event.name || "Untitled Event"
+      <h2 class="text-2xl font-bold mb-4 text-[#3F434E]">${
+        event.name || "Untitled Event"
       }</h2>
       <div class="flex items-center gap-6 flex-1">
-        <img src="${event.image_url || "../../src/asset/images/fea-cal-1.png"
-      }" alt="Card Image" class="w-40 h-40 object-cover rounded-2xl border border-gray-200" />
+        <img src="${
+          event.image_url || "../../src/asset/images/fea-cal-1.png"
+        }" alt="Card Image" class="w-40 h-40 object-cover rounded-2xl border border-gray-200" />
         <div class="flex flex-col justify-center flex-1 h-full">
           <p class="text-lg text-gray-600 mb-6 line-clamp-4">${description}</p>
           <button class="bg-transparent rounded-full text-gray-700 font-semibold hover:text-white py-2 px-6 border border-gray-400 hover:bg-gray-700 hover:border-transparent transition w-full max-w-[180px] self-start">Subscribe</button>
@@ -283,7 +285,9 @@ async function loadFeaturedCalendars() {
       "bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-5 w-full max-w-2xl mx-auto mb-6 transition hover:scale-[1.02] hover:shadow-lg duration-200 border border-[#3a3e4a] cursor-pointer flex flex-col gap-4";
 
     card.innerHTML = `
-      <h2 class="text-xl font-semibold text-gray-100 truncate">${user.username}</h2>
+      <h2 class="text-xl font-semibold text-gray-100 truncate">${
+        user.username
+      }</h2>
 
       <div class="flex flex-col sm:flex-row items-start gap-4">
         <div class="w-full sm:w-32 h-32 flex-shrink-0 rounded-2xl overflow-hidden bg-gray-300">
@@ -291,13 +295,17 @@ async function loadFeaturedCalendars() {
             src="${user.profileImg}" 
             alt="${user.username}" 
             class="w-full h-full object-cover"
-            onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(user.username)}&background=random&size=128&color=fff'" 
+            onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(
+              user.username
+            )}&background=random&size=128&color=fff'" 
           />
         </div>
 
         <div class="flex flex-col justify-between flex-1 min-w-0 h-32">
           <div>
-            <p class="text-sm text-gray-400 leading-tight mb-2 line-clamp-3">${user.bio}</p>
+            <p class="text-sm text-gray-400 leading-tight mb-2 line-clamp-3">${
+              user.bio
+            }</p>
             <div class="text-xs text-gray-500 flex items-center gap-2 mb-3">
               <i class="fa-solid fa-user-group text-gray-400"></i> Event Creator
             </div>
@@ -313,7 +321,6 @@ async function loadFeaturedCalendars() {
         </div>
       </div>
     `;
-
 
     // Add click handler for the entire card to navigate to user events
     card.addEventListener("click", (e) => {
@@ -425,16 +432,20 @@ function renderCityEvents(events, city) {
     card.className =
       "bg-white rounded-2xl p-5 overflow-hidden w-full shadow flex flex-col";
     card.innerHTML = `
-      <h2 class="text-2xl font-bold mb-4 text-[#3F434E]">${event.name || "Untitled Event"
+      <h2 class="text-2xl font-bold mb-4 text-[#3F434E]">${
+        event.name || "Untitled Event"
       }</h2>
       <div class="flex items-center gap-6 flex-1">
-        <img src="${event.image_url || "../../src/asset/images/fea-cal-1.png"
-      }" alt="Card Image" class="w-40 h-40 object-cover rounded-2xl border border-gray-200" />
+        <img src="${
+          event.image_url || "../../src/asset/images/fea-cal-1.png"
+        }" alt="Card Image" class="w-40 h-40 object-cover rounded-2xl border border-gray-200" />
         <div class="flex flex-col justify-center flex-1 h-full">
           <p class="text-lg text-gray-600 mb-6 line-clamp-4">${description}</p>
-          <button class="subscribe-event-btn bg-transparent rounded-full text-gray-700 font-semibold hover:text-white py-2 px-6 border border-gray-400 hover:bg-gray-700 hover:border-transparent transition w-full max-w-[180px] self-start" data-event-id="${event.id || "unknown"
-      }" data-event-name="${event.name || "Untitled Event"
-      }">Subscribe</button>
+          <button class="subscribe-event-btn bg-transparent rounded-full text-gray-700 font-semibold hover:text-white py-2 px-6 border border-gray-400 hover:bg-gray-700 hover:border-transparent transition w-full max-w-[180px] self-start" data-event-id="${
+            event.id || "unknown"
+          }" data-event-name="${
+      event.name || "Untitled Event"
+    }">Subscribe</button>
         </div>
       </div>
     `;
@@ -495,9 +506,11 @@ async function updateCityPreviews() {
     } else {
       const event = snapshot.docs[0].data();
       previewDiv.innerHTML = `
-        <img src="${event.image_url || "../../src/asset/images/fea-cal-1.png"
+        <img src="${
+          event.image_url || "../../src/asset/images/fea-cal-1.png"
         }" alt="Event" class="w-12 h-12 rounded-full border-2 border-white mx-auto" />
-        <div class="text-xs text-white text-center mt-1 truncate max-w-[80px]">${event.name
+        <div class="text-xs text-white text-center mt-1 truncate max-w-[80px]">${
+          event.name
         }</div>
       `;
     }
@@ -525,7 +538,10 @@ async function initializeEventPage() {
       card.style.cursor = "pointer";
       card.addEventListener("click", () => {
         const city = card.getAttribute("data-city");
-        fetchCityEvents(city);
+        // Redirect to city-events.html with the city as a parameter
+        window.location.href = `city-events.html?city=${encodeURIComponent(
+          city
+        )}`;
       });
     });
 
