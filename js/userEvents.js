@@ -34,16 +34,14 @@ function formatDateTime(timestamp) {
 
 // Load user information
 async function loadUserInfo(userId) {
-
   try {
     const userDoc = await getDoc(doc(db, "users", userId));
     if (userDoc.exists()) {
       const userData = userDoc.data();
-     
 
       const getEmail = (email) => {
         if (!email) return "";
-        const [localPart, domain] = email.split('@');
+        const [localPart, domain] = email.split("@");
         return `${localPart}`;
       };
 
@@ -328,13 +326,13 @@ function updatePageContent(user, events) {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
           <div class="flex flex-col justify-center">
             <div class="text-xs text-gray-300 mb-2">Date: ${startTimeStr}</div>
-            <div class="text-base font-bold luma-gradient mb-2">${
-              nameShort
-            }</div>
+            <div class="text-base font-bold luma-gradient mb-2">${nameShort}</div>
             <div class="text-xs text-gray-300 mb-2">Author: ${
               user.username
             }</div>
-            <div class="text-xs font-medium text-gray-300">Location: ${event.location}</div>
+            <div class="text-xs font-medium text-gray-300">Location: ${
+              event.location
+            }</div>
           </div>
           <div class="flex items-center justify-center">
             <img src="${
@@ -459,6 +457,9 @@ async function initUserEventsPage() {
     }
 
     console.log("User events page initialization complete");
+
+    // Dispatch custom event to notify map that content is ready
+    document.dispatchEvent(new CustomEvent("userEventsLoaded"));
   } catch (error) {
     console.error("Error initializing user events page:", error);
   }

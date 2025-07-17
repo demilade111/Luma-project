@@ -315,10 +315,7 @@ function createGameCard(game) {
   const gameId = game.id || "";
 
   // Truncate description if too long
-  const truncatedName =
-    name.length > 30
-      ? name.substring(0, 27) + "..."
-      : name;
+  const truncatedName = name.length > 30 ? name.substring(0, 27) + "..." : name;
 
   // Truncate description if too long
   const truncatedDescription =
@@ -331,42 +328,48 @@ function createGameCard(game) {
          data-game-id="${gameId}" 
          data-game-data='${JSON.stringify(game).replace(/'/g, "&apos;")}'>
       <div class="w-full h-48 md:w-48 md:h-48 object-cover rounded-2xl overflow-hidden bg-gray-100 shrink-0">
-        ${image
-      ? `<img src="${image}" alt="${name}" class="w-full h-full md:w-48 md:h-48 object-cover"
+        ${
+          image
+            ? `<img src="${image}" alt="${name}" class="w-full h-full md:w-48 md:h-48 object-cover"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
             <div class="w-full h-full flex items-center justify-center text-gray-400" style="display:none;">
               <i class="fas fa-dice text-3xl"></i>
             </div>`
-      : `<div class="w-full h-full flex items-center justify-center text-gray-400">
+            : `<div class="w-full h-full flex items-center justify-center text-gray-400">
               <i class="fas fa-dice text-3xl"></i>
             </div>`
-    }
+        }
       </div>
 
       <div class="md:p-4 flex flex-col justify-between items-start flex-1">
         <div class="w-full">
           <div class="flex justify-between items-start mb-2">
             <h2 class="text-2xl font-semibold text-gray-200">${truncatedName}</h2>
-            ${year ? `<span class="text-sm text-gray-500 hidden">${year}</span>` : ""}
+            ${
+              year
+                ? `<span class="text-sm text-gray-500 hidden">${year}</span>`
+                : ""
+            }
           </div>
           
           <p class="text-base text-gray-400 mb-3 leading-relaxed">
             ${truncatedDescription}
           </p>
           
-          ${categories.length > 0
-      ? `<div class="flex flex-wrap gap-1 mb-3">
+          ${
+            categories.length > 0
+              ? `<div class="flex flex-wrap gap-1 mb-3">
               ${categories
-        .slice(0, 3)
-        .map(
-          (cat) =>
-            `<span class="px-2 py-1 text-xs bg-blue-100 text-gray-700 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
+                .slice(0, 3)
+                .map(
+                  (cat) =>
+                    `<span class="px-2 py-1 text-xs bg-blue-100 text-gray-700 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
                        data-category="${cat}">${cat}</span>`
-        )
-        .join("")}
+                )
+                .join("")}
             </div>`
-      : ""
-    }
+              : ""
+          }
           
           <div class="flex items-center gap-6 text-sm text-gray-400">
             <div class="flex items-center gap-1">
@@ -375,22 +378,25 @@ function createGameCard(game) {
             </div>
             <div class="flex items-center gap-1">
               <i class="fas fa-users"></i>
-              <span>${minPlayers}${maxPlayers !== minPlayers ? `-${maxPlayers}` : ""
-    }</span>
+              <span>${minPlayers}${
+    maxPlayers !== minPlayers ? `-${maxPlayers}` : ""
+  }</span>
             </div>
-            ${rating !== "?"
-      ? `<div class="flex items-center gap-1">
+            ${
+              rating !== "?"
+                ? `<div class="flex items-center gap-1">
                 <i class="fas fa-star text-yellow-500"></i>
                 <span>${rating}</span>
               </div>`
-      : ""
-    }
-            ${age !== "?"
-      ? `<div class="border border-gray-400 rounded-full px-2 py-1">
+                : ""
+            }
+            ${
+              age !== "?"
+                ? `<div class="border border-gray-400 rounded-full px-2 py-1">
                 <span>${age}+</span>
               </div>`
-      : ""
-    }
+                : ""
+            }
           </div>
         </div>
       </div>
@@ -413,10 +419,12 @@ function renderRandomGames(games) {
 
       const isNightCafe = name === "The Night Cage";
 
-      const truncatedName = name.length > 26 ? name.substring(0, 23) + "..." : name;
-      const truncatedDescription = description.length > 60
-        ? description.substring(0, 57) + "..."
-        : description;
+      const truncatedName =
+        name.length > 26 ? name.substring(0, 23) + "..." : name;
+      const truncatedDescription =
+        description.length > 60
+          ? description.substring(0, 57) + "..."
+          : description;
 
       const disabledAttr = isNightCafe ? "" : "disabled";
       const buttonClasses = isNightCafe
@@ -428,12 +436,13 @@ function renderRandomGames(games) {
           <h3 class="text-lg font-semibold mb-4 text-gray-200">${truncatedName}</h3>
           <div class="flex gap-4">
             <div class="w-32 h-32 rounded-2xl overflow-hidden bg-gray-300">
-              ${image
-          ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling?.style.display='flex'">`
-          : `<div class="w-full h-full flex items-center justify-center text-gray-400">
+              ${
+                image
+                  ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling?.style.display='flex'">`
+                  : `<div class="w-full h-full flex items-center justify-center text-gray-400">
                       <i class="fas fa-dice text-3xl"></i>
                     </div>`
-        }
+              }
             </div>
             <div class="text-button flex flex-col justify-between h-32 w-32">
               <p class="text-sm text-gray-400 leading-tight">${truncatedDescription}</p>
@@ -504,8 +513,6 @@ export async function loadRandomGames() {
     gamesContainer.classList.add("hidden");
   }
 }
-
-
 
 function setupGamesPage() {
   // Only run on games page
@@ -1361,12 +1368,15 @@ async function renderTrendingEvents() {
     snapshot.forEach((docSnap) => {
       const event = docSnap.data();
       const card = document.createElement("div");
-      card.className = "relative cursor-pointer flex-shrink-0 w-[45vw] sm:w-[200px] md:w-[250px] h-[320px] sm:h-[380px] md:h-[400px]";
+      card.className =
+        "relative cursor-pointer flex-shrink-0 w-[45vw] sm:w-[200px] md:w-[250px] h-[320px] sm:h-[380px] md:h-[400px]";
       card.innerHTML = `
   <div class="absolute inset-0 opacity-50 rounded-[30px] translate-x-4 translate-y-4 blur-lg z-0"></div>
   <div
     class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat z-10 w-full h-full"
-    style="background-image: url('${event.image_url || "../../src/asset/images/fea-cal-1.png"}');"
+    style="background-image: url('${
+      event.image_url || "../../src/asset/images/fea-cal-1.png"
+    }');"
   ></div>
 `;
 
@@ -1394,12 +1404,15 @@ async function renderUpcomingEvents() {
     snapshot.forEach((docSnap) => {
       const event = docSnap.data();
       const card = document.createElement("div");
-      card.className = "relative cursor-pointer flex-shrink-0 w-[45vw] sm:w-[200px] md:w-[250px] h-[320px] sm:h-[380px] md:h-[400px]";
+      card.className =
+        "relative cursor-pointer flex-shrink-0 w-[45vw] sm:w-[200px] md:w-[250px] h-[320px] sm:h-[380px] md:h-[400px]";
       card.innerHTML = `
   <div class="absolute inset-0 opacity-50 rounded-[30px] translate-x-4 translate-y-4 blur-lg z-0"></div>
   <div
     class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat z-10 w-full h-full"
-    style="background-image: url('${event.image_url || "../../src/asset/images/fea-cal-1.png"}');"
+    style="background-image: url('${
+      event.image_url || "../../src/asset/images/fea-cal-1.png"
+    }');"
   ></div>
 `;
       card.onclick = () => {
@@ -1421,9 +1434,9 @@ function getCurrentUser() {
   // Use your existing auth logic or fallback
   return auth.currentUser
     ? {
-      userId: auth.currentUser.uid,
-      email: auth.currentUser.email,
-    }
+        userId: auth.currentUser.uid,
+        email: auth.currentUser.email,
+      }
     : null;
 }
 
@@ -1531,49 +1544,95 @@ function renderGameComments(comments, grid) {
     wrapper.appendChild(div);
     gameCommentGrid.appendChild(wrapper);
   });
-
 }
 
 async function renderSuggestedGames() {
   const section = document.getElementById("suggestedGamesSection");
   const grid = document.getElementById("suggestedGamesGrid");
   if (!grid || !section) return;
+
   grid.innerHTML = "";
   const user = getCurrentUser();
   const currentGameId = getGameIdFromUrl();
+
   if (!user || !user.userId) {
     section.style.display = "none";
     return;
-  } else {
-    section.style.display = "";
   }
-  // Fetch user categories
+
+  // Fetch user categories from preferences
   let userDoc;
   try {
     userDoc = await getDoc(doc(db, "users", user.userId));
   } catch (e) {
+    console.error("Error fetching user document:", e);
     userDoc = null;
   }
+
   const categories = userDoc?.exists() ? userDoc.data().categories || [] : [];
+
+  // If user has no categories, hide the suggested games section
+  if (!categories || categories.length === 0) {
+    section.style.display = "none";
+    return;
+  }
+
+  // Show the section if user has categories
+  section.style.display = "";
+
   // Fetch bookmarks
-  const bookmarksSnap = await getDocs(
-    collection(db, "users", user.userId, "bookmarks")
-  );
+  let bookmarksSnap;
+  try {
+    bookmarksSnap = await getDocs(
+      collection(db, "users", user.userId, "bookmarks")
+    );
+  } catch (e) {
+    console.error("Error fetching bookmarks:", e);
+    bookmarksSnap = { docs: [] };
+  }
   const bookmarkedIds = bookmarksSnap.docs.map((d) => d.id);
+
   // Fetch tutorials watched (optional, fallback to empty array)
   let tutorialsWatched = [];
   if (userDoc?.exists() && userDoc.data().tutorialsWatched) {
     tutorialsWatched = userDoc.data().tutorialsWatched;
   }
+
   // Collect all prioritized game IDs
   const prioritizedIds = Array.from(
     new Set([...bookmarkedIds, ...tutorialsWatched])
   );
-  // Fetch all games
-  const gamesSnap = await getDocs(collection(db, "games"));
-  let games = gamesSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
-  // Remove current game
+
+  // Fetch all games using gameService
+  let games = [];
+  try {
+    const gameService = window.gameService;
+    if (!gameService) {
+      console.error("GameService not available");
+      grid.innerHTML =
+        '<p class="text-gray-400">Game service not available.</p>';
+      return;
+    }
+
+    const result = await gameService.getAllGames();
+    if (result.success) {
+      games = result.games || [];
+    } else {
+      console.error("Failed to fetch games:", result.error);
+      grid.innerHTML =
+        '<p class="text-gray-400">Failed to load suggested games.</p>';
+      return;
+    }
+  } catch (e) {
+    console.error("Error fetching games:", e);
+    grid.innerHTML =
+      '<p class="text-gray-400">Failed to load suggested games.</p>';
+    return;
+  }
+
+  // Remove current game from suggestions
   games = games.filter((g) => g.id !== currentGameId);
+
   // Prioritize: bookmarks & tutorials first, then category matches
   const prioritizedGames = games.filter((g) => prioritizedIds.includes(g.id));
   const categoryGames = games.filter(
@@ -1582,21 +1641,29 @@ async function renderSuggestedGames() {
       g.categories &&
       g.categories.some((cat) => categories.includes(cat))
   );
+
   // Combine and limit
   const suggested = [...prioritizedGames, ...categoryGames].slice(0, 10);
+
   if (!suggested.length) {
-    grid.innerHTML = '<p class="text-gray-400">No suggestions found.</p>';
+    grid.innerHTML =
+      '<p class="text-gray-400">No games found matching your preferences.</p>';
     return;
   }
+
+  // Render suggested games
   suggested.forEach((game) => {
     const card = document.createElement("div");
     card.className =
-      "rounded-2xl overflow-hidden shadow bg-white flex-shrink-0";
+      "rounded-2xl overflow-hidden shadow bg-white flex-shrink-0 cursor-pointer hover:scale-105 transition-transform";
     card.style.width = "180px";
     card.style.height = "180px";
     card.innerHTML = `
-      <img src="${game.image || game.thumbnail || "../../src/asset/images/placeholder.png"
-      }" alt="${game.name}" class="w-full h-full object-cover" />
+      <img src="${
+        game.image || game.thumbnail || "../../src/asset/images/placeholder.png"
+      }" 
+           alt="${game.name}" 
+           class="w-full h-full object-cover" />
     `;
     card.onclick = () => {
       localStorage.setItem("selectedGame", JSON.stringify(game));
