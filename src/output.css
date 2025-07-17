@@ -1449,6 +1449,10 @@
   .aspect-video {
     aspect-ratio: var(--aspect-video);
   }
+  .size-5 {
+    width: calc(var(--spacing) * 5);
+    height: calc(var(--spacing) * 5);
+  }
   .h-0 {
     height: calc(var(--spacing) * 0);
   }
@@ -3130,6 +3134,9 @@
     @supports (color: color-mix(in lab, red, red)) {
       color: color-mix(in oklab, var(--color-zinc-300) 40%, transparent);
     }
+  }
+  .uppercase {
+    text-transform: uppercase;
   }
   .underline {
     text-decoration-line: underline;
