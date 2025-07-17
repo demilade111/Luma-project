@@ -1,28 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luma</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Luma</title>
-</head>
+    <!-- PWA Meta Tags -->
+    <meta
+      name="description"
+      content="Discover, organize, and connect with board game enthusiasts"
+    />
+    <meta name="theme-color" content="#F59275" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Luma" />
+    <meta name="msapplication-TileColor" content="#F59275" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
 
-<body>
-  <script type="module">
-    import { auth } from "./config/firebase.js";
-    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
 
-    // Check authentication state
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is logged in, redirect to home
-        window.location.href = "/views/home/index.html";
-      } else {
-        // User is not logged in, redirect to login
-        window.location.href = "/views/auth/login.html";
-      }
-    });
-  </script>
-</body>
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/src/asset/images/logo.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="/src/asset/images/logo.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/src/asset/images/logo.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="167x167"
+      href="/src/asset/images/logo.png"
+    />
 
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/src/asset/images/logo.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/src/asset/images/logo.png"
+    />
+    <link rel="shortcut icon" href="/src/asset/images/logo.png" />
+  </head>
+
+  <body>
+    <!-- PWA Script -->
+    <script src="/js/pwa.js"></script>
+
+    <script type="module">
+      import { auth } from "./config/firebase.js";
+      import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+      // Check authentication state
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is logged in, redirect to home
+          window.location.href = "/views/home/index.html";
+        } else {
+          // User is not logged in, redirect to login
+          window.location.href = "/views/auth/login.html";
+        }
+      });
+    </script>
+  </body>
 </html>

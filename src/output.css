@@ -1846,6 +1846,12 @@
   .max-w-lg {
     max-width: var(--container-lg);
   }
+  .max-w-md {
+    max-width: var(--container-md);
+  }
+  .max-w-sm {
+    max-width: var(--container-sm);
+  }
   .max-w-xl {
     max-width: var(--container-xl);
   }
@@ -3045,6 +3051,12 @@
   .text-\[\#5E5E5E\] {
     color: #5E5E5E;
   }
+  .text-\[\#F1647A\] {
+    color: #F1647A;
+  }
+  .text-\[\#F59275\] {
+    color: #F59275;
+  }
   .text-\[\#FFA489\] {
     color: #FFA489;
   }
@@ -3650,6 +3662,13 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-gray-50);
+      }
+    }
+  }
+  .hover\:bg-gray-100 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-gray-100);
       }
     }
   }
