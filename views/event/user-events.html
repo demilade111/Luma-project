@@ -1,180 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luma | City Events</title>
-    <link href="../../src/output.css" rel="stylesheet" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luma | City Events</title>
+  <link href="../../src/output.css" rel="stylesheet" />
 
-    <!-- Leaflet CSS -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin=""
-    />
-  </head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
-  <body class="bg-gray-100">
-    <div data-component="sidebar"></div>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+</head>
 
-    <div class="flex min-h-screen">
-      <!-- Main Content Area -->
-      <div class="flex-1 flex flex-col md:ml-[80px]">
-        <main class="flex-1">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
-            <!-- Featured Section with overlayed text -->
-            <div class="col-span-1 sm:col-span-2 h-[50vh] sm:h-[90vh] relative">
-              <!-- Overlayed text content -->
-              <div
-                class="absolute inset-0 flex flex-col justify-center items-start px-6 sm:px-16 z-10"
-              >
-                <h4
-                  id="user-events-heading"
-                  class="text-lg md:text-xl text-gray-200 mb-2 px-3 py-1 font-light"
-                >
-                  What’s Happening with
-                </h4>
-                <h1
-                  class="text-3xl sm:text-5xl font-bold text-gray-100 mb-4 px-3 py-2"
-                >
-                  Processing...
-                </h1>
-                <p
-                  class="text-gray-300 text-sm sm:text-lg mb-6 max-w-xl px-3 py-2"
-                >
-                  Processing...
-                </p>
-                <div class="px-3 mt-3">
-                  <button
-                    id="profile-subscribe-btn"
-                    class="border border-gray-700 text-base rounded-full px-6 py-2 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
-                  >
-                    Subscribe
-                  </button>
-                </div>
+<body class="bg-gray-100">
+  <div data-component="sidebar"></div>
+
+  <div class="flex min-h-screen">
+    <!-- Main Content Area -->
+    <div class="flex-1 flex flex-col md:ml-[80px]">
+      <main class="flex-1">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
+          <!-- Featured Section with overlayed text -->
+          <div class="col-span-1 sm:col-span-2 h-[50vh] sm:h-[90vh] relative">
+            <!-- Overlayed text content -->
+            <div class="absolute inset-0 flex flex-col justify-center items-start px-6 sm:px-16 z-10">
+              <h4 id="user-events-heading" class="text-lg md:text-xl text-gray-200 mb-2 px-3 py-1 font-light">
+                What’s Happening with
+              </h4>
+              <h1 class="text-3xl sm:text-5xl font-bold text-gray-100 mb-4 px-3 py-2">
+                Processing...
+              </h1>
+              <p class="text-gray-300 text-sm sm:text-lg mb-6 max-w-xl px-3 py-2">
+                Processing...
+              </p>
+              <div class="px-3 mt-3">
+                <button id="profile-subscribe-btn"
+                  class="border border-gray-700 text-base rounded-full px-6 py-2 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                  Subscribe
+                </button>
               </div>
-              <!-- Featured Image (full width) -->
-              <!-- <img src="/src/asset/images/user-events-cover.jpg" alt="Featured" class="w-full h-full object-cover" /> -->
+            </div>
+            <!-- Featured Image (full width) -->
+            <!-- <img src="/src/asset/images/user-events-cover.jpg" alt="Featured" class="w-full h-full object-cover" /> -->
 
-              <!-- Hero Image Container -->
-              <div class="relative w-full h-full overflow-hidden">
-                <!-- Hero Image -->
-                <img
-                  src="/src/asset/images/user-events-cover.jpg"
-                  alt="Hero"
-                  class="w-full h-full object-cover"
-                  id="heroImage"
-                />
+            <!-- Hero Image Container -->
+            <div class="relative w-full h-full overflow-hidden">
+              <!-- Hero Image -->
+              <img src="/src/asset/images/user-events-cover.jpg" alt="Hero" class="w-full h-full object-cover"
+                id="heroImage" />
 
-                <!-- Profile Image (overlay on top center) -->
-                <img
-                  src="/src/asset/images/kevin.png"
-                  alt="Profile"
-                  id="profileImage"
-                  class="absolute bottom-4 right-[10%] rounded-full w-72 h-72 object-cover"
-                />
-              </div>
+              <!-- Profile Image (overlay on top center) -->
+              <img src="/src/asset/images/kevin.png" alt="Profile" id="profileImage"
+                class="absolute bottom-4 right-[10%] rounded-full w-72 h-72 object-cover" />
+            </div>
 
-              <!-- Optionally, you can add a neutral background or gradient here -->
-              <div
-                class="absolute inset-0"
-                style="
+            <!-- Optionally, you can add a neutral background or gradient here -->
+            <div class="absolute inset-0" style="
                   background: linear-gradient(
                     to right,
                     rgba(19, 19, 19, 0.7) 40%,
                     lab(40.32% 0 -0.01 / 0.063) 60%
                   );
-                "
-              ></div>
-            </div>
+                "></div>
+          </div>
 
-            <!-- Content Section side-by-side on sm+ but stacked on smaller -->
-            <div
-              class="flex flex-col justify-start text-xl font-bold p-2 sm:pl-10 sm:mb-5"
-            >
-              <!-- Section Title -->
-              <h2 class="text-2xl font-bold text-gray-200 my-10">Events</h2>
-              <div
-                id="user-events-container"
-                class="grid gap-6 w-full px-2 sm:px-5 border-l-2 border-dotted border-gray-200"
-              >
-                <!-- Dynamic event cards will be injected here by JS -->
-              </div>
+          <!-- Content Section side-by-side on sm+ but stacked on smaller -->
+          <div class="flex flex-col justify-start text-xl font-bold p-2 sm:pl-10 sm:mb-5">
+            <!-- Section Title -->
+            <h2 class="text-2xl font-bold text-gray-200 my-10">Events</h2>
+            <div id="user-events-container"
+              class="grid gap-6 w-full px-2 sm:px-5 border-l-2 border-dotted border-gray-200">
+              <!-- Dynamic event cards will be injected here by JS -->
             </div>
+          </div>
 
-            <!-- Right-side user info panel -->
-            <div id="user-profile-panel" class="my-5 p-2 sm:pr-10">
+          <!-- Right-side user info panel -->
+          <div id="user-profile-panel" class="my-5 p-2 sm:pr-10">
+            <div class="sm:sticky sm:top-5 p-[2px] rounded-4xl bg-gradient-to-r from-[#f59275] to-[#f1647a]">
               <div
-                class="sm:sticky sm:top-5 p-[2px] rounded-4xl bg-gradient-to-r from-[#f59275] to-[#f1647a]"
-              >
-                <div
-                  class="flex flex-col text-xl font-bold px-8 pb-8 pt-2 rounded-4xl gap-3 bg-[#23243a] shadow-md bg-clip-padding"
-                >
-                  <h3
-                    id="profile-username"
-                    class="text-2xl mb-2 luma-gradient"
-                  ></h3>
-                  <p
-                    id="profile-bio"
-                    class="text-base font-medium text-gray-400 mb-2"
-                  ></p>
-                  <div class="flex justify-start">
-                    <!-- cut off the Subscribe btn -->
-                  </div>
-                  <div
-                    id="profile-map"
-                    class="rounded-xl shadow-md w-full h-72"
-                  ></div>
+                class="flex flex-col text-xl font-bold px-8 pb-8 pt-2 rounded-4xl gap-3 bg-[#23243a] shadow-md bg-clip-padding">
+                <h3 id="profile-username" class="text-2xl mb-2 luma-gradient"></h3>
+                <p id="profile-bio" class="text-base font-medium text-gray-400 mb-2"></p>
+                <div class="flex justify-start">
+                  <!-- cut off the Subscribe btn -->
                 </div>
+                <div id="profile-map" class="rounded-xl shadow-md w-full h-72"></div>
               </div>
             </div>
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
+  </div>
 
-    <div data-component="footer"></div>
+  <div data-component="footer"></div>
 
-    <script src="../../js/inject.js" defer></script>
+  <script src="../../js/inject.js" defer></script>
 
-    <!-- Leaflet JS -->
-    <script
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""
-    ></script>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-    <!-- User Events Script -->
-    <script type="module" src="../../js/userEvents.js"></script>
-    <script type="module" src="../../js/auth/signout.js"></script>
+  <!-- User Events Script -->
+  <script type="module" src="../../js/userEvents.js"></script>
+  <script type="module" src="../../js/auth/signout.js"></script>
 
-    <!-- Authentication Guard -->
-    <script type="module">
-      import { initAuthGuard } from "../../js/auth/authGuard.js";
-      initAuthGuard();
-    </script>
+  <!-- Authentication Guard -->
+  <script type="module">
+    import { initAuthGuard } from "../../js/auth/authGuard.js";
+    initAuthGuard();
+  </script>
 
-    <!-- Map Initialization Script -->
-    <script type="module">
-      import { db } from "../../config/firebase.js";
-      import {
-        collection,
-        getDocs,
-        query,
-        where,
-      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  <!-- Map Initialization Script -->
+  <script type="module">
+    import { db } from "../../config/firebase.js";
+    import {
+      collection,
+      getDocs,
+      query,
+      where,
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-      // Initialize map when page content is ready
-      let mapInitialized = false;
+    let mapInitialized = false;
 
-      document.addEventListener("DOMContentLoaded", async () => {
-        // Listen for custom event when userEvents.js finishes loading content
+    // Utility to wait for DOM element to exist
+    function waitForElement(selector, timeout = 3000) {
+      const interval = 100;
+      const maxTries = timeout / interval;
+      let tries = 0;
+
+      return new Promise((resolve, reject) => {
+        const timer = setInterval(() => {
+          const el = document.querySelector(selector);
+          if (el) {
+            clearInterval(timer);
+            resolve(el);
+          } else if (++tries >= maxTries) {
+            clearInterval(timer);
+            reject(new Error(`Timeout waiting for element: ${selector}`));
+          }
+        }, interval);
+      });
+    }
+
+    // Initialize map when DOM is ready
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        await waitForElement("#profile-map");
+
+        // Listen for userEventsLoaded (dispatched from userEvents.js)
         document.addEventListener("userEventsLoaded", async () => {
           if (!mapInitialized) {
             await initializeEventMap();
@@ -182,8 +158,8 @@
           }
         });
 
-        // Fallback: initialize map after 2 seconds if event doesn't fire
-        setTimeout(async () => {
+        // Fallback: initialize map after idle time if event doesn't fire
+        requestIdleCallback(async () => {
           if (
             !mapInitialized &&
             !document.querySelector("#profile-map .leaflet-container")
@@ -191,168 +167,120 @@
             await initializeEventMap();
             mapInitialized = true;
           }
-        }, 2000);
-      });
+        }, { timeout: 3000 });
 
-      async function initializeEventMap() {
-        const mapContainer = document.getElementById("profile-map");
-        if (!mapContainer) {
-          console.error("Map container not found");
-          return;
-        }
-
-        // Check if map is already initialized
-        if (document.querySelector("#profile-map .leaflet-container")) {
-          console.log("Map already initialized, skipping...");
-          return;
-        }
-
-        try {
-          // Initialize the map
-          const map = L.map("profile-map").setView([49.2827, -123.1207], 10); // Vancouver coordinates
-
-          // Add OpenStreetMap tiles
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution: "© OpenStreetMap contributors",
-          }).addTo(map);
-
-          // Get user ID from URL parameters
-          const urlParams = new URLSearchParams(window.location.search);
-          const userId = urlParams.get("id");
-
-          if (!userId) {
-            console.error("No user ID provided in URL");
-            return;
-          }
-
-          // Fetch events for the specific user from Firestore
-          const eventsCol = collection(db, "events");
-          const q = query(eventsCol, where("host_user_id", "==", userId));
-          const snapshot = await getDocs(q);
-
-          console.log(`Found ${snapshot.size} events for user ${userId}`);
-
-          const eventMarkers = [];
-          const usedCoordinates = new Set(); // Track used coordinates to avoid overlapping markers
-
-          // Simple fallback coordinates for events without location data
-          const defaultCoordinates = [49.2827, -123.1207]; // Vancouver
-
-          // Get username from the page header (set by userEvents.js)
-          const pageUsername =
-            document.querySelector("h1")?.textContent || "Anonymous User";
-
-          snapshot.forEach((doc) => {
-            const event = doc.data();
-            const eventLocation = event.location || "";
-
-            console.log(`Processing event: ${event.name} at ${eventLocation}`);
-
-            // Use the username from the page header since this is the user's events page
-            const username = pageUsername;
-
-            // Get coordinates from event data or use default
-            let coordinates = null;
-
-            if (event.coordinates?.latitude && event.coordinates?.longitude) {
-              coordinates = [
-                event.coordinates.latitude,
-                event.coordinates.longitude,
-              ];
-            } else if (event.latitude && event.longitude) {
-              coordinates = [event.latitude, event.longitude];
-            } else {
-              coordinates = defaultCoordinates;
-            }
-
-            if (coordinates) {
-              // Check if coordinates are already used and adjust slightly if needed
-              let finalCoordinates = coordinates;
-              let offset = 0;
-              const coordKey = `${coordinates[0]},${coordinates[1]}`;
-
-              while (usedCoordinates.has(coordKey + offset)) {
-                offset += 0.001; // Small offset to separate markers
-                finalCoordinates = [
-                  coordinates[0] + offset,
-                  coordinates[1] + offset,
-                ];
-              }
-
-              usedCoordinates.add(coordKey + offset);
-
-              console.log(
-                `Adding marker for "${event.name}" at:`,
-                finalCoordinates
-              );
-              const marker = L.marker(finalCoordinates)
-                .bindPopup(
-                  `
-                  <div style="min-width: 200px;">
-                    <h3 style="font-weight: bold; margin-bottom: 8px; color: #E5E7EB; font-size: 18px; text-align: center;">${username}</h3>
-                    <h4 style="font-weight: bold; margin-bottom: 5px; color: #F59275; font-size: 16px;">${
-                      event.name || "Untitled Event"
-                    }</h4>
-                    <p style="margin: 5px 0; color: #9CA3AF; font-size: 14px;">📍 ${
-                      event.location || "Location not specified"
-                    }</p>
-                    <p style="margin: 5px 0; font-size: 12px; color: #6B7280;">
-                      📅 ${
-                        event.start_time
-                          ? new Date(
-                              event.start_time.toDate()
-                            ).toLocaleDateString()
-                          : "Date TBD"
-                      }
-                    </p>
-                    <button onclick="window.location.href='post-event-details.html?id=${
-                      doc.id
-                    }'"
-                            style="background: #F59275; color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; margin-top: 8px; font-weight: 600; width: 100%;">
-                      View Details
-                    </button>
-                  </div>
-                `
-                )
-                .addTo(map);
-
-              eventMarkers.push(marker);
-            } else {
-              console.log(
-                `No coordinates found for event "${event.name}" with location: "${eventLocation}"`
-              );
-            }
-          });
-
-          // Fit map to show all markers
-          if (eventMarkers.length > 0) {
-            const group = new L.featureGroup(eventMarkers);
-            map.fitBounds(group.getBounds().pad(0.1));
-          } else {
-            // If no events found, add a default marker and show a message
-            console.log("No events found, adding default marker");
-            const defaultMarker = L.marker([49.2827, -123.1207])
-              .bindPopup(
-                `
-                <div style="min-width: 200px;">
-                  <h4 style="font-weight: bold; margin-bottom: 8px; color: #F59275; font-size: 14px;">No Events Yet</h4>
-                  <p style="margin: 5px 0; color: #666;">This user hasn't created any events yet.</p>
-                </div>
-              `
-              )
-              .addTo(map);
-            eventMarkers.push(defaultMarker);
-          }
-
-          console.log(
-            `Map initialized with ${eventMarkers.length} markers for user ${userId}`
-          );
-        } catch (error) {
-          console.error("Error initializing map:", error);
-          mapContainer.innerHTML =
-            '<p style="text-align: center; color: #666; padding: 20px;">Map loading failed</p>';
-        }
+      } catch (err) {
+        console.error("Error during map setup:", err);
       }
-    </script>
-  </body>
+    });
+
+    async function initializeEventMap() {
+      const mapContainer = document.getElementById("profile-map");
+      if (!mapContainer) {
+        console.error("Map container not found.");
+        return;
+      }
+
+      if (document.querySelector("#profile-map .leaflet-container")) {
+        console.log("Map already initialized. Skipping...");
+        return;
+      }
+
+      try {
+        const map = L.map("profile-map").setView([49.2827, -123.1207], 10);
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: "© OpenStreetMap contributors",
+        }).addTo(map);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get("id");
+
+        if (!userId) {
+          console.error("No user ID found in URL.");
+          return;
+        }
+
+        const eventsCol = collection(db, "events");
+        const q = query(eventsCol, where("host_user_id", "==", userId));
+        const snapshot = await getDocs(q);
+
+        console.log(`Found ${snapshot.size} events for user ${userId}`);
+        const eventMarkers = [];
+        const usedCoordinates = new Set();
+        const defaultCoordinates = [49.2827, -123.1207];
+        const username = document.querySelector("h1")?.textContent || "User";
+
+        snapshot.forEach((doc) => {
+          const event = doc.data();
+          let coordinates = null;
+
+          if (event.coordinates?.latitude && event.coordinates?.longitude) {
+            coordinates = [event.coordinates.latitude, event.coordinates.longitude];
+          } else if (event.latitude && event.longitude) {
+            coordinates = [event.latitude, event.longitude];
+          } else {
+            coordinates = defaultCoordinates;
+          }
+
+          let finalCoordinates = coordinates;
+          let offset = 0;
+          const coordKey = `${coordinates[0]},${coordinates[1]}`;
+
+          while (usedCoordinates.has(coordKey + offset)) {
+            offset += 0.001;
+            finalCoordinates = [
+              coordinates[0] + offset,
+              coordinates[1] + offset,
+            ];
+          }
+
+          usedCoordinates.add(coordKey + offset);
+
+          const marker = L.marker(finalCoordinates)
+            .bindPopup(`
+            <div style="min-width: 200px;">
+              <h3 style="text-align: center; font-weight: bold; color: #E5E7EB;">${username}</h3>
+              <h4 style="color: #F59275;">${event.name || "Untitled Event"}</h4>
+              <p style="color: #9CA3AF;">📍 ${event.location || "Location not specified"}</p>
+              <p style="color: #6B7280; font-size: 12px;">
+                📅 ${event.start_time ? new Date(event.start_time.toDate()).toLocaleDateString() : "Date TBD"}
+              </p>
+              <button onclick="window.location.href='post-event-details.html?id=${doc.id}'"
+                      style="margin-top: 8px; background: #F59275; color: white; padding: 8px 16px; border-radius: 8px; font-weight: 600;">
+                View Details
+              </button>
+            </div>
+          `)
+            .addTo(map);
+
+          eventMarkers.push(marker);
+        });
+
+        if (eventMarkers.length > 0) {
+          const group = new L.featureGroup(eventMarkers);
+          map.fitBounds(group.getBounds().pad(0.1));
+        } else {
+          console.log("No events found, showing fallback marker.");
+          const fallback = L.marker(defaultCoordinates)
+            .bindPopup(`
+            <div style="min-width: 200px;">
+              <h4 style="color: #F59275;">No Events Yet</h4>
+              <p style="color: #666;">This user hasn't created any events yet.</p>
+            </div>
+          `)
+            .addTo(map);
+          eventMarkers.push(fallback);
+        }
+
+      } catch (error) {
+        console.error("Error initializing map:", error);
+        mapContainer.innerHTML =
+          '<p style="text-align: center; color: #666; padding: 20px;">Map loading failed</p>';
+      }
+    }
+  </script>
+
+</body>
+
 </html>
