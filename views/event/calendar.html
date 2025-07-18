@@ -607,12 +607,11 @@
           .forEach((creator) => {
             const card = document.createElement("div");
 
-            // ✅ Updated responsive width classes
-            card.className = `bg-[#262C3D] rounded-2xl shadow-lg shadow-gray-300/20
-            p-3 border border-[#3a3e4a] transition hover:scale-[1.02] duration-200
+            card.className = `bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20
+            p-3 border border-[#3a3e4a] transition duration-200
             cursor-pointer flex flex-row items-center
-            lg:w-[28%] min-w-[350px] mr-3
-          `;
+            lg:w-[32%] min-w-[380px] mr-3`;
+
 
             card.innerHTML = `
           <img src="${creator.profileImg || `https://ui-avatars.com/api/?name=${encodeURIComponent(creator.username)}&background=random&size=128&color=fff`}" 
@@ -635,7 +634,7 @@
               </span>
               <button onclick="window.location.href='user-events.html?id=${creator.userId}'"
                       style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
-                      class="border border-gray-700 text-xs rounded-full px-4 py-1 bg-[#2F364A] text-gray-400 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                      class="border border-gray-700 text-xs rounded-full px-4 py-1 bg-[#2F364A] text-gray-300 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
                 View Calendar
               </button>
             </div>
@@ -711,7 +710,7 @@
           // Create subscription card matching the design
           const card = document.createElement("div");
           card.className =
-            "bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden";
+            "bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden border border-[#3a3e4a]";
           card.innerHTML = `
               <div class="p-4">
                 <div class="flex items-start gap-4 mb-4">
@@ -726,11 +725,11 @@
                 <div class="flex justify-between items-center">
                   <button onclick="window.location.href='user-events.html?id=${subscribedUserId}'"
                     style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
-                    class="border border-gray-700 text-xs rounded-full px-4 py-1 bg-[#2F364A] text-gray-400 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                    class="border border-gray-700 text-xs rounded-full px-4 py-1 bg-[#2F364A] text-gray-300 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
                     View Calendar
                   </button>
                   <button onclick="unsubscribeFromCreator('${subscribedUserId}', '${subscribedUsername}')" 
-                          class="text-red-400 text-xs hover:text-red-300 transition-colors px-4">
+                          class="text-[#F1647A] text-sm hover:text-[#dc3d56] transition-colors px-4 cursor-pointer">
                     Unsubscribe
                   </button>
                 </div>

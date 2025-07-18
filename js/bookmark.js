@@ -56,31 +56,53 @@ auth.onAuthStateChanged((user) => {
 // Create and return a game card element
 function createGameCard(game) {
   const wrapper = document.createElement("a");
-  wrapper.href = `/views/game/game-details.html?id=${game.gameId}`;
-  wrapper.className =
-    "bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300 flex flex-col";
+wrapper.href = `/views/game/game-details.html?id=${game.gameId}`;
+wrapper.className =
+  "bg-[#262C3D] rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300 flex flex-col";
 
-  const image = document.createElement("img");
-  image.src = game.image;
-  image.alt = game.title;
-  image.className = "w-full h-48 object-cover";
+// 🔧 Container for image with relative positioning
+const imageWrapper = document.createElement("div");
+imageWrapper.className = "relative";
 
-  const content = document.createElement("div");
-  content.className = "p-4 flex flex-col justify-between flex-grow";
+// Image itself
+const image = document.createElement("img");
+image.src = game.image;
+image.alt = game.title;
+image.className = "w-full h-48 object-cover";
 
-  const title = document.createElement("h3");
-  title.textContent = game.title;
-  title.className = "text-xl font-semibold text-gray-800 mb-4";
+// Bookmark icon (FontAwesome)
+const bookmarkIcon = document.createElement("i");
+bookmarkIcon.className =
+  "fa-solid fa-bookmark text-white text-lg absolute top-2 left-2 bg-black/60 p-2 rounded-full hover:scale-110 transition-transform";
 
-  const btn = document.createElement("span");
-  btn.className =
-    "inline-block text-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded";
-  btn.textContent = "View Details";
+// Assemble image wrapper
+imageWrapper.appendChild(image);
+imageWrapper.appendChild(bookmarkIcon);
 
-  content.appendChild(title);
-  content.appendChild(btn);
-  wrapper.appendChild(image);
-  wrapper.appendChild(content);
+const content = document.createElement("div");
+content.className = "p-4 flex flex-col justify-between flex-grow";
 
-  return wrapper;
+// Title + Button row
+const row = document.createElement("div");
+row.className = "flex justify-between items-center gap-4";
+
+// Title
+const title = document.createElement("h3");
+title.textContent = game.title;
+title.className = "text-xl font-semibold text-gray-200 truncate";
+
+// Button
+const btn = document.createElement("span");
+btn.className =
+  "bg-[#F1647A] p-[3px] text-gray-200 rounded-2xl px-3 py-1.5 whitespace-nowrap";
+btn.textContent = "View Details";
+
+// Final assembly
+row.appendChild(title);
+row.appendChild(btn);
+content.appendChild(row);
+wrapper.appendChild(imageWrapper);
+wrapper.appendChild(content);
+
+return wrapper;
 }
