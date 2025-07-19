@@ -7,6 +7,8 @@ import {
   limit,
   where,
   addDoc,
+  deleteDoc,
+  doc,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getCurrentUser } from "./auth/authGuard.js";
 
@@ -171,7 +173,7 @@ async function checkSubscriptionStatus(userId) {
 // Update button state based on subscription status
 function updateButtonState(button, isSubscribed) {
   if (isSubscribed) {
-    button.textContent = "Subscribed";
+    button.textContent = "Unsubscribe";
     button.classList.add(
       "bg-gradient-to-r",
       "to-[#F59275]",
@@ -184,7 +186,7 @@ function updateButtonState(button, isSubscribed) {
       "bg-[#23243a]",
       "border-gray-400"
     );
-    button.disabled = true;
+    button.disabled = false; // Allow clicking to unsubscribe
   } else {
     button.textContent = "Subscribe";
     button.classList.remove(
@@ -351,7 +353,10 @@ async function loadFeaturedCalendars() {
 
 // Handle subscribe functionality for event creators (Featured Calendars)
 async function handleSubscribe(userId, username) {
+  console.log("handleSubscribe called with:", { userId, username });
   const currentUser = getCurrentUser();
+  console.log("Current user:", currentUser);
+
   if (!currentUser || !currentUser.userId) {
     alert("Please sign in to subscribe to event creators.");
     return;
@@ -378,16 +383,65 @@ async function handleSubscribe(userId, username) {
     const existingSub = await getDocs(q);
 
     if (!existingSub.empty) {
-      alert(`You are already subscribed to ${username}!`);
+      console.log("User is subscribed, proceeding to unsubscribe...");
+      // Already subscribed, so unsubscribe
+      try {
+        for (const docSnap of existingSub.docs) {
+          console.log("Deleting subscription doc:", docSnap.id);
+          await deleteDoc(docSnap.ref);
+        }
+        console.log("Successfully deleted user subscription docs");
+
+        // Also remove from creator's subscribers collection
+        const creatorSubscribersRef = collection(
+          db,
+          "users",
+          userId,
+          "subscribers"
+        );
+        const subscriberQuery = query(
+          creatorSubscribersRef,
+          where("subscriberUserId", "==", currentUser.userId)
+        );
+        console.log("Querying creator subscribers...");
+        const existingSubscribers = await getDocs(subscriberQuery);
+        console.log(
+          "Found subscriber docs to delete:",
+          existingSubscribers.docs.length
+        );
+
+        for (const docSnap of existingSubscribers.docs) {
+          console.log("Deleting subscriber doc:", docSnap.id);
+          await deleteDoc(docSnap.ref);
+        }
+        console.log("Successfully deleted creator subscriber docs");
+
+        alert(`Successfully unsubscribed from ${username}!`);
+
+        // Update the button to show unsubscribed state
+        const subscribeBtn = document.querySelector(
+          `[data-user-id="${userId}"]`
+        );
+        if (subscribeBtn) {
+          updateButtonState(subscribeBtn, false);
+        }
+      } catch (unsubError) {
+        console.error("Error during unsubscribe process:", unsubError);
+        throw unsubError; // Re-throw to be caught by outer catch
+      }
       return;
     }
 
+    console.log("User is not subscribed, proceeding to subscribe...");
+
     // Add subscription to user's creator subscriptions collection
+    console.log("Adding subscription document...");
     await addDoc(subscriptionsRef, {
       subscribedToUserId: userId,
       subscribedToUsername: username,
       subscribedAt: new Date(),
     });
+    console.log("Successfully added subscription document");
 
     // Also add subscriber to the creator's subscribers collection for easy querying
     const creatorSubscribersRef = collection(
@@ -396,11 +450,13 @@ async function handleSubscribe(userId, username) {
       userId,
       "subscribers"
     );
+    console.log("Adding subscriber document to creator's collection...");
     await addDoc(creatorSubscribersRef, {
       subscriberUserId: currentUser.userId,
       subscriberUsername: currentUser.username || currentUser.email,
       subscribedAt: new Date(),
     });
+    console.log("Successfully added subscriber document");
 
     alert(`Successfully subscribed to ${username}!`);
 
@@ -411,7 +467,14 @@ async function handleSubscribe(userId, username) {
     }
   } catch (error) {
     console.error("Error subscribing to creator:", error);
-    alert("Failed to subscribe. Please try again.");
+    console.error("Error details:", {
+      message: error.message,
+      code: error.code,
+      currentUser,
+      userId,
+      username,
+    });
+    alert(`Failed to subscribe. Please try again. Error: ${error.message}`);
   }
 }
 
