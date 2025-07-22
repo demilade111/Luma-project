@@ -108,7 +108,7 @@
         div.className =
           "inline-flex items-center bg-[#2F364A] rounded-2xl p-5 md:px-5 md:py-8 gap-3 w-fit whitespace-nowrap md:min-w-[240px] justify-center cursor-pointer hover:bg-gray-600 category-filter";
         div.dataset.category = cat;
-        div.innerHTML = `<div class="whitespace-nowrap font-medium text-2xl text-gray-200">${cat}</div>`;
+        div.innerHTML = `${cat.svg}<div class="truncate overflow-hidden whitespace-nowrap text-ellipsis font-medium text-2xl text-gray-200 max-w-[160px]">${cat.title}</div>`;
         container.appendChild(div);
       });
     </script>
