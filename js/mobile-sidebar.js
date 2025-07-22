@@ -1,19 +1,18 @@
-window.addEventListener('DOMContentLoaded', () => {
-  const hamburgerMenu = document.getElementById('hamburger-menu');
-  const dropdownMenu = document.getElementById('dropdown-menu');
-  const closeMenu = document.getElementById('close-menu');
+window.addEventListener("components-injected", () => {
+  const hamburgerMenu = document.getElementById("hamburger-menu");
+  const dropdownMenu = document.getElementById("dropdown-menu");
+  const closeMenu = document.getElementById("close-menu");
 
-  if (!hamburgerMenu || !dropdownMenu) {
-    console.error('Hamburger menu or dropdown menu not found!');
+  if (!hamburgerMenu || !dropdownMenu || !closeMenu) {
+    console.warn("Missing mobile menu elements");
     return;
   }
 
-  console.log('Elements found, adding event listeners...');
-  hamburgerMenu.addEventListener('click', () => {
-    dropdownMenu.classList.toggle('hidden');
+  hamburgerMenu.addEventListener("click", () => {
+    dropdownMenu.classList.remove("hidden");
   });
 
-  closeMenu.addEventListener('click', () => {
-    dropdownMenu.classList.add('hidden');
+  closeMenu.addEventListener("click", () => {
+    dropdownMenu.classList.add("hidden");
   });
 });
