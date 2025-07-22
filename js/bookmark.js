@@ -56,53 +56,72 @@ auth.onAuthStateChanged((user) => {
 // Create and return a game card element
 function createGameCard(game) {
   const wrapper = document.createElement("a");
-wrapper.href = `/views/game/game-details.html?id=${game.gameId}`;
-wrapper.className =
-  "bg-[#262C3D] rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300 flex flex-col";
+  wrapper.href = `/views/game/game-details.html?id=${game.gameId}`;
+  wrapper.className =
+    "bg-[#262C3D] rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300 flex flex-col";
 
-// 🔧 Container for image with relative positioning
-const imageWrapper = document.createElement("div");
-imageWrapper.className = "relative";
+  // 🔧 Container for image with relative positioning
+  const imageWrapper = document.createElement("div");
+  imageWrapper.className = "relative";
 
-// Image itself
-const image = document.createElement("img");
-image.src = game.image;
-image.alt = game.title;
-image.className = "w-full h-48 object-cover";
+  // Image itself
+  const image = document.createElement("img");
+  image.src = game.image;
+  image.alt = game.title;
+  image.className = "w-full h-48 object-cover";
 
-// Bookmark icon (FontAwesome)
-const bookmarkIcon = document.createElement("i");
-bookmarkIcon.className =
-  "fa-solid fa-bookmark text-white text-lg absolute top-2 left-2 bg-black/60 p-2 rounded-full hover:scale-110 transition-transform";
+  // Bookmark icon (FontAwesome)
+  const bookmarkIcon = document.createElement("i");
+  bookmarkIcon.className =
+    "fa-solid fa-bookmark text-white text-lg absolute top-2 left-2 bg-black/60 p-2 rounded-full hover:scale-110 transition-transform cursor-pointer";
 
-// Assemble image wrapper
-imageWrapper.appendChild(image);
-imageWrapper.appendChild(bookmarkIcon);
+  // Add click handler to remove bookmark
+  bookmarkIcon.addEventListener("click", async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-const content = document.createElement("div");
-content.className = "p-4 flex flex-col justify-between flex-grow";
+    const user = auth.currentUser;
+    if (!user) return;
 
-// Title + Button row
-const row = document.createElement("div");
-row.className = "flex justify-between items-center gap-4";
+    if (confirm(`Remove "${game.title}" from bookmarks?`)) {
+      try {
+        await removeBookmark(user.uid, game.gameId);
+        console.log("Bookmark removed successfully");
+      } catch (error) {
+        console.error("Error removing bookmark:", error);
+        alert("Failed to remove bookmark. Please try again.");
+      }
+    }
+  });
 
-// Title
-const title = document.createElement("h3");
-title.textContent = game.title;
-title.className = "text-xl font-semibold text-gray-200 truncate";
+  // Assemble image wrapper
+  imageWrapper.appendChild(image);
+  imageWrapper.appendChild(bookmarkIcon);
 
-// Button
-const btn = document.createElement("span");
-btn.className =
-  "bg-[#F1647A] p-[3px] text-gray-200 rounded-2xl px-3 py-1.5 whitespace-nowrap";
-btn.textContent = "View Details";
+  const content = document.createElement("div");
+  content.className = "p-4 flex flex-col justify-between flex-grow";
 
-// Final assembly
-row.appendChild(title);
-row.appendChild(btn);
-content.appendChild(row);
-wrapper.appendChild(imageWrapper);
-wrapper.appendChild(content);
+  // Title + Button row
+  const row = document.createElement("div");
+  row.className = "flex justify-between items-center gap-4";
 
-return wrapper;
+  // Title
+  const title = document.createElement("h3");
+  title.textContent = game.title;
+  title.className = "text-xl font-semibold text-gray-200 truncate";
+
+  // Button
+  const btn = document.createElement("span");
+  btn.className =
+    "bg-[#F1647A] p-[3px] text-gray-200 rounded-2xl px-3 py-1.5 whitespace-nowrap";
+  btn.textContent = "View Details";
+
+  // Final assembly
+  row.appendChild(title);
+  row.appendChild(btn);
+  content.appendChild(row);
+  wrapper.appendChild(imageWrapper);
+  wrapper.appendChild(content);
+
+  return wrapper;
 }

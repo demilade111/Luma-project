@@ -3,7 +3,6 @@ export const categories = [
   "Horror",
   "Maze",
   "Civilization",
-//   "Expansion for Base-game",
   "Fan Expansion",
   "Negotiation",
   "Medieval",

@@ -180,7 +180,7 @@ function renderGamesWithPagination() {
   if (hasMoreGames) {
     const viewMoreButton = `
       <div class="col-span-full flex justify-center mt-8">
-        <button id="view-more-games" class="px-8 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+        <button id="view-more-games" class="px-8 py-3 bg-gradient-to-r to-[#f59275] from-[#f1647a] text-gray-200 rounded-xl transition-colors">
           View More Games 
         </button>
       </div>
@@ -820,15 +820,33 @@ function loadGameDetails() {
     if (isBookmarked) {
       bookmarkBtn.innerHTML =
         '<span class="luma-gradient m-0 p-0"><i class="fa-regular fa-bookmark mr-3"></i>Bookmarked</span>';
+    } else {
+      bookmarkBtn.innerHTML =
+        '<i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Bookmark';
     }
   }
 
-  async function checkBookmark(user) {
+  function setupBookmarkListener(user) {
     if (!user) return;
+
+    if (!game || !game.id) {
+      console.error("Game or game.id is not available for bookmark listener");
+      return;
+    }
+
     const docRef = doc(db, "users", user.uid, "bookmarks", game.id);
-    const snap = await getDoc(docRef);
-    isBookmarked = snap.exists();
-    updateBookmarkBtn();
+
+    // Set up real-time listener for bookmark status
+    onSnapshot(
+      docRef,
+      (docSnap) => {
+        isBookmarked = docSnap.exists();
+        updateBookmarkBtn();
+      },
+      (error) => {
+        console.error("Error in bookmark listener:", error);
+      }
+    );
   }
 
   async function toggleBookmark(user) {
@@ -839,8 +857,7 @@ function loadGameDetails() {
     const docRef = doc(db, "users", user.uid, "bookmarks", game.id);
     if (isBookmarked) {
       await deleteDoc(docRef);
-      isBookmarked = false;
-      updateBookmarkBtn();
+      // Don't manually update state here - let the listener handle it
       alert("Bookmark removed.");
     } else {
       const info = {
@@ -849,8 +866,7 @@ function loadGameDetails() {
         image: game.image || game.thumbnail || "",
       };
       await setDoc(docRef, info);
-      isBookmarked = true;
-      updateBookmarkBtn();
+      // Don't manually update state here - let the listener handle it
       alert("Game bookmarked successfully!");
     }
   }
@@ -886,7 +902,7 @@ function loadGameDetails() {
   onAuthStateChanged(auth, (user) => {
     currentUser = user;
     if (user) {
-      checkBookmark(user);
+      setupBookmarkListener(user);
     } else {
       isBookmarked = false;
       updateBookmarkBtn();
