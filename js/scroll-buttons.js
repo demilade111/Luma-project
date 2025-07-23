@@ -84,6 +84,11 @@ function updateScrollButtonVisibility() {
     const scrollLeftLearn = document.getElementById("scrollLeftLearn");
     const scrollRightLearn = document.getElementById("scrollRightLearn");
 
+    const scrollLeftCities = document.getElementById("scrollLeftCities");
+    const scrollRightCities = document.getElementById("scrollRightCities");
+
+    const scrollLeftSuggestCalendars = document.getElementById("scrollLeftSuggestCalendars");
+    const scrollRightSuggestCalendars = document.getElementById("scrollRightSuggestCalendars");
 
     const isMobile = window.innerWidth < 768;
     if (trendingleftBtn && trendingrightBtn) {
@@ -104,6 +109,16 @@ function updateScrollButtonVisibility() {
     if (scrollLeftLearn && scrollRightLearn) {
         scrollLeftLearn.style.display = isMobile ? "none" : "block";
         scrollRightLearn.style.display = isMobile ? "none" : "block";
+    }
+
+    if (scrollLeftCities && scrollRightCities) {
+        scrollLeftCities.style.display = isMobile ? "none" : "block";
+        scrollRightCities.style.display = isMobile ? "none" : "block";
+    }
+
+    if (scrollLeftSuggestCalendars && scrollRightSuggestCalendars) {
+        scrollLeftSuggestCalendars.style.display = isMobile ? "none" : "block";
+        scrollRightSuggestCalendars.style.display = isMobile ? "none" : "block";
     }
 }
 
