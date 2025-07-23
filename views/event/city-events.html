@@ -1,504 +1,457 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luma | City Events</title>
-    <link href="../../src/output.css" rel="stylesheet" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luma | City Events</title>
+  <link href="../../src/output.css" rel="stylesheet" />
 
-    <!-- Leaflet CSS -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin=""
-    />
-  </head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
-  <body class="bg-gray-100">
-    <div data-component="sidebar"></div>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="shortcut icon" href="/src/asset/images/Luma - Icon 1.png" />
+</head>
 
-    <div class="flex min-h-screen">
-      <!-- Main Content Area -->
-      <div class="flex-1 flex flex-col md:ml-[80px]">
-        <main class="flex-1">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
-            <!-- Featured Section with overlayed text -->
-            <div class="col-span-1 sm:col-span-2 h-[50vh] sm:h-[90vh] relative">
-              <!-- Overlayed text content -->
-              <div
-                class="absolute inset-0 flex flex-col justify-center items-start px-6 sm:px-16 z-10"
-              >
-                <h4
-                  class="text-base sm:text-lg text-gray-200 mb-2 px-3 py-1 font-light"
-                >
-                  What’s Happening in
-                </h4>
-                <h1
-                  id="city-title"
-                  class="text-3xl sm:text-5xl font-bold text-gray-100 mb-4 px-3 py-2"
-                >
-                  Loading...
-                </h1>
-                <p
-                  class="text-gray-300 text-sm sm:text-lg mb-6 max-w-xl px-3 py-2"
-                >
-                  Join the relaxing tabletop sessions and totally chill strategy
-                  showdowns hosted by the one and only Kevin McMillan, beloved
-                  jazz connoisseur and benevolent overlord of CSS assignments.
-                  Whether you're a board game rookie or a battle-hardened
-                  all-nighter veteran, Kevin’s events offer the perfect chance
-                  to bond over dice rolls, existential dread, and the sweet
-                  sound of deadlines swooshing by. Bring snacks, bring stamina
-                  and a backup laptop.
-                </p>
-                <div class="px-3">
-                  <button
-                    class="bg-gradient-to-bl text-base px-6 rounded-full py-2 text-gray-200 font-medium cursor-pointershadow-sm shadow-gray-600 from-[#F59275] to-[#F1647A] transition-colors shadow"
-                  >
-                    Subscribe
-                  </button>
-                </div>
+<body class="bg-gray-100">
+  <div data-component="sidebar"></div>
+
+  <div class="flex min-h-screen">
+    <!-- Main Content Area -->
+    <div class="flex-1 flex flex-col md:ml-[80px]">
+      <main class="flex-1">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
+          <!-- Featured Section with overlayed text -->
+          <div class="col-span-1 sm:col-span-2 h-[50vh] sm:h-[90vh] relative">
+            <!-- Overlayed text content -->
+            <div class="absolute inset-0 flex flex-col justify-center items-start px-6 sm:px-16 z-10">
+              <h4 class="text-base sm:text-lg text-gray-200 mb-2 px-3 py-1 font-light">
+                What’s Happening in
+              </h4>
+              <h1 id="city-title" class="text-3xl sm:text-5xl font-bold text-gray-100 mb-4 px-3 py-2">
+                Loading...
+              </h1>
+              <p class="text-gray-300 text-sm sm:text-lg mb-6 max-w-xl px-3 py-2">
+                Join the relaxing tabletop sessions and totally chill strategy
+                showdowns hosted by the one and only Kevin McMillan, beloved
+                jazz connoisseur and benevolent overlord of CSS assignments.
+                Whether you're a board game rookie or a battle-hardened
+                all-nighter veteran, Kevin’s events offer the perfect chance
+                to bond over dice rolls, existential dread, and the sweet
+                sound of deadlines swooshing by. Bring snacks, bring stamina
+                and a backup laptop.
+              </p>
+              <div class="px-3">
+                <button
+                  class="bg-gradient-to-bl text-base px-6 rounded-full py-2 text-gray-200 font-medium cursor-pointershadow-sm shadow-gray-600 from-[#F59275] to-[#F1647A] transition-colors shadow">
+                  Subscribe
+                </button>
               </div>
-              <!-- Featured Image (full width) -->
-              <img
-                src="/src/asset/images/vancouver-city-events.jpg"
-                alt="Featured"
-                class="w-full h-full object-cover"
-              />
-              <!-- dark overlay for better text contrast -->
-              <div
-                class="absolute inset-0"
-                style="
+            </div>
+            <!-- Featured Image (full width) -->
+            <img src="/src/asset/images/vancouver-city-events.jpg" alt="Featured" class="w-full h-full object-cover" />
+            <!-- dark overlay for better text contrast -->
+            <div class="absolute inset-0" style="
                   background: linear-gradient(
                     to right,
                     rgba(19, 19, 19, 0.7) 0%,
                     rgba(78, 81, 130, 0.2) 100%
                   );
-                "
-              ></div>
-            </div>
+                "></div>
+          </div>
 
-            <!-- Content Section side-by-side on sm+ but stacked on smaller -->
-            <div
-              class="flex flex-col justify-center text-xl font-bold p-2 sm:pl-10 sm:mb-5"
-            >
-              <!-- Section Title -->
-              <h2 class="text-2xl font-bold text-gray-200 my-10">Events</h2>
-              <div
-                id="city-events-container"
-                class="grid gap-6 w-full px-2 sm:px-5 border-l-2 border-dotted border-gray-200"
-              >
-                <!-- Dynamic events will be loaded here -->
-                <div class="text-center py-8">
-                  <p class="text-gray-400 text-lg">Loading events...</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- events' location map -->
-            <div class="my-5 p-2 sm:pr-10">
-              <!-- Gradient border wrapper with sticky positioning -->
-              <div
-                class="sm:sticky sm:top-5 p-[2px] rounded-2xl bg-gradient-to-r from-[#f59275] to-[#f1647a]"
-              >
-                <!-- Inner content box -->
-                <div
-                  class="flex flex-col text-xl font-bold p-8 sm:p-10 rounded-2xl gap-3 bg-[#23243a] shadow-md bg-clip-padding"
-                >
-                  <h3
-                    id="city-sidebar-title"
-                    class="text-2xl mb-2 luma-gradient"
-                  >
-                    Loading...
-                  </h3>
-                  <p class="text-base text-gray-400 mb-4">
-                    Discover where each event is happening around the city.
-                    Click below to view the interactive map.
-                  </p>
-                  <div class="flex justify-start">
-                    <button
-                      style="
-                        box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
-                      "
-                      class="border border-gray-700 text-base rounded-full px-6 py-2 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
-                    >
-                      Subscribe
-                    </button>
-                  </div>
-                  <div
-                    id="city-map"
-                    class="rounded-xl shadow-md w-full h-72"
-                  ></div>
-                </div>
+          <!-- Content Section side-by-side on sm+ but stacked on smaller -->
+          <div class="flex flex-col justify-center text-xl font-bold p-2 sm:pl-10 sm:mb-5">
+            <!-- Section Title -->
+            <h2 class="text-2xl font-bold text-gray-200 my-10">Events</h2>
+            <div id="city-events-container"
+              class="grid gap-6 w-full px-2 sm:px-5 border-l-2 border-dotted border-gray-200">
+              <!-- Dynamic events will be loaded here -->
+              <div class="text-center py-8">
+                <p class="text-gray-400 text-lg">Loading events...</p>
               </div>
             </div>
           </div>
-        </main>
-      </div>
+
+          <!-- events' location map -->
+          <div class="my-5 p-2 sm:pr-10">
+            <!-- Gradient border wrapper with sticky positioning -->
+            <div class="sm:sticky sm:top-5 p-[2px] rounded-2xl bg-gradient-to-r from-[#f59275] to-[#f1647a]">
+              <!-- Inner content box -->
+              <div
+                class="flex flex-col text-xl font-bold p-8 sm:p-10 rounded-2xl gap-3 bg-[#23243a] shadow-md bg-clip-padding">
+                <h3 id="city-sidebar-title" class="text-2xl mb-2 luma-gradient">
+                  Loading...
+                </h3>
+                <p class="text-base text-gray-400 mb-4">
+                  Discover where each event is happening around the city.
+                  Click below to view the interactive map.
+                </p>
+                <div class="flex justify-start">
+                  <button style="
+                        box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
+                      "
+                    class="border border-gray-700 text-base rounded-full px-6 py-2 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                    Subscribe
+                  </button>
+                </div>
+                <div id="city-map" class="rounded-xl shadow-md w-full h-72"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
+  </div>
 
-    <div data-component="footer"></div>
+  <div data-component="footer"></div>
 
-    <script src="../../js/inject.js" defer></script>
+  <script src="../../js/inject.js" defer></script>
 
-    <!-- Leaflet JS -->
-    <script
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""
-    ></script>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-    <!-- Authentication Guard -->
-    <script type="module">
-      import { initAuthGuard } from "../../js/auth/authGuard.js";
-      initAuthGuard();
-    </script>
+  <!-- Authentication Guard -->
+  <script type="module">
+    import { initAuthGuard } from "../../js/auth/authGuard.js";
+    initAuthGuard();
+  </script>
 
-    <!-- City Events Script -->
-    <script type="module">
-      import { db } from "../../config/firebase.js";
-      import {
-        collection,
-        getDocs,
-        query,
-        where,
-        orderBy,
-      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  <!-- City Events Script -->
+  <script type="module">
+    import { db } from "../../config/firebase.js";
+    import {
+      collection,
+      getDocs,
+      query,
+      where,
+      orderBy,
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-      // Get city from URL parameters
-      function getCityFromUrl() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get("city");
+    // Get city from URL parameters
+    function getCityFromUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get("city");
+    }
+
+    // Format Firestore Timestamp to readable string
+    function formatDateTime(timestamp) {
+      const date = timestamp.toDate();
+      const options = {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      };
+      return date.toLocaleString(undefined, options);
+    }
+
+    // Load events for the specified city
+    async function loadCityEvents(city) {
+      console.log(`Loading events for city: ${city}`);
+
+      try {
+        const eventsCol = collection(db, "events");
+
+        // Query events by location containing the city name
+        const q = query(
+          eventsCol,
+          where("location", ">=", city),
+          where("location", "<=", city + "\uf8ff"),
+          orderBy("location"),
+          orderBy("start_time", "asc")
+        );
+
+        const snapshot = await getDocs(q);
+
+        console.log(`Found ${snapshot.size} events for ${city}`);
+
+        const events = [];
+        snapshot.forEach((doc) => {
+          const eventData = doc.data();
+          // Additional filter to ensure exact city match
+          if (
+            eventData.location &&
+            eventData.location.toLowerCase().includes(city.toLowerCase())
+          ) {
+            events.push({
+              id: doc.id,
+              ...eventData,
+            });
+          }
+        });
+
+        return events;
+      } catch (error) {
+        console.error("Error loading city events:", error);
+        return [];
+      }
+    }
+
+    // Initialize map for city events
+    async function initializeCityMap(city, events) {
+      const mapContainer = document.getElementById("city-map");
+      if (!mapContainer) {
+        console.error("Map container not found");
+        return;
       }
 
-      // Format Firestore Timestamp to readable string
-      function formatDateTime(timestamp) {
-        const date = timestamp.toDate();
-        const options = {
-          weekday: "short",
-          month: "short",
-          day: "numeric",
-          year: "numeric",
+      try {
+        // City coordinates mapping
+        const cityCoordinates = {
+          Vancouver: [49.2827, -123.1207],
+          Toronto: [43.6532, -79.3832],
+          Montreal: [45.5017, -73.5673],
+          Helsinki: [60.1699, 24.9384],
+          Seattle: [47.6062, -122.3321],
+          Quebec: [46.8139, -71.208],
+          Burnaby: [49.2488, -122.9805],
+          "New York": [40.7128, -74.006],
+          "Los Angeles": [34.0522, -118.2437],
+          Chicago: [41.8781, -87.6298],
+          Miami: [25.7617, -80.1918],
+          Boston: [42.3601, -71.0589],
+          "San Francisco": [37.7749, -122.4194],
+          Austin: [30.2672, -97.7431],
+          Denver: [39.7392, -104.9903],
+          Portland: [45.5152, -122.6784],
+          Calgary: [51.0447, -114.0719],
+          Edmonton: [53.5461, -113.4938],
+          Ottawa: [45.4215, -75.6972],
         };
-        return date.toLocaleString(undefined, options);
-      }
 
-      // Load events for the specified city
-      async function loadCityEvents(city) {
-        console.log(`Loading events for city: ${city}`);
+        // Get city coordinates or use default
+        const cityCoords = cityCoordinates[city] || [49.2827, -123.1207]; // Default to Vancouver
 
-        try {
-          const eventsCol = collection(db, "events");
+        // Initialize the map
+        const map = L.map("city-map").setView(cityCoords, 10);
 
-          // Query events by location containing the city name
-          const q = query(
-            eventsCol,
-            where("location", ">=", city),
-            where("location", "<=", city + "\uf8ff"),
-            orderBy("location"),
-            orderBy("start_time", "asc")
-          );
+        // Add OpenStreetMap tiles
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: "© OpenStreetMap contributors",
+        }).addTo(map);
 
-          const snapshot = await getDocs(q);
+        const eventMarkers = [];
+        const usedCoordinates = new Set(); // Track used coordinates to avoid overlapping markers
 
-          console.log(`Found ${snapshot.size} events for ${city}`);
+        // Simple fallback coordinates for events without location data
+        const defaultCoordinates = cityCoords;
 
-          const events = [];
-          snapshot.forEach((doc) => {
-            const eventData = doc.data();
-            // Additional filter to ensure exact city match
-            if (
-              eventData.location &&
-              eventData.location.toLowerCase().includes(city.toLowerCase())
-            ) {
-              events.push({
-                id: doc.id,
-                ...eventData,
-              });
-            }
-          });
+        events.forEach((event) => {
+          const eventLocation = event.location || "";
 
-          return events;
-        } catch (error) {
-          console.error("Error loading city events:", error);
-          return [];
-        }
-      }
+          console.log(`Processing event: ${event.name} at ${eventLocation}`);
 
-      // Initialize map for city events
-      async function initializeCityMap(city, events) {
-        const mapContainer = document.getElementById("city-map");
-        if (!mapContainer) {
-          console.error("Map container not found");
-          return;
-        }
+          // Get coordinates from event data or use default
+          let coordinates = null;
 
-        try {
-          // City coordinates mapping
-          const cityCoordinates = {
-            Vancouver: [49.2827, -123.1207],
-            Toronto: [43.6532, -79.3832],
-            Montreal: [45.5017, -73.5673],
-            Helsinki: [60.1699, 24.9384],
-            Seattle: [47.6062, -122.3321],
-            Quebec: [46.8139, -71.208],
-            Burnaby: [49.2488, -122.9805],
-            "New York": [40.7128, -74.006],
-            "Los Angeles": [34.0522, -118.2437],
-            Chicago: [41.8781, -87.6298],
-            Miami: [25.7617, -80.1918],
-            Boston: [42.3601, -71.0589],
-            "San Francisco": [37.7749, -122.4194],
-            Austin: [30.2672, -97.7431],
-            Denver: [39.7392, -104.9903],
-            Portland: [45.5152, -122.6784],
-            Calgary: [51.0447, -114.0719],
-            Edmonton: [53.5461, -113.4938],
-            Ottawa: [45.4215, -75.6972],
-          };
+          if (event.coordinates?.latitude && event.coordinates?.longitude) {
+            coordinates = [
+              event.coordinates.latitude,
+              event.coordinates.longitude,
+            ];
+          } else if (event.latitude && event.longitude) {
+            coordinates = [event.latitude, event.longitude];
+          } else {
+            coordinates = defaultCoordinates;
+          }
 
-          // Get city coordinates or use default
-          const cityCoords = cityCoordinates[city] || [49.2827, -123.1207]; // Default to Vancouver
+          if (coordinates) {
+            // Check if coordinates are already used and adjust slightly if needed
+            let finalCoordinates = coordinates;
+            let offset = 0;
+            const coordKey = `${coordinates[0]},${coordinates[1]}`;
 
-          // Initialize the map
-          const map = L.map("city-map").setView(cityCoords, 10);
-
-          // Add OpenStreetMap tiles
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution: "© OpenStreetMap contributors",
-          }).addTo(map);
-
-          const eventMarkers = [];
-          const usedCoordinates = new Set(); // Track used coordinates to avoid overlapping markers
-
-          // Simple fallback coordinates for events without location data
-          const defaultCoordinates = cityCoords;
-
-          events.forEach((event) => {
-            const eventLocation = event.location || "";
-
-            console.log(`Processing event: ${event.name} at ${eventLocation}`);
-
-            // Get coordinates from event data or use default
-            let coordinates = null;
-
-            if (event.coordinates?.latitude && event.coordinates?.longitude) {
-              coordinates = [
-                event.coordinates.latitude,
-                event.coordinates.longitude,
+            while (usedCoordinates.has(coordKey + offset)) {
+              offset += 0.001; // Small offset to separate markers
+              finalCoordinates = [
+                coordinates[0] + offset,
+                coordinates[1] + offset,
               ];
-            } else if (event.latitude && event.longitude) {
-              coordinates = [event.latitude, event.longitude];
-            } else {
-              coordinates = defaultCoordinates;
             }
 
-            if (coordinates) {
-              // Check if coordinates are already used and adjust slightly if needed
-              let finalCoordinates = coordinates;
-              let offset = 0;
-              const coordKey = `${coordinates[0]},${coordinates[1]}`;
+            usedCoordinates.add(coordKey + offset);
 
-              while (usedCoordinates.has(coordKey + offset)) {
-                offset += 0.001; // Small offset to separate markers
-                finalCoordinates = [
-                  coordinates[0] + offset,
-                  coordinates[1] + offset,
-                ];
-              }
-
-              usedCoordinates.add(coordKey + offset);
-
-              console.log(
-                `Adding marker for "${event.name}" at:`,
-                finalCoordinates
-              );
-              const marker = L.marker(finalCoordinates)
-                .bindPopup(
-                  `
+            console.log(
+              `Adding marker for "${event.name}" at:`,
+              finalCoordinates
+            );
+            const marker = L.marker(finalCoordinates)
+              .bindPopup(
+                `
                   <div style="min-width: 200px;">
                     <h3 style="font-weight: bold; margin-bottom: 8px; color: #E5E7EB; font-size: 18px; text-align: center;">${city}</h3>
-                    <h4 style="font-weight: bold; margin-bottom: 5px; color: #F59275; font-size: 16px;">${
-                      event.name || "Untitled Event"
-                    }</h4>
-                    <p style="margin: 5px 0; color: #9CA3AF; font-size: 14px;">📍 ${
-                      event.location || "Location not specified"
-                    }</p>
+                    <h4 style="font-weight: bold; margin-bottom: 5px; color: #F59275; font-size: 16px;">${event.name || "Untitled Event"
+                }</h4>
+                    <p style="margin: 5px 0; color: #9CA3AF; font-size: 14px;">📍 ${event.location || "Location not specified"
+                }</p>
                     <p style="margin: 5px 0; font-size: 12px; color: #6B7280;">
-                      📅 ${
-                        event.start_time
-                          ? new Date(
-                              event.start_time.toDate()
-                            ).toLocaleDateString()
-                          : "Date TBD"
-                      }
+                      📅 ${event.start_time
+                  ? new Date(
+                    event.start_time.toDate()
+                  ).toLocaleDateString()
+                  : "Date TBD"
+                }
                     </p>
-                    <button onclick="window.location.href='post-event-details.html?id=${
-                      event.id
-                    }'"
+                    <button onclick="window.location.href='post-event-details.html?id=${event.id
+                }'"
                             style="background: #F59275; color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; margin-top: 8px; font-weight: 600; width: 100%;">
                       View Details
                     </button>
                   </div>
                 `
-                )
-                .addTo(map);
+              )
+              .addTo(map);
 
-              eventMarkers.push(marker);
-            }
-          });
+            eventMarkers.push(marker);
+          }
+        });
 
-          // Fit map to show all markers
-          if (eventMarkers.length > 0) {
-            const group = new L.featureGroup(eventMarkers);
-            map.fitBounds(group.getBounds().pad(0.1));
-          } else {
-            // If no events found, add a default marker and show a message
-            console.log("No events found, adding default marker");
-            const defaultMarker = L.marker(cityCoords)
-              .bindPopup(
-                `
+        // Fit map to show all markers
+        if (eventMarkers.length > 0) {
+          const group = new L.featureGroup(eventMarkers);
+          map.fitBounds(group.getBounds().pad(0.1));
+        } else {
+          // If no events found, add a default marker and show a message
+          console.log("No events found, adding default marker");
+          const defaultMarker = L.marker(cityCoords)
+            .bindPopup(
+              `
                 <div style="min-width: 200px;">
                   <h4 style="font-weight: bold; margin-bottom: 8px; color: #F59275; font-size: 14px;">No Events Yet</h4>
                   <p style="margin: 5px 0; color: #666;">No events found in ${city} yet.</p>
                 </div>
               `
-              )
-              .addTo(map);
-            eventMarkers.push(defaultMarker);
-          }
-
-          console.log(
-            `Map initialized with ${eventMarkers.length} markers for ${city}`
-          );
-        } catch (error) {
-          console.error("Error initializing city map:", error);
-          mapContainer.innerHTML =
-            '<p style="text-align: center; color: #666; padding: 20px;">Map loading failed</p>';
+            )
+            .addTo(map);
+          eventMarkers.push(defaultMarker);
         }
+
+        console.log(
+          `Map initialized with ${eventMarkers.length} markers for ${city}`
+        );
+      } catch (error) {
+        console.error("Error initializing city map:", error);
+        mapContainer.innerHTML =
+          '<p style="text-align: center; color: #666; padding: 20px;">Map loading failed</p>';
+      }
+    }
+
+    // Update page content with city info and events
+    function updatePageContent(city, events) {
+      // Update city title
+      const cityTitle = document.getElementById("city-title");
+      if (cityTitle) {
+        cityTitle.textContent = city;
       }
 
-      // Update page content with city info and events
-      function updatePageContent(city, events) {
-        // Update city title
-        const cityTitle = document.getElementById("city-title");
-        if (cityTitle) {
-          cityTitle.textContent = city;
-        }
+      // Update sidebar city title
+      const sidebarTitle = document.getElementById("city-sidebar-title");
+      if (sidebarTitle) {
+        sidebarTitle.textContent = city;
+      }
 
-        // Update sidebar city title
-        const sidebarTitle = document.getElementById("city-sidebar-title");
-        if (sidebarTitle) {
-          sidebarTitle.textContent = city;
-        }
+      // Update events container
+      const eventsContainer = document.getElementById(
+        "city-events-container"
+      );
+      if (!eventsContainer) return;
 
-        // Update events container
-        const eventsContainer = document.getElementById(
-          "city-events-container"
-        );
-        if (!eventsContainer) return;
+      eventsContainer.innerHTML = "";
 
-        eventsContainer.innerHTML = "";
-
-        if (events.length === 0) {
-          eventsContainer.innerHTML = `
+      if (events.length === 0) {
+        eventsContainer.innerHTML = `
             <div class="col-span-1 sm:col-span-2 text-center py-8">
               <p class="text-gray-400 text-lg">No events found in ${city}.</p>
               <p class="text-gray-500 text-sm mt-2">Check back later for new events!</p>
             </div>
           `;
-          return;
-        }
+        return;
+      }
 
-        const eventTypes = [
-          "Featured Event",
-          "Popular Event",
-          "New Listing",
-          "Editor's Pick",
-          "Local Highlight",
-        ];
+      const eventTypes = [
+        "Featured Event",
+        "Popular Event",
+        "New Listing",
+        "Editor's Pick",
+        "Local Highlight",
+      ];
 
-        events.forEach((event, index) => {
-          const eventType = eventTypes[index % eventTypes.length];
-          const startTimeStr = event.start_time
-            ? formatDateTime(event.start_time)
-            : "TBD";
-          const nameShort =
-            event.name?.length > 30
-              ? event.name.substring(0, 27) + "..."
-              : event.name || "";
+      events.forEach((event, index) => {
+        const eventType = eventTypes[index % eventTypes.length];
+        const startTimeStr = event.start_time
+          ? formatDateTime(event.start_time)
+          : "TBD";
+        const nameShort =
+          event.name?.length > 30
+            ? event.name.substring(0, 27) + "..."
+            : event.name || "";
 
-          const eventDiv = document.createElement("div");
-          eventDiv.className = "flex flex-col gap-1";
-          eventDiv.innerHTML = `
+        const eventDiv = document.createElement("div");
+        eventDiv.className = "flex flex-col gap-1";
+        eventDiv.innerHTML = `
             <div class="relative">
               <span class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-gray-200 border-2 border-white shadow -ml-[15px] sm:-ml-[26.5px]"></span>
               <h4 class="text-sm text-gray-500 ml-2">${eventType}</h4>
             </div>
-            <div class="bg-[#262C3D] shadow-md shadow-[#262C3D] rounded-xl p-4 text-white min-h-[150px] sm:min-h-[170px] flex flex-col justify-center cursor-pointer hover:bg-[#2F364A] transition-colors" onclick="window.location.href='post-event-details.html?id=${
-              event.id
-            }'">
+            <div class="bg-[#262C3D] shadow-md shadow-[#262C3D] rounded-xl p-4 text-white min-h-[150px] sm:min-h-[170px] flex flex-col justify-center cursor-pointer hover:bg-[#2F364A] transition-colors" onclick="window.location.href='post-event-details.html?id=${event.id
+          }'">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                 <div class="flex flex-col justify-center">
                   <div class="text-xs text-gray-300 mb-2">Date: ${startTimeStr}</div>
                   <div class="text-base font-bold luma-gradient mb-2">${nameShort}</div>
-                  <div class="text-xs text-gray-300 mb-2">Author: ${
-                    event.username || "Anonymous"
-                  }</div>
-                  <div class="text-xs font-medium text-gray-300">Location: ${
-                    event.location
-                  }</div>
+                  <div class="text-xs text-gray-300 mb-2">Author: ${event.username || "Anonymous"
+          }</div>
+                  <div class="text-xs font-medium text-gray-300">Location: ${event.location
+          }</div>
                 </div>
                 <div class="flex items-center justify-center">
-                  <img src="${
-                    event.image_url || "../../src/asset/images/event-thumb.jpg"
-                  }" alt="Event" class="rounded-xl shadow-md w-full h-32 object-cover" />
+                  <img src="${event.image_url || "../../src/asset/images/event-thumb.jpg"
+          }" alt="Event" class="rounded-xl shadow-md w-full h-32 object-cover" />
                 </div>
               </div>
             </div>
           `;
 
-          eventsContainer.appendChild(eventDiv);
-        });
+        eventsContainer.appendChild(eventDiv);
+      });
 
-        // Initialize the map with the events
-        initializeCityMap(city, events);
+      // Initialize the map with the events
+      initializeCityMap(city, events);
+    }
+
+    // Initialize the page
+    async function initCityEventsPage() {
+      console.log("Initializing city events page...");
+
+      const city = getCityFromUrl();
+      if (!city) {
+        console.error("No city parameter provided");
+        document.getElementById("city-title").textContent = "City Not Found";
+        document.getElementById("city-sidebar-title").textContent =
+          "City Not Found";
+        return;
       }
 
-      // Initialize the page
-      async function initCityEventsPage() {
-        console.log("Initializing city events page...");
+      try {
+        console.log(`Loading events for city: ${city}`);
+        const events = await loadCityEvents(city);
 
-        const city = getCityFromUrl();
-        if (!city) {
-          console.error("No city parameter provided");
-          document.getElementById("city-title").textContent = "City Not Found";
-          document.getElementById("city-sidebar-title").textContent =
-            "City Not Found";
-          return;
-        }
+        console.log(`Found ${events.length} events for ${city}`);
+        updatePageContent(city, events);
 
-        try {
-          console.log(`Loading events for city: ${city}`);
-          const events = await loadCityEvents(city);
-
-          console.log(`Found ${events.length} events for ${city}`);
-          updatePageContent(city, events);
-
-          console.log("City events page initialization complete");
-        } catch (error) {
-          console.error("Error initializing city events page:", error);
-        }
+        console.log("City events page initialization complete");
+      } catch (error) {
+        console.error("Error initializing city events page:", error);
       }
+    }
 
-      // Initialize when DOM is loaded
-      document.addEventListener("DOMContentLoaded", initCityEventsPage);
-    </script>
-  </body>
+    // Initialize when DOM is loaded
+    document.addEventListener("DOMContentLoaded", initCityEventsPage);
+  </script>
+</body>
+
 </html>

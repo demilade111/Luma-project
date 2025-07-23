@@ -1421,6 +1421,9 @@
   .ml-6 {
     margin-left: calc(var(--spacing) * 6);
   }
+  .ml-8 {
+    margin-left: calc(var(--spacing) * 8);
+  }
   .ml-\[90px\] {
     margin-left: 90px;
   }
@@ -3601,6 +3604,35 @@
   .ring-inset {
     --tw-ring-inset: inset;
   }
+  .group-hover\:bg-gradient-to-bl {
+    &:is(:where(.group):hover *) {
+      @media (hover: hover) {
+        --tw-gradient-position: to bottom left in oklab;
+        background-image: linear-gradient(var(--tw-gradient-stops));
+      }
+    }
+  }
+  .group-hover\:bg-clip-text {
+    &:is(:where(.group):hover *) {
+      @media (hover: hover) {
+        background-clip: text;
+      }
+    }
+  }
+  .group-hover\:text-transparent {
+    &:is(:where(.group):hover *) {
+      @media (hover: hover) {
+        color: transparent;
+      }
+    }
+  }
+  .group-hover\:text-white {
+    &:is(:where(.group):hover *) {
+      @media (hover: hover) {
+        color: var(--color-white);
+      }
+    }
+  }
   .peer-checked\:bg-blue-600 {
     &:is(:where(.peer):checked ~ *) {
       background-color: var(--color-blue-600);
@@ -3873,6 +3905,16 @@
       }
     }
   }
+  .hover\:bg-gray-200\/10 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: color-mix(in srgb, oklch(92.8% 0.006 264.531) 10%, transparent);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--color-gray-200) 10%, transparent);
+        }
+      }
+    }
+  }
   .hover\:bg-gray-500 {
     &:hover {
       @media (hover: hover) {
@@ -4011,6 +4053,13 @@
     &:hover {
       @media (hover: hover) {
         color: var(--color-blue-600);
+      }
+    }
+  }
+  .hover\:text-gray-200 {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-gray-200);
       }
     }
   }
