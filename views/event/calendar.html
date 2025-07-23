@@ -142,8 +142,22 @@
           Suggested Calendars
         </h2>
 
-        <div id="scroll-cards" class="flex overflow-x-auto pb-4 no-scrollbar m-0 p-0">
-          <p class="text-gray-400">Processing...</p>
+        <div class="relative">
+          <!-- Left Scroll Button -->
+          <button id="scrollLeftSuggestCalendars"
+            class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
+            <i class="fa-solid fa-angle-left"></i>
+          </button>
+
+          <div id="scroll-cards" class="flex overflow-x-auto pb-4 no-scrollbar m-0 p-0">
+            <p class="text-gray-400">Processing...</p>
+          </div>
+
+          <!-- Right Scroll Button -->
+          <button id="scrollRightSuggestCalendars"
+            class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
+            <i class="fa-solid fa-angle-right"></i>
+          </button>
         </div>
       </div>
 
@@ -829,6 +843,21 @@
       updateImage(today);
       updateCalendarDisplay(today, []);
     }
+  </script>
+
+  <script type="module">
+    import { initScrollButtons } from "../../js/scroll-buttons.js";
+
+    initScrollButtons({
+      containerId: "scroll-cards",
+      leftBtnId: "scrollLeftSuggestCalendars",
+      rightBtnId: "scrollRightSuggestCalendars",
+      scrollStep: 300,
+      autoScroll: true,
+      autoScrollInterval: 2000, // every 2s
+      initialScrollDelay: 1,  // start scroll quickly
+      autoScrollPauseOnHover: true,
+    });
   </script>
 </body>
 

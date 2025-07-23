@@ -284,7 +284,7 @@ async function loadFeaturedCalendars() {
   for (const [userId, user] of userMap) {
     const card = document.createElement("div");
     card.className =
-      "bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-5 w-full max-w-2xl mx-auto mb-6 transition hover:scale-[1.02] hover:shadow-lg duration-200 border border-[#3a3e4a] cursor-pointer flex flex-col gap-4";
+      "bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-5 w-full max-w-2xl mx-auto mb-1 transition hover:scale-[1.02] hover:shadow-lg duration-200 border border-[#3a3e4a] cursor-pointer flex flex-col gap-4";
 
     card.innerHTML = `
       <h2 class="text-xl font-semibold text-gray-100 truncate">${
@@ -609,7 +609,9 @@ async function initializeEventPage() {
     });
 
     // Update city previews
-    await updateCityPreviews();
+    // await updateCityPreviews();
+    window.addEventListener("DOMContentLoaded", updateCityPreviews);
+
 
     console.log("Event page initialization complete");
   } catch (error) {
