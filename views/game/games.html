@@ -1,122 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../../src/output.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="../../src/output.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Luma | Games</title>
+  </head>
 
-  <title>Luma | Games</title>
-</head>
+  <body class="bg-[#1A1F2C] font-nunito text-white min-h-screen">
+    <div data-component="sidebar"></div>
 
-<body class="bg-[#1A1F2C] font-nunito text-white min-h-screen">
-  <div data-component="sidebar"></div>
-
-  <div class="flex-1 flex flex-col min-h-screen md:ml-[90px] pt-10">
-    <main class="flex-1 p-4 md:py-10 md:px-20">
-
-      <!--Sort and search box-->
-      <div class="md:hidden relative bg-[#2F364A] rounded-2xl shadow-[-8px_-8px_20px_-5px_rgba(255,255,255,0.2)] p-4 md:p-6 mb-6 w-full max-w-md">
-        <button class="absolute top-4 right-4 text-white border border-[#4B5563] shadow-[-8px_-8px_20px_-5px_rgba(255,255,255,0.2)] px-4 py-2 rounded-2xl flex items-center text-sm md:text-base">Sort by
-          <i class="fas fa-chevron-down ml-2 text-xs"></i>
-        </button>
-
-        <!--Search input here-->
-        <div class="mt-12">
-        <div class="relative w-full">
-          <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i class="fas fa-search text-white p-1"></i></span>
-            <input type="text" placeholder="Search for..." class="w-full pl-10 pr-4 py-2 border rounded-2xl bg-[#1A1F2C] text-white placeholder-white p-6">
-        </div>
+    <div class="flex-1 flex flex-col min-h-screen md:ml-[90px] pt-10">
+      <main class="flex-1 p-4 md:py-10 md:px-20">
+        <div class="flex justify-between items-center mb-5 md:mb-12 px-4">
+          <h1
+            class="font-bold mb-6 flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient"
+          >
+            Popular Games
+          </h1>
+          <!-- <div id="games-count" class="text-sm text-gray-500"> -->
+          <!-- Game count will be shown here -->
+          <!-- </div> -->
         </div>
 
-      </div>
+        <!--Cards container-->
+        <div id="games-loading" class="text-center py-8">
+          <i class="fas fa-spinner fa-spin text-2xl text-gray-400"></i>
+          <p class="mt-2 text-gray-500">Loading games...</p>
+        </div>
 
+        <div id="games-error" class="hidden text-center py-8">
+          <i class="fas fa-exclamation-triangle text-2xl text-red-400"></i>
+          <p class="mt-2 text-red-500">
+            Error loading games. Please try again.
+          </p>
+          <button
+            id="retry-games"
+            class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Retry
+          </button>
+        </div>
 
-      <div class="flex justify-between items-center mb-5 md:mb-12 px-4">
-        <h1 class="font-bold mb-6 flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient">
-          Popular Games
-        </h1>
-        <!-- <div id="games-count" class="text-sm text-gray-500"> -->
-        <!-- Game count will be shown here -->
-        <!-- </div> -->
-      </div>
+        <div
+          id="games-container"
+          class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-6 px-4"
+        >
+          <!-- Games will be dynamically inserted here -->
+        </div>
 
-      <!--Cards container-->
-      <div id="games-loading" class="text-center py-8">
-        <i class="fas fa-spinner fa-spin text-2xl text-gray-400"></i>
-        <p class="mt-2 text-gray-500">Loading games...</p>
-      </div>
+        <!-- Categories Section -->
+        <div class="mt-16 md:my-28 px-4">
+          <h1
+            class="font-bold flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient h-20 md:h-28"
+          >
+            Categories
+          </h1>
 
-      <div id="games-error" class="hidden text-center py-8">
-        <i class="fas fa-exclamation-triangle text-2xl text-red-400"></i>
-        <p class="mt-2 text-red-500">Error loading games. Please try again.</p>
-        <button id="retry-games" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-          Retry
-        </button>
-      </div>
-
-      <div id="games-container" class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-6 px-4">
-        <!-- Games will be dynamically inserted here -->
-      </div>
-
-      <!-- Categories Section -->
-      <div class="mt-16 md:my-28 px-4">
-        <h1
-          class="font-bold flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient h-20 md:h-28">
-          Categories
-        </h1>
-
-        <div id="category-scroll" class="flex gap-2 overflow-x-auto pb-4 max-w-full scroll-hide"></div>
-      </div>
-
-      <!-- Random Games Scrollable Section -->
-      <div class="my-16 md:mt-24 md:mb-16 px-4">
-        <h1
-          class="font-bold flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient h-20 md:h-28">
-          Continue Learning
-        </h1>
+          <div
+            id="category-scroll"
+            class="flex gap-2 overflow-x-auto pb-4 max-w-full scroll-hide"
+          ></div>
+        </div>
 
         <!-- Random Games Scrollable Section -->
-        <div class="flex overflow-x-auto gap-6 pb-4 scroll-hide" id="random-games-container">
-          <!-- JS will inject 4 cards here -->
+        <div class="my-16 md:mt-24 md:mb-16 px-4">
+          <h1
+            class="font-bold flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient h-20 md:h-28"
+          >
+            Continue Learning
+          </h1>
+
+          <!-- Random Games Scrollable Section -->
+          <div
+            class="flex overflow-x-auto gap-6 pb-4 scroll-hide"
+            id="random-games-container"
+          >
+            <!-- JS will inject 4 cards here -->
+          </div>
         </div>
-      </div>
+      </main>
+    </div>
 
-    </main>
-  </div>
+    <!--Footer section-->
+    <div data-component="footer"></div>
 
-  <!--Footer section-->
-  <div data-component="footer"></div>
+    <!-- Scripts -->
+    <script src="../../service/gameService.js" defer></script>
+    <script src="../../js/inject.js" defer></script>
+    <script type="module" src="../../js/main.js" defer></script>
+    <script type="module" src="../../js/auth/signout.js"></script>
+    <script type="module" src="../../js/gameDetails.js"></script>
 
-  <!-- Scripts -->
-  <script src="../../service/gameService.js" defer></script>
-  <script src="../../js/inject.js" defer></script>
-  <script type="module" src="../../js/main.js" defer></script>
-  <script type="module" src="../../js/auth/signout.js"></script>
-  <script type="module" src="../../js/gameDetails.js"></script>
+    <!-- Script imports -->
+    <script type="module">
+      import { categories } from "/Server/categories.js";
 
-  <!-- Script imports -->
-  <script type="module">
-    import { categories } from "/Server/categories.js";
+      const container = document.getElementById("category-scroll");
 
-    const container = document.getElementById("category-scroll");
+      categories.forEach((cat) => {
+        const div = document.createElement("div");
+        div.className =
+          "inline-flex items-center bg-[#2F364A] rounded-2xl p-5 md:px-5 md:py-8 gap-3 w-fit whitespace-nowrap md:min-w-[240px] justify-center cursor-pointer hover:bg-gray-600 category-filter";
+        div.dataset.category = cat;
+        div.innerHTML = `<div class="whitespace-nowrap font-medium text-2xl text-gray-200">${cat}</div>`;
+        container.appendChild(div);
+      });
+    </script>
 
-    categories.forEach((cat) => {
-      const div = document.createElement("div");
-      div.className =
-        "inline-flex items-center bg-[#2F364A] rounded-2xl p-5 md:px-5 md:py-8 gap-3 w-fit whitespace-nowrap md:min-w-[240px] justify-center cursor-pointer hover:bg-gray-600 category-filter";
-      div.dataset.category = cat;
-      div.innerHTML = `<div class="whitespace-nowrap font-medium text-2xl text-gray-200">${cat}</div>`;
-      container.appendChild(div);
-    });
-  </script>
-
-  <!-- Authentication Guard -->
-  <script type="module">
-    import { initAuthGuard } from "../../js/auth/authGuard.js";
-    initAuthGuard();
-  </script>
-</body>
-
+    <!-- Authentication Guard -->
+    <script type="module">
+      import { initAuthGuard } from "../../js/auth/authGuard.js";
+      initAuthGuard();
+    </script>
+  </body>
 </html>

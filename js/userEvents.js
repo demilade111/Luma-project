@@ -8,6 +8,7 @@ import {
   doc,
   getDoc,
   addDoc,
+  deleteDoc,
   limit,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getCurrentUser } from "./auth/authGuard.js";
@@ -16,8 +17,7 @@ import { getCurrentUser } from "./auth/authGuard.js";
 function getUserIdFromUrl() {
   const urlParams = new URLSearchParams(window.location.search);
   const userId = urlParams.get("id");
-  console.log("URL parameters:", window.location.search);
-  console.log("Extracted user ID from URL:", userId);
+
   return userId;
 }
 
@@ -35,16 +35,14 @@ function formatDateTime(timestamp) {
 
 // Load user information
 async function loadUserInfo(userId) {
-  console.log("Loading user info for ID:", userId);
   try {
     const userDoc = await getDoc(doc(db, "users", userId));
     if (userDoc.exists()) {
       const userData = userDoc.data();
-      console.log("User data loaded from Firestore:", userData);
 
       const getEmail = (email) => {
         if (!email) return "";
-        const [localPart, domain] = email.split('@');
+        const [localPart, domain] = email.split("@");
         return `${localPart}`;
       };
 
@@ -143,7 +141,7 @@ async function checkSubscriptionStatus(userId) {
 // Update button state based on subscription status
 function updateButtonState(button, isSubscribed) {
   if (isSubscribed) {
-    button.textContent = "Subscribed";
+    button.textContent = "Unsubscribe";
     button.classList.add(
       "bg-gradient-to-r",
       "from-[#F59275]",
@@ -156,7 +154,7 @@ function updateButtonState(button, isSubscribed) {
       "bg-[#23243a]",
       "border-gray-400"
     );
-    button.disabled = true;
+    button.disabled = false; // Allow clicking to unsubscribe
   } else {
     button.textContent = "Subscribe";
     button.classList.remove(
@@ -232,7 +230,7 @@ function updatePageContent(user, events) {
     console.error("Hero title element not found");
   }
 
-  // Create dynamic description based on events count
+  // Dynamic bio based on event count
   let dynamicBio = user.bio;
   if (events.length === 0) {
     dynamicBio = `${user.username} is a new event creator in our community. They haven't created any events yet, but stay tuned for exciting upcoming events!`;
@@ -250,9 +248,7 @@ function updatePageContent(user, events) {
     console.error("Hero description element not found");
   }
 
-  // Update hero image if user has a profile image
-  // const heroImage = document.querySelector("img[src*='user-events-cover.jpg']");
-
+  // Update hero image
   const heroImage = document.getElementById("heroImage");
   const profileImage = document.getElementById("profileImage");
   if (heroImage && user.profileImg) {
@@ -274,8 +270,8 @@ function updatePageContent(user, events) {
     }
   }
 
-  // Update events section
-  const eventsContainer = document.querySelector(".grid.grid-rows-5");
+  // Update event section
+  const eventsContainer = document.getElementById("user-events-container");
   if (!eventsContainer) return;
 
   eventsContainer.innerHTML = "";
@@ -288,6 +284,12 @@ function updatePageContent(user, events) {
       </div>
     `;
     return;
+  }
+
+  // Update profile Bio
+  const profileBio = document.getElementById("profile-bio");
+  if (profileBio) {
+    profileBio.textContent = `Discover ${user.username}'s events happening around you with the interactive map.`;
   }
 
   events.forEach((event, index) => {
@@ -304,35 +306,49 @@ function updatePageContent(user, events) {
       ? formatDateTime(event.start_time)
       : "TBD";
 
+    const nameShort =
+      event.name?.length > 30
+        ? event.name.substring(0, 27) + "..."
+        : event.name || "";
+
     const eventDiv = document.createElement("div");
     eventDiv.className = "flex flex-col gap-1";
+
     eventDiv.innerHTML = `
-      <div class="relative">
-        <span class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-gray-200 border-2 border-white shadow -ml-[15px] sm:-ml-[26.5px]"></span>
-        <h4 class="text-sm text-gray-500 ml-2">${eventType}</h4>
-      </div>
-      <div class="bg-[#262C3D] shadow-md shadow-[#262C3D] rounded-xl p-4 text-white min-h-[160px] sm:min-h-[180px] flex flex-col justify-center cursor-pointer hover:bg-[#2F364A] transition-colors" onclick="window.location.href='post-event-details.html?id=${
-        event.id
-      }'">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-          <div class="flex flex-col justify-center">
-            <div class="text-sm text-gray-300 mb-2">Date: ${startTimeStr}</div>
-            <div class="text-xl font-bold luma-gradient mb-2">${
-              event.name
-            }</div>
-            <div class="text-sm text-gray-300 mb-2">Author: ${
-              user.username
-            }</div>
-            <div class="text-sm text-gray-300">Location: ${event.location}</div>
-          </div>
-          <div class="flex items-center justify-center">
-            <img src="${
-              event.image_url || "../../src/asset/images/event-thumb.jpg"
-            }" alt="Event" class="rounded-xl shadow-md w-full h-32 object-cover" />
-          </div>
+  <div class="relative">
+    <span class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-gray-200 border-2 border-white shadow -ml-[15px] sm:-ml-[26.5px]"></span>
+    <h4 class="text-sm text-gray-500 ml-2">${eventType}</h4>
+  </div>
+  <div class="bg-[#262C3D] shadow-md shadow-[#262C3D] rounded-xl p-4 text-white min-h-[150px] sm:min-h-[170px] flex flex-col justify-between hover:bg-[#2F364A] transition-colors">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+      <!-- Right Side (Details Section) -->
+      <div class="flex flex-col justify-between">
+        <div>
+          <div class="text-xs text-gray-300 mb-2">Date: ${startTimeStr}</div>
+          <div class="text-base font-bold luma-gradient mb-2">${nameShort}</div>
+          <div class="text-xs text-gray-300 mb-2">Author: ${user.username}</div>
+          <div class="text-xs font-medium text-gray-300 mb-4">Location: ${
+            event.location
+          }</div>
+        </div>
+        <div class="mt-auto flex justify-start">
+          <a href="post-event-details.html?id=${
+            event.id
+          }" class="inline-block px-4 py-2 text-sm font-semibold text-white bg-pink-600 hover:bg-pink-700 rounded transition">
+            View Event
+          </a>
         </div>
       </div>
-    `;
+      
+      <!-- Left Side (Image) -->
+      <div class="flex items-center justify-center">
+        <img src="${
+          event.image_url || "../../src/asset/images/event-thumb.jpg"
+        }" alt="Event" class="rounded-xl shadow-md w-full h-32 object-cover" />
+      </div>
+    </div>
+  </div>
+`;
 
     eventsContainer.appendChild(eventDiv);
   });
@@ -367,7 +383,35 @@ async function handleSubscribe(userId, username) {
     const existingSub = await getDocs(q);
 
     if (!existingSub.empty) {
-      alert(`You are already subscribed to ${username}!`);
+      // Already subscribed, so unsubscribe
+      for (const docSnap of existingSub.docs) {
+        await deleteDoc(docSnap.ref);
+      }
+
+      // Also remove from creator's subscribers collection
+      const creatorSubscribersRef = collection(
+        db,
+        "users",
+        userId,
+        "subscribers"
+      );
+      const subscriberQuery = query(
+        creatorSubscribersRef,
+        where("subscriberUserId", "==", currentUser.userId)
+      );
+      const existingSubscribers = await getDocs(subscriberQuery);
+
+      for (const docSnap of existingSubscribers.docs) {
+        await deleteDoc(docSnap.ref);
+      }
+
+      alert(`Successfully unsubscribed from ${username}!`);
+
+      // Update the button to show unsubscribed state
+      const subscribeBtn = document.querySelector(".subscribe-btn");
+      if (subscribeBtn) {
+        updateButtonState(subscribeBtn, false);
+      }
       return;
     }
 
@@ -433,7 +477,7 @@ async function initUserEventsPage() {
     updatePageContent(user, events);
 
     // Add subscribe button functionality and check subscription status
-    const subscribeBtn = document.querySelector("button");
+    const subscribeBtn = document.getElementById("profile-subscribe-btn");
     if (subscribeBtn && subscribeBtn.textContent.includes("Subscribe")) {
       console.log("Setting up subscribe button...");
       // Check if user is already subscribed
@@ -448,6 +492,9 @@ async function initUserEventsPage() {
     }
 
     console.log("User events page initialization complete");
+
+    // Dispatch custom event to notify map that content is ready
+    document.dispatchEvent(new CustomEvent("userEventsLoaded"));
   } catch (error) {
     console.error("Error initializing user events page:", error);
   }

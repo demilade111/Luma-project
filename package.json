@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@tailwindcss/cli": "^4.1.7",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "axios": "^1.6.0",
     "cheerio": "^1.0.0-rc.12",
     "cors": "^2.8.5",

@@ -7,6 +7,8 @@ import {
   limit,
   where,
   addDoc,
+  deleteDoc,
+  doc,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getCurrentUser } from "./auth/authGuard.js";
 
@@ -61,6 +63,12 @@ async function loadPopularEvents() {
     const eventId = doc.id;
 
     const startTimeStr = formatDateTime(event.start_time);
+
+    const nameShort =
+      event.name?.length > 30
+        ? event.name.substring(0, 27) + "..."
+        : event.name || "";
+
     const descriptionShort =
       event.description?.length > 80
         ? event.description.substring(0, 77) + "..."
@@ -68,13 +76,13 @@ async function loadPopularEvents() {
 
     const card = document.createElement("div");
     card.className =
-      "flex items-center overflow-hidden cursor-pointer transition-all duration-300 rounded-2xl p-4";
+      "flex flex-col md:flex-row items-center gap-3 overflow-hidden bg-transparent rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer";
     card.innerHTML = `
-      <img src="${event.image_url}" alt="${event.name}" class="w-48 h-48 object-cover rounded-2xl flex-shrink-0 border border-[#3a3e4a]" />
-      <div class="p-6 flex flex-col justify-between flex-1 min-h-[192px]">
+      <img src="${event.image_url}" alt="${event.name}" class="w-full h-48 md:w-48 md:h-48 object-cover rounded-2xl overflow-hidden bg-gray-100 shrink-0" />
+      <div class="md:p-4 flex flex-col justify-between items-start flex-1">
         <div class="flex-1">
-          <h2 class="text-2xl font-bold text-gray-200 mb-3 leading-tight">${event.name}</h2>
-          <p class="text-base text-gray-400 leading-relaxed mb-6 line-clamp-3">${descriptionShort}</p>
+          <h2 class="text-2xl font-semibold text-gray-200 mb-2">${nameShort}</h2>
+          <p class="text-base text-gray-400 mb-3 leading-relaxed">${descriptionShort}</p>
         </div>
         <div class="text-base text-gray-200 space-y-2">
           <p class="flex items-center text-gray-400">
@@ -165,11 +173,11 @@ async function checkSubscriptionStatus(userId) {
 // Update button state based on subscription status
 function updateButtonState(button, isSubscribed) {
   if (isSubscribed) {
-    button.textContent = "Subscribed";
+    button.textContent = "Unsubscribe";
     button.classList.add(
       "bg-gradient-to-r",
-      "from-[#F59275]",
-      "to-[#F1647A]",
+      "to-[#F59275]",
+      "from-[#F1647A]",
       "border-transparent"
     );
     button.classList.remove(
@@ -178,13 +186,13 @@ function updateButtonState(button, isSubscribed) {
       "bg-[#23243a]",
       "border-gray-400"
     );
-    button.disabled = true;
+    button.disabled = false; // Allow clicking to unsubscribe
   } else {
     button.textContent = "Subscribe";
     button.classList.remove(
       "bg-gradient-to-r",
-      "from-[#F59275]",
-      "to-[#F1647A]",
+      "to-[#F59275]",
+      "from-[#F1647A]",
       "border-transparent"
     );
     button.classList.add(
@@ -197,7 +205,7 @@ function updateButtonState(button, isSubscribed) {
   }
 }
 
-// --- Featured Calendars: Show users who have created at least one event ---
+// --- Featured Calendars: Show users who have created at least one event (excluding current user) ---
 async function loadFeaturedCalendars() {
   console.log("Loading featured calendars...");
   const container = document.getElementById("userCalendarsGrid");
@@ -208,6 +216,11 @@ async function loadFeaturedCalendars() {
   }
   container.innerHTML = "";
 
+  // Get current user to exclude them from featured calendars
+  const currentUser = getCurrentUser();
+  const currentUserId = currentUser?.userId;
+  console.log("Current user ID:", currentUserId);
+
   // 1. Get all events, collect unique host_user_id and their profile info from event doc
   const eventsCol = collection(db, "events");
   const eventsSnap = await getDocs(eventsCol);
@@ -216,6 +229,12 @@ async function loadFeaturedCalendars() {
   eventsSnap.forEach((doc) => {
     const event = doc.data();
     if (!event.host_user_id) return;
+
+    // Skip if this is the current user's event
+    if (currentUserId && event.host_user_id === currentUserId) {
+      console.log("Skipping current user's event:", event.host_user_id);
+      return;
+    }
 
     // Only add if not already present (first event wins)
     if (!userMap.has(event.host_user_id)) {
@@ -257,7 +276,7 @@ async function loadFeaturedCalendars() {
   });
 
   if (userMap.size === 0) {
-    container.innerHTML = `<p class='text-gray-500 text-center'>No event creators found yet. Create your first event to appear here!</p>`;
+    container.innerHTML = `<p class='text-gray-400'>No event creators found yet...</p>`;
     return;
   }
 
@@ -265,26 +284,43 @@ async function loadFeaturedCalendars() {
   for (const [userId, user] of userMap) {
     const card = document.createElement("div");
     card.className =
-      "flex flex-col md:flex-row items-center bg-[#23243a] rounded-2xl shadow-lg p-6 mb-6 w-full max-w-2xl mx-auto transition hover:scale-[1.025] hover:shadow-2xl duration-200 min-h-[180px] border border-[#3a3e4a] cursor-pointer";
+      "bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-5 w-full max-w-2xl mx-auto mb-6 transition hover:scale-[1.02] hover:shadow-lg duration-200 border border-[#3a3e4a] cursor-pointer flex flex-col gap-4";
+
     card.innerHTML = `
-      <img src="${
-        user.profileImg
-      }" alt="Avatar" class="w-28 h-28 md:w-32 md:h-32 object-cover rounded-2xl mb-4 md:mb-0 md:mr-8 bg-gray-300 flex-shrink-0 border border-gray-700" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(
-      user.username
-    )}&background=random&size=128&color=fff'" />
-      <div class="flex flex-col flex-1 min-w-0">
-        <h2 class="text-2xl font-bold text-white mb-1 event-name truncate">${
-          user.username
-        }</h2>
-        <p class="text-gray-300 text-base mb-2 break-words line-clamp-3">${
-          user.bio
-        }</p>
-        <div class="flex items-center gap-4 mb-3 flex-wrap">
-          <span class="flex items-center text-gray-400 text-sm"><i class="fa-solid fa-user-group mr-2"></i> Event Creator</span>
+      <h2 class="text-xl font-semibold text-gray-100 truncate">${
+        user.username
+      }</h2>
+
+      <div class="flex flex-col sm:flex-row items-start gap-4">
+        <div class="w-full sm:w-32 h-32 flex-shrink-0 rounded-2xl overflow-hidden bg-gray-300">
+          <img 
+            src="${user.profileImg}" 
+            alt="${user.username}" 
+            class="w-full h-full object-cover"
+            onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(
+              user.username
+            )}&background=random&size=128&color=fff'" 
+          />
         </div>
-        <button class="subscribe-btn bg-[#23243a] border border-gray-400 rounded-full px-6 py-2 text-white font-semibold hover:bg-[#f1647a] hover:border-[#f1647a] transition w-fit mt-auto" data-user-id="${userId}" data-username="${
-      user.username
-    }">Subscribe</button>
+
+        <div class="flex flex-col justify-between flex-1 min-w-0 h-32">
+          <div>
+            <p class="text-sm text-gray-400 leading-tight mb-2 line-clamp-3">${
+              user.bio
+            }</p>
+            <div class="text-xs text-gray-500 flex items-center gap-2 mb-3">
+              <i class="fa-solid fa-user-group text-gray-400"></i> Event Creator
+            </div>
+          </div>
+
+          <button 
+            class="subscribe-btn border border-gray-600 cursor-pointer rounded-xl px-5 py-1.5 text-sm bg-[#2F364A] text-gray-200 hover:bg-[#f1647a] hover:border-[#f1647a] hover:text-white transition w-fit"
+            data-user-id="${userId}"
+            data-username="${user.username}"
+          >
+            Subscribe
+          </button>
+        </div>
       </div>
     `;
 
@@ -317,7 +353,10 @@ async function loadFeaturedCalendars() {
 
 // Handle subscribe functionality for event creators (Featured Calendars)
 async function handleSubscribe(userId, username) {
+  console.log("handleSubscribe called with:", { userId, username });
   const currentUser = getCurrentUser();
+  console.log("Current user:", currentUser);
+
   if (!currentUser || !currentUser.userId) {
     alert("Please sign in to subscribe to event creators.");
     return;
@@ -344,16 +383,65 @@ async function handleSubscribe(userId, username) {
     const existingSub = await getDocs(q);
 
     if (!existingSub.empty) {
-      alert(`You are already subscribed to ${username}!`);
+      console.log("User is subscribed, proceeding to unsubscribe...");
+      // Already subscribed, so unsubscribe
+      try {
+        for (const docSnap of existingSub.docs) {
+          console.log("Deleting subscription doc:", docSnap.id);
+          await deleteDoc(docSnap.ref);
+        }
+        console.log("Successfully deleted user subscription docs");
+
+        // Also remove from creator's subscribers collection
+        const creatorSubscribersRef = collection(
+          db,
+          "users",
+          userId,
+          "subscribers"
+        );
+        const subscriberQuery = query(
+          creatorSubscribersRef,
+          where("subscriberUserId", "==", currentUser.userId)
+        );
+        console.log("Querying creator subscribers...");
+        const existingSubscribers = await getDocs(subscriberQuery);
+        console.log(
+          "Found subscriber docs to delete:",
+          existingSubscribers.docs.length
+        );
+
+        for (const docSnap of existingSubscribers.docs) {
+          console.log("Deleting subscriber doc:", docSnap.id);
+          await deleteDoc(docSnap.ref);
+        }
+        console.log("Successfully deleted creator subscriber docs");
+
+        alert(`Successfully unsubscribed from ${username}!`);
+
+        // Update the button to show unsubscribed state
+        const subscribeBtn = document.querySelector(
+          `[data-user-id="${userId}"]`
+        );
+        if (subscribeBtn) {
+          updateButtonState(subscribeBtn, false);
+        }
+      } catch (unsubError) {
+        console.error("Error during unsubscribe process:", unsubError);
+        throw unsubError; // Re-throw to be caught by outer catch
+      }
       return;
     }
 
+    console.log("User is not subscribed, proceeding to subscribe...");
+
     // Add subscription to user's creator subscriptions collection
+    console.log("Adding subscription document...");
     await addDoc(subscriptionsRef, {
       subscribedToUserId: userId,
       subscribedToUsername: username,
       subscribedAt: new Date(),
     });
+    console.log("Successfully added subscription document");
 
     // Also add subscriber to the creator's subscribers collection for easy querying
     const creatorSubscribersRef = collection(
@@ -362,11 +450,13 @@ async function handleSubscribe(userId, username) {
       userId,
       "subscribers"
     );
+    console.log("Adding subscriber document to creator's collection...");
     await addDoc(creatorSubscribersRef, {
       subscriberUserId: currentUser.userId,
       subscriberUsername: currentUser.username || currentUser.email,
       subscribedAt: new Date(),
     });
+    console.log("Successfully added subscriber document");
 
     alert(`Successfully subscribed to ${username}!`);
 
@@ -377,7 +467,14 @@ async function handleSubscribe(userId, username) {
     }
   } catch (error) {
     console.error("Error subscribing to creator:", error);
-    alert("Failed to subscribe. Please try again.");
+    console.error("Error details:", {
+      message: error.message,
+      code: error.code,
+      currentUser,
+      userId,
+      username,
+    });
+    alert(`Failed to subscribe. Please try again. Error: ${error.message}`);
   }
 }
 
@@ -504,7 +601,10 @@ async function initializeEventPage() {
       card.style.cursor = "pointer";
       card.addEventListener("click", () => {
         const city = card.getAttribute("data-city");
-        fetchCityEvents(city);
+        // Redirect to city-events.html with the city as a parameter
+        window.location.href = `city-events.html?city=${encodeURIComponent(
+          city
+        )}`;
       });
     });
 

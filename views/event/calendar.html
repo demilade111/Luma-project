@@ -1,1089 +1,840 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luma | Event Details</title>
-    <link href="../../src/output.css" rel="stylesheet" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luma | Event Details</title>
+  <link href="../../src/output.css" rel="stylesheet" />
 
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <link
-      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      /* Tailwind-inspired Flatpickr customization */
-      .flatpickr-day.selected,
-      .flatpickr-day.today {
-        background-color: #1f2937 !important;
-        /* gray-800 */
-        color: #f59275 !important;
-        /* yellow-400 */
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet" />
+  <style>
+    /* Tailwind-inspired Flatpickr customization */
+    .flatpickr-day.selected,
+    .flatpickr-day.today {
+      background-color: #1f2937 !important;
+      /* gray-800 */
+      color: #f59275 !important;
+      /* yellow-400 */
+    }
+
+    .flatpickr-day:hover {
+      background-color: #4b5563 !important;
+      /* gray-600 */
+    }
+
+    .flatpickr-calendar {
+      /* border: 2px solid #f59275; */
+      /* Change to your desired border color */
+      background: transparent !important;
+      backdrop-filter: blur(8px);
+      /* Optional: adds a blur effect */
+      border-radius: 0.5rem;
+      /* Optional: rounded corners */
+      box-shadow: none;
+      /* Optional: remove default shadow */
+    }
+
+    .flatpickr-months .flatpickr-prev-month,
+    .flatpickr-months .flatpickr-next-month,
+    .flatpickr-current-month {
+      color: white;
+      fill: white;
+    }
+
+    span.flatpickr-weekday {
+      color: rgb(255 255 255 / 54%);
+    }
+
+    .flatpickr-day {
+      color: #a4a4a4;
+    }
+
+    .flatpickr-day.prevMonthDay,
+    .flatpickr-day.nextMonthDay {
+      color: rgb(183 183 183 / 30%);
+    }
+
+    /* Custom styles for days with events */
+    .flatpickr-day.has-registered-events {
+      background-color: #f59275 !important;
+      color: white !important;
+      font-weight: bold !important;
+      border-radius: 50% !important;
+    }
+
+    .flatpickr-day.has-registered-events:hover {
+      background-color: #f1647a !important;
+    }
+
+    .flatpickr-day.has-added-events {
+      background-color: transparent !important;
+      color: #f59275 !important;
+      font-weight: bold !important;
+      border: 2px solid #f59275 !important;
+      border-radius: 50% !important;
+    }
+
+    .flatpickr-day.has-added-events:hover {
+      background-color: rgba(245, 146, 117, 0.1) !important;
+    }
+
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    #calendar-wrapper {
+      display: none;
+    }
+
+    @media (min-width: 1024px) {
+      #calendar-wrapper {
+        display: block;
       }
+    }
+  </style>
+</head>
 
-      .flatpickr-day:hover {
-        background-color: #4b5563 !important;
-        /* gray-600 */
-      }
+<body class="bg-gray-100">
+  <div data-component="sidebar"></div>
 
-      .flatpickr-calendar {
-        /* border: 2px solid #f59275; */
-        /* Change to your desired border color */
-        background: transparent !important;
-        backdrop-filter: blur(8px);
-        /* Optional: adds a blur effect */
-        border-radius: 0.5rem;
-        /* Optional: rounded corners */
-        box-shadow: none;
-        /* Optional: remove default shadow */
-      }
+  <div class="flex-1 flex flex-col min-h-screen md:ml-[80px] pt-10">
 
-      .flatpickr-months .flatpickr-prev-month,
-      .flatpickr-months .flatpickr-next-month,
-      .flatpickr-current-month {
-        color: white;
-        fill: white;
-      }
 
-      span.flatpickr-weekday {
-        color: rgb(255 255 255 / 54%);
-      }
-
-      .flatpickr-day {
-        color: #a4a4a4;
-      }
-
-      .flatpickr-day.prevMonthDay,
-      .flatpickr-day.nextMonthDay {
-        color: rgb(183 183 183 / 30%);
-      }
-
-      /* Custom styles for days with events */
-      .flatpickr-day.has-registered-events {
-        background-color: #f59275 !important;
-        color: white !important;
-        font-weight: bold !important;
-        border-radius: 50% !important;
-      }
-
-      .flatpickr-day.has-registered-events:hover {
-        background-color: #f1647a !important;
-      }
-
-      .flatpickr-day.has-added-events {
-        background-color: transparent !important;
-        color: #f59275 !important;
-        font-weight: bold !important;
-        border: 2px solid #f59275 !important;
-        border-radius: 50% !important;
-      }
-
-      .flatpickr-day.has-added-events:hover {
-        background-color: rgba(245, 146, 117, 0.1) !important;
-      }
-
-      /* Events container styling */
-      #events-container {
-        max-height: 400px;
-        overflow-y: auto;
-      }
-
-      .line-clamp-2 {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-    </style>
-  </head>
-
-  <body class="bg-gray-100">
-    <div data-component="sidebar"></div>
-
-    <div class="flex-1 flex flex-col min-h-screen md:ml-[80px] pt-10">
+    <!-- calendar section -->
+    <main class="flex-1 py-5 md:py-10 px-2 md:px-20">
       <!-- Mobile Date Picker -->
-      <div class="block md:hidden mx-2">
-        <label
-          for="calendar-mobile"
-          class="text-2xl font-semibold luma-gradient"
-          >Select a Date</label
-        >
-        <input
-          type="text"
-          id="calendar-mobile"
-          placeholder="Choose a date"
-          class="w-full bg-gray-400/70 text-gray-800 p-2 rounded-lg border border-gray-800 mt-10 mb-0"
-        />
+      <div class="block lg:hidden">
+        <label for="calendar-mobile" class="text-2xl font-semibold luma-gradient">Select a Date</label>
+        <input type="text" id="calendar-mobile" placeholder="Choose a date"
+          class="w-full bg-gray-400/70 text-gray-800 p-2 mb-3 rounded-lg border border-gray-800 mt-10" />
       </div>
 
-      <!-- calendar section -->
-      <main class="flex-1 py-5 md:py-10 px-2 md:px-20">
-        <!-- Container -->
-        <div
-          class="w-full max-w-7xl mx-auto bg-[#262C3D] rounded-2xl shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-[1fr_auto] mb-10"
-        >
-          <!-- Left: Image -->
-          <div class="p-4 flex items-center justify-center bg-gray-800 w-full">
-            <img
-              id="calendar-image"
-              src="https://via.placeholder.com/600x400?text=Select+a+Date"
-              alt="Calendar Image"
-              class="rounded-lg w-full object-cover"
-            />
-          </div>
-
-          <!-- Right: Full Calendar (Desktop only) -->
-          <div class="p-6 hidden md:block">
-            <h2 class="text-xl font-semibold mb-4 luma-gradient">
-              Select a Date
-            </h2>
-            <div>
-              <div
-                id="calendar"
-                class="bg-transparent rounded-lg text-black p-2 hidden shadow-md border border-[#f1647a]"
-              ></div>
-            </div>
-          </div>
+      <!-- Container -->
+      <div
+        class="w-full max-w-7xl mx-auto bg-[#262C3D] rounded-2xl shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-[1fr_auto] mb-10">
+        <!-- Left: Event card or message -->
+        <div class="px-3 sm:px-6 md:py-8 flex items-center justify-center bg-gray-800 w-full relative"
+          id="calendar-event-card-wrapper">
+          <!-- Content injected by JS -->
         </div>
 
-        <!-- horizontal scrollable cards without floating buttons -->
-        <div class="w-full">
-          <h2 class="text-2xl font-semibold mb-10 luma-gradient">
-            Suggested Calendars
-          </h2>
-
-          <div
-            id="scroll-cards"
-            class="flex overflow-x-auto pb-4 no-scrollbar m-0 p-0"
-          >
-            <!-- Card 1 -->
-            <div
-              class="flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3"
-            >
-              <img
-                src="https://via.placeholder.com/120x120"
-                alt="Event Image"
-                class="w-32 h-32 object-cover"
-              />
-              <div class="flex flex-col justify-between flex-1 p-0 m-0">
-                <div>
-                  <h3 class="text-lg font-semibold mb-1 luma-gradient">
-                    Event Title 1
-                  </h3>
-                  <p class="text-gray-400 text-sm line-clamp-3">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    euismod, nunc ut laoreet...
-                  </p>
-                </div>
-                <div class="flex items-center justify-between pr-2 py-2">
-                  <span class="flex items-center text-gray-400 text-xs">
-                    <i class="fa-solid fa-user-group mr-1"></i>
-                    35 users subscribed
-                  </span>
-                  <button
-                    style="
-                      box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
-                    "
-                    class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
-                  >
-                    Subscribe
-                  </button>
-                </div>
-              </div>
-            </div>
-            <!-- Card 2 -->
-            <div
-              class="flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3"
-            >
-              <img
-                src="https://via.placeholder.com/120x120"
-                alt="Event Image"
-                class="w-32 h-32 object-cover"
-              />
-              <div class="flex flex-col justify-between flex-1 p-0 m-0">
-                <div>
-                  <h3 class="text-lg font-semibold mb-1 luma-gradient">
-                    Event Title 1
-                  </h3>
-                  <p class="text-gray-400 text-sm line-clamp-3">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    euismod, nunc ut laoreet...
-                  </p>
-                </div>
-                <div class="flex items-center justify-between pr-2 py-2">
-                  <span class="flex items-center text-gray-400 text-xs">
-                    <i class="fa-solid fa-user-group mr-1"></i>
-                    35 users subscribed
-                  </span>
-                  <button
-                    style="
-                      box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
-                    "
-                    class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
-                  >
-                    Subscribe
-                  </button>
-                </div>
-              </div>
-            </div>
-            <!-- Card 3 -->
-            <div
-              class="flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3"
-            >
-              <img
-                src="https://via.placeholder.com/120x120"
-                alt="Event Image"
-                class="w-32 h-32 object-cover"
-              />
-              <div class="flex flex-col justify-between flex-1 p-0 m-0">
-                <div>
-                  <h3 class="text-lg font-semibold mb-1 luma-gradient">
-                    Event Title 1
-                  </h3>
-                  <p class="text-gray-400 text-sm line-clamp-3">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    euismod, nunc ut laoreet...
-                  </p>
-                </div>
-                <div class="flex items-center justify-between pr-2 py-2">
-                  <span class="flex items-center text-gray-400 text-xs">
-                    <i class="fa-solid fa-user-group mr-1"></i>
-                    35 users subscribed
-                  </span>
-                  <button
-                    style="
-                      box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
-                    "
-                    class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
-                  >
-                    Subscribe
-                  </button>
-                </div>
-              </div>
-            </div>
-            <!-- Card 4 -->
-            <div
-              class="flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3"
-            >
-              <img
-                src="https://via.placeholder.com/120x120"
-                alt="Event Image"
-                class="w-32 h-32 object-cover"
-              />
-              <div class="flex flex-col justify-between flex-1 p-0 m-0">
-                <div>
-                  <h3 class="text-lg font-semibold mb-1 luma-gradient">
-                    Event Title 1
-                  </h3>
-                  <p class="text-gray-400 text-sm line-clamp-3">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    euismod, nunc ut laoreet...
-                  </p>
-                </div>
-                <div class="flex items-center justify-between pr-2 py-2">
-                  <span class="flex items-center text-gray-400 text-xs">
-                    <i class="fa-solid fa-user-group mr-1"></i>
-                    35 users subscribed
-                  </span>
-                  <button
-                    style="
-                      box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
-                    "
-                    class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
-                  >
-                    Subscribe
-                  </button>
-                </div>
-              </div>
-            </div>
+        <!-- Right: Full Calendar (Desktop only) -->
+        <div id="calendar-wrapper" class="p-6 hidden md:block">
+          <h2 class="text-xl font-semibold mb-4 luma-gradient">Select a Date</h2>
+          <div>
+            <div id="calendar"
+              class="bg-transparent rounded-lg text-black p-2 hidden shadow-md border border-[#f1647a]"></div>
           </div>
         </div>
+      </div>
 
-        <br />
-        <br />
+      <!-- horizontal scrollable cards without floating buttons -->
+      <div class="w-full">
+        <h2 class="text-2xl font-semibold mb-10 luma-gradient">
+          Suggested Calendars
+        </h2>
 
-        <div class="w-full">
-          <h2 class="text-2xl font-semibold mb-10 luma-gradient">
-            Subscribed Calendars
-          </h2>
-          <!-- Subscribed Calendars -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <!-- Card -->
-            <div
-              class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4"
-            >
-              <!-- Left: Image + Button -->
-              <div
-                class="flex flex-col justify-between items-center mr-4 h-full"
-              >
-                <img
-                  src="https://via.placeholder.com/100x100"
-                  alt="Image"
-                  class="w-24 h-24 object-cover rounded-md mb-2"
-                />
-                <button
-                  style="
-                    box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
-                  "
-                  class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
-                >
-                  Subscribe
-                </button>
-              </div>
-
-              <!-- Right: Title + Subtitles -->
-              <div class="flex flex-col justify-between flex-1 h-full">
-                <h3 class="text-lg font-semibold mb-5 text-gray-200">
-                  Card Title
-                </h3>
-
-                <div class="flex flex-col justify-between h-full mb-2">
-                  <p class="text-gray-400 text-sm line-clamp-3 mb-3">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    euismod, nunc ut laoreet...
-                  </p>
-
-                  <p class="text-gray-400 text-sm flex items-center">
-                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
-                    Langara College B Building
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card -->
-            <div
-              class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4"
-            >
-              <!-- Left: Image + Button -->
-              <div
-                class="flex flex-col justify-between items-center mr-4 h-full"
-              >
-                <img
-                  src="https://via.placeholder.com/100x100"
-                  alt="Image"
-                  class="w-24 h-24 object-cover rounded-md mb-2"
-                />
-                <button
-                  style="
-                    box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
-                  "
-                  class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
-                >
-                  Subscribe
-                </button>
-              </div>
-
-              <!-- Right: Title + Subtitles -->
-              <div class="flex flex-col justify-between flex-1 h-full">
-                <h3 class="text-lg font-semibold mb-5 text-gray-200">
-                  Card Title
-                </h3>
-
-                <div class="flex flex-col justify-between h-full mb-2">
-                  <p class="text-gray-400 text-sm line-clamp-3 mb-3">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    euismod, nunc ut laoreet...
-                  </p>
-
-                  <p class="text-gray-400 text-sm flex items-center">
-                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
-                    Langara College B Building
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card -->
-            <div
-              class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4"
-            >
-              <!-- Left: Image + Button -->
-              <div
-                class="flex flex-col justify-between items-center mr-4 h-full"
-              >
-                <img
-                  src="https://via.placeholder.com/100x100"
-                  alt="Image"
-                  class="w-24 h-24 object-cover rounded-md mb-2"
-                />
-                <button
-                  style="
-                    box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
-                  "
-                  class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
-                >
-                  Subscribe
-                </button>
-              </div>
-
-              <!-- Right: Title + Subtitles -->
-              <div class="flex flex-col justify-between flex-1 h-full">
-                <h3 class="text-lg font-semibold mb-5 text-gray-200">
-                  Card Title
-                </h3>
-
-                <div class="flex flex-col justify-between h-full mb-2">
-                  <p class="text-gray-400 text-sm line-clamp-3 mb-3">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    euismod, nunc ut laoreet...
-                  </p>
-
-                  <p class="text-gray-400 text-sm flex items-center">
-                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
-                    Langara College B Building
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card -->
-            <div
-              class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4"
-            >
-              <!-- Left: Image + Button -->
-              <div
-                class="flex flex-col justify-between items-center mr-4 h-full"
-              >
-                <img
-                  src="https://via.placeholder.com/100x100"
-                  alt="Image"
-                  class="w-24 h-24 object-cover rounded-md mb-2"
-                />
-                <button
-                  style="
-                    box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
-                  "
-                  class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
-                >
-                  Subscribe
-                </button>
-              </div>
-
-              <!-- Right: Title + Subtitles -->
-              <div class="flex flex-col justify-between flex-1 h-full">
-                <h3 class="text-lg font-semibold mb-5 text-gray-200">
-                  Card Title
-                </h3>
-
-                <div class="flex flex-col justify-between h-full mb-2">
-                  <p class="text-gray-400 text-sm line-clamp-3 mb-3">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    euismod, nunc ut laoreet...
-                  </p>
-
-                  <p class="text-gray-400 text-sm flex items-center">
-                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
-                    Langara College B Building
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card -->
-            <div
-              class="flex items-stretch bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden p-4"
-            >
-              <!-- Left: Image + Button -->
-              <div
-                class="flex flex-col justify-between items-center mr-4 h-full"
-              >
-                <img
-                  src="https://via.placeholder.com/100x100"
-                  alt="Image"
-                  class="w-24 h-24 object-cover rounded-md mb-2"
-                />
-                <button
-                  style="
-                    box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
-                  "
-                  class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors"
-                >
-                  Subscribe
-                </button>
-              </div>
-
-              <!-- Right: Title + Subtitles -->
-              <div class="flex flex-col justify-between flex-1 h-full">
-                <h3 class="text-lg font-semibold mb-5 text-gray-200">
-                  Card Title
-                </h3>
-
-                <div class="flex flex-col justify-between h-full mb-2">
-                  <p class="text-gray-400 text-sm line-clamp-3 mb-3">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    euismod, nunc ut laoreet...
-                  </p>
-
-                  <p class="text-gray-400 text-sm flex items-center">
-                    <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
-                    Langara College B Building
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div id="scroll-cards" class="flex overflow-x-auto pb-4 no-scrollbar m-0 p-0">
+          <p class="text-gray-400">Processing...</p>
         </div>
+      </div>
 
-        <!-- Tailwind line-clamp plugin required for ... truncation -->
-        <style>
-          .no-scrollbar::-webkit-scrollbar {
-            display: none;
+      <br />
+      <br />
+
+      <div class="w-full">
+        <h2 class="text-2xl font-semibold mb-10 luma-gradient">
+          Subscribed Calendars
+        </h2>
+        <!-- Subscribed Calendars -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10" id="subscribedCalendarsGrid">
+          <!-- Dynamic subscription cards will be injected here -->
+        </div>
+      </div>
+
+      <!-- Tailwind line-clamp plugin required for ... truncation -->
+      <style>
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      </style>
+    </main>
+  </div>
+  <div data-component="footer"></div>
+  <script src="../../js/inject.js" defer></script>
+  <script type="module" src="../../js/auth/signout.js"></script>
+
+  <!-- Authentication Guard -->
+  <script type="module">
+    import { initAuthGuard } from "../../js/auth/authGuard.js";
+    initAuthGuard();
+  </script>
+
+  <!-- Calendar Events Script -->
+  <script type="module">
+    import { db } from "../../config/firebase.js";
+    import {
+      collection,
+      getDocs,
+      doc,
+      getDoc,
+      setDoc,
+      deleteDoc,
+      query,
+      where,
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getCurrentUser } from "../../js/auth/authGuard.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { auth } from "../../config/firebase.js";
+
+    // Store user's calendar events
+    let userCalendarEvents = [];
+    let userRegisteredEvents = [];
+    let selectedDate = null;
+
+    // Initialize calendar when DOM is loaded and auth is ready
+    document.addEventListener("DOMContentLoaded", () => {
+      // Wait for auth state to be ready
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          // User is authenticated, initialize calendar
+          await initializeCalendar();
+        } else {
+          // User is not authenticated, show empty calendar
+          setupEmptyCalendar();
+        }
+      });
+    });
+
+    async function initializeCalendar() {
+      const user = getCurrentUser();
+      console.log("Initializing calendar for user:", user);
+
+      try {
+        console.log("Loading user calendar events...");
+        // Load user's calendar events and registrations
+        await Promise.all([
+          loadUserCalendarEvents(),
+          loadUserRegistrations(),
+        ]);
+
+        console.log("Setting up calendar with events...");
+        // Setup calendar with real events
+        setupCalendarWithEvents();
+
+        console.log("Loading suggested calendars...");
+        // Load suggested calendars
+        await loadSuggestedCalendars();
+
+        console.log("Loading subscribed calendars...");
+        // Load subscribed calendars
+        await loadSubscribedCalendars();
+
+        console.log("Calendar initialization complete");
+      } catch (error) {
+        console.error("Error initializing calendar:", error);
+        console.log("Falling back to empty calendar");
+        setupEmptyCalendar();
+      }
+    }
+
+    async function loadUserCalendarEvents() {
+      const user = getCurrentUser();
+      if (!user || !user.userId) return;
+
+      try {
+        const calendarCol = collection(db, "users", user.userId, "calendar");
+        const snapshot = await getDocs(calendarCol);
+
+        userCalendarEvents = [];
+        for (const docSnap of snapshot.docs) {
+          const eventData = docSnap.data();
+          // Get the full event details from the events collection
+          const eventDoc = await getDoc(doc(db, "events", eventData.eventId));
+          if (eventDoc.exists()) {
+            const fullEvent = eventDoc.data();
+            userCalendarEvents.push({
+              id: eventData.eventId,
+              ...fullEvent,
+              addedAt: eventData.addedAt,
+              type: "added", // Mark as added to calendar
+            });
           }
+        }
 
-          .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        console.log(`Loaded ${userCalendarEvents.length} calendar events`);
+      } catch (error) {
+        console.error("Error loading calendar events:", error);
+      }
+    }
+
+    async function loadUserRegistrations() {
+      const user = getCurrentUser();
+      if (!user || !user.userId) return;
+
+      try {
+        const registrationsCol = collection(
+          db,
+          "users",
+          user.userId,
+          "registrations"
+        );
+        const snapshot = await getDocs(registrationsCol);
+
+        userRegisteredEvents = [];
+        for (const docSnap of snapshot.docs) {
+          const registrationData = docSnap.data();
+          // Get the full event details from the events collection
+          const eventDoc = await getDoc(
+            doc(db, "events", registrationData.eventId)
+          );
+          if (eventDoc.exists()) {
+            const fullEvent = eventDoc.data();
+            userRegisteredEvents.push({
+              id: registrationData.eventId,
+              ...fullEvent,
+              registeredAt: registrationData.registeredAt,
+              type: "registered", // Mark as registered
+            });
           }
-        </style>
-      </main>
-    </div>
-    <div data-component="footer"></div>
-    <script src="../../js/inject.js" defer></script>
-    <script type="module" src="../../js/auth/signout.js"></script>
+        }
 
-    <!-- Authentication Guard -->
-    <script type="module">
-      import { initAuthGuard } from "../../js/auth/authGuard.js";
-      initAuthGuard();
-    </script>
+        console.log(
+          `Loaded ${userRegisteredEvents.length} registered events`
+        );
+      } catch (error) {
+        console.error("Error loading registrations:", error);
+      }
+    }
 
-    <!-- Calendar Events Script -->
-    <script type="module">
-      import { db } from "../../config/firebase.js";
-      import {
-        collection,
-        getDocs,
-        doc,
-        getDoc,
-        setDoc,
-        deleteDoc,
-      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-      import { getCurrentUser } from "../../js/auth/authGuard.js";
-      import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-      import { auth } from "../../config/firebase.js";
+    function setupCalendarWithEvents() {
+      // Combine all events and organize by date
+      const allEvents = [...userCalendarEvents, ...userRegisteredEvents];
+      const eventDates = {};
 
-      // Store user's calendar events
-      let userCalendarEvents = [];
-      let userRegisteredEvents = [];
-      let selectedDate = null;
-
-      // Initialize calendar when DOM is loaded and auth is ready
-      document.addEventListener("DOMContentLoaded", () => {
-        // Wait for auth state to be ready
-        onAuthStateChanged(auth, async (user) => {
-          if (user) {
-            // User is authenticated, initialize calendar
-            await initializeCalendar();
-          } else {
-            // User is not authenticated, show empty calendar
-            setupEmptyCalendar();
+      // Only process events that the user has registered for or added to calendar
+      allEvents.forEach((event) => {
+        if (event.start_time) {
+          const dateStr = event.start_time
+            .toDate()
+            .toISOString()
+            .split("T")[0];
+          if (!eventDates[dateStr]) {
+            eventDates[dateStr] = [];
           }
+          eventDates[dateStr].push(event);
+        }
+      });
+
+      // Sort events by start time for each date (nearest first)
+      Object.keys(eventDates).forEach((dateStr) => {
+        eventDates[dateStr].sort((a, b) => {
+          return a.start_time.toDate() - b.start_time.toDate();
         });
       });
 
-      async function initializeCalendar() {
-        const user = getCurrentUser();
-        console.log("Initializing calendar for user:", user);
+      console.log("User's event dates mapping:", eventDates);
 
-        try {
-          console.log("Loading user calendar events...");
-          // Load user's calendar events and registrations
-          await Promise.all([
-            loadUserCalendarEvents(),
-            loadUserRegistrations(),
-          ]);
+      // Desktop calendar
+      const desktopCalendar = flatpickr("#calendar", {
+        inline: true,
+        enableTime: false,
+        dateFormat: "Y-m-d",
+        onChange: function (selectedDates, dateStr) {
+          selectedDate = dateStr;
+          updateCalendarDisplay(dateStr, eventDates[dateStr] || []);
+        },
+        onDayCreate: function (dObj, dStr, fp, dayElem) {
+          // Add custom styling for days with events
+          const dateStr = dayElem.dateObj.toISOString().split("T")[0];
+          if (eventDates[dateStr] && eventDates[dateStr].length > 0) {
+            const events = eventDates[dateStr];
+            const hasRegistered = events.some((e) => e.type === "registered");
+            const hasAdded = events.some((e) => e.type === "added");
 
-          console.log("Setting up calendar with events...");
-          // Setup calendar with real events
-          setupCalendarWithEvents();
-
-          console.log("Loading suggested calendars...");
-          // Load suggested calendars
-          await loadSuggestedCalendars();
-
-          console.log("Calendar initialization complete");
-        } catch (error) {
-          console.error("Error initializing calendar:", error);
-          console.log("Falling back to empty calendar");
-          setupEmptyCalendar();
-        }
-      }
-
-      async function loadUserCalendarEvents() {
-        const user = getCurrentUser();
-        if (!user || !user.userId) return;
-
-        try {
-          const calendarCol = collection(db, "users", user.userId, "calendar");
-          const snapshot = await getDocs(calendarCol);
-
-          userCalendarEvents = [];
-          for (const docSnap of snapshot.docs) {
-            const eventData = docSnap.data();
-            // Get the full event details from the events collection
-            const eventDoc = await getDoc(doc(db, "events", eventData.eventId));
-            if (eventDoc.exists()) {
-              const fullEvent = eventDoc.data();
-              userCalendarEvents.push({
-                id: eventData.eventId,
-                ...fullEvent,
-                addedAt: eventData.addedAt,
-                type: "added", // Mark as added to calendar
-              });
-            }
-          }
-
-          console.log(`Loaded ${userCalendarEvents.length} calendar events`);
-        } catch (error) {
-          console.error("Error loading calendar events:", error);
-        }
-      }
-
-      async function loadUserRegistrations() {
-        const user = getCurrentUser();
-        if (!user || !user.userId) return;
-
-        try {
-          const registrationsCol = collection(
-            db,
-            "users",
-            user.userId,
-            "registrations"
-          );
-          const snapshot = await getDocs(registrationsCol);
-
-          userRegisteredEvents = [];
-          for (const docSnap of snapshot.docs) {
-            const registrationData = docSnap.data();
-            // Get the full event details from the events collection
-            const eventDoc = await getDoc(
-              doc(db, "events", registrationData.eventId)
+            console.log(
+              `Date ${dateStr}: hasRegistered=${hasRegistered}, hasAdded=${hasAdded}`
             );
-            if (eventDoc.exists()) {
-              const fullEvent = eventDoc.data();
-              userRegisteredEvents.push({
-                id: registrationData.eventId,
-                ...fullEvent,
-                registeredAt: registrationData.registeredAt,
-                type: "registered", // Mark as registered
-              });
+
+            if (hasRegistered) {
+              // Solid orange for registered events
+              dayElem.classList.add("has-registered-events");
+              dayElem.style.backgroundColor = "#f59275";
+              dayElem.style.color = "white";
+              dayElem.style.fontWeight = "bold";
+              dayElem.style.borderRadius = "50%";
+              console.log(`Applied registered styling to ${dateStr}`);
+            } else if (hasAdded) {
+              // Orange outline for added events
+              dayElem.classList.add("has-added-events");
+              dayElem.style.backgroundColor = "transparent";
+              dayElem.style.color = "#f59275";
+              dayElem.style.fontWeight = "bold";
+              dayElem.style.border = "2px solid #f59275";
+              dayElem.style.borderRadius = "50%";
+              console.log(`Applied added styling to ${dateStr}`);
             }
           }
+        },
+      });
 
-          console.log(
-            `Loaded ${userRegisteredEvents.length} registered events`
-          );
-        } catch (error) {
-          console.error("Error loading registrations:", error);
-        }
+      // Mobile calendar input
+      const mobileCalendar = flatpickr("#calendar-mobile", {
+        dateFormat: "Y-m-d",
+        onChange: function (selectedDates, dateStr) {
+          selectedDate = dateStr;
+          updateCalendarDisplay(dateStr, eventDates[dateStr] || []);
+        },
+      });
+
+      // Show today's events by default
+      const today = new Date().toISOString().split("T")[0];
+      if (eventDates[today] && eventDates[today].length > 0) {
+        updateCalendarDisplay(today, eventDates[today]);
+      } else {
+        updateCalendarDisplay(today, []);
+      }
+    }
+
+    function updateCalendarDisplay(dateStr, events) {
+      const cardWrapper = document.getElementById("calendar-event-card-wrapper");
+
+      if (!cardWrapper) {
+        console.error("Calendar event card wrapper element not found");
+        return;
       }
 
-      function setupCalendarWithEvents() {
-        // Combine all events and organize by date
-        const allEvents = [...userCalendarEvents, ...userRegisteredEvents];
-        const eventDates = {};
+      cardWrapper.innerHTML = ""; // Clear old content
 
-        // Only process events that the user has registered for or added to calendar
-        allEvents.forEach((event) => {
-          if (event.start_time) {
-            const dateStr = event.start_time
-              .toDate()
-              .toISOString()
-              .split("T")[0];
-            if (!eventDates[dateStr]) {
-              eventDates[dateStr] = [];
-            }
-            eventDates[dateStr].push(event);
-          }
-        });
+      if (events.length === 0) {
+        const noEventsMsg = document.createElement("p");
+        noEventsMsg.textContent = "No events on this day...";
+        noEventsMsg.className =
+          "text-gray-400 text-center text-lg italic fade-in";
+        cardWrapper.appendChild(noEventsMsg);
+      } else {
+        const event = events[0];
 
-        // Sort events by start time for each date (nearest first)
-        Object.keys(eventDates).forEach((dateStr) => {
-          eventDates[dateStr].sort((a, b) => {
-            return a.start_time.toDate() - b.start_time.toDate();
-          });
-        });
+        // Card container
+        const card = document.createElement("div");
+        card.className = "max-w-4xl bg-gray-900 overflow-hidden text-white items-center flex flex-col-reverse md:flex-row";
 
-        console.log("User's event dates mapping:", eventDates);
+        // Left: Event Image
+        const img = document.createElement("img");
+        img.src =
+          event.image_url ||
+          "https://via.placeholder.com/600x400?text=Events+on+" +
+          encodeURIComponent(dateStr);
+        img.alt = event.name || "Event Image";
+        img.className = "w-full md:w-1/2 rounded-xl h-48 sm:h-60 md:h-80 object-cover";
 
-        // Desktop calendar
-        const desktopCalendar = flatpickr("#calendar", {
-          inline: true,
-          enableTime: false,
-          dateFormat: "Y-m-d",
-          onChange: function (selectedDates, dateStr) {
-            selectedDate = dateStr;
-            updateCalendarDisplay(dateStr, eventDates[dateStr] || []);
-          },
-          onDayCreate: function (dObj, dStr, fp, dayElem) {
-            // Add custom styling for days with events
-            const dateStr = dayElem.dateObj.toISOString().split("T")[0];
-            if (eventDates[dateStr] && eventDates[dateStr].length > 0) {
-              const events = eventDates[dateStr];
-              const hasRegistered = events.some((e) => e.type === "registered");
-              const hasAdded = events.some((e) => e.type === "added");
+        // Right: Details
+        const details = document.createElement("div");
+        details.className =
+          "p-4 sm:p-5 md:p-6 flex flex-col justify-between w-full md:w-1/2";
 
-              console.log(
-                `Date ${dateStr}: hasRegistered=${hasRegistered}, hasAdded=${hasAdded}`
-              );
+        // Top content container
+        const contentTop = document.createElement("div");
 
-              if (hasRegistered) {
-                // Solid orange for registered events
-                dayElem.classList.add("has-registered-events");
-                dayElem.style.backgroundColor = "#f59275";
-                dayElem.style.color = "white";
-                dayElem.style.fontWeight = "bold";
-                dayElem.style.borderRadius = "50%";
-                console.log(`Applied registered styling to ${dateStr}`);
-              } else if (hasAdded) {
-                // Orange outline for added events
-                dayElem.classList.add("has-added-events");
-                dayElem.style.backgroundColor = "transparent";
-                dayElem.style.color = "#f59275";
-                dayElem.style.fontWeight = "bold";
-                dayElem.style.border = "2px solid #f59275";
-                dayElem.style.borderRadius = "50%";
-                console.log(`Applied added styling to ${dateStr}`);
-              }
-            }
-          },
-        });
+        // Responsive event name
+        const name = document.createElement("h3");
+        name.textContent = event.name || "Unnamed Event";
+        name.className = "text-lg sm:text-xl md:text-2xl font-semibold mb-2 sm:mb-3 truncate";
 
-        // Mobile calendar input
-        const mobileCalendar = flatpickr("#calendar-mobile", {
-          dateFormat: "Y-m-d",
-          onChange: function (selectedDates, dateStr) {
-            selectedDate = dateStr;
-            updateCalendarDisplay(dateStr, eventDates[dateStr] || []);
-          },
-        });
+        // Responsive description (3 lines max)
+        const description = document.createElement("p");
+        description.textContent = event.description
+          ? event.description
+          : "No description";
+        description.className =
+          "text-gray-300 mb-3 sm:mb-4 text-sm sm:text-base leading-relaxed line-clamp-3";
 
-        // Show today's events by default
-        const today = new Date().toISOString().split("T")[0];
-        if (eventDates[today] && eventDates[today].length > 0) {
-          updateCalendarDisplay(today, eventDates[today]);
-        } else {
-          updateCalendarDisplay(today, []);
-        }
+        // Location with icon
+        const location = document.createElement("p");
+        location.innerHTML = `<i class="fas fa-map-marker-alt mr-2 text-gray-200"></i>${event.location || "No location specified"}`;
+        location.className = "text-gray-400 text-sm sm:text-base mb-1 flex items-center";
+
+        // Append top content
+        contentTop.appendChild(name);
+        contentTop.appendChild(description);
+        contentTop.appendChild(location);
+
+        // Bottom: View Event button
+        const buttonContainer = document.createElement("div");
+        buttonContainer.className = "flex justify-end mt-4";
+
+        const viewBtn = document.createElement("a");
+        viewBtn.href = `post-event-details.html?id=${event.id}`;
+        viewBtn.textContent = "View Event";
+        viewBtn.className =
+          "inline-block px-4 py-2 text-sm sm:text-base bg-gradient-to-r to-[#f59275] from-[#f1647a] font-semibold text-white bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-xl shadow-md hover:opacity-90 transition";
+
+        buttonContainer.appendChild(viewBtn);
+
+        // Combine content
+        details.appendChild(contentTop);
+        details.appendChild(buttonContainer);
+
+        // Build the card
+        card.appendChild(img);
+        card.appendChild(details);
+
+        // Add to DOM
+        cardWrapper.appendChild(card);
+      }
+    }
+
+    // Function to register for an event
+    async function registerForEvent(eventId) {
+      const user = getCurrentUser();
+      if (!user || !user.userId) {
+        alert("Please sign in to register for events.");
+        return;
       }
 
-      function updateCalendarDisplay(dateStr, events) {
-        const imageContainer = document.getElementById("calendar-image");
-        const eventsContainer = document.getElementById("events-container");
+      try {
+        // Register in both collections
+        const registrationRef = doc(
+          db,
+          "users",
+          user.userId,
+          "registrations",
+          eventId
+        );
+        await setDoc(registrationRef, {
+          eventId,
+          registeredAt: new Date(),
+        });
 
-        // Check if required elements exist
-        if (!imageContainer) {
-          console.error("Calendar image container not found");
-          return;
-        }
-
-        if (!eventsContainer) {
-          // Create events container if it doesn't exist
-          const container = document.createElement("div");
-          container.id = "events-container";
-          container.className = "mt-4 p-4 bg-gray-800 rounded-lg";
-
-          // Find the parent container and append the events container
-          const parentContainer =
-            imageContainer.closest(".p-4") || imageContainer.parentNode;
-          if (parentContainer) {
-            parentContainer.appendChild(container);
-          } else {
-            console.error("Could not find parent container for events");
-            return;
-          }
-        }
-
-        if (events.length === 0) {
-          imageContainer.src =
-            "https://via.placeholder.com/600x400?text=No+Events+Registered+or+Added+on+" +
-            dateStr;
-          const container = document.getElementById("events-container");
-          if (container) {
-            container.innerHTML = `
-              <h3 class="text-xl font-semibold mb-4 luma-gradient">No Events on ${new Date(
-                dateStr
-              ).toLocaleDateString()}</h3>
-              <p class="text-gray-400">You don't have any events registered or added to your calendar for this date.</p>
-              <p class="text-gray-400 mt-2">Register for events or add them to your calendar to see them here.</p>
-            `;
-          }
-        } else {
-          // Show nearest event image (first in sorted array)
-          const nearestEvent = events[0];
-          imageContainer.src =
-            nearestEvent.image_url ||
-            "https://via.placeholder.com/600x400?text=Events+on+" + dateStr;
-
-          // Display all events for the selected date
-          const container = document.getElementById("events-container");
-          if (container) {
-            container.innerHTML = `
-              <h3 class="text-xl font-semibold mb-4 luma-gradient">Events on ${new Date(
-                dateStr
-              ).toLocaleDateString()}</h3>
-              <div class="space-y-4">
-                ${events
-                  .map(
-                    (event) => `
-                  <div class="bg-[#2F364A] rounded-lg p-4 border border-gray-700 relative">
-                    ${
-                      event.type === "registered"
-                        ? '<div class="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">✓ Registered</div>'
-                        : '<div class="absolute top-2 right-2 bg-orange-500 text-white text-xs px-2 py-1 rounded-full">📅 Added</div>'
-                    }
-                    <div class="flex items-start gap-4">
-                      <img src="${
-                        event.image_url ||
-                        "../../src/asset/images/fea-cal-1.png"
-                      }" 
-                           alt="${event.name}" 
-                           class="w-20 h-20 object-cover rounded-lg">
-                      <div class="flex-1">
-                        <h4 class="text-lg font-semibold text-white mb-2">${
-                          event.name
-                        }</h4>
-                        <p class="text-gray-400 text-sm mb-2">${
-                          event.location
-                        }</p>
-                        <p class="text-gray-400 text-sm mb-2">
-                          ${
-                            event.start_time
-                              ? new Date(
-                                  event.start_time.toDate()
-                                ).toLocaleString()
-                              : "Time TBD"
-                          }
-                        </p>
-                        <p class="text-gray-400 text-sm line-clamp-2">${
-                          event.description || "No description available"
-                        }</p>
-                        <div class="flex gap-2 mt-2">
-                          <button onclick="window.location.href='post-event-details.html?id=${
-                            event.id
-                          }'" 
-                                  class="bg-[#F59275] text-white px-4 py-2 rounded-lg hover:bg-[#f1647a] transition-colors">
-                            View Details
-                          </button>
-                          ${
-                            event.type === "added"
-                              ? `<button onclick="registerForEvent('${event.id}')" 
-                                     class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
-                              Register Now
-                            </button>
-                            <button onclick="removeFromCalendar('${event.id}')" 
-                                     class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
-                              Remove
-                            </button>`
-                              : `<button onclick="removeFromCalendar('${event.id}')" 
-                                     class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
-                              Remove
-                            </button>`
-                          }
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                `
-                  )
-                  .join("")}
-              </div>
-            `;
-          }
-        }
-      }
-
-      // Function to register for an event
-      async function registerForEvent(eventId) {
-        const user = getCurrentUser();
-        if (!user || !user.userId) {
-          alert("Please sign in to register for events.");
-          return;
-        }
-
-        try {
-          // Register in both collections
-          const registrationRef = doc(
+        // Also register in the event's attendees collection
+        const eventDoc = await getDoc(doc(db, "events", eventId));
+        if (eventDoc.exists()) {
+          const eventData = eventDoc.data();
+          const attendeeRef = doc(
             db,
-            "users",
-            user.userId,
-            "registrations",
-            eventId
-          );
-          await setDoc(registrationRef, {
+            "events",
             eventId,
+            "attendees",
+            user.userId
+          );
+          await setDoc(attendeeRef, {
+            userId: user.userId,
+            userName: user.email?.split("@")[0] || user.userId,
+            userEmail: user.email,
             registeredAt: new Date(),
           });
-
-          // Also register in the event's attendees collection
-          const eventDoc = await getDoc(doc(db, "events", eventId));
-          if (eventDoc.exists()) {
-            const eventData = eventDoc.data();
-            const attendeeRef = doc(
-              db,
-              "events",
-              eventId,
-              "attendees",
-              user.userId
-            );
-            await setDoc(attendeeRef, {
-              userId: user.userId,
-              userName: user.email?.split("@")[0] || user.userId,
-              userEmail: user.email,
-              registeredAt: new Date(),
-            });
-          }
-
-          alert("Successfully registered for the event!");
-          // Reload the calendar to update the display
-          await initializeCalendar();
-        } catch (error) {
-          console.error("Error registering for event:", error);
-          alert("Failed to register for event. Please try again.");
         }
+
+        alert("Successfully registered for the event!");
+        // Reload the calendar to update the display
+        await initializeCalendar();
+      } catch (error) {
+        console.error("Error registering for event:", error);
+        alert("Failed to register for event. Please try again.");
+      }
+    }
+
+    // Function to remove event from calendar
+    async function removeFromCalendar(eventId) {
+      const user = getCurrentUser();
+      if (!user || !user.userId) {
+        alert("Please sign in to manage your calendar.");
+        return;
       }
 
-      // Function to remove event from calendar
-      async function removeFromCalendar(eventId) {
-        const user = getCurrentUser();
-        if (!user || !user.userId) {
-          alert("Please sign in to manage your calendar.");
+      try {
+        const calendarRef = doc(
+          db,
+          "users",
+          user.userId,
+          "calendar",
+          eventId
+        );
+        await deleteDoc(calendarRef);
+
+        alert("Event removed from calendar!");
+        // Reload the calendar to update the display
+        await initializeCalendar();
+      } catch (error) {
+        console.error("Error removing event from calendar:", error);
+        alert("Failed to remove event from calendar. Please try again.");
+      }
+    }
+
+    async function loadSuggestedCalendars() {
+      const scrollCards = document.getElementById("scroll-cards");
+      if (!scrollCards) return;
+
+      try {
+        const eventsCol = collection(db, "events");
+        const snapshot = await getDocs(eventsCol);
+
+        const creators = new Map();
+        snapshot.forEach((doc) => {
+          const event = doc.data();
+          if (event.host_user_id && event.user?.username) {
+            if (!creators.has(event.host_user_id)) {
+              creators.set(event.host_user_id, {
+                userId: event.host_user_id,
+                username: event.user.username,
+                profileImg: event.user.profileImg,
+                bio: event.user.bio,
+                eventCount: 0,
+              });
+            }
+            creators.get(event.host_user_id).eventCount++;
+          }
+        });
+
+        scrollCards.innerHTML = "";
+
+        Array.from(creators.values())
+          .slice(0, 5)
+          .forEach((creator) => {
+            const card = document.createElement("div");
+
+            card.className = `bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20
+            p-3 border border-[#3a3e4a] transition duration-200
+            cursor-pointer flex flex-row items-center
+            lg:w-[32%] min-w-[380px] mr-3`;
+
+
+            card.innerHTML = `
+          <img src="${creator.profileImg || `https://ui-avatars.com/api/?name=${encodeURIComponent(creator.username)}&background=random&size=128&color=fff`}" 
+              alt="${creator.username}" 
+              class="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-lg sm:mr-4" />
+
+          <div class="flex flex-col justify-between flex-1 min-w-0 h-full p-3">
+            <div>
+              <h3 class="text-base font-semibold mb-1 text-gray-100 truncate">
+                ${creator.username}'s Calendar
+              </h3>
+              <p class="text-gray-400 text-sm truncate">
+                ${creator.bio || `${creator.username} is an active event creator.`}
+              </p>
+            </div>
+            <div class="flex items-center justify-between mt-4">
+              <span class="flex items-center text-gray-400 text-xs">
+                <i class="fa-solid fa-calendar mr-1"></i>
+                ${creator.eventCount} events
+              </span>
+              <button onclick="window.location.href='user-events.html?id=${creator.userId}'"
+                      style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
+                      class="border border-gray-700 text-xs rounded-full px-4 py-1 bg-[#2F364A] text-gray-300 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                View Calendar
+              </button>
+            </div>
+          </div>
+        `;
+
+            scrollCards.appendChild(card);
+          });
+      } catch (error) {
+        console.error("Error loading suggested calendars:", error);
+      }
+    }
+
+
+    async function loadSubscribedCalendars() {
+      const user = getCurrentUser();
+      const container = document.getElementById("subscribedCalendarsGrid");
+      if (!container) return;
+
+      container.innerHTML = "";
+
+      if (!user || !user.userId) {
+        container.innerHTML = `<p class='text-gray-500 text-center'>Sign in to see your subscribed calendars.</p>`;
+        return;
+      }
+
+      try {
+        // Fetch user's subscriptions
+        const subscriptionsCol = collection(
+          db,
+          "users",
+          user.userId,
+          "creatorSubscriptions"
+        );
+        const subscriptionsSnap = await getDocs(subscriptionsCol);
+
+        if (subscriptionsSnap.empty) {
+          container.innerHTML = `<p class='text-gray-500 text-center'>You haven't subscribed to any calendars yet. Subscribe to event creators to see them here!</p>`;
           return;
         }
 
-        try {
-          const calendarRef = doc(
-            db,
-            "users",
-            user.userId,
-            "calendar",
-            eventId
-          );
-          await deleteDoc(calendarRef);
+        // Process each subscription
+        for (const docSnap of subscriptionsSnap.docs) {
+          const subscriptionData = docSnap.data();
+          const subscribedUserId = subscriptionData.subscribedToUserId;
+          const subscribedUsername = subscriptionData.subscribedToUsername;
 
-          alert("Event removed from calendar!");
-          // Reload the calendar to update the display
-          await initializeCalendar();
-        } catch (error) {
-          console.error("Error removing event from calendar:", error);
-          alert("Failed to remove event from calendar. Please try again.");
-        }
-      }
+          // Get the subscribed user's profile info
+          let profileImg = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+            subscribedUsername
+          )}&background=random&size=128&color=fff`;
+          let bio = `${subscribedUsername} is an event creator you're subscribed to.`;
 
-      async function loadSuggestedCalendars() {
-        const scrollCards = document.getElementById("scroll-cards");
-        if (!scrollCards) return;
-
-        try {
-          // Get all events to find event creators
-          const eventsCol = collection(db, "events");
-          const snapshot = await getDocs(eventsCol);
-
-          const creators = new Map();
-          snapshot.forEach((doc) => {
-            const event = doc.data();
-            if (event.host_user_id && event.user?.username) {
-              if (!creators.has(event.host_user_id)) {
-                creators.set(event.host_user_id, {
-                  userId: event.host_user_id,
-                  username: event.user.username,
-                  profileImg: event.user.profileImg,
-                  bio: event.user.bio,
-                  eventCount: 0,
-                });
+          // Try to get user profile from users collection
+          try {
+            const userDoc = await getDoc(doc(db, "users", subscribedUserId));
+            if (userDoc.exists()) {
+              const userData = userDoc.data();
+              if (userData.profileImg) {
+                profileImg = userData.profileImg;
               }
-              creators.get(event.host_user_id).eventCount++;
+              if (userData.bio) {
+                bio = userData.bio;
+              }
             }
-          });
+          } catch (error) {
+            console.log(
+              "Could not fetch user profile for:",
+              subscribedUserId
+            );
+          }
 
-          // Create suggested calendar cards
-          scrollCards.innerHTML = "";
-          Array.from(creators.values())
-            .slice(0, 5)
-            .forEach((creator) => {
-              const card = document.createElement("div");
-              card.className =
-                "flex w-full sm:min-w-[500px] bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 p-3 m-0 mr-3";
-              card.innerHTML = `
-              <img src="${
-                creator.profileImg ||
-                `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                  creator.username
-                )}&background=random&size=128&color=fff`
-              }" 
-                   alt="${creator.username}" 
-                   class="w-32 h-32 object-cover rounded-lg">
-              <div class="flex flex-col justify-between flex-1 p-0 m-0">
-                <div>
-                  <h3 class="text-lg font-semibold mb-1 luma-gradient">${
-                    creator.username
-                  }'s Calendar</h3>
-                  <p class="text-gray-400 text-sm line-clamp-3">${
-                    creator.bio ||
-                    `${creator.username} is an active event creator.`
-                  }</p>
+          // Create subscription card matching the design
+          const card = document.createElement("div");
+          card.className =
+            "bg-[#262C3D] rounded-2xl shadow-md shadow-gray-500/20 overflow-hidden border border-[#3a3e4a]";
+          card.innerHTML = `
+              <div class="p-4">
+                <div class="flex items-start gap-4 mb-4">
+                  <img src="${profileImg}" alt="${subscribedUsername}" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(
+            subscribedUsername
+          )}&background=random&size=128&color=fff'" />
+                  <div class="flex-1 min-w-0">
+                    <h3 class="text-lg font-semibold text-gray-200 mb-1">${subscribedUsername}'s Calendar</h3>
+                    <p class="text-gray-400 text-sm line-clamp-2 mb-2">${bio}</p>
+                  </div>
                 </div>
-                <div class="flex items-center justify-between pr-2 py-2">
-                  <span class="flex items-center text-gray-400 text-xs">
-                    <i class="fa-solid fa-calendar mr-1"></i>
-                    ${creator.eventCount} events
-                  </span>
-                  <button onclick="window.location.href='user-events.html?id=${
-                    creator.userId
-                  }'"
-                          style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
-                          class="border border-gray-700 text-sm rounded-full px-4 py-1 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                <div class="flex justify-between items-center">
+                  <button onclick="window.location.href='user-events.html?id=${subscribedUserId}'"
+                    style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);"
+                    class="border border-gray-700 text-xs rounded-full px-4 py-1 bg-[#2F364A] text-gray-300 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
                     View Calendar
+                  </button>
+                  <button onclick="unsubscribeFromCreator('${subscribedUserId}', '${subscribedUsername}')" 
+                          class="text-[#F1647A] text-sm hover:text-[#dc3d56] transition-colors px-4 cursor-pointer">
+                    Unsubscribe
                   </button>
                 </div>
               </div>
             `;
-              scrollCards.appendChild(card);
-            });
-        } catch (error) {
-          console.error("Error loading suggested calendars:", error);
+
+          container.appendChild(card);
         }
+      } catch (error) {
+        console.error("Error loading subscribed calendars:", error);
+        container.innerHTML = `<p class='text-gray-500 text-center'>Error loading subscribed calendars. Please try again.</p>`;
+      }
+    }
+
+    // Function to unsubscribe from a creator
+    async function unsubscribeFromCreator(userId, username) {
+      const user = getCurrentUser();
+      if (!user || !user.userId) {
+        alert("Please sign in to manage subscriptions.");
+        return;
       }
 
-      function setupEmptyCalendar() {
-        // Empty calendar with no events
-        const updateImage = (dateStr) => {
-          const img = document.getElementById("calendar-image");
-          img.src =
-            "https://via.placeholder.com/600x400?text=No+Events+on+" + dateStr;
-        };
-
-        // Desktop calendar
-        flatpickr("#calendar", {
-          inline: true,
-          onChange: function (selectedDates, dateStr) {
-            updateImage(dateStr);
-            updateCalendarDisplay(dateStr, []);
-          },
-        });
-
-        // Mobile calendar input
-        flatpickr("#calendar-mobile", {
-          dateFormat: "Y-m-d",
-          onChange: function (selectedDates, dateStr) {
-            updateImage(dateStr);
-            updateCalendarDisplay(dateStr, []);
-          },
-        });
-
-        // Show today's empty state by default
-        const today = new Date().toISOString().split("T")[0];
-        updateImage(today);
-        updateCalendarDisplay(today, []);
+      if (
+        !confirm(`Are you sure you want to unsubscribe from ${username}?`)
+      ) {
+        return;
       }
-    </script>
-  </body>
+
+      try {
+        // Remove from user's subscriptions
+        const subscriptionsRef = collection(
+          db,
+          "users",
+          user.userId,
+          "creatorSubscriptions"
+        );
+        const q = query(
+          subscriptionsRef,
+          where("subscribedToUserId", "==", userId)
+        );
+        const existingSubs = await getDocs(q);
+
+        for (const docSnap of existingSubs.docs) {
+          await deleteDoc(docSnap.ref);
+        }
+
+        // Remove from creator's subscribers
+        const creatorSubscribersRef = collection(
+          db,
+          "users",
+          userId,
+          "subscribers"
+        );
+        const subscriberQuery = query(
+          creatorSubscribersRef,
+          where("subscriberUserId", "==", user.userId)
+        );
+        const existingSubscribers = await getDocs(subscriberQuery);
+
+        for (const docSnap of existingSubscribers.docs) {
+          await deleteDoc(docSnap.ref);
+        }
+
+        alert(`Successfully unsubscribed from ${username}!`);
+
+        // Reload the subscribed calendars
+        await loadSubscribedCalendars();
+      } catch (error) {
+        console.error("Error unsubscribing:", error);
+        alert("Failed to unsubscribe. Please try again.");
+      }
+    }
+
+    function setupEmptyCalendar() {
+      // Empty calendar with no events
+      const updateImage = (dateStr) => {
+        const img = document.getElementById("calendar-image");
+        img.src =
+          "https://via.placeholder.com/600x400?text=No+Events+on+" + dateStr;
+      };
+
+      // Desktop calendar
+      flatpickr("#calendar", {
+        inline: true,
+        onChange: function (selectedDates, dateStr) {
+          updateImage(dateStr);
+          updateCalendarDisplay(dateStr, []);
+        },
+      });
+
+      // Mobile calendar input
+      flatpickr("#calendar-mobile", {
+        dateFormat: "Y-m-d",
+        onChange: function (selectedDates, dateStr) {
+          updateImage(dateStr);
+          updateCalendarDisplay(dateStr, []);
+        },
+      });
+
+      // Show today's empty state by default
+      const today = new Date().toISOString().split("T")[0];
+      updateImage(today);
+      updateCalendarDisplay(today, []);
+    }
+  </script>
+</body>
+
 </html>
