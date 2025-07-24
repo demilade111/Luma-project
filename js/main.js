@@ -1363,83 +1363,143 @@ async function renderTrendingEvents() {
   const grid = document.getElementById("trendingEventsGrid");
   if (!grid) return;
   grid.innerHTML = "";
+
   let q;
+
   try {
-    // Try to order by 'popularity' field if it exists
+    // Attempt to order by popularity
     q = query(
       collection(db, "events"),
       orderBy("popularity", "desc"),
       limit(12)
     );
-    let snapshot = await getDocs(q);
-    if (snapshot.empty) {
-      // Fallback: order by most recent
-      q = query(
-        collection(db, "events"),
-        orderBy("start_time", "desc"),
-        limit(12)
-      );
-      snapshot = await getDocs(q);
-    }
+
+    // Realtime sync + offline cache
+    onSnapshot(
+      q,
+      (snapshot) => {
+        if (snapshot.empty) {
+          // fallback to recents
+          renderRecentTrendingFallback(grid);
+          return;
+        }
+
+        grid.innerHTML = "";
+        snapshot.forEach((docSnap) => {
+          const event = docSnap.data();
+          const card = document.createElement("div");
+          card.className =
+            "relative cursor-pointer flex-shrink-0 w-[45vw] sm:w-[200px] md:w-[250px] h-[320px] sm:h-[380px] md:h-[400px]";
+          card.innerHTML = `
+            <div class="absolute inset-0 opacity-50 rounded-[30px] translate-x-4 translate-y-4 blur-lg z-0"></div>
+            <div
+              class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat z-10 w-full h-full"
+              style="background-image: url('${
+                event.image_url || "../../src/asset/images/fea-cal-1.png"
+              }');"
+            ></div>
+          `;
+          card.onclick = () => {
+            window.location.href = `/views/event/post-event-details.html?id=${docSnap.id}`;
+          };
+          grid.appendChild(card);
+        });
+      },
+      (err) => {
+        console.error("Error loading trending events:", err);
+        grid.innerHTML =
+          "<p class='text-gray-400'>Failed to load trending events.</p>";
+      }
+    );
+  } catch (err) {
+    console.error("Error with trending events fallback:", err);
+    grid.innerHTML =
+      "<p class='text-gray-400'>Failed to load trending events.</p>";
+  }
+}
+
+// fallback if popularity fails
+function renderRecentTrendingFallback(grid) {
+  const q = query(
+    collection(db, "events"),
+    orderBy("start_time", "desc"),
+    limit(12)
+  );
+
+  onSnapshot(q, (snapshot) => {
+    grid.innerHTML = "";
     snapshot.forEach((docSnap) => {
       const event = docSnap.data();
       const card = document.createElement("div");
       card.className =
         "relative cursor-pointer flex-shrink-0 w-[45vw] sm:w-[200px] md:w-[250px] h-[320px] sm:h-[380px] md:h-[400px]";
       card.innerHTML = `
-  <div class="absolute inset-0 opacity-50 rounded-[30px] translate-x-4 translate-y-4 blur-lg z-0"></div>
-  <div
-    class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat z-10 w-full h-full"
-    style="background-image: url('${
-      event.image_url || "../../src/asset/images/fea-cal-1.png"
-    }');"
-  ></div>
-`;
-
+        <div class="absolute inset-0 opacity-50 rounded-[30px] translate-x-4 translate-y-4 blur-lg z-0"></div>
+        <div
+          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat z-10 w-full h-full"
+          style="background-image: url('${
+            event.image_url || "../../src/asset/images/fea-cal-1.png"
+          }');"
+        ></div>
+      `;
       card.onclick = () => {
         window.location.href = `/views/event/post-event-details.html?id=${docSnap.id}`;
       };
       grid.appendChild(card);
     });
-  } catch (err) {
-    grid.innerHTML = `<p class='text-gray-400'>Failed to load trending events.</p>`;
-  }
+  });
 }
+
 
 async function renderUpcomingEvents() {
   const grid = document.getElementById("upcomingEventsGrid");
   if (!grid) return;
   grid.innerHTML = "";
+
   try {
     const q = query(
       collection(db, "events"),
       orderBy("start_time", "asc"),
       limit(12)
     );
-    const snapshot = await getDocs(q);
-    snapshot.forEach((docSnap) => {
-      const event = docSnap.data();
-      const card = document.createElement("div");
-      card.className =
-        "relative cursor-pointer flex-shrink-0 w-[45vw] sm:w-[200px] md:w-[250px] h-[320px] sm:h-[380px] md:h-[400px]";
-      card.innerHTML = `
-  <div class="absolute inset-0 opacity-50 rounded-[30px] translate-x-4 translate-y-4 blur-lg z-0"></div>
-  <div
-    class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat z-10 w-full h-full"
-    style="background-image: url('${
-      event.image_url || "../../src/asset/images/fea-cal-1.png"
-    }');"
-  ></div>
-`;
-      card.onclick = () => {
-        window.location.href = `/views/event/post-event-details.html?id=${docSnap.id}`;
-      };
-      grid.appendChild(card);
-    });
+
+    onSnapshot(
+      q,
+      (snapshot) => {
+        grid.innerHTML = "";
+
+        snapshot.forEach((docSnap) => {
+          const event = docSnap.data();
+          const card = document.createElement("div");
+          card.className =
+            "relative cursor-pointer flex-shrink-0 w-[45vw] sm:w-[200px] md:w-[250px] h-[320px] sm:h-[380px] md:h-[400px]";
+          card.innerHTML = `
+            <div class="absolute inset-0 opacity-50 rounded-[30px] translate-x-4 translate-y-4 blur-lg z-0"></div>
+            <div
+              class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat z-10 w-full h-full"
+              style="background-image: url('${
+                event.image_url || "../../src/asset/images/fea-cal-1.png"
+              }');"
+            ></div>
+          `;
+          card.onclick = () => {
+            window.location.href = `/views/event/post-event-details.html?id=${docSnap.id}`;
+          };
+          grid.appendChild(card);
+        });
+      },
+      (error) => {
+        console.error("Error loading upcoming events:", error);
+        grid.innerHTML =
+          "<p class='text-gray-400'>Failed to load upcoming events.</p>";
+      }
+    );
   } catch (err) {
-    grid.innerHTML = `<p class='text-gray-400'>Failed to load upcoming events.</p>`;
+    grid.innerHTML =
+      "<p class='text-gray-400'>Failed to load upcoming events.</p>";
   }
 }
+
 
 function getGameIdFromUrl() {
   const params = new URLSearchParams(window.location.search);

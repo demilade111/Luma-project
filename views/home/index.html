@@ -1,288 +1,373 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Luma | Home</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Luma | Home</title>
+    <!-- PWA Meta Tags -->
+    <meta
+      name="description"
+      content="Discover, organize, and connect with board game enthusiasts"
+    />
+    <meta name="theme-color" content="#F59275" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Luma" />
+    <meta name="msapplication-TileColor" content="#F59275" />
 
-  <!-- PWA Meta Tags -->
-  <meta name="description" content="Discover, organize, and connect with board game enthusiasts" />
-  <meta name="theme-color" content="#F59275" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Luma" />
-  <meta name="msapplication-TileColor" content="#F59275" />
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
 
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="/manifest.json" />
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/src/asset/images/logo.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="/src/asset/images/logo.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/src/asset/images/logo.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="167x167"
+      href="/src/asset/images/logo.png"
+    />
 
-  <!-- Apple Touch Icons -->
-  <link rel="apple-touch-icon" href="/src/asset/images/logo.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="/src/asset/images/logo.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/src/asset/images/logo.png" />
-  <link rel="apple-touch-icon" sizes="167x167" href="/src/asset/images/logo.png" />
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/src/asset/images/logo.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/src/asset/images/logo.png"
+    />
+    <link rel="shortcut icon" href="/src/asset/images/logo.png" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/src/asset/images/logo.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/src/asset/images/logo.png" />
-  <link rel="shortcut icon" href="/src/asset/images/logo.png" />
+    <!-- Tailwind CSS -->
+    <link href="../../src/output.css" rel="stylesheet" />
 
-  <!-- Tailwind CSS -->
-  <link href="../../src/output.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet" />
-</head>
+  <body class="bg-[#1A1F2C] font-nunito text-white min-h-screen">
+    <div data-component="sidebar"></div>
+    <header class="relative">
+      <div id="hero-container" data-component="hero"></div>
+    </header>
+    <div class="flex-1 flex flex-col min-h-screen md:ml-[90px] pt-10">
+      <main class="flex-1 p-4 md:py-10 md:px-20">
+        <!-- Events Section -->
+        <div class="w-full md:mb-16 md:px-4">
+          <a href="/views/event/event.html">
+            <h2
+              class="font-bold mb-6 luma-gradient text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
+            >
+              Events
+            </h2>
+          </a>
 
-<body class="bg-[#1A1F2C] font-nunito text-white min-h-screen">
-  <div data-component="sidebar"></div>
-  <header class="relative">
-    <div id="hero-container" data-component="hero"></div>
-  </header>
-  <div class="flex-1 flex flex-col min-h-screen md:ml-[90px] pt-10">
-    <main class="flex-1 p-4 md:py-10 md:px-20">
-      <!-- Events Section -->
-      <div class="w-full md:mb-16 md:px-4">
-        <a href="/views/event/event.html">
-          <h2 class="font-bold mb-6 luma-gradient text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
-            Events
+          <!-- Trending Events -->
+          <div class="mb-10">
+            <h3
+              class="mb-4 font-bold text-[#FFA489] text-xl sm:text-2xl md:text-3xl lg:text-4xl"
+            >
+              Trending
+            </h3>
+
+            <div class="relative">
+              <!-- Left Scroll Button -->
+              <button
+                id="scrollLeftTrending"
+                class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors"
+              >
+                <i class="fa-solid fa-angle-left"></i>
+              </button>
+
+              <!-- Scrollable container -->
+              <div
+                id="trendingScrollWrapper"
+                class="overflow-x-auto scroll-smooth pb-4 scroll-hide"
+              >
+                <div
+                  id="trendingEventsGrid"
+                  class="flex gap-3 md:gap-6 min-w-max"
+                >
+                  <!-- Dynamic cards injected here -->
+                </div>
+              </div>
+
+              <!-- Right Scroll Button -->
+              <button
+                id="scrollRightTrending"
+                class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors"
+              >
+                <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Upcoming Events -->
+          <div class="mb-10">
+            <h3
+              class="mb-4 font-bold text-[#FFA489] text-xl sm:text-2xl md:text-3xl lg:text-4xl"
+            >
+              Upcoming
+            </h3>
+
+            <div class="relative">
+              <!-- Left Scroll Button -->
+              <button
+                id="scrollLeftUpcoming"
+                class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors"
+              >
+                <i class="fa-solid fa-angle-left"></i>
+              </button>
+
+              <!-- Scrollable container -->
+              <div
+                id="upcomingScrollWrapper"
+                class="overflow-x-auto scroll-smooth pb-4 scroll-hide"
+              >
+                <div
+                  id="upcomingEventsGrid"
+                  class="flex gap-3 md:gap-6 min-w-max"
+                >
+                  <!-- Dynamic cards injected here -->
+                </div>
+              </div>
+
+              <!-- Right Scroll Button -->
+              <button
+                id="scrollRightUpcoming"
+                class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors"
+              >
+                <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full md:mb-16 md:px-4">
+          <h2
+            class="font-bold mb-6 luma-gradient text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
+          >
+            Games
           </h2>
-        </a>
 
-        <!-- Trending Events -->
-        <div class="mb-10">
-          <h3 class="mb-4 font-bold text-[#FFA489] text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-            Trending
-          </h3>
+          <!-- Trending Games -->
+          <div class="mb-10">
+            <h3
+              class="mb-4 font-bold text-[#FFA489] text-xl sm:text-2xl md:text-3xl lg:text-4xl"
+            >
+              Trending
+            </h3>
 
-          <div class="relative">
-            <!-- Left Scroll Button -->
-            <button id="scrollLeftTrending"
-              class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
-              <i class="fa-solid fa-angle-left"></i>
-            </button>
+            <!-- Loading State -->
+            <div id="home-games-loading" class="text-center py-8">
+              <div
+                class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white"
+              ></div>
+              <p class="mt-2 text-gray-400">Loading games...</p>
+            </div>
 
-            <!-- Scrollable container -->
-            <div id="trendingScrollWrapper" class="overflow-x-auto scroll-smooth pb-4 scroll-hide">
-              <div id="trendingEventsGrid" class="flex gap-3 md:gap-6 min-w-max">
-                <!-- Dynamic cards injected here -->
+            <!-- Error State -->
+            <div id="home-games-error" class="text-center py-8 hidden">
+              <p class="text-red-400 mb-4">Failed to load games</p>
+              <button
+                id="retry-games"
+                class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Retry
+              </button>
+            </div>
+
+            <div class="relative">
+              <!-- Left Scroll Button -->
+              <button
+                id="scrollLeftGames"
+                class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors"
+              >
+                <i class="fa-solid fa-angle-left"></i>
+              </button>
+
+              <!-- Scrollable Games -->
+              <div
+                id="home-games-container"
+                class="overflow-x-auto pb-4 hidden scroll-hide"
+              >
+                <div id="home-games-list" class="flex gap-3 md:gap-6 min-w-max">
+                  <!-- Cards injected here -->
+                </div>
               </div>
+
+              <!-- Right Scroll Button -->
+              <button
+                id="scrollRightGames"
+                class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors"
+              >
+                <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Random Games Scrollable Section -->
+          <div class="mb-10">
+            <h3
+              class="mb-4 font-bold text-[#FFA489] text-xl sm:text-2xl md:text-3xl lg:text-4xl"
+            >
+              Continue Learning
+            </h3>
+
+            <div id="games-loading" class="text-center py-8">
+              <i class="fas fa-spinner fa-spin text-2xl text-gray-400"></i>
+              <p class="mt-2 text-gray-500">Loading games...</p>
             </div>
 
-            <!-- Right Scroll Button -->
-            <button id="scrollRightTrending"
-              class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
-              <i class="fa-solid fa-angle-right"></i>
-            </button>
-          </div>
-        </div>
+            <div id="games-error" class="hidden text-center py-8">
+              <i class="fas fa-exclamation-triangle text-2xl text-red-400"></i>
+              <p class="mt-2 text-red-500">
+                Error loading games. Please try again.
+              </p>
+              <button
+                id="retry-games"
+                class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                Retry
+              </button>
+            </div>
 
-        <!-- Upcoming Events -->
-        <div class="mb-10">
-          <h3 class="mb-4 font-bold text-[#FFA489] text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-            Upcoming
-          </h3>
+            <div
+              id="games-container"
+              style="display: none"
+              class="grid-cols-1 lg:grid-cols-2 gap-10 md:gap-6 px-4"
+            >
+              <!-- Grid-based games -->
+            </div>
 
-          <div class="relative">
-            <!-- Left Scroll Button -->
-            <button id="scrollLeftUpcoming"
-              class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
-              <i class="fa-solid fa-angle-left"></i>
-            </button>
+            <div class="relative">
+              <!-- Left Scroll Button -->
+              <button
+                id="scrollLeftLearn"
+                class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors"
+              >
+                <i class="fa-solid fa-angle-left"></i>
+              </button>
 
-            <!-- Scrollable container -->
-            <div id="upcomingScrollWrapper" class="overflow-x-auto scroll-smooth pb-4 scroll-hide">
-              <div id="upcomingEventsGrid" class="flex gap-3 md:gap-6 min-w-max">
-                <!-- Dynamic cards injected here -->
+              <!-- Random Games Scrollable Section -->
+              <div
+                class="flex overflow-x-auto gap-3 md:gap-6 pb-4 scroll-hide"
+                id="random-games-container"
+              >
+                <!-- JS will inject 4 cards here -->
               </div>
-            </div>
 
-            <!-- Right Scroll Button -->
-            <button id="scrollRightUpcoming"
-              class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
-              <i class="fa-solid fa-angle-right"></i>
-            </button>
+              <!-- Right Scroll Button -->
+              <button
+                id="scrollRightLearn"
+                class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors"
+              >
+                <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </main>
+    </div>
 
-      <div class="w-full md:mb-16 md:px-4">
-        <h2 class="font-bold mb-6 luma-gradient text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
-          Games
-        </h2>
+    <!--Footer section-->
+    <div data-component="footer"></div>
 
-        <!-- Trending Games -->
-        <div class="mb-10">
-          <h3 class="mb-4 font-bold text-[#FFA489] text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-            Trending
-          </h3>
+    <!-- PWA Script -->
+    <script src="/js/pwa.js"></script>
 
-          <!-- Loading State -->
-          <div id="home-games-loading" class="text-center py-8">
-            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-            <p class="mt-2 text-gray-400">Loading games...</p>
-          </div>
+    <!-- External Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="../../service/gameService.js"></script>
+    <script type="module" src="../../js/main.js"></script>
+    <script src="/js/inject.js"></script>
+    <script src="/js/mobile-sidebar.js"></script>
 
-          <!-- Error State -->
-          <div id="home-games-error" class="text-center py-8 hidden">
-            <p class="text-red-400 mb-4">Failed to load games</p>
-            <button id="retry-games" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
-              Retry
-            </button>
-          </div>
+    <script type="module" src="../../js/auth/signout.js"></script>
+    <script src="../../js/hero-carousel.js" defer></script>
 
-          <div class="relative">
-            <!-- Left Scroll Button -->
-            <button id="scrollLeftGames"
-              class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
-              <i class="fa-solid fa-angle-left"></i>
-            </button>
+    <script type="module">
+      import { loadRandomGames } from "../../js/main.js";
+      import { initScrollButtons } from "../../js/scroll-buttons.js";
+      window.addEventListener("DOMContentLoaded", () => {
+        loadRandomGames();
 
-            <!-- Scrollable Games -->
-            <div id="home-games-container" class="overflow-x-auto pb-4 hidden scroll-hide">
-              <div id="home-games-list" class="flex gap-3 md:gap-6 min-w-max">
-                <!-- Cards injected here -->
-              </div>
-            </div>
+        initScrollButtons({
+          containerId: "trendingScrollWrapper",
+          leftBtnId: "scrollLeftTrending",
+          rightBtnId: "scrollRightTrending",
+          scrollStep: 300,
+          autoScroll: true,
+          autoScrollInterval: 2000, // every 2s
+          initialScrollDelay: 1, // start scroll quickly
+          autoScrollPauseOnHover: true,
+        });
 
-            <!-- Right Scroll Button -->
-            <button id="scrollRightGames"
-              class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
-              <i class="fa-solid fa-angle-right"></i>
-            </button>
-          </div>
-        </div>
+        initScrollButtons({
+          containerId: "upcomingScrollWrapper",
+          leftBtnId: "scrollLeftUpcoming",
+          rightBtnId: "scrollRightUpcoming",
+          scrollStep: 300,
+          autoScroll: true,
+          autoScrollInterval: 2000, // every 2s
+          initialScrollDelay: 1, // start scroll quickly
+          autoScrollPauseOnHover: true,
+        });
 
-        <!-- Random Games Scrollable Section -->
-        <div class="mb-10">
-          <h3 class="mb-4 font-bold text-[#FFA489] text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-            Continue Learning
-          </h3>
+        initScrollButtons({
+          containerId: "home-games-container",
+          leftBtnId: "scrollLeftGames",
+          rightBtnId: "scrollRightGames",
+          scrollStep: 300,
+          autoScroll: true,
+          autoScrollInterval: 2000, // every 2s
+          initialScrollDelay: 1, // start scroll quickly
+          autoScrollPauseOnHover: true,
+        });
 
-          <div id="games-loading" class="text-center py-8">
-            <i class="fas fa-spinner fa-spin text-2xl text-gray-400"></i>
-            <p class="mt-2 text-gray-500">Loading games...</p>
-          </div>
-
-          <div id="games-error" class="hidden text-center py-8">
-            <i class="fas fa-exclamation-triangle text-2xl text-red-400"></i>
-            <p class="mt-2 text-red-500">
-              Error loading games. Please try again.
-            </p>
-            <button id="retry-games" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-              Retry
-            </button>
-          </div>
-
-          <div id="games-container" style="display: none" class="grid-cols-1 lg:grid-cols-2 gap-10 md:gap-6 px-4">
-            <!-- Grid-based games -->
-          </div>
-
-          <div class="relative">
-            <!-- Left Scroll Button -->
-            <button id="scrollLeftLearn"
-              class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
-              <i class="fa-solid fa-angle-left"></i>
-            </button>
-
-            <!-- Random Games Scrollable Section -->
-            <div class="flex overflow-x-auto gap-3 md:gap-6 pb-4 scroll-hide" id="random-games-container">
-              <!-- JS will inject 4 cards here -->
-            </div>
-
-            <!-- Right Scroll Button -->
-            <button id="scrollRightLearn"
-              class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
-              <i class="fa-solid fa-angle-right"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
-
-  <!--Footer section-->
-  <div data-component="footer"></div>
-
-  <!-- PWA Script -->
-  <script src="/js/pwa.js"></script>
-
-  <!-- External Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-  <script src="../../service/gameService.js"></script>
-  <script type="module" src="../../js/main.js"></script>
-  <script src="/js/inject.js"></script>
-  <script src="/js/mobile-sidebar.js"></script>
-
-  <script type="module" src="../../js/auth/signout.js"></script>
-  <script src="../../js/hero-carousel.js" defer></script>
-
-  <script type="module">
-    import { loadRandomGames } from "../../js/main.js";
-    import { initScrollButtons } from "../../js/scroll-buttons.js";
-    window.addEventListener("DOMContentLoaded", () => {
-
-      loadRandomGames();
-
-      initScrollButtons({
-        containerId: "trendingScrollWrapper",
-        leftBtnId: "scrollLeftTrending",
-        rightBtnId: "scrollRightTrending",
-        scrollStep: 300,
-        autoScroll: true,
-        autoScrollInterval: 2000, // every 2s
-        initialScrollDelay: 1,  // start scroll quickly
-        autoScrollPauseOnHover: true,
+        initScrollButtons({
+          containerId: "random-games-container",
+          leftBtnId: "scrollLeftLearn",
+          rightBtnId: "scrollRightLearn",
+          scrollStep: 300,
+          autoScroll: true,
+          autoScrollInterval: 2000, // every 2s
+          initialScrollDelay: 1, // start scroll quickly
+          autoScrollPauseOnHover: true,
+        });
       });
+    </script>
 
-      initScrollButtons({
-        containerId: "upcomingScrollWrapper",
-        leftBtnId: "scrollLeftUpcoming",
-        rightBtnId: "scrollRightUpcoming",
-        scrollStep: 300,
-        autoScroll: true,
-        autoScrollInterval: 2000, // every 2s
-        initialScrollDelay: 1,  // start scroll quickly
-        autoScrollPauseOnHover: true,
-      });
-
-      initScrollButtons({
-        containerId: "home-games-container",
-        leftBtnId: "scrollLeftGames",
-        rightBtnId: "scrollRightGames",
-        scrollStep: 300,
-        autoScroll: true,
-        autoScrollInterval: 2000, // every 2s
-        initialScrollDelay: 1,  // start scroll quickly
-        autoScrollPauseOnHover: true,
-      });
-
-      initScrollButtons({
-        containerId: "random-games-container",
-        leftBtnId: "scrollLeftLearn",
-        rightBtnId: "scrollRightLearn",
-        scrollStep: 300,
-        autoScroll: true,
-        autoScrollInterval: 2000, // every 2s
-        initialScrollDelay: 1,  // start scroll quickly
-        autoScrollPauseOnHover: true,
-      });
-    });
-  </script>
-
-  <!-- Authentication Guard -->
-  <script type="module">
-    import { initAuthGuard } from "../../js/auth/authGuard.js";
-    initAuthGuard();
-  </script>
-</body>
-
+    <!-- Authentication Guard -->
+    <script type="module">
+      import { initAuthGuard } from "../../js/auth/authGuard.js";
+      initAuthGuard();
+    </script>
+  </body>
 </html>
