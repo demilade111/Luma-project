@@ -69,94 +69,63 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-// Fetch event - serve from cache or network
+
 self.addEventListener("fetch", (event) => {
-  const { request } = event;
+  const request = event.request;
   const url = new URL(request.url);
 
-  // Skip non-GET requests
-  if (request.method !== "GET") {
-    return;
-  }
+  if (request.method !== "GET") return;
 
-  // Skip Firebase and external API requests
-  if (
-    url.hostname.includes("firebase") ||
-    url.hostname.includes("googleapis") ||
-    url.hostname.includes("localhost:3000") ||
-    url.pathname.includes("/api/")
-  ) {
-    return;
-  }
-
-  // Handle different types of requests
-  if (request.destination === "document") {
-    // HTML pages - try network first, fallback to cache
+  // 🧠 Handle all HTML navigations
+  if (request.mode === "navigate") {
     event.respondWith(
-      fetch(request)
-        .then((response) => {
-          // Cache successful responses
-          if (response.status === 200) {
-            const responseClone = response.clone();
-            caches.open(DYNAMIC_CACHE).then((cache) => {
-              cache.put(request, responseClone);
-            });
-          }
-          return response;
-        })
-        .catch(() => {
-          return caches.match(request).then((response) => {
-            if (response) {
-              return response;
-            }
-            // Fallback to offline.html for offline state
-            return caches.match("/offline.html");
-          });
-        })
+      fetch(request).catch(() => caches.match("/index.html"))
     );
-  } else if (
+    return;
+  }
+
+  // Skip Firebase Admin SDK requests and Google APIs
+  if (url.hostname.includes("googleapis") || url.pathname.includes("/api/")) {
+    return;
+  }
+
+  // 🧠 Cache-first for CSS/JS/images
+  if (
     request.destination === "style" ||
     request.destination === "script" ||
     request.destination === "image"
   ) {
-    // Static assets - try cache first, fallback to network
     event.respondWith(
-      caches.match(request).then((response) => {
-        if (response) {
-          return response;
-        }
+      caches.match(request).then((res) => {
+        if (res) return res;
         return fetch(request).then((response) => {
-          // Cache successful responses
           if (response.status === 200) {
-            const responseClone = response.clone();
-            caches.open(DYNAMIC_CACHE).then((cache) => {
-              cache.put(request, responseClone);
-            });
+            caches.open(DYNAMIC_CACHE).then((cache) =>
+              cache.put(request, response.clone())
+            );
           }
           return response;
         });
       })
     );
-  } else {
-    // Other requests - network first, fallback to cache
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          // Cache successful responses
-          if (response.status === 200) {
-            const responseClone = response.clone();
-            caches.open(DYNAMIC_CACHE).then((cache) => {
-              cache.put(request, responseClone);
-            });
-          }
-          return response;
-        })
-        .catch(() => {
-          return caches.match(request);
-        })
-    );
+    return;
   }
+
+  // Default: try network, fallback to cache
+  event.respondWith(
+    fetch(request)
+      .then((res) => {
+        if (res.status === 200) {
+          caches.open(DYNAMIC_CACHE).then((cache) =>
+            cache.put(request, res.clone())
+          );
+        }
+        return res;
+      })
+      .catch(() => caches.match(request))
+  );
 });
+
 
 // Background sync for offline actions
 self.addEventListener("sync", (event) => {
