@@ -408,7 +408,8 @@ async function handleSubscribe(userId, username) {
       alert(`Successfully unsubscribed from ${username}!`);
 
       // Update the button to show unsubscribed state
-      const subscribeBtn = document.querySelector(".subscribe-btn");
+      const subscribeBtn = document.querySelector("#profile-subscribe-btn");
+
       if (subscribeBtn) {
         updateButtonState(subscribeBtn, false);
       }
@@ -438,7 +439,8 @@ async function handleSubscribe(userId, username) {
     alert(`Successfully subscribed to ${username}!`);
 
     // Update the button to show subscribed state
-    const subscribeBtn = document.querySelector(".subscribe-btn");
+    const subscribeBtn = document.querySelector("#profile-subscribe-btn");
+    
     if (subscribeBtn) {
       updateButtonState(subscribeBtn, true);
     }
