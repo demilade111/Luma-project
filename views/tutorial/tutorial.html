@@ -91,7 +91,7 @@
                     <button id="replay-btn"
                         class="bg-black/50 border border-white rounded-full text-white w-10 h-10 flex items-center justify-center text-lg hover:bg-black/70 transition-colors"
                         title="Replay Video">
-                        <i class="fas fa-redo"></i>
+                        <i class="fas fa-pause"></i>
                     </button>
                     <button id="next-btn"
                         class="bg-black/50 border border-white rounded-full text-white w-10 h-10 flex items-center justify-center text-lg hover:bg-black/70 transition-colors"
@@ -121,6 +121,7 @@
         const prevBtn = document.getElementById("prev-btn");
         const nextBtn = document.getElementById("next-btn");
         const replayBtn = document.getElementById("replay-btn");
+        const introText = document.getElementById("text-tutorial-intro");
 
         let currentVideoIndex = 0;
 
@@ -135,8 +136,6 @@
             videos[index].play();
 
             currentVideoIndex = index;
-
-            // We no longer manually toggle overlay here — handled by play/pause events
         };
 
         // Listen for third video playing to show overlay
@@ -176,10 +175,35 @@
             current.play();
         });
 
-        // Allow play when clicking the play button over poster
         document.querySelectorAll(".play-buttons").forEach((btn) => {
             btn.addEventListener("click", () => {
-                showVideo(currentVideoIndex);
+                introText.style.display = "none"; // This hides the intro text once play button is clicked
+                showVideo(currentVideoIndex);    // Starts the video
+            });
+        });
+
+        // Pause current video button
+        replayBtn.addEventListener("click", () => {
+            const currentVideo = videos[currentVideoIndex];
+            if (currentVideo.paused) {
+                currentVideo.play();
+            } else {
+                currentVideo.pause();
+            }
+        });
+
+        // Initially hide all videos and pause, and hide controls always
+        videos.forEach((vid) => {
+            vid.classList.add("hidden");
+            vid.pause();
+            vid.currentTime = 0;
+            vid.controls = false;  // Hide controls permanently
+        });
+
+        // When a video starts playing, hide the intro text
+        videos.forEach(video => {
+            video.addEventListener("play", () => {
+                introText.style.display = "none";
             });
         });
     </script>

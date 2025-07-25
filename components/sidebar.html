@@ -45,13 +45,14 @@
 
 <!-- Desktop Sidebar -->
 <aside id="sidebar"
-  class="fixed top-0 left-0 z-40 flex flex-col justify-between items-center w-full max-w-[80px] h-screen bg-[#1a1f2c] border-1 border-l-0 border-gray-600/30 shadow-lg drop-shadow-md shadow-[#0e1017]/70 rounded-tr-2xl rounded-br-2xl hidden md:flex transition-transform duration-300"
+  class="fixed top-0 left-0 z-40 flex flex-col items-center w-full max-w-[80px] h-screen bg-[#1a1f2c] border-l border-gray-500/30 shadow-lg rounded-tr-2xl rounded-br-2xl hidden md:flex transition-transform duration-300"
   aria-label="Sidebar">
-  <!-- Navigation Icons -->
-  <nav class="flex flex-col items-center space-y-5 pt-6 pb-4 w-full">
+
+  <nav class="flex flex-col items-center w-full h-full pt-6 pb-4">
+
     <!-- Logo/Brand -->
     <button id="desktop-sidebar-btn"
-      class="flex items-center justify-center hover:bg-gray-800 transition-all w-15 h-15 rounded-lg">
+      class="flex items-center justify-center hover:bg-gray-800 transition-all w-15 h-15 rounded-lg mb-6">
       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 67 67" fill="none" class="w-10 h-10">
         <path
           d="M25.1673 41.0269C26.7541 42.3252 26.9386 44.6993 25.647 46.2573C24.9089 47.1105 23.8388 47.5927 22.8055 47.5927C21.9567 47.5927 21.1079 47.296 20.4437 46.7024L8.45021 36.6126C7.45383 35.7965 7.011 34.5724 7.15861 33.3854C7.011 32.1983 7.45383 30.9742 8.45021 30.1581L20.4437 20.0312C21.9936 18.7329 24.3185 18.9183 25.647 20.5134C26.9386 22.0714 26.7541 24.4084 25.1673 25.7438L16.0891 33.3854L25.1673 41.0269Z"
@@ -74,81 +75,80 @@
       </svg>
     </button>
 
-    <!-- Menu Icons -->
+    <div class="w-3/5 border-t border-gray-500 my-2"></div>
 
-    <!-- Crown -->
-    <a href="/views/home/index.html" title="Home"
-      class="group w-10 h-10 flex flex-col p-6 items-center justify-center text-gray-200 transition-all">
-      <i
-        class="fas fa-crown text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
-      <span
-        class="text-sm text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Home</span>
-    </a>
+    <!-- Main menu icons, evenly spaced -->
+    <div class="flex flex-col justify-evenly items-center flex-grow w-full">
 
-    <!-- Games -->
-    <a href="/views/game/games.html" title="Games"
-      class="group w-10 h-10 flex flex-col p-6 items-center justify-center text-gray-200 transition-all">
-      <i
-        class="fas fa-th text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
-      <span
-        class="text-sm text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Games</span>
-    </a>
+      <!-- Home -->
+      <a href="/views/home/index.html" title="Home"
+        class="group w-full flex flex-col items-center justify-center text-gray-200 transition-all">
+        <i class="fas fa-crown text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
+        <span class="text-xs text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Home</span>
+      </a>
 
-    <!-- Rocket -->
-    <a href="/views/event/event.html" title="Events"
-      class="group w-10 h-10 flex flex-col p-6 items-center justify-center text-gray-200 transition-all">
-      <i
-        class="fas fa-rocket text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
-      <span
-        class="text-sm text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Events</span>
-    </a>
+      <!-- Games -->
+      <a href="/views/game/games.html" title="Games"
+        class="group w-full flex flex-col items-center justify-center text-gray-200 transition-all">
+        <i class="fas fa-th text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
+        <span class="text-xs text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Games</span>
+      </a>
 
-    <!-- Calendar -->
-    <a href="/views/event/calendar.html" title="Calendar"
-      class="group w-10 h-10 flex flex-col p-6 items-center justify-center text-gray-200 transition-all">
-      <i
-        class="fas fa-calendar text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
-      <span
-        class="text-sm text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Calendar</span>
-    </a>
+      <div class="w-3/5 border-t border-gray-500 my-2"></div>
 
-    <!-- Bookmarks -->
-    <a href="/views/bookmarks/bookmark.html" title="Bookmarks"
-      class="group w-10 h-10 flex flex-col p-6 items-center justify-center text-gray-200 transition-all">
-      <i
-        class="fa-solid fa-bookmark text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
-      <span
-        class="text-sm text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Bookmarks</span>
-    </a>
+      <!-- Events -->
+      <a href="/views/event/event.html" title="Events"
+        class="group w-full flex flex-col items-center justify-center text-gray-200 transition-all">
+        <i class="fas fa-rocket text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
+        <span class="text-xs text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Events</span>
+      </a>
 
-    <!-- Settings -->
-    <a href="/views/user/preferences.html" title="Settings"
-      class="group w-10 h-10 flex flex-col p-6 items-center justify-center text-gray-200 transition-all">
-      <i
-        class="fas fa-cog text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
-      <span
-        class="text-sm text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Settings</span>
-    </a>
+      <!-- Calendar -->
+      <a href="/views/event/calendar.html" title="Calendar"
+        class="group w-full flex flex-col items-center justify-center text-gray-200 transition-all">
+        <i class="fas fa-calendar text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
+        <span class="text-xs text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Calendar</span>
+      </a>
 
-    <!-- Profile -->
-    <a href="/views/user/profile.html" title="Profile"
-      class="group w-10 h-10 flex flex-col p-6 items-center justify-center text-gray-200 transition-all">
-      <i
-        class="fas fa-user text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
-      <span
-        class="text-sm text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Profile</span>
-    </a>
+      <!-- Bookmarks -->
+      <a href="/views/bookmarks/bookmark.html" title="Bookmarks"
+        class="group w-full flex flex-col items-center justify-center text-gray-200 transition-all">
+        <i class="fa-solid fa-bookmark text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
+        <span class="text-xs text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Bookmarks</span>
+      </a>
+
+      <div class="w-3/5 border-t border-gray-500 my-2"></div>
+
+      <!-- Settings -->
+      <a href="/views/user/preferences.html" title="Settings"
+        class="group w-full flex flex-col items-center justify-center text-gray-200 transition-all">
+        <i class="fas fa-cog text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
+        <span class="text-xs text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Settings</span>
+      </a>
+
+      <!-- Profile -->
+      <a href="/views/user/profile.html" title="Profile"
+        class="group w-full flex flex-col items-center justify-center text-gray-200 transition-all">
+        <i class="fas fa-user text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
+        <span class="text-xs text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Profile</span>
+      </a>
+
+      <div class="w-3/5 border-t border-gray-500 my-2"></div>
+
+    </div>
+
+    <!-- Sign Out at the bottom -->
+    <div class="pt-6">
+      <button id="signOut"
+        class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A] rounded-lg transition-all"
+        title="Sign Out">
+        <i class="fas fa-sign-out-alt text-2xl"></i>
+      </button>
+    </div>
+
   </nav>
-
-  <!-- Sign Out -->
-  <div class="pb-6">
-    <button id="signOut"
-      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A] rounded-lg transition-all"
-      title="Sign Out">
-      <i class="fas fa-sign-out-alt text-2xl"></i>
-    </button>
-  </div>
 </aside>
+
 
 <!-- Left Drawer Overlay -->
 <div id="left-drawer-overlay"
