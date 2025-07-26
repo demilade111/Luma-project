@@ -17,6 +17,9 @@
     <div class="flex-1 flex flex-col min-h-screen md:ml-[90px] pt-2 pr-2">
         <main class="flex-1">
 
+            <audio id="background-audio" src="/src/asset/audio/slay-em-suspenseful-scary-52495.mp3"
+                preload="auto"></audio>
+
             <!-- Section tutorial -->
             <div class="tutorial-1 relative w-full aspect-video sm:aspect-video md:h-screen overflow-hidden">
                 <!-- Poster Image -->
@@ -45,13 +48,22 @@
                     <source src="../../src/luma-tutorials/tutorial-Part3.mp4" type="video/mp4" />
                 </video>
 
-                <!-- Overlay Card -->
-                <div id="overlay-card" class="hidden sm:block absolute top-4 left-4 sm:top-1/2 sm:left-10 sm:-translate-y-1/2 w-[90vw] sm:w-[70vw] md:w-[50vw] lg:w-[30vw] 
-                    max-h-[70vh] overflow-y-auto bg-black/30 backdrop-blur-md border border-gray-300/20 
-                    rounded-2xl p-3 sm:p-5 text-gray-200 space-y-3 opacity-0 transition-opacity duration-1000 
-                    pointer-events-none z-30 text-xs sm:text-sm leading-relaxed">
+                <!-- Intro Text as Overlay (Positioned at Bottom) -->
+                <div class="absolute bottom-6 px-4 w-full flex justify-center z-20">
+                    <div id="text-tutorial-intro"
+                        class="text-white text-sm sm:text-base w-full max-w-xl text-center bg-black/50 rounded-lg p-4">
+                        An interactive play-along tutorial to be used as a companion to the actual tabletop game. This
+                        tutorial allows you to learn the game while you play!
+                    </div>
+                </div>
 
-                    <h2 class="text-base sm:text-lg font-bold text-center luma-gradient">OBJECT</h2>
+                <!-- Overlay Card -->
+                <div id="overlay-card" class="hidden sm:block absolute top-4 left-6 sm:top-1/2 sm:left-10 sm:-translate-y-1/2 w-[80vw] sm:w-[60vw] md:w-[40vw] lg:w-[25vw] 
+                    max-h-[80vh] overflow-y-auto bg-black/30 backdrop-blur-md border border-gray-300/20 
+                    rounded-2xl p-3 sm:p-5 text-gray-200 text-lg space-y-6 opacity-0 transition-opacity duration-1000 
+                    pointer-events-none z-30 leading-relaxed">
+
+                    <h2 class="text-4xl font-bold text-center luma-gradient my-5">OBJECT</h2>
 
                     <p>To WIN each Prisoner must:</p>
                     <ul class="list-disc list-inside space-y-1">
@@ -73,29 +85,21 @@
                     </ul>
                 </div>
 
-                <!-- Intro Text -->
-                <div class="absolute bottom-6 px-4 w-full flex justify-center z-10">
-                    <div id="text-tutorial-intro"
-                        class="text-white text-sm sm:text-base w-full max-w-xl text-center bg-black/50 rounded-lg p-4">
-                        An interactive play-along tutorial to be used as a companion to the actual tabletop game.
-                    </div>
-                </div>
-
                 <!-- Controls -->
                 <div id="video-controls"
                     class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4 hidden z-10">
                     <button id="prev-btn"
-                        class="bg-black/50 border border-white rounded-full text-white w-10 h-10 flex items-center justify-center text-lg hover:bg-black/70 transition-colors"
+                        class="bg-black/50 border border-white rounded-full cursor-pointer text-white w-10 h-10 flex items-center justify-center text-lg hover:bg-black/70 transition-colors"
                         title="Previous Video">
                         <i class="fas fa-play rotate-180"></i>
                     </button>
                     <button id="replay-btn"
-                        class="bg-black/50 border border-white rounded-full text-white w-10 h-10 flex items-center justify-center text-lg hover:bg-black/70 transition-colors"
+                        class="bg-black/50 border border-white rounded-full cursor-pointer text-white w-10 h-10 flex items-center justify-center text-lg hover:bg-black/70 transition-colors"
                         title="Replay Video">
-                        <i class="fas fa-pause"></i>
+                        <i class="fas fa-repeat"></i>
                     </button>
                     <button id="next-btn"
-                        class="bg-black/50 border border-white rounded-full text-white w-10 h-10 flex items-center justify-center text-lg hover:bg-black/70 transition-colors"
+                        class="bg-black/50 border border-white rounded-full cursor-pointer text-white w-10 h-10 flex items-center justify-center text-lg hover:bg-black/70 transition-colors"
                         title="Next Video">
                         <i class="fas fa-play"></i>
                     </button>
@@ -115,17 +119,46 @@
     <script type="module" src="../../js/mobile-navbar.js"></script>
 
     <!-- Show overlay card on video 3 -->
-    <!-- Scripts -->
     <script>
+        // Show intro text initially when the page loads
+        window.addEventListener("DOMContentLoaded", () => {
+            const introText = document.getElementById("text-tutorial-intro");
+            introText.style.display = "block"; // Ensure intro text is visible initially
+
+            // Pause background audio initially
+            const backgroundAudio = document.getElementById("background-audio");
+            backgroundAudio.pause(); // Pause the audio initially
+        });
+
+        // Get the background audio element
+        const backgroundAudio = document.getElementById("background-audio");
+
+        // Show the video and hide intro text when play button is clicked
+        document.querySelectorAll(".play-buttons").forEach((btn) => {
+            btn.addEventListener("click", () => {
+
+                // Pause the background audio if it's playing and play the video
+                backgroundAudio.pause();  // Pause the background audio if it's playing
+
+                // Play the background audio
+                backgroundAudio.play(); // This will start the audio
+
+                // Hide the intro text once the play button is clicked
+                const introText = document.getElementById("text-tutorial-intro");
+                introText.style.display = "none"; // Hides intro text when play button is clicked
+
+                // Show the video
+                showVideo(currentVideoIndex);    // Starts the video
+            });
+        });
+
+        // Existing video logic...
         const overlayCard = document.getElementById("overlay-card");
         const videos = document.querySelectorAll("video");
         const part3 = document.getElementById("part3");
         const prevBtn = document.getElementById("prev-btn");
         const nextBtn = document.getElementById("next-btn");
         const replayBtn = document.getElementById("replay-btn");
-        const introText = document.getElementById("text-tutorial-intro");
-
-        introText.style.display = "block"; // Ensure intro text is visible initially
 
         let currentVideoIndex = 0;
 
@@ -156,38 +189,59 @@
         part3.addEventListener("ended", () => {
             overlayCard.classList.remove("opacity-100");
             overlayCard.classList.add("opacity-0");
+
+            backgroundAudio.pause(); // Stop the audio when the last video ends
         });
 
         // Initial video setup
         showVideo(currentVideoIndex);
 
         nextBtn.addEventListener("click", () => {
+            // Restart the background audio when moving to the next video
+            backgroundAudio.currentTime = 0;
+            backgroundAudio.play();
             if (currentVideoIndex < videos.length - 1) {
                 showVideo(currentVideoIndex + 1);
             }
         });
 
         prevBtn.addEventListener("click", () => {
+            // Restart the background audio when moving to the next video
+            backgroundAudio.currentTime = 0;
+            backgroundAudio.play();
+
+            // Only show intro text and pause the audio when the first video is selected
             if (currentVideoIndex > 0) {
                 showVideo(currentVideoIndex - 1);
+                introText.style.display = "block"; // Show intro text when switching videos
+            } else {
+                // When going to the first video, hide the video and show the poster image
+                videos.forEach((vid) => {
+                    vid.classList.add("hidden"); // Hide all videos
+                    vid.pause(); // Pause all videos
+                    vid.currentTime = 0; // Reset video time
+                });
+
+                // Show the poster image and the play button
+                const playButton = document.querySelector(".play-buttons");
+                playButton.style.display = "flex"; // Show the play button again
+
+                // Pause the background audio
+                backgroundAudio.pause(); // Pause the audio
             }
         });
 
-        document.querySelectorAll(".play-buttons").forEach((btn) => {
-            btn.addEventListener("click", () => {
-                introText.style.display = "none"; // This hides the intro text once play button is clicked
-                showVideo(currentVideoIndex);    // Starts the video
-            });
-        });
-
-        // Pause current video button
+        // Replay current video button
         replayBtn.addEventListener("click", () => {
             const currentVideo = videos[currentVideoIndex];
-            if (currentVideo.paused) {
-                currentVideo.play();
-            } else {
-                currentVideo.pause();
-            }
+
+            // Replay the video (restart from the beginning)
+            currentVideo.currentTime = 0;
+            currentVideo.play();
+
+            // Restart the background audio when moving to the next video
+            backgroundAudio.currentTime = 0;
+            backgroundAudio.play();
         });
 
         // Initially hide all videos and pause, and hide controls always
@@ -206,19 +260,13 @@
         });
     </script>
 
-    <!-- Auth -->
-    <script type="module">
-        import { initAuthGuard } from "../../js/auth/authGuard.js";
-        initAuthGuard();
-    </script>
-
-
 
     <!-- Auth -->
     <script type="module">
         import { initAuthGuard } from "../../js/auth/authGuard.js";
         initAuthGuard();
     </script>
+
 </body>
 
 </html>
