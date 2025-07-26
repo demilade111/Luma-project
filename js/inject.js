@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const base = "";
   const componentPaths = {
+    mobilenavbar: `${base}/components/mobilenavbar.html`,
     sidebar: `${base}/components/sidebar.html`,
     navbar: `${base}/components/navbar.html`,
     hero: `${base}/components/hero.html`,
