@@ -363,7 +363,7 @@ function createGameCard(game) {
                 .slice(0, 3)
                 .map(
                   (cat) =>
-                    `<span class="px-2 py-1 text-xs bg-blue-100 text-gray-700 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
+                    `<span class="px-2 py-1 text-xs underline text-gray-400 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
                        data-category="${cat}">${cat}</span>`
                 )
                 .join("")}

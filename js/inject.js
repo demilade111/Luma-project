@@ -234,34 +234,29 @@ document.addEventListener("DOMContentLoaded", function () {
     drawerMenuItems.forEach((item) => {
       const wrapper = document.createElement("div");
 
-      const link = document.createElement("div"); // make this a div for toggle
-      link.className =
-        "flex items-center justify-between text-gray-200 hover:bg-gradient-to-bl hover:rounded-xl hover:px-3 hover:shadow-sm shadow-gray-600 py-1 from-[#F59275] to-[#F1647A] transition-colors cursor-pointer";
+      // Dropdown items
+      if (item.children && item.children.length > 0) {
+        const link = document.createElement("div");
+        link.className =
+          "flex items-center justify-between text-gray-200 hover:bg-gradient-to-bl hover:rounded-xl hover:px-3 hover:shadow-sm shadow-gray-600 py-1 from-[#F59275] to-[#F1647A] transition-colors cursor-pointer";
 
-      // Left content (icon + label)
-      const content = document.createElement("div");
-      content.className = "flex items-center gap-3";
-      content.innerHTML = `
-      ${item.svg}
-      <span class="text-md font-medium">${item.label}</span>
-    `;
-      link.appendChild(content);
+        const content = document.createElement("div");
+        content.className = "flex items-center gap-3";
+        content.innerHTML = `
+        ${item.svg}
+        <span class="text-md font-medium">${item.label}</span>
+      `;
+        link.appendChild(content);
 
-      // ▼ icon for dropdown items
-      let dropdownIcon;
-      if (item.children) {
-        dropdownIcon = document.createElement("span");
+        const dropdownIcon = document.createElement("span");
         dropdownIcon.innerHTML = "▼";
         dropdownIcon.className = "text-sm transition-transform";
         link.appendChild(dropdownIcon);
-      }
 
-      wrapper.appendChild(link);
+        wrapper.appendChild(link);
 
-      // Dropdown container (initially hidden)
-      let dropdown;
-      if (item.children && item.children.length > 0) {
-        dropdown = document.createElement("div");
+        // Dropdown content
+        const dropdown = document.createElement("div");
         dropdown.className = "ml-8 mt-1 flex flex-col gap-1 hidden transition-all";
 
         item.children.forEach((child) => {
@@ -275,20 +270,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
         wrapper.appendChild(dropdown);
 
-        // Toggle functionality
+        // Toggle dropdown
         link.addEventListener("click", () => {
           const isHidden = dropdown.classList.contains("hidden");
           dropdown.classList.toggle("hidden");
           dropdownIcon.style.transform = isHidden ? "rotate(180deg)" : "rotate(0deg)";
         });
+
       } else {
-        // If no children, make it a normal <a>
-        content.innerHTML = `<a href="${item.href}" class="flex items-center gap-3">${item.svg}<span class="text-md font-medium">${item.label}</span></a>`;
+        // Non-dropdown item (a normal <a>)
+        const link = document.createElement("a");
+        link.href = item.href;
+        link.className =
+          "flex items-center gap-3 text-gray-200 hover:bg-gradient-to-bl hover:rounded-xl hover:px-3 hover:shadow-sm shadow-gray-600 py-1 from-[#F59275] to-[#F1647A] transition-colors cursor-pointern";
+        link.innerHTML = `${item.svg}<span class="text-md font-medium">${item.label}</span>`;
+        wrapper.appendChild(link);
+
+        // Divider if needed
+        if (item.label === "Games" || item.label === "Bookmarks") {
+          const divider = document.createElement("div");
+          divider.className = "w-full border-t border-gray-500 my-2";
+          wrapper.appendChild(divider);
+        }
       }
 
       menuContainer.appendChild(wrapper);
     });
   }
+
 
   injectComponents();
 });
