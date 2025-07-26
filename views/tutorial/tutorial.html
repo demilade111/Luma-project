@@ -119,146 +119,145 @@
     <script type="module" src="../../js/mobile-navbar.js"></script>
 
     <!-- Show overlay card on video 3 -->
-    <script>
-        // Show intro text initially when the page loads
-        window.addEventListener("DOMContentLoaded", () => {
-            const introText = document.getElementById("text-tutorial-intro");
-            introText.style.display = "block"; // Ensure intro text is visible initially
+   <script>
+    // Show intro text initially when the page loads
+    window.addEventListener("DOMContentLoaded", () => {
+        const introText = document.getElementById("text-tutorial-intro");
+        introText.style.display = "block"; // Ensure intro text is visible initially
 
-            // Pause background audio initially
-            const backgroundAudio = document.getElementById("background-audio");
-            backgroundAudio.pause(); // Pause the audio initially
-        });
-
-        // Get the background audio element
+        // Pause background audio initially
         const backgroundAudio = document.getElementById("background-audio");
+        backgroundAudio.pause(); // Pause the audio initially
+    });
 
-        // Show the video and hide intro text when play button is clicked
-        document.querySelectorAll(".play-buttons").forEach((btn) => {
-            btn.addEventListener("click", () => {
+    // Get the background audio element
+    const backgroundAudio = document.getElementById("background-audio");
 
-                // Pause the background audio if it's playing and play the video
-                backgroundAudio.pause();  // Pause the background audio if it's playing
+    // Helper: Restore background audio volume and play
+    function resumeAudio() {
+        if (backgroundAudio.volume === 0) {
+            backgroundAudio.volume = 1;
+        }
+        backgroundAudio.currentTime = 0;
+        backgroundAudio.play();
+    }
 
-                // Play the background audio
-                backgroundAudio.play(); // This will start the audio
+    // Show the video and hide intro text when play button is clicked
+    document.querySelectorAll(".play-buttons").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            backgroundAudio.pause();
+            backgroundAudio.volume = 1;
+            backgroundAudio.play();
 
-                // Hide the intro text once the play button is clicked
-                const introText = document.getElementById("text-tutorial-intro");
-                introText.style.display = "none"; // Hides intro text when play button is clicked
+            const introText = document.getElementById("text-tutorial-intro");
+            introText.style.display = "none";
 
-                // Show the video
-                showVideo(currentVideoIndex);    // Starts the video
-            });
+            showVideo(currentVideoIndex);
+        });
+    });
+
+    const overlayCard = document.getElementById("overlay-card");
+    const videos = document.querySelectorAll("video");
+    const part3 = document.getElementById("part3");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const replayBtn = document.getElementById("replay-btn");
+    const introText = document.getElementById("text-tutorial-intro");
+
+    let currentVideoIndex = 0;
+
+    const showVideo = (index) => {
+        videos.forEach((vid, i) => {
+            vid.classList.toggle("hidden", i !== index);
+            vid.pause();
+            vid.currentTime = 0;
         });
 
-        // Existing video logic...
-        const overlayCard = document.getElementById("overlay-card");
-        const videos = document.querySelectorAll("video");
-        const part3 = document.getElementById("part3");
-        const prevBtn = document.getElementById("prev-btn");
-        const nextBtn = document.getElementById("next-btn");
-        const replayBtn = document.getElementById("replay-btn");
+        videos[index].classList.remove("hidden");
+        videos[index].play();
 
-        let currentVideoIndex = 0;
+        currentVideoIndex = index;
+    };
 
-        const showVideo = (index) => {
-            videos.forEach((vid, i) => {
-                vid.classList.toggle("hidden", i !== index);
+    // Listen for third video playing to show overlay
+    part3.addEventListener("play", () => {
+        overlayCard.classList.remove("opacity-0");
+        overlayCard.classList.add("opacity-100");
+    });
+
+    part3.addEventListener("pause", () => {
+        overlayCard.classList.remove("opacity-100");
+        overlayCard.classList.add("opacity-0");
+    });
+
+    part3.addEventListener("ended", () => {
+        overlayCard.classList.remove("opacity-100");
+        overlayCard.classList.add("opacity-0");
+
+        // Smooth fade out
+        let fadeOutInterval = setInterval(() => {
+            if (backgroundAudio.volume > 0.05) {
+                backgroundAudio.volume -= 0.05;
+            } else {
+                backgroundAudio.volume = 0;
+                backgroundAudio.pause();
+                backgroundAudio.currentTime = 0;
+                clearInterval(fadeOutInterval);
+            }
+        }, 100);
+    });
+
+    // Initial video setup
+    showVideo(currentVideoIndex);
+
+    nextBtn.addEventListener("click", () => {
+        resumeAudio();
+        if (currentVideoIndex < videos.length - 1) {
+            showVideo(currentVideoIndex + 1);
+        }
+    });
+
+    prevBtn.addEventListener("click", () => {
+        if (currentVideoIndex > 0) {
+            resumeAudio();
+            showVideo(currentVideoIndex - 1);
+            introText.style.display = "block";
+        } else {
+            videos.forEach((vid) => {
+                vid.classList.add("hidden");
                 vid.pause();
                 vid.currentTime = 0;
             });
 
-            videos[index].classList.remove("hidden");
-            videos[index].play();
+            const playButton = document.querySelector(".play-buttons");
+            playButton.style.display = "flex";
 
-            currentVideoIndex = index;
-        };
+            backgroundAudio.pause();
+        }
+    });
 
-        // Listen for third video playing to show overlay
-        part3.addEventListener("play", () => {
-            overlayCard.classList.remove("opacity-0");
-            overlayCard.classList.add("opacity-100");
+    replayBtn.addEventListener("click", () => {
+        const currentVideo = videos[currentVideoIndex];
+        currentVideo.currentTime = 0;
+        currentVideo.play();
+
+        resumeAudio();
+    });
+
+    // Initially hide all videos and pause, and hide controls always
+    videos.forEach((vid) => {
+        vid.classList.add("hidden");
+        vid.pause();
+        vid.currentTime = 0;
+        vid.controls = false;
+    });
+
+    videos.forEach(video => {
+        video.addEventListener("play", () => {
+            introText.style.display = "none";
         });
-
-        part3.addEventListener("pause", () => {
-            overlayCard.classList.remove("opacity-100");
-            overlayCard.classList.add("opacity-0");
-        });
-
-        part3.addEventListener("ended", () => {
-            overlayCard.classList.remove("opacity-100");
-            overlayCard.classList.add("opacity-0");
-
-            backgroundAudio.pause(); // Stop the audio when the last video ends
-        });
-
-        // Initial video setup
-        showVideo(currentVideoIndex);
-
-        nextBtn.addEventListener("click", () => {
-            // Restart the background audio when moving to the next video
-            backgroundAudio.currentTime = 0;
-            backgroundAudio.play();
-            if (currentVideoIndex < videos.length - 1) {
-                showVideo(currentVideoIndex + 1);
-            }
-        });
-
-        prevBtn.addEventListener("click", () => {
-            // Restart the background audio when moving to the next video
-            backgroundAudio.currentTime = 0;
-            backgroundAudio.play();
-
-            // Only show intro text and pause the audio when the first video is selected
-            if (currentVideoIndex > 0) {
-                showVideo(currentVideoIndex - 1);
-                introText.style.display = "block"; // Show intro text when switching videos
-            } else {
-                // When going to the first video, hide the video and show the poster image
-                videos.forEach((vid) => {
-                    vid.classList.add("hidden"); // Hide all videos
-                    vid.pause(); // Pause all videos
-                    vid.currentTime = 0; // Reset video time
-                });
-
-                // Show the poster image and the play button
-                const playButton = document.querySelector(".play-buttons");
-                playButton.style.display = "flex"; // Show the play button again
-
-                // Pause the background audio
-                backgroundAudio.pause(); // Pause the audio
-            }
-        });
-
-        // Replay current video button
-        replayBtn.addEventListener("click", () => {
-            const currentVideo = videos[currentVideoIndex];
-
-            // Replay the video (restart from the beginning)
-            currentVideo.currentTime = 0;
-            currentVideo.play();
-
-            // Restart the background audio when moving to the next video
-            backgroundAudio.currentTime = 0;
-            backgroundAudio.play();
-        });
-
-        // Initially hide all videos and pause, and hide controls always
-        videos.forEach((vid) => {
-            vid.classList.add("hidden");
-            vid.pause();
-            vid.currentTime = 0;
-            vid.controls = false;  // Hide controls permanently
-        });
-
-        // When a video starts playing, hide the intro text
-        videos.forEach(video => {
-            video.addEventListener("play", () => {
-                introText.style.display = "none";
-            });
-        });
-    </script>
+    });
+</script>
 
 
     <!-- Auth -->
