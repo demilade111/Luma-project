@@ -82,7 +82,7 @@
             <div class="sm:sticky sm:top-5 p-[2px] rounded-2xl bg-gradient-to-r from-[#f59275] to-[#f1647a]">
               <!-- Inner content box -->
               <div
-                class="flex flex-col text-xl font-bold p-8 sm:p-10 rounded-2xl gap-3 bg-[#23243a] shadow-md bg-clip-padding">
+                class="flex flex-col text-xl font-bold p-5 rounded-2xl gap-3 bg-[#23243a] shadow-md bg-clip-padding">
                 <h3 id="city-sidebar-title" class="text-2xl mb-2 luma-gradient">
                   Loading...
                 </h3>
@@ -94,7 +94,7 @@
                   <button style="
                         box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8);
                       "
-                    class="border border-gray-700 text-base rounded-full px-6 py-2 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
+                    class="border border-gray-700 text-base rounded-full px-6 mb-3 py-2 bg-[#2F364A] text-gray-200 font-medium cursor-pointer hover:bg-[#3A4258] transition-colors">
                     Subscribe
                   </button>
                 </div>
@@ -158,23 +158,23 @@
       try {
         const eventsCol = collection(db, "events");
 
-        // Query events by location containing the city name
-        const q = query(
-          eventsCol,
-          where("location", ">=", city),
-          where("location", "<=", city + "\uf8ff"),
-          orderBy("location"),
-          orderBy("start_time", "asc")
-        );
+        // Query to get all events, no need to filter by location in the query
+        const q = query(eventsCol, orderBy("start_time", "asc"));
 
         const snapshot = await getDocs(q);
 
-        console.log(`Found ${snapshot.size} events for ${city}`);
+        if (snapshot.empty) {
+          console.log(`No events found.`);
+          return [];
+        }
+
+        console.log(`Found ${snapshot.size} events.`);
 
         const events = [];
         snapshot.forEach((doc) => {
           const eventData = doc.data();
-          // Additional filter to ensure exact city match
+
+          // Only include events where the location contains the city name
           if (
             eventData.location &&
             eventData.location.toLowerCase().includes(city.toLowerCase())
@@ -188,9 +188,10 @@
 
         return events;
       } catch (error) {
-        console.error("Error loading city events:", error);
+        console.error("Error loading events:", error);
         return [];
       }
+
     }
 
     // Initialize map for city events
