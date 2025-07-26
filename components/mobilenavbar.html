@@ -1,0 +1,37 @@
+<!-- Mobile Navigation Bar -->
+<nav class="block md:hidden">
+  <div class="flex justify-between items-center p-4">
+    <!-- Logo Section -->
+    <div class="text-xl ml-2">
+      <img src="/src/asset/images/logo.png" alt="Logo" class="h-8 object-contain" />
+    </div>
+
+    <!-- Menu Icon (Hamburger) -->
+    <div class="lg:hidden cursor-pointer">
+      <!-- Hamburger Icon -->
+      <img id="hamburger-menu" src="/src/asset/images/expand.png" alt="Expand" class="h-10 object-contain" />
+    </div>
+  </div>
+</nav>
+
+<!-- Dropdown Menu -->
+<div id="dropdown-menu" class="fixed inset-0 z-50 bg-black/80 bg-opacity-50 hidden flex items-center justify-center">
+  <div class="bg-gradient-to-bl from-[#F59275]/80 to-[#F1647A]/80 backdrop-blur-md p-6 rounded-2xl shadow-lg max-w-[90%] w-full md:w-[300px] space-y-6">
+    <!-- Close Button -->
+    <div id="close-menu" class="absolute top-4 right-4 cursor-pointer text-xl text-gray-700">
+      <i class="fas fa-times"></i>
+    </div>
+
+    <!-- Menu Items -->
+    <div class="flex flex-col space-y-3 text-center my-2">
+      <a href="/views/home/index.html" class="text-xl text-gray-300 hover:text-[#F1647A]">Home</a>
+      <a href="/views/game/games.html" class="text-xl text-gray-300 hover:text-[#F1647A]">Games</a>
+      <a href="/views/event/event.html" class="text-xl text-gray-300 hover:text-[#F1647A]">Events</a>
+      <a href="/views/event/create-event.html" class="text-xl text-gray-300 hover:text-[#F1647A]">Create Event</a>
+      <a href="/views/event/calendar.html" class="text-xl text-gray-300 hover:text-[#F1647A]">Calendar</a>
+      <a href="/views/bookmarks/bookmark.html" class="text-xl text-gray-300 hover:text-[#F1647A]">Bookmarks</a>
+      <a href="/views/user/preferences.html" class="text-xl text-gray-300 hover:text-[#F1647A]">Setting</a>
+      <a href="/views/user/profile.html" class="text-xl text-gray-300 hover:text-[#F1647A]">Profile</a>
+    </div>
+  </div>
+</div>
