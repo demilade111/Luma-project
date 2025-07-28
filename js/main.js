@@ -447,7 +447,11 @@ function renderRandomGames(games) {
             <div class="text-button flex flex-col justify-between h-32 w-32">
               <p class="text-sm text-gray-400 leading-tight">${truncatedDescription}</p>
               <button type="button" ${disabledAttr}
-                ${isNightCafe ? `onclick="window.location.href='http://127.0.0.1:5505/views/game/night-cage-tutorial.html'"` : ""}
+                ${
+                  isNightCafe
+                    ? `onclick="window.location.href='/views/game/night-cage-tutorial.html'"`
+                    : ""
+                }
                 style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
                 class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200 transition-colors ${buttonClasses}">
                 Tutorial
@@ -1329,27 +1333,50 @@ document.addEventListener("DOMContentLoaded", function () {
 // Loading Games in the Continue Learning boxes
 async function resistance() {
   try {
-    const resp = await fetch("./data/top-games.json");
-    const games = await resp.json();
+    // Use the gameService to get games data
+    const gameService =
+      window.gameService ||
+      (typeof gameService !== "undefined" ? gameService : null);
 
-    const game = games.find((g) => g.name === "The Resistance");
-    if (!game) {
-      console.warn("The Resistance was not found in JSON");
+    if (!gameService) {
+      console.warn("Game service not available");
       return;
     }
+
+    const result = await gameService.getAllGames();
+
+    if (!result.success) {
+      console.warn("Failed to load games:", result.error);
+      return;
+    }
+
+    const games = result.games;
+    const game = games.find((g) => g.name === "The Resistance");
+
+    if (!game) {
+      console.warn("The Resistance was not found in games data");
+      return;
+    }
+
     //adding image of the game in the box
     const divBox = document.querySelector(".resistance-box");
-    divBox.innerHTML = `<img src="${game.thumbnail}" alt="${game.name}" class="w-full h-full object-cover rounded-2xl"/>`;
+    if (divBox) {
+      divBox.innerHTML = `<img src="${game.thumbnail}" alt="${game.name}" class="w-full h-full object-cover rounded-2xl"/>`;
+    }
 
     //adding description
     const desc = document.getElementById("resistance-desc");
-    desc.textContent = game.description || "No description available";
+    if (desc) {
+      desc.textContent = game.description || "No description available";
+    }
 
     //Tutorial button
     const tutorialBtn = document.getElementById("resistance-tutorial");
-    tutorialBtn.addEventListener("click", () => {
-      if (game.rulebook) window.open(game.rulebook, "_blank");
-    });
+    if (tutorialBtn) {
+      tutorialBtn.addEventListener("click", () => {
+        if (game.rulebook) window.open(game.rulebook, "_blank");
+      });
+    }
   } catch (err) {
     console.error("failed to load game:", err);
   }
