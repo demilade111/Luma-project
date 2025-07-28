@@ -101,27 +101,19 @@ async function loadGames() {
     errorDiv.classList.add("hidden");
     gamesContainer.classList.add("hidden");
 
-    console.log("🎮 Loading games from API...");
+    console.log("🎮 Loading games from JSON data...");
 
-    // Get gameService from window (since it's loaded as a script tag)
-    const gameService =
-      window.gameService ||
-      (typeof gameService !== "undefined" ? gameService : null);
+    // Load games data directly from JSON file
+    const response = await fetch("/Server/data/top-games.json");
 
-    if (!gameService) {
-      throw new Error("Game service not available");
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
 
-    const result = await gameService.getAllGames();
-
-    if (!result.success) {
-      throw new Error(result.error || "Failed to load games");
-    }
-
-    allGamesData = result.games;
+    allGamesData = await response.json();
     console.log(allGamesData);
     currentPage = 1;
-    console.log(`✅ Loaded ${allGamesData.length} games`);
+    console.log(`✅ Loaded ${allGamesData.length} games from JSON`);
 
     // Hide loading and show games
     loadingDiv.classList.add("hidden");
@@ -263,19 +255,24 @@ async function filterGamesByCategory(category) {
 
     console.log(`🔍 Filtering games by category: ${category}`);
 
-    const gameService = window.gameService;
-    if (!gameService) {
-      throw new Error("Game service not available");
+    // Load games data directly from JSON file
+    const response = await fetch("/Server/data/top-games.json");
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
 
-    const result = await gameService.getGamesByCategory(category);
-
-    if (!result.success) {
-      throw new Error(result.error || "Failed to filter games");
-    }
+    const allGames = await response.json();
+    
+    // Filter games by category
+    const filteredGames = allGames.filter(game => 
+      game.categories && game.categories.some(cat => 
+        cat.toLowerCase() === category.toLowerCase()
+      )
+    );
 
     console.log(
-      `✅ Found ${result.games.length} games in category: ${category}`
+      `✅ Found ${filteredGames.length} games in category: ${category}`
     );
 
     // Hide loading and show games
@@ -285,7 +282,7 @@ async function filterGamesByCategory(category) {
     // Render filtered games
     const gamesContainerElement = document.getElementById("games-container");
     if (gamesContainerElement) {
-      gamesContainerElement.innerHTML = result.games
+      gamesContainerElement.innerHTML = filteredGames
         .map((game) => createGameCard(game))
         .join("");
       setupGameCardClickHandlers();
@@ -477,28 +474,20 @@ export async function loadRandomGames() {
     errorDiv.classList.add("hidden");
     gamesContainer.classList.add("hidden");
 
-    console.log("🎮 Loading games from API...");
+    console.log("🎮 Loading games from JSON...");
 
-    // Get gameService from global
-    const gameService =
-      window.gameService ||
-      (typeof gameService !== "undefined" ? gameService : null);
+    // Load games data directly from JSON file
+    const response = await fetch("/Server/data/top-games.json");
 
-    if (!gameService) {
-      throw new Error("Game service not available");
-    }
-
-    const result = await gameService.getAllGames();
-
-    if (!result.success) {
-      throw new Error(result.error || "Failed to load games");
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
 
     // Store all games globally
-    allGamesData = result.games;
+    allGamesData = await response.json();
     currentPage = 1;
 
-    console.log(`✅ Loaded ${allGamesData.length} games`);
+    console.log(`✅ Loaded ${allGamesData.length} games from JSON`);
 
     // Hide loading
     loadingDiv.classList.add("hidden");
@@ -996,25 +985,17 @@ async function loadHomeGames() {
     errorDiv.classList.add("hidden");
     gamesContainer.classList.add("hidden");
 
-    console.log("🎮 Loading games for home page...");
+    console.log("🎮 Loading games for home page from JSON...");
 
-    // Get gameService from window
-    const gameService =
-      window.gameService ||
-      (typeof gameService !== "undefined" ? gameService : null);
+    // Load games data directly from JSON file
+    const response = await fetch("/Server/data/top-games.json");
 
-    if (!gameService) {
-      throw new Error("Game service not available");
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
 
-    const result = await gameService.getAllGames();
-
-    if (!result.success) {
-      throw new Error(result.error || "Failed to load games");
-    }
-
-    const games = result.games;
-    console.log(`✅ Loaded ${games.length} games for home page`);
+    const games = await response.json();
+    console.log(`✅ Loaded ${games.length} games for home page from JSON`);
 
     // Hide loading and show games
     loadingDiv.classList.add("hidden");
@@ -1333,24 +1314,15 @@ document.addEventListener("DOMContentLoaded", function () {
 // Loading Games in the Continue Learning boxes
 async function resistance() {
   try {
-    // Use the gameService to get games data
-    const gameService =
-      window.gameService ||
-      (typeof gameService !== "undefined" ? gameService : null);
-
-    if (!gameService) {
-      console.warn("Game service not available");
+    // Load games data directly from JSON file
+    const response = await fetch("/Server/data/top-games.json");
+    
+    if (!response.ok) {
+      console.warn("Failed to load games data:", response.statusText);
       return;
     }
 
-    const result = await gameService.getAllGames();
-
-    if (!result.success) {
-      console.warn("Failed to load games:", result.error);
-      return;
-    }
-
-    const games = result.games;
+    const games = await response.json();
     const game = games.find((g) => g.name === "The Resistance");
 
     if (!game) {
@@ -1647,26 +1619,19 @@ async function renderSuggestedGames() {
     new Set([...bookmarkedIds, ...tutorialsWatched])
   );
 
-  // Fetch all games using gameService
+  // Fetch all games from JSON file
   let games = [];
   try {
-    const gameService = window.gameService;
-    if (!gameService) {
-      console.error("GameService not available");
-      grid.innerHTML =
-        '<p class="text-gray-400">Game service not available.</p>';
-      return;
-    }
-
-    const result = await gameService.getAllGames();
-    if (result.success) {
-      games = result.games || [];
-    } else {
-      console.error("Failed to fetch games:", result.error);
+    const response = await fetch("/Server/data/top-games.json");
+    
+    if (!response.ok) {
+      console.error("Failed to fetch games:", response.statusText);
       grid.innerHTML =
         '<p class="text-gray-400">Failed to load suggested games.</p>';
       return;
     }
+
+    games = await response.json();
   } catch (e) {
     console.error("Error fetching games:", e);
     grid.innerHTML =
