@@ -23,17 +23,20 @@ const eventId = getEventIdFromUrl();
 
 function formatDateTime(ts) {
   if (!ts) return "";
-  let dateObj =
+
+  const dateObj =
     typeof ts === "object" && ts.seconds
       ? new Date(ts.seconds * 1000)
       : new Date(ts);
 
-  const options = { weekday: "long", month: "long", day: "numeric" };
+  const options = { weekday: "long", month: "short", day: "numeric" };
   const dateStr = dateObj.toLocaleDateString(undefined, options);
+
   const timeStr = dateObj.toLocaleTimeString(undefined, {
     hour: "2-digit",
     minute: "2-digit",
   });
+
   return { dateStr, timeStr };
 }
 
@@ -44,6 +47,35 @@ async function renderEventDetails() {
   if (!eventDoc.exists()) return;
 
   const event = eventDoc.data();
+
+  // Fetch host user data
+  if (event.host_user_id) {
+    try {
+      const hostDocRef = doc(db, "users", event.host_user_id);
+      const hostDocSnap = await getDoc(hostDocRef);
+
+      const eventHostDiv = document.getElementById("eventHost");
+      const eventLocDiv = document.getElementById("eventLoc");
+
+      eventLocDiv.textContent = event.location || "Unknown Location";
+
+
+      if (hostDocSnap.exists()) {
+        const host = hostDocSnap.data();
+
+        if (eventHostDiv) {
+          eventHostDiv.textContent = host.username || "Unknown Host";
+        }
+      } else {
+        if (eventHostDiv) eventHostDiv.textContent = "Host not found.";
+      }
+    } catch (error) {
+      console.error("Error fetching host user data:", error);
+      const eventHostDiv = document.getElementById("eventHost");
+      if (eventHostDiv) eventHostDiv.textContent = "Error loading host data.";
+    }
+  }
+
 
   // Set event name and description
   document.getElementById("eventName").textContent = event.name || "";
@@ -81,10 +113,13 @@ async function renderEventDetails() {
   const locationEl = document.getElementById("eventLocation");
 
   if (startTimeEl && endTimeEl && locationEl) {
+    const dateParts = start.dateStr.split(" ");
+    const day = dateParts[1]?.replace(",", "") || "";
+
     startTimeEl.innerHTML = `
       <div class="flex items-center gap-3">
         <div class="w-12 h-12 flex items-center justify-center bg-white rounded-xl text-gray-700 font-bold text-lg">
-          ${start.dateStr ? start.dateStr.split(" ")[1] : ""}
+          ${day}
         </div>
         <div class="flex flex-col">
           <span class="font-bold text-white">${start.dateStr || ""}</span>

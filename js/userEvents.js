@@ -52,8 +52,7 @@ async function loadUserInfo(userId) {
         email: userData.email || "",
         bio:
           userData.bio ||
-          `${
-            userData.username || getEmail(userData.email)
+          `${userData.username || getEmail(userData.email)
           } is an active event creator in our community. Join their events to connect with fellow enthusiasts and discover amazing experiences!`,
         profileImg:
           userData.profileImg ||
@@ -87,8 +86,7 @@ async function loadUserInfo(userId) {
           bio:
             userInfo.bio ||
             eventData.bio ||
-            `${
-              userInfo.username || eventData.username || "Anonymous User"
+            `${userInfo.username || eventData.username || "Anonymous User"
             } is an active event creator in our community. Join their events to connect with fellow enthusiasts and discover amazing experiences!`,
           profileImg:
             userInfo.profileImg ||
@@ -185,8 +183,7 @@ async function loadUserEvents(userId) {
     allEventsSnapshot.forEach((doc) => {
       const eventData = doc.data();
       console.log(
-        `Event: ${eventData.name}, host_user_id: ${
-          eventData.host_user_id
+        `Event: ${eventData.name}, host_user_id: ${eventData.host_user_id
         }, matches query: ${eventData.host_user_id === userId}`
       );
     });
@@ -286,6 +283,12 @@ function updatePageContent(user, events) {
     return;
   }
 
+  // Update sidebar city title
+  const profileUsername = document.getElementById("profile-username");
+  if (profileUsername) {
+    profileUsername.textContent = `${user.username}'s Events`;
+  }
+
   // Update profile Bio
   const profileBio = document.getElementById("profile-bio");
   if (profileBio) {
@@ -327,14 +330,12 @@ function updatePageContent(user, events) {
           <div class="text-xs text-gray-300 mb-2">Date: ${startTimeStr}</div>
           <div class="text-base font-bold luma-gradient mb-2">${nameShort}</div>
           <div class="text-xs text-gray-300 mb-2">Author: ${user.username}</div>
-          <div class="text-xs font-medium text-gray-300 mb-4">Location: ${
-            event.location
-          }</div>
+          <div class="text-xs font-medium text-gray-300 mb-4">Location: ${event.location
+      }</div>
         </div>
         <div class="mt-auto flex justify-start">
-          <a href="post-event-details.html?id=${
-            event.id
-          }" class="inline-block px-4 py-2 text-sm font-semibold text-white bg-gradient-to-b from-[#F59275] to-[#F1647A] rounded-2xl transition">
+          <a href="post-event-details.html?id=${event.id
+      }" class="inline-block px-4 py-2 text-sm font-semibold text-white bg-gradient-to-b from-[#F59275] to-[#F1647A] rounded-2xl transition">
             View Event
           </a>
         </div>
@@ -342,9 +343,8 @@ function updatePageContent(user, events) {
       
       <!-- Left Side (Image) -->
       <div class="flex items-center justify-center">
-        <img src="${
-          event.image_url || "../../src/asset/images/event-thumb.jpg"
-        }" alt="Event" class="rounded-xl shadow-md w-full h-32 object-cover" />
+        <img src="${event.image_url || "../../src/asset/images/event-thumb.jpg"
+      }" alt="Event" class="rounded-xl shadow-md w-full h-32 object-cover" />
       </div>
     </div>
   </div>
@@ -408,7 +408,8 @@ async function handleSubscribe(userId, username) {
       alert(`Successfully unsubscribed from ${username}!`);
 
       // Update the button to show unsubscribed state
-      const subscribeBtn = document.querySelector(".subscribe-btn");
+      const subscribeBtn = document.querySelector("#profile-subscribe-btn");
+
       if (subscribeBtn) {
         updateButtonState(subscribeBtn, false);
       }
@@ -438,7 +439,8 @@ async function handleSubscribe(userId, username) {
     alert(`Successfully subscribed to ${username}!`);
 
     // Update the button to show subscribed state
-    const subscribeBtn = document.querySelector(".subscribe-btn");
+    const subscribeBtn = document.querySelector("#profile-subscribe-btn");
+
     if (subscribeBtn) {
       updateButtonState(subscribeBtn, true);
     }

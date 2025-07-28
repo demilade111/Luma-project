@@ -363,7 +363,7 @@ function createGameCard(game) {
                 .slice(0, 3)
                 .map(
                   (cat) =>
-                    `<span class="px-2 py-1 text-xs bg-blue-100 text-gray-700 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
+                    `<span class="px-2 py-1 text-xs underline text-gray-400 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
                        data-category="${cat}">${cat}</span>`
                 )
                 .join("")}
@@ -447,6 +447,7 @@ function renderRandomGames(games) {
             <div class="text-button flex flex-col justify-between h-32 w-32">
               <p class="text-sm text-gray-400 leading-tight">${truncatedDescription}</p>
               <button type="button" ${disabledAttr}
+                ${isNightCafe ? `onclick="window.location.href='http://127.0.0.1:5505/views/game/night-cage-tutorial.html'"` : ""}
                 style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
                 class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200 transition-colors ${buttonClasses}">
                 Tutorial
