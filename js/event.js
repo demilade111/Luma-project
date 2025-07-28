@@ -26,7 +26,7 @@ function formatDateTime(timestamp) {
 }
 
 async function loadPopularEvents() {
- 
+  const eventsCol = collection(db, "events");
 
   // Try to get events ordered by created_at first (newest created events)
   let q = query(eventsCol, orderBy("created_at", "desc"), limit(6));
