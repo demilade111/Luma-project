@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /users/{document=**} {
+      allow read, write: if true;
+    }
+    
+    match /events/{document=**} {
+      allow read, write: if true;
+    }
+
+    // Add this for the main games collection
+    match /games/{document} {
+      allow read, write: if true;
+    }
+
+    // Add this for game comments
+    match /games/{gameId}/comments/{commentId} {
+      allow read, write: if true; // (for development only)
+    }
+    
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+} 

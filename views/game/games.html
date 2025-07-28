@@ -72,6 +72,14 @@
 
       <!-- Random Games Scrollable Section -->
       <div class="my-16 md:mt-24 md:mb-16 px-4">
+        <!-- Temporary Upload Button (remove after testing) -->
+        <div class="mb-4 p-4 bg-blue-500 rounded-lg">
+          <button id="uploadGamesBtn" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-gray-100">
+            🚀 Upload Games to Firebase
+          </button>
+          <p class="text-white text-sm mt-2">Click to upload games data to Firebase (run once)</p>
+        </div>
+        
         <h1
           class="font-bold flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient h-20 md:h-28">
           Continue Learning
@@ -109,6 +117,7 @@
   <script type="module" src="../../js/auth/signout.js"></script>
   <script type="module" src="../../js/gameDetails.js"></script>
   <script type="module" src="../../js/mobile-navbar.js"></script>
+  <script type="module" src="../../js/uploadGamesToFirebase.js"></script>
 
   <!-- Script imports -->
   <script type="module">
@@ -152,7 +161,34 @@
   <!-- Authentication Guard -->
   <script type="module">
     import { initAuthGuard } from "../../js/auth/authGuard.js";
+    import { uploadGamesToFirebase } from "../../js/uploadGamesToFirebase.js";
+    
     initAuthGuard();
+    
+    // Add upload button event listener
+    document.addEventListener('DOMContentLoaded', () => {
+      const uploadBtn = document.getElementById('uploadGamesBtn');
+      if (uploadBtn) {
+        uploadBtn.addEventListener('click', async () => {
+          uploadBtn.disabled = true;
+          uploadBtn.textContent = '⏳ Uploading...';
+          try {
+            await uploadGamesToFirebase();
+            uploadBtn.textContent = '✅ Upload Complete!';
+            setTimeout(() => {
+              uploadBtn.textContent = '🚀 Upload Games to Firebase';
+              uploadBtn.disabled = false;
+            }, 3000);
+          } catch (error) {
+            uploadBtn.textContent = '❌ Upload Failed';
+            setTimeout(() => {
+              uploadBtn.textContent = '🚀 Upload Games to Firebase';
+              uploadBtn.disabled = false;
+            }, 3000);
+          }
+        });
+      }
+    });
   </script>
 </body>
 

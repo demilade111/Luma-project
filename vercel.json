@@ -3,10 +3,6 @@
   "buildCommand": "npm run build",
   "builds": [
     {
-      "src": "Server/api.js",
-      "use": "@vercel/node"
-    },
-    {
       "src": "*.html",
       "use": "@vercel/static"
     },
@@ -45,13 +41,10 @@
     {
       "src": "service/**/*",
       "use": "@vercel/static"
-    }
+    },
+
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/Server/api.js"
-    },
     {
       "src": "/",
       "dest": "/index.html"

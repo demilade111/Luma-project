@@ -14,6 +14,7 @@ import {
   onSnapshot,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getGamesFromFirebase } from "./uploadGamesToFirebase.js";
 
 const container = document.getElementById("events");
 
@@ -101,19 +102,12 @@ async function loadGames() {
     errorDiv.classList.add("hidden");
     gamesContainer.classList.add("hidden");
 
-    console.log("🎮 Loading games from JSON data...");
+    console.log("🎮 Loading games from Firebase...");
 
-    // Load games data directly from JSON file
-    const response = await fetch("/Server/data/top-games.json");
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-
-    allGamesData = await response.json();
-    console.log(allGamesData);
+    // Load games data from Firebase
+    allGamesData = await getGamesFromFirebase();
     currentPage = 1;
-    console.log(`✅ Loaded ${allGamesData.length} games from JSON`);
+    console.log(`✅ Loaded ${allGamesData.length} games from Firebase`);
 
     // Hide loading and show games
     loadingDiv.classList.add("hidden");
@@ -255,20 +249,16 @@ async function filterGamesByCategory(category) {
 
     console.log(`🔍 Filtering games by category: ${category}`);
 
-    // Load games data directly from JSON file
-    const response = await fetch("/Server/data/top-games.json");
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
+    // Load games data from Firebase
+    const allGames = await getGamesFromFirebase();
 
-    const allGames = await response.json();
-    
     // Filter games by category
-    const filteredGames = allGames.filter(game => 
-      game.categories && game.categories.some(cat => 
-        cat.toLowerCase() === category.toLowerCase()
-      )
+    const filteredGames = allGames.filter(
+      (game) =>
+        game.categories &&
+        game.categories.some(
+          (cat) => cat.toLowerCase() === category.toLowerCase()
+        )
     );
 
     console.log(
@@ -474,20 +464,13 @@ export async function loadRandomGames() {
     errorDiv.classList.add("hidden");
     gamesContainer.classList.add("hidden");
 
-    console.log("🎮 Loading games from JSON...");
+    console.log("🎮 Loading games from Firebase...");
 
-    // Load games data directly from JSON file
-    const response = await fetch("/Server/data/top-games.json");
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-
-    // Store all games globally
-    allGamesData = await response.json();
+    // Load games data from Firebase
+    allGamesData = await getGamesFromFirebase();
     currentPage = 1;
 
-    console.log(`✅ Loaded ${allGamesData.length} games from JSON`);
+    console.log(`✅ Loaded ${allGamesData.length} games from Firebase`);
 
     // Hide loading
     loadingDiv.classList.add("hidden");
@@ -651,13 +634,13 @@ document.addEventListener("DOMContentLoaded", setupTutorial);
 window.addEventListener("components-injected", setupTutorial);
 
 // Game Details Page Functions
-function setupGameDetailsPage() {
+async function setupGameDetailsPage() {
   // Only run on game details page
   if (!document.getElementById("game-title")) return;
 
   console.log("🎮 Setting up game details page...");
 
-  loadGameDetails();
+  await loadGameDetails();
   setupPDFModal();
   if (window.location.pathname.includes("game-details.html")) {
     setupGameComments();
@@ -667,241 +650,132 @@ function setupGameDetailsPage() {
   }
 }
 
-function loadGameDetails() {
-  const gameData = localStorage.getItem("selectedGame");
-
-  if (!gameData) {
-    console.error("No game data found");
+async function loadGameDetails() {
+  // Get game ID from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const gameId = urlParams.get('id');
+  
+  if (!gameId) {
+    console.error("No game ID found in URL");
     document.getElementById("game-title").textContent = "Game not found";
     return;
   }
 
-  const game = JSON.parse(gameData);
-  console.log("Loading game details:", game);
+  console.log("🎮 Loading game details for ID:", gameId);
 
-  // Update game image
-  const gameImage = document.getElementById("game-image");
-  const imageUrl = game.image || game.thumbnail;
+  try {
+    // Fetch game data from Firebase by ID
+    const games = await getGamesFromFirebase();
+    const game = games.find((g) => g.id === gameId);
 
-  if (imageUrl) {
-    gameImage.innerHTML = `
-      <img src="${imageUrl}" 
-           alt="${game.name}" 
-           class="w-full h-full object-cover rounded-2xl"
-           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-      <div class="w-full h-full flex items-center justify-center text-center" style="display:none;">
-        <div>
-          <i class="fas fa-dice text-6xl text-gray-400"></i>
-          <p class="mt-4 text-gray-600">${game.name || "Game Image"}</p>
-        </div>
-      </div>
-    `;
-  } else {
-    gameImage.innerHTML = `
-      <div class="w-full h-full flex items-center justify-center text-center">
-        <div>
-          <i class="fas fa-dice text-6xl text-gray-400"></i>
-          <p class="mt-4 text-gray-600">${game.name || "Game Image"}</p>
-        </div>
-      </div>
-    `;
-  }
-
-  // Update basic info
-  document.getElementById("game-title").textContent =
-    game.name || "Unknown Game";
-  document.getElementById("game-subtitle").textContent = game.year
-    ? `Released in ${game.year}`
-    : "";
-  document.getElementById("game-description").textContent =
-    game.description || "No description available";
-
-  // Update stats
-  const playingTime = game.playingTime || game.maxPlayTime || "?";
-  if (document.querySelector(".time-value")) {
-    document.querySelector(".time-value").textContent = `${playingTime}m`;
-  }
-
-  const minPlayers = game.minPlayers || "?";
-  const maxPlayers = game.maxPlayers || "?";
-  const playerText =
-    minPlayers === maxPlayers ? minPlayers : `${minPlayers}-${maxPlayers}`;
-  if (document.querySelector(".players-value")) {
-    document.querySelector(".players-value").textContent = playerText;
-  }
-
-  if (document.querySelector(".age-value")) {
-    document.querySelector(".age-value").textContent = game.age
-      ? `${game.age}+`
-      : "N/A";
-  }
-  if (document.querySelector(".rating-value")) {
-    document.querySelector(".rating-value").textContent = game.rating
-      ? `${game.rating}/10`
-      : "?";
-  }
-
-  // Update designers
-  if (game.designers && game.designers.length > 0) {
-    document.getElementById("designers-list").innerHTML = game.designers
-      .map((designer) => `<p class="text-base text-gray-400">${designer}</p>`)
-      .join("");
-  } else {
-    document.getElementById("designers-list").innerHTML =
-      '<p class="text-custom-gray text-2xl">Unknown</p>';
-  }
-
-  // Update publishers
-  if (game.publishers && game.publishers.length > 0) {
-    console.log(game);
-    document.getElementById("publishers-list").innerHTML = game.publishers
-      .map((publisher) => `<p class="text-base text-gray-400">${publisher}</p>`)
-      .join("");
-  } else {
-    document.getElementById("publishers-list").innerHTML =
-      '<p class="text-custom-gray text-2xl">Unknown</p>';
-  }
-
-  // Update categories
-  if (game.categories && game.categories.length > 0) {
-    document.getElementById("categories-list").innerHTML = game.categories
-      .map(
-        (category) =>
-          `<span class="inline-flex items-center mr-6 bg-[#2F364A] text-xl rounded-xl p-3 border text-gray-200 border-gray-700 gap-3 w-fit whitespace-nowrap min-w-[140px] mt-5 justify-center">${category}</span>`
-      )
-      .join("");
-  } else {
-    document.getElementById("categories-list").innerHTML =
-      '<p class="text-custom-gray text-2xl">None specified</p>';
-  }
-
-  // Update detailed description
-  document.getElementById("detailed-description").textContent =
-    game.description || "No detailed description available";
-
-  // Setup rules button
-  const rulesBtn = document.getElementById("rules-btn");
-  if (game.rulebook && rulesBtn) {
-    rulesBtn.onclick = () => openPDFPreview(game.rulebook, game.name);
-  } else if (rulesBtn) {
-    rulesBtn.disabled = true;
-    rulesBtn.textContent = "Rules N/A";
-    rulesBtn.classList.add("opacity-50", "cursor-not-allowed");
-  }
-
-  // Setup tutorial button for The Night Cage
-  const tutorialBtn = document.getElementById("tutorial-btn");
-  if (tutorialBtn) {
-    if (game.name && game.name.toLowerCase() === "the night cage") {
-      tutorialBtn.onclick = () => {
-        window.location.href = "night-cage-tutorial.html";
-      };
-    } else {
-      tutorialBtn.onclick = null;
-      tutorialBtn.classList.add("opacity-50", "cursor-not-allowed");
-      tutorialBtn.disabled = true;
-    }
-  }
-
-  // --- Bookmark and Share logic ---
-  const bookmarkBtn = document.getElementById("bookmark-btn");
-  const shareBtn = document.getElementById("share-btn");
-  let currentUser = null;
-  let isBookmarked = false;
-
-  function updateBookmarkBtn() {
-    if (!bookmarkBtn) return;
-    if (isBookmarked) {
-      bookmarkBtn.innerHTML =
-        '<span class="luma-gradient m-0 p-0"><i class="fa-regular fa-bookmark mr-3"></i>Bookmarked</span>';
-    } else {
-      bookmarkBtn.innerHTML =
-        '<i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Bookmark';
-    }
-  }
-
-  function setupBookmarkListener(user) {
-    if (!user) return;
-
-    if (!game || !game.id) {
-      console.error("Game or game.id is not available for bookmark listener");
+    if (!game) {
+      console.error("❌ Game not found in Firebase:", gameId);
+      document.getElementById("game-title").textContent = "Game not found";
       return;
     }
 
-    const docRef = doc(db, "users", user.uid, "bookmarks", game.id);
+    console.log("✅ Game found:", game);
 
-    // Set up real-time listener for bookmark status
-    onSnapshot(
-      docRef,
-      (docSnap) => {
-        isBookmarked = docSnap.exists();
-        updateBookmarkBtn();
-      },
-      (error) => {
-        console.error("Error in bookmark listener:", error);
-      }
-    );
-  }
+    // Update game image
+    const gameImage = document.getElementById("game-image");
+    const imageUrl = game.image || game.thumbnail;
 
-  async function toggleBookmark(user) {
-    if (!user) {
-      alert("Please sign in to bookmark games.");
-      return;
-    }
-    const docRef = doc(db, "users", user.uid, "bookmarks", game.id);
-    if (isBookmarked) {
-      await deleteDoc(docRef);
-      // Don't manually update state here - let the listener handle it
-      alert("Bookmark removed.");
+    if (imageUrl) {
+      gameImage.innerHTML = `
+        <img src="${imageUrl}" 
+             alt="${game.name}" 
+             class="w-full h-full object-cover rounded-2xl"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="w-full h-full flex items-center justify-center text-center" style="display:none;">
+          <div>
+            <i class="fas fa-dice text-6xl text-gray-400"></i>
+            <p class="mt-4 text-gray-600">${game.name || "Game Image"}</p>
+          </div>
+        </div>
+      `;
     } else {
-      const info = {
-        gameId: game.id,
-        title: game.name,
-        image: game.image || game.thumbnail || "",
-      };
-      await setDoc(docRef, info);
-      // Don't manually update state here - let the listener handle it
-      alert("Game bookmarked successfully!");
+      gameImage.innerHTML = `
+        <div class="w-full h-full flex items-center justify-center text-center">
+          <div>
+            <i class="fas fa-dice text-6xl text-gray-400"></i>
+            <p class="mt-4 text-gray-600">${game.name || "Game Image"}</p>
+          </div>
+        </div>
+      `;
     }
-  }
 
-  if (bookmarkBtn) {
-    bookmarkBtn.onclick = () => {
-      if (!currentUser) {
-        alert("Please sign in to bookmark games.");
-        return;
-      }
-      toggleBookmark(currentUser);
-    };
-  }
+    // Update basic info
+    document.getElementById("game-title").textContent =
+      game.name || "Unknown Game";
+    document.getElementById("game-subtitle").textContent = game.year
+      ? `Released in ${game.year}`
+      : "";
+    document.getElementById("game-description").textContent =
+      game.description || "No description available";
 
-  if (shareBtn) {
-    shareBtn.onclick = async () => {
-      const url = window.location.href;
-      const title = game.name || "Check out this game!";
-      if (navigator.share) {
-        try {
-          await navigator.share({ title, url });
-        } catch (e) {
-          // User cancelled share
-        }
-      } else {
-        await navigator.clipboard.writeText(url);
-        shareBtn.textContent = "Copied!";
-        setTimeout(() => (shareBtn.textContent = "Share"), 1200);
-      }
-    };
-  }
+    // Update stats
+    const playingTime = game.playingTime || game.maxPlayTime || "?";
+    if (document.querySelector(".time-value")) {
+      document.querySelector(".time-value").textContent = `${playingTime}m`;
+    }
 
-  onAuthStateChanged(auth, (user) => {
-    currentUser = user;
-    if (user) {
-      setupBookmarkListener(user);
+    const minPlayers = game.minPlayers || "?";
+    const maxPlayers = game.maxPlayers || "?";
+    const playerText =
+      minPlayers === maxPlayers ? minPlayers : `${minPlayers}-${maxPlayers}`;
+    if (document.querySelector(".players-value")) {
+      document.querySelector(".players-value").textContent = playerText;
+    }
+
+    if (document.querySelector(".age-value")) {
+      document.querySelector(".age-value").textContent = game.age
+        ? `${game.age}+`
+        : "N/A";
+    }
+    if (document.querySelector(".rating-value")) {
+      document.querySelector(".rating-value").textContent = game.rating
+        ? `${game.rating}/10`
+        : "?";
+    }
+
+    // Update designers
+    if (game.designers && game.designers.length > 0) {
+      document.getElementById("designers-list").innerHTML = game.designers
+        .map((designer) => `<p class="text-base text-gray-400">${designer}</p>`)
+        .join("");
     } else {
-      isBookmarked = false;
-      updateBookmarkBtn();
+      document.getElementById("designers-list").innerHTML =
+        '<p class="text-custom-gray text-2xl">Unknown</p>';
     }
-  });
+
+    // Update publishers
+    if (game.publishers && game.publishers.length > 0) {
+      console.log(game);
+      document.getElementById("publishers-list").innerHTML = game.publishers
+        .map((publisher) => `<p class="text-base text-gray-400">${publisher}</p>`)
+        .join("");
+    } else {
+      document.getElementById("publishers-list").innerHTML =
+        '<p class="text-custom-gray text-2xl">Unknown</p>';
+    }
+
+    // Update categories
+    if (game.categories && game.categories.length > 0) {
+      document.getElementById("categories-list").innerHTML = game.categories
+        .map((category) => `<p class="text-base text-gray-400">${category}</p>`)
+        .join("");
+    } else {
+      document.getElementById("categories-list").innerHTML =
+        '<p class="text-custom-gray text-2xl">Unknown</p>';
+    }
+
+    // Update bookmark button
+    updateBookmarkBtn(game);
+
+  } catch (error) {
+    console.error("❌ Error loading game details:", error);
+    document.getElementById("game-title").textContent = "Error loading game";
+  }
 }
 
 function setupPDFModal() {
@@ -968,6 +842,7 @@ function closePDFModal() {
 
 // Home Page Functions
 function setupHomePage() {
+  console.log("🏠 Setting up home page...");
   loadHomeGames();
   setupHomeGamesRetry();
 }
@@ -985,17 +860,11 @@ async function loadHomeGames() {
     errorDiv.classList.add("hidden");
     gamesContainer.classList.add("hidden");
 
-    console.log("🎮 Loading games for home page from JSON...");
+    console.log("🎮 Loading games for home page from Firebase...");
 
-    // Load games data directly from JSON file
-    const response = await fetch("/Server/data/top-games.json");
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-
-    const games = await response.json();
-    console.log(`✅ Loaded ${games.length} games for home page from JSON`);
+    // Load games data from Firebase
+    const games = await getGamesFromFirebase();
+    console.log(`✅ Loaded ${games.length} games for home page from Firebase`);
 
     // Hide loading and show games
     loadingDiv.classList.add("hidden");
@@ -1047,21 +916,16 @@ function createHomeGameCard(game) {
 
 function setupHomeGameCardClickHandlers() {
   const gameCards = document.querySelectorAll(".home-game-card");
+  console.log(`🎯 Setting up click handlers for ${gameCards.length} home game cards`);
 
   gameCards.forEach((card) => {
-    card.addEventListener("click", () => {
+    card.addEventListener("click", async () => {
       const gameId = card.dataset.gameId;
+      console.log(`🎮 Home game card clicked: ${gameId}`);
 
-      // Get the game data and store in localStorage
-      const gameService = window.gameService;
-      if (gameService) {
-        gameService.getGameById(gameId).then((result) => {
-          if (result.success) {
-            localStorage.setItem("selectedGame", JSON.stringify(result.game));
-            window.location.href = `../game/game-details.html?id=${gameId}`;
-          }
-        });
-      }
+      // Navigate to game details page with the game ID
+      console.log(`✅ Navigating to: /views/game/game-details.html?id=${gameId}`);
+      window.location.href = `/views/game/game-details.html?id=${gameId}`;
     });
   });
 }
@@ -1314,15 +1178,8 @@ document.addEventListener("DOMContentLoaded", function () {
 // Loading Games in the Continue Learning boxes
 async function resistance() {
   try {
-    // Load games data directly from JSON file
-    const response = await fetch("/Server/data/top-games.json");
-    
-    if (!response.ok) {
-      console.warn("Failed to load games data:", response.statusText);
-      return;
-    }
-
-    const games = await response.json();
+    // Load games data from Firebase
+    const games = await getGamesFromFirebase();
     const game = games.find((g) => g.name === "The Resistance");
 
     if (!game) {
@@ -1619,19 +1476,10 @@ async function renderSuggestedGames() {
     new Set([...bookmarkedIds, ...tutorialsWatched])
   );
 
-  // Fetch all games from JSON file
+  // Fetch all games from Firebase
   let games = [];
   try {
-    const response = await fetch("/Server/data/top-games.json");
-    
-    if (!response.ok) {
-      console.error("Failed to fetch games:", response.statusText);
-      grid.innerHTML =
-        '<p class="text-gray-400">Failed to load suggested games.</p>';
-      return;
-    }
-
-    games = await response.json();
+    games = await getGamesFromFirebase();
   } catch (e) {
     console.error("Error fetching games:", e);
     grid.innerHTML =
