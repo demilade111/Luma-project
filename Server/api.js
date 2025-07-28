@@ -20,11 +20,11 @@ async function isDataFresh() {
     const stats = await fs.stat(dataFilePath);
     const now = new Date();
     const fileAge = now - new Date(stats.mtime);
-    const twentyFourHours = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+    const twentyFourHours = 24 * 60 * 60 * 1000;
 
     return fileAge < twentyFourHours;
   } catch (error) {
-    return false; // File doesn't exist or other error
+    return false;
   }
 }
 
@@ -44,14 +44,11 @@ async function readGamesData() {
 // GET /api/games - Get all games
 app.get("/api/games", async (req, res) => {
   try {
-    console.log("📱 Frontend requesting games data...");
 
-    // Check if we have fresh data
     const isFresh = await isDataFresh();
 
     if (!isFresh) {
       console.log("🔄 Data is stale or missing, generating fresh data...");
-      // Generate fresh data if needed
       await generateTopGames();
     }
 
@@ -207,11 +204,12 @@ app.use("*", (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`\n🚀 Board Games API Server running on port ${PORT}`);
   console.log(`📊 Access API at: http://localhost:${PORT}`);
-  console.log(`🎮 Get games: http://localhost:${PORT}/api/games`);
-  console.log(`📋 API status: http://localhost:${PORT}/api/status\n`);
+  console.log(`📱 Or from other devices: http://192.168.1.75:${PORT}`);
+  console.log(`🎮 Get games: http://192.168.1.75:${PORT}/api/games`);
+  console.log(`📋 API status: http://192.168.1.75:${PORT}/api/status\n`);
 });
 
 module.exports = app;
