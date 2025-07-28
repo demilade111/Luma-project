@@ -682,26 +682,26 @@ async function loadGameDetails() {
 
     if (imageUrl) {
       gameImage.innerHTML = `
-        <img src="${imageUrl}" 
-             alt="${game.name}" 
-             class="w-full h-full object-cover rounded-2xl"
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="w-full h-full flex items-center justify-center text-center" style="display:none;">
-          <div>
-            <i class="fas fa-dice text-6xl text-gray-400"></i>
-            <p class="mt-4 text-gray-600">${game.name || "Game Image"}</p>
-          </div>
+      <img src="${imageUrl}" 
+           alt="${game.name}" 
+           class="w-full h-full object-cover rounded-2xl"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-full flex items-center justify-center text-center" style="display:none;">
+        <div>
+          <i class="fas fa-dice text-6xl text-gray-400"></i>
+          <p class="mt-4 text-gray-600">${game.name || "Game Image"}</p>
         </div>
-      `;
+      </div>
+    `;
     } else {
       gameImage.innerHTML = `
-        <div class="w-full h-full flex items-center justify-center text-center">
-          <div>
-            <i class="fas fa-dice text-6xl text-gray-400"></i>
-            <p class="mt-4 text-gray-600">${game.name || "Game Image"}</p>
-          </div>
+      <div class="w-full h-full flex items-center justify-center text-center">
+        <div>
+          <i class="fas fa-dice text-6xl text-gray-400"></i>
+          <p class="mt-4 text-gray-600">${game.name || "Game Image"}</p>
         </div>
-      `;
+      </div>
+    `;
     }
 
     // Update basic info
@@ -710,8 +710,41 @@ async function loadGameDetails() {
     document.getElementById("game-subtitle").textContent = game.year
       ? `Released in ${game.year}`
       : "";
-    document.getElementById("game-description").textContent =
-      game.description || "No description available";
+    
+    // Debug description
+    console.log("🎮 Game description:", game.description);
+    console.log("🎮 Detailed description element:", document.getElementById("detailed-description"));
+    
+    // Update both description elements
+    const descriptionElement = document.getElementById("detailed-description");
+    const gameDescriptionElement = document.getElementById("game-description");
+    
+    if (descriptionElement) {
+      // Set description with a small delay to ensure DOM is ready
+      setTimeout(() => {
+        descriptionElement.innerHTML =
+          game.description || "No description available";
+        descriptionElement.style.display = "block"; // Ensure it's visible
+        console.log("✅ Detailed description set successfully");
+        console.log(
+          "🎮 Element content after setting:",
+          descriptionElement.innerHTML
+        );
+      }, 100);
+    } else {
+      console.error("❌ Detailed description element not found!");
+    }
+    
+    // Update the short description too
+    if (gameDescriptionElement) {
+      console.log("🎮 Found game-description element:", gameDescriptionElement);
+      console.log("🎮 Current content:", gameDescriptionElement.innerHTML);
+      gameDescriptionElement.innerHTML = game.description || "No description available";
+      console.log("✅ Game description set successfully");
+      console.log("🎮 New content:", gameDescriptionElement.innerHTML);
+    } else {
+      console.error("❌ Game description element not found!");
+    }
 
     // Update stats
     const playingTime = game.playingTime || game.maxPlayTime || "?";
@@ -774,10 +807,56 @@ async function loadGameDetails() {
     // Update bookmark button
     updateBookmarkBtn(game);
 
+    // Setup Rules button
+    setupRulesButton(game);
+
+    // Setup Tutorial button
+    setupTutorialButton(game);
   } catch (error) {
     console.error("❌ Error loading game details:", error);
     document.getElementById("game-title").textContent = "Error loading game";
   }
+}
+
+// Setup Rules button functionality
+function setupRulesButton(game) {
+  const rulesBtn = document.getElementById("rules-btn");
+  if (!rulesBtn) return;
+
+  if (game.rulebook) {
+    // Game has rules PDF - enable button
+    rulesBtn.onclick = () => {
+      openPDFPreview(game.rulebook, game.name);
+    };
+    rulesBtn.disabled = false;
+    rulesBtn.classList.remove("opacity-50", "cursor-not-allowed");
+    rulesBtn.classList.add("cursor-pointer", "hover:bg-[#3A4258]");
+  } else {
+    // No rules PDF - disable button
+    rulesBtn.onclick = null;
+    rulesBtn.disabled = true;
+    rulesBtn.classList.add("opacity-50", "cursor-not-allowed");
+    rulesBtn.classList.remove("cursor-pointer", "hover:bg-[#3A4258]");
+  }
+}
+
+// Setup Tutorial button functionality
+function setupTutorialButton(game) {
+  const tutorialBtn = document.getElementById("tutorial-btn");
+  console.log("🎮 Tutorial button element:", tutorialBtn);
+  
+  if (!tutorialBtn) {
+    console.error("❌ Tutorial button not found!");
+    return;
+  }
+
+  tutorialBtn.onclick = () => {
+    console.log("🎮 Tutorial button clicked! Redirecting to tutorial page...");
+    // Navigate to tutorial page
+    window.location.href = "/views/tutorial/tutorial.html";
+  };
+  
+  console.log("✅ Tutorial button setup complete");
 }
 
 // Update bookmark button state
@@ -788,9 +867,10 @@ async function updateBookmarkBtn(game) {
   const user = auth.currentUser;
   if (!user) {
     // User not logged in - show login prompt
-    bookmarkBtn.innerHTML = '<i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Login to Bookmark';
+    bookmarkBtn.innerHTML =
+      '<i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Login to Bookmark';
     bookmarkBtn.onclick = () => {
-      window.location.href = '/views/auth/login.html';
+      window.location.href = "/views/auth/login.html";
     };
     return;
   }
@@ -803,12 +883,14 @@ async function updateBookmarkBtn(game) {
 
     // Update button appearance and functionality
     if (isBookmarked) {
-      bookmarkBtn.innerHTML = '<i class="fa-solid fa-bookmark mr-3 text-[#F1647A]"></i>Bookmarked';
+      bookmarkBtn.innerHTML =
+        '<i class="fa-solid fa-bookmark mr-3 text-[#F1647A]"></i>Bookmarked';
       bookmarkBtn.onclick = async () => {
-        if (confirm(`Remove "${game.title}" from bookmarks?`)) {
+        if (confirm(`Remove "${game.name}" from bookmarks?`)) {
           try {
             await deleteDoc(bookmarkRef);
             console.log("Bookmark removed successfully");
+            updateBookmarkBtn(game); // Re-fetch and update button state after deletion
           } catch (error) {
             console.error("Error removing bookmark:", error);
             alert("Failed to remove bookmark. Please try again.");
@@ -816,15 +898,17 @@ async function updateBookmarkBtn(game) {
         }
       };
     } else {
-      bookmarkBtn.innerHTML = '<i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Bookmark';
+      bookmarkBtn.innerHTML =
+        '<i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Bookmark';
       bookmarkBtn.onclick = async () => {
         try {
           await setDoc(bookmarkRef, {
             gameId: game.id,
-            title: game.title,
-            image: game.image,
+            title: game.name,
+            image: game.image || game.thumbnail,
           });
           console.log("Game bookmarked successfully");
+          updateBookmarkBtn(game); // Re-fetch and update button state after addition
         } catch (error) {
           console.error("Error adding bookmark:", error);
           alert("Failed to add bookmark. Please try again.");
@@ -833,7 +917,8 @@ async function updateBookmarkBtn(game) {
     }
   } catch (error) {
     console.error("Error checking bookmark status:", error);
-    bookmarkBtn.innerHTML = '<i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Bookmark';
+    bookmarkBtn.innerHTML =
+      '<i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Bookmark';
   }
 }
 
@@ -1022,35 +1107,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // SHARE GAME DETAILS FUNCTIONALITY
 document.addEventListener("DOMContentLoaded", () => {
-  const shareBtn = document.getElementById("shareBtn");
-  const links = document.getElementById("share-links");
-  const fb = document.getElementById("share-facebook");
-  const tw = document.getElementById("share-twitter");
-
-  const url = encodeURIComponent(window.location.href);
-  const title = encodeURIComponent(document.title);
-  const text = encodeURIComponent(
-    document.querySelector("#game-description")?.innerText || ""
-  );
-
-  // Fallback share URLs
-  if (fb) fb.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-  if (tw) tw.href = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+  const shareBtn = document.getElementById("share-btn");
 
   if (shareBtn) {
     shareBtn.addEventListener("click", async () => {
+      const url = window.location.href;
+      const title = document.title;
+      const text =
+        document.querySelector("#detailed-description")?.innerText ||
+        "Check out this game!";
+
+      // Use Web Share API
       if (navigator.share) {
         try {
           await navigator.share({
-            title: document.title,
+            title: title,
             text: text,
-            url: window.location.href,
+            url: url,
           });
         } catch (err) {
           console.error("Share failed:", err);
         }
-      } else if (links) {
-        links.classList.toggle("hidden");
+      } else {
+        // Fallback: just show an alert with the URL
+        alert(`Share this game: ${url}`);
       }
     });
   }
