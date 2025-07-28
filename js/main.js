@@ -653,8 +653,8 @@ async function setupGameDetailsPage() {
 async function loadGameDetails() {
   // Get game ID from URL
   const urlParams = new URLSearchParams(window.location.search);
-  const gameId = urlParams.get('id');
-  
+  const gameId = urlParams.get("id");
+
   if (!gameId) {
     console.error("No game ID found in URL");
     document.getElementById("game-title").textContent = "Game not found";
@@ -752,7 +752,9 @@ async function loadGameDetails() {
     if (game.publishers && game.publishers.length > 0) {
       console.log(game);
       document.getElementById("publishers-list").innerHTML = game.publishers
-        .map((publisher) => `<p class="text-base text-gray-400">${publisher}</p>`)
+        .map(
+          (publisher) => `<p class="text-base text-gray-400">${publisher}</p>`
+        )
         .join("");
     } else {
       document.getElementById("publishers-list").innerHTML =
@@ -775,6 +777,63 @@ async function loadGameDetails() {
   } catch (error) {
     console.error("❌ Error loading game details:", error);
     document.getElementById("game-title").textContent = "Error loading game";
+  }
+}
+
+// Update bookmark button state
+async function updateBookmarkBtn(game) {
+  const bookmarkBtn = document.getElementById("bookmark-btn");
+  if (!bookmarkBtn) return;
+
+  const user = auth.currentUser;
+  if (!user) {
+    // User not logged in - show login prompt
+    bookmarkBtn.innerHTML = '<i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Login to Bookmark';
+    bookmarkBtn.onclick = () => {
+      window.location.href = '/views/auth/login.html';
+    };
+    return;
+  }
+
+  try {
+    // Check if game is bookmarked
+    const bookmarkRef = doc(db, "users", user.uid, "bookmarks", game.id);
+    const bookmarkDoc = await getDoc(bookmarkRef);
+    const isBookmarked = bookmarkDoc.exists();
+
+    // Update button appearance and functionality
+    if (isBookmarked) {
+      bookmarkBtn.innerHTML = '<i class="fa-solid fa-bookmark mr-3 text-[#F1647A]"></i>Bookmarked';
+      bookmarkBtn.onclick = async () => {
+        if (confirm(`Remove "${game.title}" from bookmarks?`)) {
+          try {
+            await deleteDoc(bookmarkRef);
+            console.log("Bookmark removed successfully");
+          } catch (error) {
+            console.error("Error removing bookmark:", error);
+            alert("Failed to remove bookmark. Please try again.");
+          }
+        }
+      };
+    } else {
+      bookmarkBtn.innerHTML = '<i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Bookmark';
+      bookmarkBtn.onclick = async () => {
+        try {
+          await setDoc(bookmarkRef, {
+            gameId: game.id,
+            title: game.title,
+            image: game.image,
+          });
+          console.log("Game bookmarked successfully");
+        } catch (error) {
+          console.error("Error adding bookmark:", error);
+          alert("Failed to add bookmark. Please try again.");
+        }
+      };
+    }
+  } catch (error) {
+    console.error("Error checking bookmark status:", error);
+    bookmarkBtn.innerHTML = '<i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Bookmark';
   }
 }
 
@@ -916,7 +975,9 @@ function createHomeGameCard(game) {
 
 function setupHomeGameCardClickHandlers() {
   const gameCards = document.querySelectorAll(".home-game-card");
-  console.log(`🎯 Setting up click handlers for ${gameCards.length} home game cards`);
+  console.log(
+    `🎯 Setting up click handlers for ${gameCards.length} home game cards`
+  );
 
   gameCards.forEach((card) => {
     card.addEventListener("click", async () => {
@@ -924,7 +985,9 @@ function setupHomeGameCardClickHandlers() {
       console.log(`🎮 Home game card clicked: ${gameId}`);
 
       // Navigate to game details page with the game ID
-      console.log(`✅ Navigating to: /views/game/game-details.html?id=${gameId}`);
+      console.log(
+        `✅ Navigating to: /views/game/game-details.html?id=${gameId}`
+      );
       window.location.href = `/views/game/game-details.html?id=${gameId}`;
     });
   });
