@@ -6,38 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Luma | Event Details</title>
     <link href="../../src/output.css" rel="stylesheet" />
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="shortcut icon" href="/src/asset/images/Luma - Icon 1.png" />
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-[#1A1F2C] font-nunito text-white min-h-screen">
+  <div data-component="mobilenavbar"></div>
     <div data-component="sidebar"></div>
 
-    <!-- Header with Navbar and Hero -->
-    <header class="relative bg-white">
-        <!-- <div id="hero-container" data-component="hero"></div> -->
-    </header>
-    <div class="flex-1 flex flex-col min-h-screen ml-[90px] pt-10">
+    <div class="flex-1 flex flex-col min-h-screen md:ml-[90px] pt-10">
 
-        <!--Game Details section-->
         <main class="flex-1 p-4 md:py-10 md:px-20">
-            <div class="night-cage-wrap flex gap-16 items-start min-h-[400px]">
-                <!-- Image -->
-                <img id="eventImage"
-                    class="w-full max-w-[40%] aspect-square rounded-4xl border-0 overflow-hidden object-cover cursor-pointer" />
+            <!-- Event Header: Image + Info -->
+            <div class="flex flex-col lg:flex-row gap-8 items-start mb-12">
+                <!-- Event Image -->
+                <div class="relative w-full lg:w-1/2 aspect-square rounded-4xl overflow-hidden cursor-pointer">
+                    <div id="imageLoadingText"
+                        class="absolute inset-0 flex items-center justify-center bg-[#1A1F2C] text-gray-400 text-xl z-10">
+                        Loading image...
+                    </div>
+                    <img id="eventImage" class="w-full h-full object-cover rounded-4xl" src="" alt="Event Image" />
+                </div>
 
-                <!-- Content Column -->
-                <div class="flex flex-col h-full max-w-[700px] flex-1">
-                    <!-- Event Title -->
-                    <h3 id="eventName" class="font-extrabold text-[42px] luma-gradient mb-6">
+                <!-- Event Info -->
+                <div class="w-full lg:w-1/2 flex flex-col gap-6">
+                    <h3 id="eventName" class="font-extrabold text-[42px] luma-gradient text-white">
                         Loading...
                     </h3>
-
-                    <!-- Event Content fills remaining space -->
-                    <div class="flex flex-col justify-between flex-1 gap-6">
-                        <!-- Info Section -->
+                    <div class="gap-6">
                         <div class="flex flex-col gap-5">
                             <div id="eventStartTime"></div>
                             <div id="eventEndTime"></div>
@@ -45,119 +43,99 @@
                             <div>
                                 <span class="text-white text-lg font-semibold">
                                     Capacity:
-                                    <span class="text-base text-white" id="eventCapacity"></span>
+                                    <span class="text-base text-white" id="eventCapacity">Processing...</span>
                                 </span>
                             </div>
                             <div class="flex flex-col">
-                                <span class="text-gray-200 text-lg font-semibold" id="eventGoingCount">0 people are going</span>
-                                <span class="text-base text-gray-400" id="eventGoingList"></span>
+                                <span class="text-gray-200 text-lg font-semibold" id="eventGoingCount">0 people are
+                                    going</span>
+                                <span class="text-base text-gray-400" id="eventGoingList">Processing...</span>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Action Buttons -->
-                        <div class="flex gap-4 flex-wrap mt-5">
-                            <button id="event-register-btn"
-                                style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
-                                class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200 cursor-pointer hover:bg-[#3A4258] transition-colors">
-                                Register
-                            </button>
-                            <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
-                                class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200 cursor-pointer hover:bg-[#3A4258] transition-colors">
-                                Share
-                            </button>
-                            <button id="add-to-calendar-btn"
-                                style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
-                                class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200 cursor-pointer hover:bg-[#3A4258] transition-colors">
-                                Add to Calendar
-                            </button>
-                        </div>
+                    <!-- Action Buttons -->
+                    <div class="flex gap-4 flex-wrap mt-5">
+                        <button id="event-register-btn" style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+                            class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200 cursor-pointer hover:bg-[#3A4258] transition-colors">
+                            Register
+                        </button>
+                        <button style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+                            class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200 cursor-pointer hover:bg-[#3A4258] transition-colors">
+                            Share
+                        </button>
+                        <button id="add-to-calendar-btn" style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+                            class="border border-gray-700 rounded-xl px-6 py-2 bg-[#2F364A] text-gray-200 cursor-pointer hover:bg-[#3A4258] transition-colors">
+                            Add to Calendar
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="py-10 lg:px-10">
 
-                <!-- About Section (unchanged) -->
-                <section class="mb-[90px]">
-                    <div class="flex gap-10 mb-16">
-                        <div class="w-[40%] flex flex-col justify-start gap-6">
-                            <div class="flex flex-col">
-                                <span class="text-gray-200 text-lg font-semibold">Hosted by</span>
-                                <span class="text-base text-gray-400" id="eventHost"></span>
+            <!-- Description -->
+            <div class="py-5 px-2 md:px-10">
+                <div class="about-game flex flex-col lg:flex-row gap-8 md:p-8 items-start mb-10">
+                    <!-- Left Column -->
+                    <div class="flex flex-col gap-6 w-full lg:w-1/2 text-white">
+                        <!-- Left Column -->
+                        <div class="flex flex-col gap-6 w-full lg:w-1/2 text-white">
+                            <div>
+                                <h3 class="text-xl font-semibold font-sans text-white">Hosted By</h3>
+                                <p id="eventHost" class="text-base text-gray-400">Loading...</p>
                             </div>
-                            <div class="w-full">
-                                <div id="eventMap" class="w-full h-64 md:h-80 lg:h-96 rounded-4xl border border-gray-500 overflow-hidden" style="height: 350px;">
-                                    <!-- Map will be loaded here dynamically -->
-                                </div>
+                            <div>
+                                <h3 class="text-xl font-semibold font-sans text-white">Event Location</h3>
+                                <p id="eventLoc" class="text-base text-gray-400">Loading...</p>
                             </div>
                         </div>
-                        <div class="w-[60%] flex flex-col px-2">
-                            <h1 class="text-2xl font-bold luma-gradient leading-tight mb-3">
-                                About Event
-                            </h1>
-                            <div class="flex flex-col gap-2">
-                                <p class="text-base text-white leading-relaxed" id="eventDescription"></p>
+                        <div class="w-full mt-3">
+                            <div id="eventMap"
+                                class="w-full h-64 md:h-80 lg:h-96 rounded-4xl border border-gray-500 overflow-hidden"
+                                style="height: 350px;">
+                                <!-- Map will be loaded here dynamically -->
                             </div>
                         </div>
                     </div>
-                </section>
 
-                <!--Strategy-->
-                <div class="strategy gap-4">
+                    <!-- Right Column -->
+                    <div class="flex flex-col gap-6 w-full lg:w-1/2 text-white">
+                        <h2 class="text-2xl font-extrabold luma-gradient">About Event</h2>
+                        <p id="eventDescription" class="text-gray-400">
+                            Loading detailed event description...
+                        </p>
+                    </div>
+                </div>
+                <!-- Comments Section -->
+                <div class="comments p-4 text-white">
+                    <h1 class="text-[40px] font-extrabold text-center mb-10 luma-gradient">
+                        Comments
+                    </h1>
 
-                    <!-- Comments Section -->
-                    <section>
-                        <div class="max-w-7xl mx-auto">
-                            <h2 class="text-[40px] font-extrabold text-center mb-10 luma-gradient">
-                                Comments
-                            </h2>
-
-                            <!-- Shared grid: comment input + comments -->
-                            <div id="commentGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                                <!-- Comment Input -->
-                                <div class="bg-gradient-to-b from-[#F59275] to-[#F1647A] p-[3px] rounded-2xl h-full">
-                                    <div class="rounded-[16px] p-5 h-full flex flex-col justify-between">
-                                        <textarea id="commentInput"
-                                            style="box-shadow: inset 0px 0px 18px -5px rgb(77 77 77 / 80%)"
-                                            placeholder="Enter your comment..."
-                                            class="bg-[#FFC4C5] placeholder:text-gray-500 text-gray-700 rounded-lg p-4 resize-none h-48 focus:outline-none mb-4"></textarea>
-                                        <button id="postCommentBtn"
-                                            style="box-shadow: 0px 0px 7px 0px rgb(77 77 77 / 80%)"
-                                            class="bg-gradient-to-r from-[#FF8E53] to-[#FE6B8B] text-white font-semibold px-6 py-3 rounded-2xl shadow-md">
-                                            Comment
-                                        </button>
-                                    </div>
+                    <div class="max-w-7xl mx-auto">
+                        <div id="commentGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div class="bg-gradient-to-b to-[#F59275] from-[#F1647A] p-[3px] rounded-2xl h-full">
+                                <div class="rounded-[16px] p-5 h-full flex flex-col justify-between">
+                                    <textarea id="commentInput" style="
+                                        box-shadow: inset 0px 0px 18px -5px rgb(77 77 77 / 80%);
+                                        " placeholder="Enter your comment..."
+                                        class="bg-[#FFC4C5] placeholder:text-gray-500 text-gray-700 rounded-lg p-4 resize-none h-48 focus:outline-none mb-4"></textarea>
+                                    <button id="postCommentBtn" style="box-shadow: 0px 0px 7px 0px rgb(77 77 77 / 80%)"
+                                        class="text-white bg-gradient-to-b from-[#F59275] to-[#F1647A]
+                                        hover:from-[#F1647A] hover:to-[#F59275]
+                                        hover:shadow-xl hover:-translate-y-1.5
+                                        transition-all duration-300 ease-in-out
+                                        font-semibold px-6 py-3 rounded-2xl shadow-md
+                                        cursor-pointer">
+                                        Add Comment
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                </div>
-
-                <!-- PDF Preview Modal -->
-                <div id="pdf-modal"
-                    class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
-                    <div class="bg-white rounded-lg max-w-4xl max-h-[90vh] w-full mx-4">
-                        <div class="flex justify-between items-center p-4 border-b">
-                            <h3 class="text-lg font-semibold">Game Rules</h3>
-                            <button id="close-pdf-modal" class="text-gray-500 hover:text-gray-700">
-                                <i class="fas fa-times text-xl"></i>
-                            </button>
-                        </div>
-                        <div class="p-4 h-[80vh] overflow-hidden">
-                            <iframe id="pdf-viewer" src="" class="w-full h-full border-0"></iframe>
-                        </div>
-                        <div class="flex gap-4 p-4 border-t bg-gray-50">
-                            <button id="download-pdf"
-                                class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                                <i class="fas fa-download mr-2"></i>Download PDF
-                            </button>
-                            <button id="close-pdf-modal-btn"
-                                class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
-                                Close
-                            </button>
+                            <!-- Dynamic comments will be rendered here by JS -->
                         </div>
                     </div>
                 </div>
+            </div>
         </main>
     </div>
     <div data-component="footer"></div>
@@ -165,17 +143,18 @@
     <!--Script-->
     <script src="../../service/gameService.js" defer></script>
     <script src="../../js/inject.js" defer></script>
-    <script src="../../js/main.js" defer></script>
     <script src="../../js/hero-carousel.js" defer></script>
     <script type="module" src="../../js/auth/signout.js"></script>
     <script type="module" src="../../js/postEventDetails.js"></script>
+    <script type="module" src="../../js/mobile-navbar.js"></script>
+
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    
+
     <!-- Authentication Guard -->
     <script type="module">
-      import { initAuthGuard } from "../../js/auth/authGuard.js";
-      initAuthGuard();
+        import { initAuthGuard } from "../../js/auth/authGuard.js";
+        initAuthGuard();
     </script>
 </body>
 

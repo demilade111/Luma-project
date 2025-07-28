@@ -180,7 +180,7 @@ function renderGamesWithPagination() {
   if (hasMoreGames) {
     const viewMoreButton = `
       <div class="col-span-full flex justify-center mt-8">
-        <button id="view-more-games" class="px-8 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+        <button id="view-more-games" class="px-8 py-3 bg-gradient-to-r to-[#f59275] from-[#f1647a] text-gray-200 rounded-xl transition-colors">
           View More Games 
         </button>
       </div>
@@ -315,37 +315,44 @@ function createGameCard(game) {
   const gameId = game.id || "";
 
   // Truncate description if too long
+  const truncatedName = name.length > 30 ? name.substring(0, 27) + "..." : name;
+
+  // Truncate description if too long
   const truncatedDescription =
-    description.length > 150
-      ? description.substring(0, 147) + "..."
+    description.length > 100
+      ? description.substring(0, 97) + "..."
       : description;
 
   return `
-    <div class="flex items-center gap-4 overflow-hidden bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer game-card" 
+    <div class="flex flex-col md:flex-row items-center gap-4 overflow-hidden bg-transparent rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer game-card" 
          data-game-id="${gameId}" 
          data-game-data='${JSON.stringify(game).replace(/'/g, "&apos;")}'>
-      <div class="w-48 h-48 border rounded-2xl shrink-0 overflow-hidden bg-gray-100">
+      <div class="w-full h-48 md:w-48 md:h-48 object-cover rounded-2xl overflow-hidden bg-gray-100 shrink-0">
         ${
           image
-            ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover" 
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-           <div class="w-full h-full flex items-center justify-center text-gray-400" style="display:none;">
-             <i class="fas fa-dice text-3xl"></i>
-           </div>`
+            ? `<img src="${image}" alt="${name}" class="w-full h-full md:w-48 md:h-48 object-cover"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <div class="w-full h-full flex items-center justify-center text-gray-400" style="display:none;">
+              <i class="fas fa-dice text-3xl"></i>
+            </div>`
             : `<div class="w-full h-full flex items-center justify-center text-gray-400">
-             <i class="fas fa-dice text-3xl"></i>
-           </div>`
+              <i class="fas fa-dice text-3xl"></i>
+            </div>`
         }
       </div>
-      
-      <div class="p-4 flex flex-col justify-between items-start flex-1">
+
+      <div class="md:p-4 flex flex-col justify-between items-start flex-1">
         <div class="w-full">
           <div class="flex justify-between items-start mb-2">
-            <h2 class="text-lg font-semibold text-gray-800">${name}</h2>
-            ${year ? `<span class="text-sm text-gray-500">${year}</span>` : ""}
+            <h2 class="text-2xl font-semibold text-gray-200">${truncatedName}</h2>
+            ${
+              year
+                ? `<span class="text-sm text-gray-500 hidden">${year}</span>`
+                : ""
+            }
           </div>
           
-          <p class="text-base text-gray-600 mb-3 leading-relaxed">
+          <p class="text-base text-gray-400 mb-3 leading-relaxed">
             ${truncatedDescription}
           </p>
           
@@ -356,7 +363,7 @@ function createGameCard(game) {
                 .slice(0, 3)
                 .map(
                   (cat) =>
-                    `<span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
+                    `<span class="px-2 py-1 text-xs underline text-gray-400 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
                        data-category="${cat}">${cat}</span>`
                 )
                 .join("")}
@@ -364,7 +371,7 @@ function createGameCard(game) {
               : ""
           }
           
-          <div class="flex items-center gap-6 text-sm text-gray-600">
+          <div class="flex items-center gap-6 text-sm text-gray-400">
             <div class="flex items-center gap-1">
               <i class="fas fa-hourglass-half"></i>
               <span>${playingTime}m</span>
@@ -378,7 +385,7 @@ function createGameCard(game) {
             ${
               rating !== "?"
                 ? `<div class="flex items-center gap-1">
-                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-500"></i>
                 <span>${rating}</span>
               </div>`
                 : ""
@@ -397,6 +404,117 @@ function createGameCard(game) {
   `;
 }
 
+function renderRandomGames(games) {
+  const container = document.getElementById("random-games-container");
+  if (!container || !Array.isArray(games)) return;
+
+  // Shuffle and pick 4 random games
+  const randomFour = [...games].sort(() => 0.5 - Math.random()).slice(0, 4);
+
+  container.innerHTML = randomFour
+    .map((game) => {
+      const name = game.name || "Untitled Game";
+      const description = game.description || "No description available";
+      const image = game.thumbnail || game.image || "";
+
+      const isNightCafe = name === "The Night Cage";
+
+      const truncatedName =
+        name.length > 26 ? name.substring(0, 23) + "..." : name;
+      const truncatedDescription =
+        description.length > 60
+          ? description.substring(0, 57) + "..."
+          : description;
+
+      const disabledAttr = isNightCafe ? "" : "disabled";
+      const buttonClasses = isNightCafe
+        ? "cursor-pointer hover:bg-[#3A4258]"
+        : "opacity-50 cursor-not-allowed";
+
+      return `
+        <div class="min-w-[350px] flex-shrink-0 flex flex-col rounded-2xl py-4 px-6 bg-[#262C3D] shadow-md shadow-gray-500/20">
+          <h3 class="text-lg font-semibold mb-4 text-gray-200">${truncatedName}</h3>
+          <div class="flex gap-4">
+            <div class="w-32 h-32 rounded-2xl overflow-hidden bg-gray-300">
+              ${
+                image
+                  ? `<img src="${image}" alt="${name}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling?.style.display='flex'">`
+                  : `<div class="w-full h-full flex items-center justify-center text-gray-400">
+                      <i class="fas fa-dice text-3xl"></i>
+                    </div>`
+              }
+            </div>
+            <div class="text-button flex flex-col justify-between h-32 w-32">
+              <p class="text-sm text-gray-400 leading-tight">${truncatedDescription}</p>
+              <button type="button" ${disabledAttr}
+                ${isNightCafe ? `onclick="window.location.href='http://127.0.0.1:5505/views/game/night-cage-tutorial.html'"` : ""}
+                style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+                class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200 transition-colors ${buttonClasses}">
+                Tutorial
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+export async function loadRandomGames() {
+  const loadingDiv = document.getElementById("games-loading");
+  const errorDiv = document.getElementById("games-error");
+  const gamesContainer = document.getElementById("games-container");
+
+  if (!loadingDiv || !errorDiv || !gamesContainer) return;
+
+  try {
+    // Show loading state
+    loadingDiv.classList.remove("hidden");
+    errorDiv.classList.add("hidden");
+    gamesContainer.classList.add("hidden");
+
+    console.log("🎮 Loading games from API...");
+
+    // Get gameService from global
+    const gameService =
+      window.gameService ||
+      (typeof gameService !== "undefined" ? gameService : null);
+
+    if (!gameService) {
+      throw new Error("Game service not available");
+    }
+
+    const result = await gameService.getAllGames();
+
+    if (!result.success) {
+      throw new Error(result.error || "Failed to load games");
+    }
+
+    // Store all games globally
+    allGamesData = result.games;
+    currentPage = 1;
+
+    console.log(`✅ Loaded ${allGamesData.length} games`);
+
+    // Hide loading
+    loadingDiv.classList.add("hidden");
+    gamesContainer.classList.remove("hidden");
+
+    // Render all games with pagination
+    renderGamesWithPagination();
+
+    // ✅ Render 4 random games in horizontal scroll
+    renderRandomGames(allGamesData);
+  } catch (error) {
+    console.error("❌ Error loading games:", error);
+
+    // Show error state
+    loadingDiv.classList.add("hidden");
+    errorDiv.classList.remove("hidden");
+    gamesContainer.classList.add("hidden");
+  }
+}
+
 function setupGamesPage() {
   // Only run on games page
   if (!document.getElementById("games-container")) return;
@@ -405,6 +523,8 @@ function setupGamesPage() {
 
   // Load games
   loadGames();
+
+  loadRandomGames();
 
   // Setup retry button
   const retryBtn = document.getElementById("retry-games");
@@ -428,39 +548,114 @@ function setupCategoryFilters() {
   });
 }
 
-window.addEventListener("components-injected", () => {
-  console.log("Components injected event fired");
-  setupSearchToggle();
-  setupSeedButton();
-  setupGamesPage();
-  setupGameDetailsPage();
-
-  // Initialize games page swiper
-  if (document.querySelector(".swiper")) {
-    new Swiper(".swiper", {
-      loop: true,
-      slidesPerView: 1,
-      centeredSlides: true,
-      spaceBetween: 20,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      breakpoints: {
-        768: {
-          slidesPerView: 1,
-        },
-        1024: {
-          slidesPerView: 1,
-        },
-      },
-    });
+function setupTutorial() {
+  console.log("Tutorial setup running...");
+  if (!document.querySelector(".tutorial-1")) {
+    console.log("Tutorial page not found, skipping tutorial initialization");
+    return;
   }
-});
+  console.log("Tutorial page found, initializing...");
+
+  const playButton = document.querySelector(".play-buttons");
+  const videos = document.querySelectorAll(".tutorial-1 video");
+  const videoControls = document.getElementById("video-controls");
+  const replayBtn = document.getElementById("replay-btn");
+  const nextBtn = document.getElementById("next-btn");
+  const prevBtn = document.getElementById("prev-btn");
+  const introText = document.getElementById("text-tutorial-intro");
+  const backgroundImage = document.querySelector(".tutorial-1 img");
+
+  let currentIndex = 0;
+  let isPlaying = false;
+
+  function initTutorial() {
+    if (!playButton || !videos.length) {
+      console.warn("Tutorial elements not found");
+      return;
+    }
+    playButton.addEventListener("click", function (e) {
+      startTutorial();
+    });
+    replayBtn.addEventListener("click", replayCurrentVideo);
+    nextBtn.addEventListener("click", nextVideo);
+    prevBtn.addEventListener("click", previousVideo);
+    videos.forEach((video, index) => {
+      video.addEventListener("ended", () => {
+        if (index < videos.length - 1) {
+          currentIndex = index + 1;
+          showVideo(currentIndex);
+        }
+      });
+    });
+    updateButtonStates();
+  }
+  function startTutorial() {
+    isPlaying = true;
+    playButton.parentElement.style.display = "none";
+    introText.style.display = "none";
+    backgroundImage.style.display = "none";
+    showVideo(0);
+  }
+  function showVideo(index) {
+    if (index < 0 || index >= videos.length) return;
+    currentIndex = index;
+    videos.forEach((video, i) => {
+      if (i === index) {
+        video.classList.remove("hidden");
+        video.play().catch((err) => {
+          console.warn("Video play failed:", err);
+        });
+      } else {
+        video.pause();
+        video.classList.add("hidden");
+      }
+    });
+    videoControls.classList.remove("hidden");
+    updateButtonStates();
+  }
+  function replayCurrentVideo() {
+    if (videos[currentIndex]) {
+      videos[currentIndex].currentTime = 0;
+      videos[currentIndex]
+        .play()
+        .catch((err) => console.warn("Video replay failed:", err));
+    }
+  }
+  function nextVideo() {
+    if (currentIndex < videos.length - 1) {
+      currentIndex++;
+      showVideo(currentIndex);
+    }
+  }
+  function previousVideo() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      showVideo(currentIndex);
+    } else {
+      returnToIntro();
+    }
+  }
+  function returnToIntro() {
+    isPlaying = false;
+    videos.forEach((video) => {
+      video.pause();
+      video.classList.add("hidden");
+    });
+    videoControls.classList.add("hidden");
+    playButton.parentElement.style.display = "flex";
+    introText.style.display = "block";
+    backgroundImage.style.display = "block";
+    currentIndex = 0;
+  }
+  function updateButtonStates() {
+    prevBtn.disabled = false;
+    nextBtn.disabled = currentIndex >= videos.length - 1;
+    replayBtn.disabled = !isPlaying;
+  }
+  initTutorial();
+}
+document.addEventListener("DOMContentLoaded", setupTutorial);
+window.addEventListener("components-injected", setupTutorial);
 
 // Game Details Page Functions
 function setupGameDetailsPage() {
@@ -579,7 +774,7 @@ function loadGameDetails() {
     document.getElementById("categories-list").innerHTML = game.categories
       .map(
         (category) =>
-          `<span style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)" class="inline-flex items-center mr-6 bg-[#2F364A] rounded-xl p-3 border text-gray-200 border-gray-700 gap-3 w-fit whitespace-nowrap min-w-[140px] justify-center">${category}</span>`
+          `<span class="inline-flex items-center mr-6 bg-[#2F364A] text-xl rounded-xl p-3 border text-gray-200 border-gray-700 gap-3 w-fit whitespace-nowrap min-w-[140px] mt-5 justify-center">${category}</span>`
       )
       .join("");
   } else {
@@ -625,19 +820,34 @@ function loadGameDetails() {
     if (!bookmarkBtn) return;
     if (isBookmarked) {
       bookmarkBtn.innerHTML =
-        '<i class="fa-solid fa-bookmark m-2 text-yellow-400"></i>Bookmarked';
+        '<span class="luma-gradient m-0 p-0"><i class="fa-regular fa-bookmark mr-3"></i>Bookmarked</span>';
     } else {
       bookmarkBtn.innerHTML =
-        '<i class="fa-regular fa-bookmark m-2 text-gray-500"></i>Bookmark';
+        '<i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Bookmark';
     }
   }
 
-  async function checkBookmark(user) {
+  function setupBookmarkListener(user) {
     if (!user) return;
+
+    if (!game || !game.id) {
+      console.error("Game or game.id is not available for bookmark listener");
+      return;
+    }
+
     const docRef = doc(db, "users", user.uid, "bookmarks", game.id);
-    const snap = await getDoc(docRef);
-    isBookmarked = snap.exists();
-    updateBookmarkBtn();
+
+    // Set up real-time listener for bookmark status
+    onSnapshot(
+      docRef,
+      (docSnap) => {
+        isBookmarked = docSnap.exists();
+        updateBookmarkBtn();
+      },
+      (error) => {
+        console.error("Error in bookmark listener:", error);
+      }
+    );
   }
 
   async function toggleBookmark(user) {
@@ -648,8 +858,7 @@ function loadGameDetails() {
     const docRef = doc(db, "users", user.uid, "bookmarks", game.id);
     if (isBookmarked) {
       await deleteDoc(docRef);
-      isBookmarked = false;
-      updateBookmarkBtn();
+      // Don't manually update state here - let the listener handle it
       alert("Bookmark removed.");
     } else {
       const info = {
@@ -658,8 +867,7 @@ function loadGameDetails() {
         image: game.image || game.thumbnail || "",
       };
       await setDoc(docRef, info);
-      isBookmarked = true;
-      updateBookmarkBtn();
+      // Don't manually update state here - let the listener handle it
       alert("Game bookmarked successfully!");
     }
   }
@@ -695,7 +903,7 @@ function loadGameDetails() {
   onAuthStateChanged(auth, (user) => {
     currentUser = user;
     if (user) {
-      checkBookmark(user);
+      setupBookmarkListener(user);
     } else {
       isBookmarked = false;
       updateBookmarkBtn();
@@ -936,78 +1144,202 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-//Adding tutorial videos
- document.addEventListener("DOMContentLoaded", function (){
+// Tutorial Video System Implementation
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("DOM Content Loaded - checking for tutorial page...");
+
+  // Only run on tutorial page
+  if (!document.querySelector(".tutorial-1")) {
+    console.log("Tutorial page not found, skipping tutorial initialization");
+    return;
+  }
+
+  console.log("Tutorial page found, initializing...");
+
   const playButton = document.querySelector(".play-buttons");
   const videos = document.querySelectorAll(".tutorial-1 video");
   const videoControls = document.getElementById("video-controls");
   const replayBtn = document.getElementById("replay-btn");
   const nextBtn = document.getElementById("next-btn");
   const prevBtn = document.getElementById("prev-btn");
+  const introText = document.getElementById("text-tutorial-intro");
+  const backgroundImage = document.querySelector(".tutorial-1 img");
 
   let currentIndex = 0;
+  let isPlaying = false;
 
+  // Initialize tutorial system
+  function initTutorial() {
+    console.log("Initializing tutorial system...");
+    console.log("Play button found:", !!playButton);
+    console.log("Videos found:", videos.length);
+    console.log("Video controls found:", !!videoControls);
+    console.log("Replay button found:", !!replayBtn);
+    console.log("Next button found:", !!nextBtn);
+    console.log("Prev button found:", !!prevBtn);
+    console.log("Intro text found:", !!introText);
+    console.log("Background image found:", !!backgroundImage);
+
+    if (!playButton || !videos.length) {
+      console.warn("Tutorial elements not found");
+      return;
+    }
+
+    // Set up event listeners
+    playButton.addEventListener("click", function (e) {
+      console.log("Play button clicked!");
+      // alert("Play button clicked! Starting tutorial...");
+      startTutorial();
+    });
+    replayBtn.addEventListener("click", replayCurrentVideo);
+    nextBtn.addEventListener("click", nextVideo);
+    prevBtn.addEventListener("click", previousVideo);
+
+    // Set up video event listeners for auto-advance
+    videos.forEach((video, index) => {
+      video.addEventListener("ended", () => {
+        if (index < videos.length - 1) {
+          currentIndex = index + 1;
+          showVideo(currentIndex);
+        }
+      });
+    });
+
+    // Update button states
+    updateButtonStates();
+  }
+
+  // Start tutorial - hide intro, show first video
+  function startTutorial() {
+    console.log("Starting tutorial...");
+    isPlaying = true;
+
+    // Hide intro elements
+    console.log("Hiding intro elements...");
+    playButton.parentElement.style.display = "none";
+    introText.style.display = "none";
+    backgroundImage.style.display = "none";
+
+    // Show first video and controls
+    console.log("Showing first video...");
+    showVideo(0);
+  }
+
+  // Show specific video
   function showVideo(index) {
-    videos.forEach((video, i) =>{
+    console.log("Showing video at index:", index);
+    if (index < 0 || index >= videos.length) {
+      console.warn("Invalid video index:", index);
+      return;
+    }
+
+    currentIndex = index;
+
+    // Hide all videos first
+    videos.forEach((video, i) => {
       if (i === index) {
+        console.log("Showing video", i);
         video.classList.remove("hidden");
-        video.play();
+        video.play().catch((err) => {
+          console.warn("Video play failed:", err);
+          console.log("Video src:", video.querySelector("source")?.src);
+        });
       } else {
         video.pause();
         video.classList.add("hidden");
       }
     });
-    videoControls.classList.remove("hidden");
-  }
-  playButton.addEventListener("click", function () {
-   playButton.parentElement.style.display = "none";
-   document.getElementById("text-tutorial-intro").style.display = "none";
-   showVideo(currentIndex);
-  });
-  replayBtn.addEventListener("click", function () {
-    videos[currentIndex].currentTime = 0;
-    videos[currentIndex].play();
-  });
 
-  nextBtn.addEventListener("click", function () {
-    if (currentIndex < videos.length -1) {
+    // Show controls
+    console.log("Showing video controls");
+    videoControls.classList.remove("hidden");
+
+    // Update button states
+    updateButtonStates();
+  }
+
+  // Replay current video
+  function replayCurrentVideo() {
+    if (videos[currentIndex]) {
+      videos[currentIndex].currentTime = 0;
+      videos[currentIndex]
+        .play()
+        .catch((err) => console.warn("Video replay failed:", err));
+    }
+  }
+
+  // Next video
+  function nextVideo() {
+    if (currentIndex < videos.length - 1) {
       currentIndex++;
       showVideo(currentIndex);
     }
-  });
-
-  prevBtn.addEventListener("click", function () {
-    if (currentIndex > 0) {
-      currentIndex--;
-      showVideo(currentIndex)
-    }
-    else {
-      videos[currentIndex].pause();
-      videos[currentIndex].classList.add("hidden");
-      document.querySelector(".play-buttons").parentElement.style.display = "flex";
-      videoControls.classList.add("hidden");
   }
-  });
 
- });
+  // Previous video or back to intro
+  function previousVideo() {
+    if (currentIndex > 0) {
+      // Go to previous video
+      currentIndex--;
+      showVideo(currentIndex);
+    } else {
+      // Return to intro screen
+      returnToIntro();
+    }
+  }
 
+  // Return to intro screen
+  function returnToIntro() {
+    isPlaying = false;
 
-<<<<<<< HEAD
+    // Stop and hide all videos
+    videos.forEach((video) => {
+      video.pause();
+      video.classList.add("hidden");
+    });
 
- //Loading Games in the Continue Learning boxes
- async function resistance(){
+    // Hide controls
+    videoControls.classList.add("hidden");
+
+    // Show intro elements
+    playButton.parentElement.style.display = "flex";
+    introText.style.display = "block";
+    backgroundImage.style.display = "block";
+
+    // Reset to first video
+    currentIndex = 0;
+  }
+
+  // Update button states based on current position
+  function updateButtonStates() {
+    // Previous button - always enabled (can go back to intro)
+    prevBtn.disabled = false;
+
+    // Next button - disabled on last video
+    nextBtn.disabled = currentIndex >= videos.length - 1;
+
+    // Replay button - always enabled when video is playing
+    replayBtn.disabled = !isPlaying;
+  }
+
+  // Initialize the tutorial system
+  initTutorial();
+});
+
+// Loading Games in the Continue Learning boxes
+async function resistance() {
   try {
     const resp = await fetch("./data/top-games.json");
     const games = await resp.json();
 
-    const game = games.find(g => g.name === "The Resistance");
+    const game = games.find((g) => g.name === "The Resistance");
     if (!game) {
       console.warn("The Resistance was not found in JSON");
       return;
     }
     //adding image of the game in the box
     const divBox = document.querySelector(".resistance-box");
-    divBox.innerHTML =`<img src="${game.thumbnail}" alt="${game.name}" class="w-full h-full object-cover rounded-2xl"/>`;
+    divBox.innerHTML = `<img src="${game.thumbnail}" alt="${game.name}" class="w-full h-full object-cover rounded-2xl"/>`;
 
     //adding description
     const desc = document.getElementById("resistance-desc");
@@ -1018,16 +1350,11 @@ document.addEventListener("DOMContentLoaded", () => {
     tutorialBtn.addEventListener("click", () => {
       if (game.rulebook) window.open(game.rulebook, "_blank");
     });
-
+  } catch (err) {
+    console.error("failed to load game:", err);
   }
-  catch (err) {
-    console.error("failed to load game:", err)
-  }
- }
- document.addEventListener("DOMContentLoaded", resistance);
-
-  
-=======
+}
+document.addEventListener("DOMContentLoaded", resistance);
 document.addEventListener("DOMContentLoaded", () => {
   renderTrendingEvents();
   renderUpcomingEvents();
@@ -1058,15 +1385,18 @@ async function renderTrendingEvents() {
     snapshot.forEach((docSnap) => {
       const event = docSnap.data();
       const card = document.createElement("div");
-      card.className = "relative cursor-pointer";
+      card.className =
+        "relative cursor-pointer flex-shrink-0 w-[45vw] sm:w-[200px] md:w-[250px] h-[320px] sm:h-[380px] md:h-[400px]";
       card.innerHTML = `
-        <div class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"></div>
-        <div class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10"
-          style="background-image: url('${
-            event.image_url || "../../src/asset/images/fea-cal-1.png"
-          }');">
-        </div>
-      `;
+  <div class="absolute inset-0 opacity-50 rounded-[30px] translate-x-4 translate-y-4 blur-lg z-0"></div>
+  <div
+    class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat z-10 w-full h-full"
+    style="background-image: url('${
+      event.image_url || "../../src/asset/images/fea-cal-1.png"
+    }');"
+  ></div>
+`;
+
       card.onclick = () => {
         window.location.href = `/views/event/post-event-details.html?id=${docSnap.id}`;
       };
@@ -1091,15 +1421,17 @@ async function renderUpcomingEvents() {
     snapshot.forEach((docSnap) => {
       const event = docSnap.data();
       const card = document.createElement("div");
-      card.className = "relative cursor-pointer";
+      card.className =
+        "relative cursor-pointer flex-shrink-0 w-[45vw] sm:w-[200px] md:w-[250px] h-[320px] sm:h-[380px] md:h-[400px]";
       card.innerHTML = `
-        <div class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"></div>
-        <div class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center w-[250px] h-[400px] bg-cover bg-center bg-no-repeat z-10"
-          style="background-image: url('${
-            event.image_url || "../../src/asset/images/fea-cal-1.png"
-          }');">
-        </div>
-      `;
+  <div class="absolute inset-0 opacity-50 rounded-[30px] translate-x-4 translate-y-4 blur-lg z-0"></div>
+  <div
+    class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat z-10 w-full h-full"
+    style="background-image: url('${
+      event.image_url || "../../src/asset/images/fea-cal-1.png"
+    }');"
+  ></div>
+`;
       card.onclick = () => {
         window.location.href = `/views/event/post-event-details.html?id=${docSnap.id}`;
       };
@@ -1127,9 +1459,9 @@ function getCurrentUser() {
 
 function setupGameComments() {
   const gameId = getGameIdFromUrl();
-  const commentInput = document.getElementById("commentInput");
-  const postCommentBtn = document.getElementById("postCommentBtn");
-  const commentGrid = document.getElementById("commentGrid");
+  const commentInput = document.getElementById("gameCommentInput");
+  const postCommentBtn = document.getElementById("gamePostCommentBtn");
+  const gameCommentGrid = document.getElementById("gameCommentGrid");
 
   if (!gameId) {
     commentInput.disabled = true;
@@ -1157,7 +1489,7 @@ function setupGameComments() {
   };
 
   listenForGameComments(gameId, (comments) => {
-    renderGameComments(comments, commentGrid);
+    renderGameComments(comments, gameCommentGrid);
   });
 }
 
@@ -1196,26 +1528,38 @@ function renderGameComments(comments, grid) {
     return;
   }
   comments.forEach((comment) => {
+    if (!comment.text || !comment.text.trim()) return; // Skip empty comments
+
     // Prioritize userName, then userEmail, then fallback to Anonymous
     const user =
       comment.userName ||
       (comment.userEmail ? comment.userEmail.split("@")[0] : "") ||
       "Anonymous";
+
     const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
       user
     )}&background=random`;
-    const card = document.createElement("div");
-    card.className =
-      "rounded-2xl p-5 bg-[#23243a] border-2 border-transparent shadow-md bg-clip-padding relative";
-    card.style.borderImage = "linear-gradient(90deg, #f59275, #f1647a) 1";
-    card.innerHTML = `
-      <div class="flex items-center gap-4 mb-3">
-        <img src="${avatarUrl}" alt="${user}" class="w-10 h-10 rounded-full object-cover border-2 border-white" />
-        <span class="text-white font-semibold text-sm">${user}</span>
-      </div>
-      <p class="text-white text-sm">${comment.text}</p>
-    `;
-    grid.appendChild(card);
+
+    // Outer wrapper with gradient border using inline style
+    const wrapper = document.createElement("div");
+    wrapper.className = "p-[2px] rounded-2xl h-full";
+    wrapper.style.background = "linear-gradient(to right, #f59275, #f1647a)";
+
+    // Inner content box
+    const div = document.createElement("div");
+    div.className =
+      "rounded-2xl p-5 bg-[#23243a] shadow-md bg-clip-padding relative h-full";
+    div.innerHTML = `
+    <div class="flex items-start gap-4 mb-3">
+      <img src="${avatarUrl}" alt="${user}" class="w-10 h-10 rounded-full object-cover shrink-0" />
+      <span class="text-white font-semibold text-sm break-words overflow-hidden w-full block">${user}</span>
+    </div>
+    <p class="text-gray-300 text-sm break-words whitespace-pre-line">${comment.text}</p>
+  `;
+
+    // Nest and append
+    wrapper.appendChild(div);
+    gameCommentGrid.appendChild(wrapper);
   });
 }
 
@@ -1223,42 +1567,89 @@ async function renderSuggestedGames() {
   const section = document.getElementById("suggestedGamesSection");
   const grid = document.getElementById("suggestedGamesGrid");
   if (!grid || !section) return;
+
   grid.innerHTML = "";
   const user = getCurrentUser();
   const currentGameId = getGameIdFromUrl();
+
   if (!user || !user.userId) {
     section.style.display = "none";
     return;
-  } else {
-    section.style.display = "";
   }
-  // Fetch user categories
+
+  // Fetch user categories from preferences
   let userDoc;
   try {
     userDoc = await getDoc(doc(db, "users", user.userId));
   } catch (e) {
+    console.error("Error fetching user document:", e);
     userDoc = null;
   }
+
   const categories = userDoc?.exists() ? userDoc.data().categories || [] : [];
+
+  // If user has no categories, hide the suggested games section
+  if (!categories || categories.length === 0) {
+    section.style.display = "none";
+    return;
+  }
+
+  // Show the section if user has categories
+  section.style.display = "";
+
   // Fetch bookmarks
-  const bookmarksSnap = await getDocs(
-    collection(db, "users", user.userId, "bookmarks")
-  );
+  let bookmarksSnap;
+  try {
+    bookmarksSnap = await getDocs(
+      collection(db, "users", user.userId, "bookmarks")
+    );
+  } catch (e) {
+    console.error("Error fetching bookmarks:", e);
+    bookmarksSnap = { docs: [] };
+  }
   const bookmarkedIds = bookmarksSnap.docs.map((d) => d.id);
+
   // Fetch tutorials watched (optional, fallback to empty array)
   let tutorialsWatched = [];
   if (userDoc?.exists() && userDoc.data().tutorialsWatched) {
     tutorialsWatched = userDoc.data().tutorialsWatched;
   }
+
   // Collect all prioritized game IDs
   const prioritizedIds = Array.from(
     new Set([...bookmarkedIds, ...tutorialsWatched])
   );
-  // Fetch all games
-  const gamesSnap = await getDocs(collection(db, "games"));
-  let games = gamesSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
-  // Remove current game
+
+  // Fetch all games using gameService
+  let games = [];
+  try {
+    const gameService = window.gameService;
+    if (!gameService) {
+      console.error("GameService not available");
+      grid.innerHTML =
+        '<p class="text-gray-400">Game service not available.</p>';
+      return;
+    }
+
+    const result = await gameService.getAllGames();
+    if (result.success) {
+      games = result.games || [];
+    } else {
+      console.error("Failed to fetch games:", result.error);
+      grid.innerHTML =
+        '<p class="text-gray-400">Failed to load suggested games.</p>';
+      return;
+    }
+  } catch (e) {
+    console.error("Error fetching games:", e);
+    grid.innerHTML =
+      '<p class="text-gray-400">Failed to load suggested games.</p>';
+    return;
+  }
+
+  // Remove current game from suggestions
   games = games.filter((g) => g.id !== currentGameId);
+
   // Prioritize: bookmarks & tutorials first, then category matches
   const prioritizedGames = games.filter((g) => prioritizedIds.includes(g.id));
   const categoryGames = games.filter(
@@ -1267,22 +1658,29 @@ async function renderSuggestedGames() {
       g.categories &&
       g.categories.some((cat) => categories.includes(cat))
   );
+
   // Combine and limit
   const suggested = [...prioritizedGames, ...categoryGames].slice(0, 10);
+
   if (!suggested.length) {
-    grid.innerHTML = '<p class="text-gray-400">No suggestions found.</p>';
+    grid.innerHTML =
+      '<p class="text-gray-400">No games found matching your preferences.</p>';
     return;
   }
+
+  // Render suggested games
   suggested.forEach((game) => {
     const card = document.createElement("div");
     card.className =
-      "rounded-2xl overflow-hidden shadow bg-white flex-shrink-0";
+      "rounded-2xl overflow-hidden shadow bg-white flex-shrink-0 cursor-pointer hover:scale-105 transition-transform";
     card.style.width = "180px";
     card.style.height = "180px";
     card.innerHTML = `
       <img src="${
         game.image || game.thumbnail || "../../src/asset/images/placeholder.png"
-      }" alt="${game.name}" class="w-full h-full object-cover" />
+      }" 
+           alt="${game.name}" 
+           class="w-full h-full object-cover" />
     `;
     card.onclick = () => {
       localStorage.setItem("selectedGame", JSON.stringify(game));
@@ -1291,7 +1689,3 @@ async function renderSuggestedGames() {
     grid.appendChild(card);
   });
 }
->>>>>>> c5b19c9736bb7263cb8b22f6c8609b1926b62c1c
-
-
- 

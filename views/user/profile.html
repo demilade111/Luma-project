@@ -1,363 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Luma | Profile</title>
     <link href="../../src/output.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-  </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="shortcut icon" href="/src/asset/images/Luma - Icon 1.png" />
+</head>
 
-  <body class="bg-[#1A1F2C] font-nunito text-white min-h-screen">
+<body class="bg-[#1A1F2C] font-nunito text-white min-h-screen">
+    <div data-component="mobilenavbar"></div>
     <div data-component="sidebar"></div>
-    <div class="flex-1 flex flex-col min-h-screen ml-[90px] pt-10">
-      <!--Game Details section-->
-      <main class="flex-1 p-4 md:py-10 md:px-20">
-        <div class="max-w-7xl mx-auto">
-          <h1 class="text-[42px] luma-gradient font-bold mb-12">Profile</h1>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <!-- Left Column - Profile Info -->
-            <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
-              <div class="mb-8">
-                <p class="text-gray-400 leading-relaxed mb-8">
-                  Manage your profile information and preferences
-                </p>
+    <div class="flex-1 flex flex-col min-h-screen md:ml-[90px] pt-5">
+        <main class="flex-1 p-4 md:py-10 md:px-20">
+            <div class="max-w-7xl mx-auto px-2">
+                <h1 class="text-[42px] luma-gradient font-bold mb-12">Profile</h1>
 
-                <!-- Profile Image -->
-                <div class="flex justify-center mb-8">
-                  <div
-                    id="profile-image"
-                    class="w-32 h-32 bg-gray-600 rounded-full flex items-center justify-center border-2 border-gray-500 hover:border-gray-400 transition-colors cursor-pointer"
-                  >
-                    <i class="fas fa-plus text-3xl text-gray-400"></i>
-                  </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Left Column - Profile Info -->
+                    <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
+                        <div class="mb-8">
+                            <p class="text-gray-400 leading-relaxed mb-8">
+                                Manage your profile information and preferences
+                            </p>
+
+                            <!-- Profile Image -->
+                            <div class="flex justify-center mb-8">
+                                <div id="profile-image"
+                                    class="w-32 h-32 bg-gray-600 rounded-full flex items-center justify-center border-2 border-gray-500 hover:border-gray-400 transition-colors cursor-pointer">
+                                    <i class="fas fa-plus text-3xl text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- City Dropdown -->
+                        <div class="mb-6 relative">
+                            <label class="block text-gray-300 text-sm font-medium mb-2">City</label>
+                            <input id="city-select" type="text" placeholder="Start typing city..." autocomplete="off"
+                                class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 appearance-none" />
+                            <ul id="citySuggestions"
+                                class="absolute z-10 bg-white text-black w-full rounded shadow-lg hidden"></ul>
+                        </div>
+
+                        <!-- Gamer Level Dropdown -->
+                        <div class="mb-6">
+                            <label class="block text-gray-300 text-sm font-medium mb-2">Gamer Level</label>
+                            <div class="relative">
+                                <select id="gamer-level-select"
+                                    class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 appearance-none">
+                                    <option value="">Gamer level</option>
+                                    <option value="Beginner">Beginner</option>
+                                    <option value="Intermediate">Intermediate</option>
+                                    <option value="Advanced">Advanced</option>
+                                    <option value="Pro">Pro</option>
+                                </select>
+                                <div
+                                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column - Form -->
+                    <div class="space-y-6">
+                        <!-- Username -->
+                        <div>
+                            <label class="block text-gray-300 text-sm font-medium mb-2">Username</label>
+                            <input id="username-input" type="text" placeholder="Add Username"
+                                class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 placeholder-gray-500" />
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-gray-300 text-sm font-medium mb-2">E-mail</label>
+                            <input id="email-input" type="email" placeholder="Add Email"
+                                class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 placeholder-gray-500" />
+                        </div>
+
+                        <!-- Birthday -->
+                        <div>
+                            <label class="block text-gray-300 text-sm font-medium mb-2">Birthday</label>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div class="relative">
+                                    <select id="birthday-month"
+                                        class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 appearance-none">
+                                        <option value="">Month</option>
+                                        <option value="January">January</option>
+                                        <option value="February">February</option>
+                                        <option value="March">March</option>
+                                        <option value="April">April</option>
+                                        <option value="May">May</option>
+                                        <option value="June">June</option>
+                                        <option value="July">July</option>
+                                        <option value="August">August</option>
+                                        <option value="September">September</option>
+                                        <option value="October">October</option>
+                                        <option value="November">November</option>
+                                        <option value="December">December</option>
+                                    </select>
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                </div>
+                                <div class="relative">
+                                    <select id="birthday-day"
+                                        class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 appearance-none">
+                                        <option value="">Day</option>
+                                        <!-- Days 1-31 -->
+                                        <script>
+                                            for (let i = 1; i <= 31; i++) {
+                                                document.write(`<option value="${i}">${i}</option>`);
+                                            }
+                                        </script>
+                                    </select>
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                </div>
+                                <div class="relative">
+                                    <select id="birthday-year"
+                                        class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 appearance-none">
+                                        <option value="">Year</option>
+                                        <!-- Years from current year down to 1950 -->
+                                        <script>
+                                            const currentYear = new Date().getFullYear();
+                                            for (let year = currentYear; year >= 1950; year--) {
+                                                document.write(
+                                                    `<option value="${year}">${year}</option>`
+                                                );
+                                            }
+                                        </script>
+                                    </select>
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+                        <div>
+                            <label class="block text-gray-300 text-sm font-medium mb-2">Password</label>
+                            <div class="relative">
+                                <input id="password-input" type="password" placeholder="At least 8 characters"
+                                    class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 pr-10 placeholder-gray-500" />
+                                <div class="absolute inset-y-0 right-0 flex items-center px-3">
+                                    <i class="fas fa-eye text-gray-400 cursor-pointer hover:text-gray-300"
+                                        onclick="togglePassword(this)"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div>
+                            <label class="block text-gray-300 text-sm font-medium mb-2">Confirm Password</label>
+                            <div class="relative">
+                                <input id="confirm-password-input" type="password" placeholder="Confirm Password"
+                                    class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 pr-10 placeholder-gray-500" />
+                                <div class="absolute inset-y-0 right-0 flex items-center px-3">
+                                    <i class="fas fa-eye text-gray-400 cursor-pointer hover:text-gray-300"
+                                        onclick="togglePassword(this)"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Checkbox -->
+                        <div class="flex items-start">
+                            <input type="checkbox"
+                                class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2 mt-1"
+                                checked />
+                            <label class="ml-3 text-sm text-gray-400">
+                                I agree to the terms and conditions
+                            </label>
+                        </div>
+
+                        <!-- Update Profile Button -->
+                        <div class="pt-6 mb-5">
+                            <button id="update-profile-btn" type="submit"
+                                class="w-full bg-gradient-to-r to-[#F59275] from-[#F1647A] text-white font-medium rounded-2xl cursor-pointer text-lg px-6 py-4 transition-colors focus:ring-4 focus:ring-gray-500 focus:outline-none">
+                                Update Profile
+                            </button>
+                        </div>
+                    </div>
                 </div>
-              </div>
-
-              <!-- City Dropdown -->
-              <div class="mb-6 relative">
-                <label class="block text-gray-300 text-sm font-medium mb-2"
-                  >City</label
-                >
-                <input
-                  id="city-select"
-                  type="text"
-                  placeholder="Start typing city..."
-                  autocomplete="off"
-                  class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 appearance-none"
-                />
-                <ul
-                  id="citySuggestions"
-                  class="absolute z-10 bg-white text-black w-full rounded shadow-lg hidden"
-                ></ul>
-              </div>
-
-              <!-- Gamer Level Dropdown -->
-              <div class="mb-6">
-                <label class="block text-gray-300 text-sm font-medium mb-2"
-                  >Gamer Level</label
-                >
-                <div class="relative">
-                  <select
-                    id="gamer-level-select"
-                    class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 appearance-none"
-                  >
-                    <option value="">Gamer level</option>
-                    <option value="Beginner">Beginner</option>
-                    <option value="Intermediate">Intermediate</option>
-                    <option value="Advanced">Advanced</option>
-                    <option value="Pro">Pro</option>
-                  </select>
-                  <div
-                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400"
-                  >
-                    <i class="fas fa-chevron-down"></i>
-                  </div>
-                </div>
-              </div>
             </div>
-
-            <!-- Right Column - Form -->
-            <div class="space-y-6">
-              <!-- Username -->
-              <div>
-                <label class="block text-gray-300 text-sm font-medium mb-2"
-                  >Username</label
-                >
-                <input
-                  id="username-input"
-                  type="text"
-                  placeholder="Add Username"
-                  class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 placeholder-gray-500"
-                />
-              </div>
-
-              <!-- Email -->
-              <div>
-                <label class="block text-gray-300 text-sm font-medium mb-2"
-                  >E-mail</label
-                >
-                <input
-                  id="email-input"
-                  type="email"
-                  placeholder="Add Email"
-                  class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 placeholder-gray-500"
-                />
-              </div>
-
-              <!-- Birthday -->
-              <div>
-                <label class="block text-gray-300 text-sm font-medium mb-2"
-                  >Birthday</label
-                >
-                <div class="grid grid-cols-3 gap-3">
-                  <div class="relative">
-                    <select
-                      id="birthday-month"
-                      class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 appearance-none"
-                    >
-                      <option value="">Month</option>
-                      <option value="January">January</option>
-                      <option value="February">February</option>
-                      <option value="March">March</option>
-                      <option value="April">April</option>
-                      <option value="May">May</option>
-                      <option value="June">June</option>
-                      <option value="July">July</option>
-                      <option value="August">August</option>
-                      <option value="September">September</option>
-                      <option value="October">October</option>
-                      <option value="November">November</option>
-                      <option value="December">December</option>
-                    </select>
-                    <div
-                      class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400"
-                    >
-                      <i class="fas fa-chevron-down"></i>
-                    </div>
-                  </div>
-                  <div class="relative">
-                    <select
-                      id="birthday-day"
-                      class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 appearance-none"
-                    >
-                      <option value="">Day</option>
-                      <!-- Days 1-31 -->
-                      <script>
-                        for (let i = 1; i <= 31; i++) {
-                          document.write(`<option value="${i}">${i}</option>`);
-                        }
-                      </script>
-                    </select>
-                    <div
-                      class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400"
-                    >
-                      <i class="fas fa-chevron-down"></i>
-                    </div>
-                  </div>
-                  <div class="relative">
-                    <select
-                      id="birthday-year"
-                      class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 appearance-none"
-                    >
-                      <option value="">Year</option>
-                      <!-- Years from current year down to 1950 -->
-                      <script>
-                        const currentYear = new Date().getFullYear();
-                        for (let year = currentYear; year >= 1950; year--) {
-                          document.write(
-                            `<option value="${year}">${year}</option>`
-                          );
-                        }
-                      </script>
-                    </select>
-                    <div
-                      class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400"
-                    >
-                      <i class="fas fa-chevron-down"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Password -->
-              <div>
-                <label class="block text-gray-300 text-sm font-medium mb-2"
-                  >Password</label
-                >
-                <div class="relative">
-                  <input
-                    id="password-input"
-                    type="password"
-                    placeholder="At least 8 characters"
-                    class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 pr-10 placeholder-gray-500"
-                  />
-                  <div
-                    class="absolute inset-y-0 right-0 flex items-center px-3"
-                  >
-                    <i
-                      class="fas fa-eye text-gray-400 cursor-pointer hover:text-gray-300"
-                      onclick="togglePassword(this)"
-                    ></i>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Confirm Password -->
-              <div>
-                <label class="block text-gray-300 text-sm font-medium mb-2"
-                  >Confirm Password</label
-                >
-                <div class="relative">
-                  <input
-                    id="confirm-password-input"
-                    type="password"
-                    placeholder="Confirm Password"
-                    class="w-full bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 pr-10 placeholder-gray-500"
-                  />
-                  <div
-                    class="absolute inset-y-0 right-0 flex items-center px-3"
-                  >
-                    <i
-                      class="fas fa-eye text-gray-400 cursor-pointer hover:text-gray-300"
-                      onclick="togglePassword(this)"
-                    ></i>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Checkbox -->
-              <div class="flex items-start">
-                <input
-                  type="checkbox"
-                  class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2 mt-1"
-                />
-                <label class="ml-3 text-sm text-gray-400">
-                  I agree to the terms and conditions
-                </label>
-              </div>
-
-              <!-- Update Profile Button -->
-              <div class="pt-6">
-                <button
-                  id="update-profile-btn"
-                  type="submit"
-                  class="w-full bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-lg text-lg px-6 py-4 transition-colors focus:ring-4 focus:ring-gray-500 focus:outline-none"
-                >
-                  Update Profile
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
+        </main>
     </div>
+
     <div data-component="footer"></div>
 
     <!--Script-->
     <script src="../../js/inject.js" defer></script>
     <script type="module" src="../../js/profile.js"></script>
+    <script type="module" src="../../js/auth/signout.js"></script>
+    <script type="module" src="../../js/mobile-navbar.js"></script>
 
     <script>
-      // Toggle password visibility
-      function togglePassword(icon) {
-        const input = icon.closest(".relative").querySelector("input");
-        if (input.type === "password") {
-          input.type = "text";
-          icon.classList.remove("fa-eye");
-          icon.classList.add("fa-eye-slash");
-        } else {
-          input.type = "password";
-          icon.classList.remove("fa-eye-slash");
-          icon.classList.add("fa-eye");
+        // Toggle password visibility
+        function togglePassword(icon) {
+            const input = icon.closest(".relative").querySelector("input");
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
         }
-      }
 
-      // Profile image upload handler
-      document.addEventListener("DOMContentLoaded", function () {
-        const profileImage = document.querySelector("#profile-image");
-        if (profileImage) {
-          profileImage.addEventListener("click", function () {
-            const input = document.createElement("input");
-            input.type = "file";
-            input.accept = "image/*";
-            input.onchange = function (event) {
-              const file = event.target.files[0];
-              if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                  const imageContainer =
-                    document.querySelector("#profile-image");
-                  imageContainer.style.backgroundImage = `url(${e.target.result})`;
-                  imageContainer.style.backgroundSize = "cover";
-                  imageContainer.style.backgroundPosition = "center";
-                  imageContainer.innerHTML = "";
-                };
-                reader.readAsDataURL(file);
-              }
-            };
-            input.click();
-          });
-        }
-      });
-
-      // City autocomplete
-      const cities = [
-        { city: "London", country: "United Kingdom" },
-        { city: "Paris", country: "France" },
-        { city: "New York", country: "United States" },
-        { city: "Lagos", country: "Nigeria" },
-        { city: "Toronto", country: "Canada" },
-        { city: "Vancouver", country: "Canada" },
-        { city: "Montreal", country: "Canada" },
-        { city: "Seattle", country: "United States" },
-        { city: "Helsinki", country: "Finland" },
-        // ...add more as needed
-      ];
-      const cityInput = document.getElementById("city-select");
-      const suggestions = document.getElementById("citySuggestions");
-      if (cityInput && suggestions) {
-        cityInput.addEventListener("input", function () {
-          const value = this.value.toLowerCase();
-          suggestions.innerHTML = "";
-          if (!value) {
-            suggestions.classList.add("hidden");
-            return;
-          }
-          const matches = cities.filter(
-            (c) =>
-              c.city.toLowerCase().startsWith(value) ||
-              c.country.toLowerCase().startsWith(value)
-          );
-          if (matches.length === 0) {
-            suggestions.classList.add("hidden");
-            return;
-          }
-          matches.forEach((c) => {
-            const li = document.createElement("li");
-            li.className = "px-4 py-2 cursor-pointer hover:bg-gray-200";
-            li.textContent = `${c.city}, ${c.country}`;
-            li.addEventListener("mousedown", (e) => {
-              e.preventDefault();
-              cityInput.value = c.city;
-              suggestions.classList.add("hidden");
-            });
-            suggestions.appendChild(li);
-          });
-          suggestions.classList.remove("hidden");
+        // Profile image upload handler
+        document.addEventListener("DOMContentLoaded", function () {
+            const profileImage = document.querySelector("#profile-image");
+            if (profileImage) {
+                profileImage.addEventListener("click", function () {
+                    const input = document.createElement("input");
+                    input.type = "file";
+                    input.accept = "image/*";
+                    input.onchange = function (event) {
+                        const file = event.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                const imageContainer =
+                                    document.querySelector("#profile-image");
+                                imageContainer.style.backgroundImage = `url(${e.target.result})`;
+                                imageContainer.style.backgroundSize = "cover";
+                                imageContainer.style.backgroundPosition = "center";
+                                imageContainer.innerHTML = "";
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    };
+                    input.click();
+                });
+            }
         });
-        // Removed blur handler for better UX
-      }
+
+        // City autocomplete
+        const cities = [
+            { city: "London", country: "United Kingdom" },
+            { city: "Paris", country: "France" },
+            { city: "New York", country: "United States" },
+            { city: "Lagos", country: "Nigeria" },
+            { city: "Toronto", country: "Canada" },
+            { city: "Vancouver", country: "Canada" },
+            { city: "Montreal", country: "Canada" },
+            { city: "Seattle", country: "United States" },
+            { city: "Helsinki", country: "Finland" },
+            // ...add more as needed
+        ];
+        const cityInput = document.getElementById("city-select");
+        const suggestions = document.getElementById("citySuggestions");
+        if (cityInput && suggestions) {
+            cityInput.addEventListener("input", function () {
+                const value = this.value.toLowerCase();
+                suggestions.innerHTML = "";
+                if (!value) {
+                    suggestions.classList.add("hidden");
+                    return;
+                }
+                const matches = cities.filter(
+                    (c) =>
+                        c.city.toLowerCase().startsWith(value) ||
+                        c.country.toLowerCase().startsWith(value)
+                );
+                if (matches.length === 0) {
+                    suggestions.classList.add("hidden");
+                    return;
+                }
+                matches.forEach((c) => {
+                    const li = document.createElement("li");
+                    li.className = "px-4 py-2 cursor-pointer hover:bg-gray-200";
+                    li.textContent = `${c.city}, ${c.country}`;
+                    li.addEventListener("mousedown", (e) => {
+                        e.preventDefault();
+                        cityInput.value = c.city;
+                        suggestions.classList.add("hidden");
+                    });
+                    suggestions.appendChild(li);
+                });
+                suggestions.classList.remove("hidden");
+            });
+            // Removed blur handler for better UX
+        }
     </script>
 
     <!-- Authentication Guard -->
     <script type="module">
-      import { initAuthGuard } from "../../js/auth/authGuard.js";
-      initAuthGuard();
+        import { initAuthGuard } from "../../js/auth/authGuard.js";
+        initAuthGuard();
     </script>
-  </body>
+</body>
+
 </html>

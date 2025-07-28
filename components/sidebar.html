@@ -1,3 +1,37 @@
+<!-- Left Drawer Overlay -->
+<div id="left-drawer-overlay"
+  class="fixed inset-0 z-40 bg-transparent bg-opacity-50 hidden transition-opacity duration-300"></div>
+
+<!-- Left Drawer Panel -->
+<div id="left-drawer"
+  class="fixed top-0 left-0 z-50 h-full w-full transform -translate-x-full transition-transform duration-300 flex">
+  <!-- Solid Left Section -->
+  <div
+    class="w-[20%] backdrop-blur-lg p-8 flex flex-col justify-start border-1 border-l-0 border-gray-300/10 shadow-gray-800/50 shadow-2xl rounded-tr-2xl rounded-br-2xl">
+    <div class="text-white flex justify-between items-center border-b border-gray-200/30 pb-4">
+      <img src="/src/asset/images/logo.png" alt="Logo" class="h-8 object-contain" />
+
+      <img id="left-drawer-close" src="/src/asset/images/times-logo.png" alt="Close Button"
+        class="h-8 object-contain" />
+    </div>
+
+    <div id="drawer-menu" class="text-gray-300 mt-4 flex flex-col gap-4">
+      <!-- Menu will be injected here -->
+    </div>
+
+    <!-- Sign Out in Left Drawer -->
+    <div class="mt-auto pt-4 border-t border-gray-200/30">
+      <button id="signOutNav"
+        class="flex w-full items-center gap-3 text-gray-200 hover:bg-gradient-to-bl hover:rounded-xl hover:px-3 hover:shadow-sm shadow-gray-600 py-2.5 from-[#F59275] to-[#F1647A] transition-colors">
+        <i class="fas fa-sign-out-alt text-xl"></i>
+        <span class="text-md font-medium">Sign Out</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ----------------------- -->
+
 <!-- Mobile sidebar toggle button -->
 <button id="sidebar-toggle" class="fixed top-6 left-6 z-50 p-2 text-white rounded-lg hidden w-full"
   aria-label="Open menu" type="button" style="background: #2a2f3c; width: 100%">
@@ -9,18 +43,14 @@
 
 <!-- Desktop Sidebar -->
 <aside id="sidebar"
-  class="fixed top-0 border-1 border-l-0 border-gray-600/30 shadow-lg drop-shadow-md shadow-[#0e1017]/70 rounded-tr-2xl rounded-br-2xl left-0 z-40 flex-shrink-0 flex-col items-center hidden lg:flex transform -translate-x-full lg:translate-x-0 transition-transform duration-300 w-full"
-  style="
-    background: #1a1f2c;
-    width: 100%;
-    max-width: 80px;
-    height: 900px;
-  " aria-label="Sidebar">
-  <!-- Navigation Icons -->
-  <nav class="flex flex-col items-center space-y-3 w-full pt-6 pb-10 gap-3">
+  class="fixed top-0 left-0 z-40 flex flex-col items-center w-full max-w-[80px] h-screen bg-[#1a1f2c] border-l border-gray-500/30 shadow-lg rounded-tr-2xl rounded-br-2xl hidden md:flex transition-transform duration-300"
+  aria-label="Sidebar">
+
+  <nav class="flex flex-col items-center w-full h-full pt-6 pb-4">
+
     <!-- Logo/Brand -->
     <button id="desktop-sidebar-btn"
-      class="flex items-center justify-center hover:bg-gray-800 transition-all w-15 h-15 rounded-lg">
+      class="flex items-center justify-center hover:bg-gray-800 transition-all w-15 h-15 rounded-lg mb-6">
       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 67 67" fill="none" class="w-10 h-10">
         <path
           d="M25.1673 41.0269C26.7541 42.3252 26.9386 44.6993 25.647 46.2573C24.9089 47.1105 23.8388 47.5927 22.8055 47.5927C21.9567 47.5927 21.1079 47.296 20.4437 46.7024L8.45021 36.6126C7.45383 35.7965 7.011 34.5724 7.15861 33.3854C7.011 32.1983 7.45383 30.9742 8.45021 30.1581L20.4437 20.0312C21.9936 18.7329 24.3185 18.9183 25.647 20.5134C26.9386 22.0714 26.7541 24.4084 25.1673 25.7438L16.0891 33.3854L25.1673 41.0269Z"
@@ -43,88 +73,76 @@
       </svg>
     </button>
 
-    <!-- Search -->
-    <!-- <button class="w-10 h-10 flex items-center justify-center text-white hover:bg-gray-800 rounded-lg transition-all">
-      <i class="fas fa-search text-2xl"></i>
-    </button> -->
+    <div class="w-3/5 border-t border-gray-500 my-2"></div>
 
-    <!-- Crown/Premium -->
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
-      <i class="fas fa-crown text-2xl"></i>
-    </button>
+    <!-- Main menu icons, evenly spaced -->
+    <div class="flex flex-col justify-evenly items-center flex-grow w-full">
 
-    <!-- Grid/Apps -->
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
-      <i class="fas fa-th text-2xl"></i>
-    </button>
+      <!-- Home -->
+      <a href="/views/home/index.html" title="Home"
+        class="group w-full flex flex-col items-center justify-center text-gray-200 transition-all">
+        <img src="/src/asset/images/Crown.png" alt="Home" class="w-10 h-10 transition-opacity duration-300" />
+        <!-- <span class="text-xs text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Home</span> -->
+      </a>
 
-    <!-- Play/Video -->
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
-      <i class="fas fa-play text-2xl"></i>
-    </button>
+      <!-- Games -->
+      <a href="/views/game/games.html" title="Games"
+        class="group w-full flex flex-col items-center justify-center text-gray-200 transition-all">
+        <img src="/src/asset/images/classic 1.png" alt="Games" class="w-10 h-10 transition-opacity duration-300" />
+        <!-- <span class="text-xs text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Games</span> -->
+      </a>
 
-    <!-- Book/Help -->
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
-      <i class="fas fa-book text-2xl"></i>
-    </button>
+      <div class="w-3/5 border-t border-gray-500 my-2"></div>
 
-    <!-- Rocket/Launch -->
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
-      <i class="fas fa-rocket text-2xl"></i>
-    </button>
+      <!-- Events -->
+      <a href="/views/event/event.html" title="Events"
+        class="group w-full flex flex-col items-center justify-center text-gray-200 transition-all">
+        <img src="/src/asset/images/event-2.png" alt="Events" class="w-10 h-10 transition-opacity duration-300" />
+        <!-- <span class="text-xs text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Events</span> -->
+      </a>
 
-    <!-- Calendar -->
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
-      <i class="fas fa-calendar text-2xl"></i>
-    </button>
+      <!-- Calendar -->
+      <a href="/views/event/calendar.html" title="Calendar"
+        class="group w-full flex flex-col items-center justify-center text-gray-200 transition-all">
+        <img src="/src/asset/images/event.png" alt="Calendar" class="w-10 h-10 transition-opacity duration-300" />
+        <!-- <span class="text-xs text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Calendar</span> -->
+      </a>
 
-    <!-- Bell/Notifications -->
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
-      <i class="fas fa-bell text-2xl"></i>
-    </button>
+      <!-- Bookmarks -->
+      <a href="/views/bookmarks/bookmark.html" title="Bookmarks"
+        class="group w-full flex flex-col items-center justify-center text-gray-200 transition-all">
+        <img src="/src/asset/images/bookmark.png" alt="Home" class="w-10 h-10 transition-opacity duration-300" />
+        <!-- <span class="text-xs text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Bookmarks</span> -->
+      </a>
 
-    <!-- Settings -->
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
-      <i class="fas fa-cog text-2xl"></i>
-    </button>
+      <div class="w-3/5 border-t border-gray-500 my-2"></div>
 
-    <button class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
-      <i class="fas fa-user text-2xl"></i>
-    </button>
+      <!-- Settings -->
+      <a href="/views/user/preferences.html" title="Settings"
+        class="group w-full flex flex-col items-center justify-center text-gray-200 transition-all">
+        <img src="/src/asset/images/setting.png" alt="Home" class="w-10 h-10 transition-opacity duration-300" />
+        <!-- <span class="text-xs text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Settings</span> -->
+      </a>
+
+      <!-- Profile -->
+      <a href="/views/user/profile.html" title="Profile"
+        class="group w-full flex flex-col items-center justify-center text-gray-200 transition-all">
+        <img src="/src/asset/images/profile.png" alt="Home" class="w-10 h-10 transition-opacity duration-300" />
+        <!-- <span class="text-xs text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Profile</span> -->
+      </a>
+
+      <div class="w-3/5 border-t border-gray-500 my-2"></div>
+
+    </div>
+
+    <!-- Sign Out at the bottom -->
+    <div class="pt-6">
+      <button id="signOut"
+        class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A] rounded-lg transition-all"
+        title="Sign Out">
+        <i class="fas fa-sign-out-alt text-2xl"></i>
+      </button>
+    </div>
+
   </nav>
-
-  <!-- Spacer to push user to bottom -->
-  <div class="flex-1"></div>
-
-  <!-- User Profile at Bottom -->
-  <!-- <div class="mt-auto pb-1">
-    <button class="w-10 h-10 flex items-center justify-center text-white hover:bg-gray-800 rounded-lg transition-all">
-      <i class="fas fa-user text-2xl"></i>
-    </button>
-  </div> -->
 </aside>
-
-<!-- Left Drawer Overlay -->
-<div id="left-drawer-overlay"
-  class="fixed inset-0 z-40 bg-transparent bg-opacity-50 hidden transition-opacity duration-300">
-</div>
-
-<!-- Left Drawer Panel -->
-<div id="left-drawer"
-  class="fixed top-0 left-0 z-50 h-full w-full transform -translate-x-full transition-transform duration-300 flex">
-
-  <!-- Solid Left Section -->
-  <div
-    class="w-[20%] backdrop-blur-lg p-8 flex flex-col justify-start border-1 border-l-0 border-gray-300/10 shadow-gray-800/50 shadow-2xl rounded-tr-2xl rounded-br-2xl">
-    <div class="text-white flex justify-between items-center border-b border-gray-200/30 pb-4">
-      <img src="/src/asset/images/logo.png" alt="Logo" class="h-8 object-contain" />
-
-      <img id="left-drawer-close" src="/src/asset/images/times-logo.png" alt="Close Button"
-        class="h-8 object-contain" />
-    </div>
-
-    <div id="drawer-menu" class="text-gray-300 mt-4 flex flex-col gap-4">
-      <!-- Menu will be injected here -->
-    </div>
-  </div>
-</div>

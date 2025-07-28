@@ -1,257 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Luma | Home</title>
 
-    <!-- Tailwind CSS -->
-    <link href="../../src/output.css" rel="stylesheet" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Luma | Home</title>
 
-    <!-- Font Awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
+  <!-- PWA Meta Tags -->
+  <meta name="description" content="Discover, organize, and connect with board game enthusiasts" />
+  <meta name="theme-color" content="#F59275" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Luma" />
+  <meta name="msapplication-TileColor" content="#F59275" />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json" />
 
-    <!-- Custom Styles -->
-    <style>
-      .gradient-text {
-        background: linear-gradient(269deg, #f59275 24.95%, #f1647a 87.01%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-    </style>
-  </head>
+  <!-- Apple Touch Icons -->
+  <link rel="apple-touch-icon" href="/src/asset/images/logo.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/src/asset/images/logo.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/src/asset/images/logo.png" />
+  <link rel="apple-touch-icon" sizes="167x167" href="/src/asset/images/logo.png" />
 
-  <body class="text-white font-nunito px-6">
-    <div data-component="sidebar"></div>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/src/asset/images/logo.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/src/asset/images/logo.png" />
+  <link rel="shortcut icon" href="/src/asset/images/Luma - Icon 1.png" />
 
-    <header class="relative">
-      <div id="hero-container" data-component="hero"></div>
-    </header>
+  <!-- Tailwind CSS -->
+  <link href="../../src/output.css" rel="stylesheet" />
 
-    <main class="flex-1">
-      <div
-        class="flex font-nunito p-4 md:p-10 bg-[#1A1F2C] flex-col min-h-screen"
-      >
-        <div class="px-4 sm:px-6 lg:px-20 py-4">
-          <section class="space-y-16 rounded-lg">
-            <!-- Events Section -->
-            <div class="w-full">
-              <!-- Events Header with Gradient Background -->
-              <div class="pl-4 sm:px-6 lg:px-12 space-y-16 rounded-lg">
-                <a href="/views/event/event.html">
-                  <h2
-                    class="text-2xl font-bold mb-6 flex-shrink-0 font-nunito text-[64px] luma-gradient"
-                  >
-                    Events
-                  </h2>
-                </a>
-              </div>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
-              <!-- Events Content -->
-              <div class="pl-4 sm:px-6 lg:px-12">
-                <!-- Trending Events -->
-                <div class="mb-10">
-                  <h3
-                    class="mb-4 flex-shrink-0 font-nunito text-[32px] font-bold text-[#FFA489]"
-                  >
-                    Trending
-                  </h3>
-                  <div class="scroll-container overflow-x-auto pb-4">
-                    <div
-                      id="trendingEventsGrid"
-                      class="flex space-x-4 min-w-max"
-                    ></div>
-                  </div>
-                </div>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+</head>
 
-                <!-- Upcoming Events -->
-                <div>
-                  <h3
-                    class="mb-4 flex-shrink-0 font-nunito text-[32px] font-bold text-[#FFA489]"
-                  >
-                    Upcoming
-                  </h3>
-                  <div class="scroll-container overflow-x-auto pb-4">
-                    <div
-                      id="upcomingEventsGrid"
-                      class="flex space-x-4 min-w-max"
-                    ></div>
-                  </div>
-                </div>
+<body class="bg-[#1A1F2C] font-nunito text-white min-h-screen">
+  <div data-component="mobilenavbar"></div>
+  <div data-component="sidebar"></div>
+  <header class="relative">
+    <div id="hero-container" data-component="hero"></div>
+  </header>
+  <div class="flex-1 flex flex-col min-h-screen md:ml-[90px] pt-10">
+    <main class="flex-1 p-4 md:py-10 md:px-20">
+      <!-- Events Section -->
+      <div class="w-full md:mb-16 md:px-4">
+        <a href="/views/event/event.html">
+          <h2 class="font-bold mb-6 luma-gradient text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+            Events
+          </h2>
+        </a>
+
+        <!-- Trending Events -->
+        <div class="mb-10">
+          <h3 class="mb-4 font-bold text-[#FFA489] text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+            Trending
+          </h3>
+
+          <div class="relative">
+            <!-- Left Scroll Button -->
+            <button id="scrollLeftTrending"
+              class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
+              <i class="fa-solid fa-angle-left"></i>
+            </button>
+
+            <!-- Scrollable container -->
+            <div id="trendingScrollWrapper" class="overflow-x-auto scroll-smooth pb-4 scroll-hide">
+              <div id="trendingEventsGrid" class="flex gap-3 md:gap-6 min-w-max">
+                <!-- Dynamic cards injected here -->
               </div>
             </div>
 
-            <!-- Games Section -->
-            <div class="w-full">
-              <!-- Games Header with Gradient Background -->
-              <div class="px-4 sm:px-6 lg:px-12 space-y-16 rounded-lg">
-                <h2
-                  class="text-2xl font-bold mb-6 flex-shrink-0 font-nunito text-[64px] luma-gradient"
-                >
-                  Games
-                </h2>
-              </div>
+            <!-- Right Scroll Button -->
+            <button id="scrollRightTrending"
+              class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
+              <i class="fa-solid fa-angle-right"></i>
+            </button>
+          </div>
+        </div>
 
-              <!-- Games Content -->
-              <div class="px-4 sm:px-6 lg:px-12">
-                <!-- Trending Games -->
-                <div class="mb-10">
-                  <h3
-                    class="mb-4 flex-shrink-0 font-nunito text-[32px] font-bold text-[#FFA489]"
-                  >
-                    Trending
-                  </h3>
+        <!-- Upcoming Events -->
+        <div class="mb-10">
+          <h3 class="mb-4 font-bold text-[#FFA489] text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+            Upcoming
+          </h3>
 
-                  <!-- Loading state for games -->
-                  <div id="home-games-loading" class="text-center py-8">
-                    <div
-                      class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white"
-                    ></div>
-                    <p class="mt-2 text-gray-400">Loading games...</p>
-                  </div>
+          <div class="relative">
+            <!-- Left Scroll Button -->
+            <button id="scrollLeftUpcoming"
+              class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
+              <i class="fa-solid fa-angle-left"></i>
+            </button>
 
-                  <!-- Error state for games -->
-                  <div id="home-games-error" class="text-center py-8 hidden">
-                    <p class="text-red-400 mb-4">Failed to load games</p>
-                    <button
-                      id="retry-games"
-                      class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-                    >
-                      Retry
-                    </button>
-                  </div>
-
-                  <!-- Dynamic games container -->
-                  <div
-                    id="home-games-container"
-                    class="scroll-container overflow-x-auto pb-4 hidden"
-                  >
-                    <div class="flex space-x-4 min-w-max" id="home-games-list">
-                      <!-- Dynamic games will be inserted here -->
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Continue Learning -->
-                <div>
-                  <h3
-                    class="mb-4 flex-shrink-0 font-nunito text-[32px] font-bold text-[#FFA489]"
-                  >
-                    Continue Learning
-                  </h3>
-                  <div class="scroll-container overflow-x-auto pb-4">
-                    <div class="flex space-x-4 min-w-max">
-                      <div class="relative cursor-pointer">
-                        <div
-                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                        ></div>
-                        <div
-                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
-                          style="
-                            background-image: url('../../src/asset/images/helsinki.png');
-                            background-size: 103.925% 184.755%;
-                            background-position: -3.541px -22.94px;
-                          "
-                        ></div>
-                      </div>
-                      <div class="relative cursor-pointer">
-                        <div
-                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                        ></div>
-                        <div
-                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
-                          style="
-                            background-image: url('../../src/asset/images/map.png');
-                            background-size: 103.925% 184.755%;
-                            background-position: -3.541px -22.94px;
-                          "
-                        ></div>
-                      </div>
-                      <div class="relative cursor-pointer">
-                        <div
-                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                        ></div>
-                        <div
-                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
-                          style="
-                            background-image: url('../../src/asset/images/montreal.png');
-                            background-size: 103.925% 184.755%;
-                            background-position: -3.541px -22.94px;
-                          "
-                        ></div>
-                      </div>
-                      <div class="relative cursor-pointer">
-                        <div
-                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                        ></div>
-                        <div
-                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
-                          style="
-                            background-image: url('../../src/asset/images/seattle.png');
-                            background-size: 103.925% 184.755%;
-                            background-position: -3.541px -22.94px;
-                          "
-                        ></div>
-                      </div>
-                      <div class="relative cursor-pointer">
-                        <div
-                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                        ></div>
-                        <div
-                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
-                          style="
-                            background-image: url('../../src/asset/images/toronto.png');
-                            background-size: 103.925% 184.755%;
-                            background-position: -3.541px -22.94px;
-                          "
-                        ></div>
-                      </div>
-                      <div class="relative cursor-pointer">
-                        <div
-                          class="absolute inset-0 opacity-50 rounded-[30px] transform translate-x-4 translate-y-4 blur-lg z-0"
-                        ></div>
-                        <div
-                          class="relative bg-gray-300 rounded-[30px] shadow flex-shrink-0 overflow-hidden flex justify-center items-center w-[297px] h-[297px] aspect-square bg-cover bg-center bg-no-repeat z-10"
-                          style="
-                            background-image: url('../../src/asset/images/vancouver.png');
-                            background-size: 103.925% 184.755%;
-                            background-position: -3.541px -22.94px;
-                          "
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <!-- Scrollable container -->
+            <div id="upcomingScrollWrapper" class="overflow-x-auto scroll-smooth pb-4 scroll-hide">
+              <div id="upcomingEventsGrid" class="flex gap-3 md:gap-6 min-w-max">
+                <!-- Dynamic cards injected here -->
               </div>
             </div>
-          </section>
+
+            <!-- Right Scroll Button -->
+            <button id="scrollRightUpcoming"
+              class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
+              <i class="fa-solid fa-angle-right"></i>
+            </button>
+          </div>
         </div>
       </div>
-      <div data-component="footer"></div>
-    </main>
 
-    <script type="module">
-      import { initAuthGuard } from "../../js/auth/authGuard.js";
-      initAuthGuard();
-    </script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="../../service/gameService.js"></script>
-    <script src="../../js/inject.js"></script>
-    <script type="module" src="../../js/main.js"></script>
-    <script type="module" src="../../js/auth/signout.js"></script>
-    <script src="../../js/hero-carousel.js" defer></script>
-  </body>
+      <div class="w-full md:mb-16 md:px-4">
+        <h2 class="font-bold mb-6 luma-gradient text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+          Games
+        </h2>
+
+        <!-- Trending Games -->
+        <div class="mb-10">
+          <h3 class="mb-4 font-bold text-[#FFA489] text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+            Trending
+          </h3>
+
+          <!-- Loading State -->
+          <div id="home-games-loading" class="text-center py-8">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+            <p class="mt-2 text-gray-400">Loading games...</p>
+          </div>
+
+          <!-- Error State -->
+          <div id="home-games-error" class="text-center py-8 hidden">
+            <p class="text-red-400 mb-4">Failed to load games</p>
+            <button id="retry-games" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+              Retry
+            </button>
+          </div>
+
+          <div class="relative">
+            <!-- Left Scroll Button -->
+            <button id="scrollLeftGames"
+              class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
+              <i class="fa-solid fa-angle-left"></i>
+            </button>
+
+            <!-- Scrollable Games -->
+            <div id="home-games-container" class="overflow-x-auto pb-4 hidden scroll-hide">
+              <div id="home-games-list" class="flex gap-3 md:gap-6 min-w-max">
+                <!-- Cards injected here -->
+              </div>
+            </div>
+
+            <!-- Right Scroll Button -->
+            <button id="scrollRightGames"
+              class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
+              <i class="fa-solid fa-angle-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Random Games Scrollable Section -->
+        <div class="mb-10">
+          <h3 class="mb-4 font-bold text-[#FFA489] text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+            Continue Learning
+          </h3>
+
+          <div id="games-loading" class="text-center py-8">
+            <i class="fas fa-spinner fa-spin text-2xl text-gray-400"></i>
+            <p class="mt-2 text-gray-500">Loading games...</p>
+          </div>
+
+          <div id="games-error" class="hidden text-center py-8">
+            <i class="fas fa-exclamation-triangle text-2xl text-red-400"></i>
+            <p class="mt-2 text-red-500">
+              Error loading games. Please try again.
+            </p>
+            <button id="retry-games" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+              Retry
+            </button>
+          </div>
+
+          <div id="games-container" style="display: none" class="grid-cols-1 lg:grid-cols-2 gap-10 md:gap-6 px-4">
+            <!-- Grid-based games -->
+          </div>
+
+          <div class="relative">
+            <!-- Left Scroll Button -->
+            <button id="scrollLeftLearn"
+              class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
+              <i class="fa-solid fa-angle-left"></i>
+            </button>
+
+            <!-- Random Games Scrollable Section -->
+            <div class="flex overflow-x-auto gap-3 md:gap-6 pb-4 scroll-hide" id="random-games-container">
+              <!-- JS will inject 4 cards here -->
+            </div>
+
+            <!-- Right Scroll Button -->
+            <button id="scrollRightLearn"
+              class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
+              <i class="fa-solid fa-angle-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!--Footer section-->
+  <div data-component="footer"></div>
+
+  <!-- PWA Script -->
+  <script src="/js/pwa.js"></script>
+
+  <!-- External Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="../../service/gameService.js"></script>
+  <script type="module" src="../../js/main.js"></script>
+  <script src="/js/inject.js"></script>
+
+  <script type="module" src="../../js/auth/signout.js"></script>
+  <script type="module" src="../../js/mobile-navbar.js"></script>
+  <script src="../../js/hero-carousel.js" defer></script>
+
+  <script type="module">
+    import { loadRandomGames } from "../../js/main.js";
+    import { initScrollButtons } from "../../js/scroll-buttons.js";
+    window.addEventListener("DOMContentLoaded", () => {
+
+      loadRandomGames();
+
+      initScrollButtons({
+        containerId: "trendingScrollWrapper",
+        leftBtnId: "scrollLeftTrending",
+        rightBtnId: "scrollRightTrending",
+        scrollStep: 300,
+        autoScroll: true,
+        autoScrollInterval: 3000, // every 2s
+        initialScrollDelay: 1,  // start scroll quickly
+        autoScrollPauseOnHover: true,
+      });
+
+      initScrollButtons({
+        containerId: "upcomingScrollWrapper",
+        leftBtnId: "scrollLeftUpcoming",
+        rightBtnId: "scrollRightUpcoming",
+        scrollStep: 300,
+        autoScroll: true,
+        autoScrollInterval: 3000, // every 2s
+        initialScrollDelay: 1,  // start scroll quickly
+        autoScrollPauseOnHover: true,
+      });
+
+      initScrollButtons({
+        containerId: "home-games-container",
+        leftBtnId: "scrollLeftGames",
+        rightBtnId: "scrollRightGames",
+        scrollStep: 300,
+        autoScroll: true,
+        autoScrollInterval: 3000, // every 2s
+        initialScrollDelay: 1,  // start scroll quickly
+        autoScrollPauseOnHover: true,
+      });
+
+      initScrollButtons({
+        containerId: "random-games-container",
+        leftBtnId: "scrollLeftLearn",
+        rightBtnId: "scrollRightLearn",
+        scrollStep: 300,
+        autoScroll: true,
+        autoScrollInterval: 3000, // every 2s
+        initialScrollDelay: 1,  // start scroll quickly
+        autoScrollPauseOnHover: true,
+      });
+    });
+  </script>
+
+  <!-- Authentication Guard -->
+  <script type="module">
+    import { initAuthGuard } from "../../js/auth/authGuard.js";
+    initAuthGuard();
+  </script>
+</body>
+
 </html>

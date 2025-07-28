@@ -2,96 +2,66 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Night Cage Tutorial</title>
-  <link href="../../src/output.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luma | Tutorials</title>
+    <link href="../../src/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="shortcut icon" href="/src/asset/images/Luma - Icon 1.png" />
 </head>
 
-<body class="bg-gradient-to-br from-[#23293a] to-[#181D2B] text-white min-h-screen font-nunito">
-  <div data-component="sidebar"></div>
-  <main class="font-nunito flex justify-center items-center min-h-screen py-24">
-    <div class="flex flex-col md:flex-row  gap-10">
-      <!-- Image -->
-      <img
-        src="https://cf.geekdo-images.com/txQ7QzbQz89AO5BmVv7OqA__original/img/sj4Qg_VXKyNZFLftFjRv7p4-RKk=/0x0/filters:format(png)/pic5331288.png"
-        alt="The Night Cage" class="object-cover flex-shrink-0" style="
-            width: 611px;
-            height: 611px;
-            border-radius: 47px;
-            border: 1px solid #000;
-            background: url('https://cf.geekdo-images.com/txQ7QzbQz89AO5BmVv7OqA__original/img/sj4Qg_VXKyNZFLftFjRv7p4-RKk=/0x0/filters:format(png)/pic5331288.png')
-              lightgray 50% / cover no-repeat;
-          " />
-      <!-- Text Content -->
-      <div class="flex flex-col justify-center items-start max-w-lg w-full space-y-8">
-        <h1 class="font-extrabold" style="
-              width: 874px;
-              height: 87px;
-              flex-shrink: 0;
-              font-family: 'Nunito Sans', 'Nunito', sans-serif;
-              font-size: 64px;
-              font-style: normal;
-              font-weight: 800;
-              line-height: normal;
-              background: linear-gradient(
-                269deg,
-                #f59275 24.95%,
-                #f1647a 87.01%
-              );
-              background-clip: text;
-              -webkit-background-clip: text;
-              -webkit-text-fill-color: transparent;
-              color: transparent;
-            ">
-          The Night Cage Tutorial
-        </h1>
-        <p style="
-              width: 783px;
-              height: 141px;
-              flex-shrink: 0;
-              color: #fff;
-              font-family: 'Nunito Sans', 'Nunito', sans-serif;
-              font-size: 28px;
-              font-style: normal;
-              font-weight: 400;
-              line-height: normal;
-            ">
-          An interactive play-along tutorial to be used as a companion to the
-          actual tabletop game. This tutorial allows you to learn the game
-          while you play!
-        </p>
-        <button style="
-              display: flex;
-              width: 754px;
-              height: 104px;
-              padding: 24px 242px;
-              justify-content: center;
-              align-items: center;
-              gap: 10px;
-              flex-shrink: 0;
-              border-radius: 24px;
-              background: #2f364a;
-              box-shadow: 4px 4px 10px 0px #181d2b, -4px -4px 10px 0px #455374;
-              color: #fff;
-              font-family: 'Nunito Sans', 'Nunito', sans-serif;
-              font-size: 32px;
-              font-weight: 700;
-              border: none;
-              cursor: pointer;
-            ">
-          <svg xmlns="http://www.w3.org/2000/svg" style="width: 40px; height: 40px; margin-right: 16px"
-            fill="currentColor" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z" />
-          </svg>
-          Start Tutorial
-        </button>
-      </div>
+<body class="bg-[#1A1F2C] font-nunito text-white min-h-screen overflow-x-hidden">
+    <div data-component="sidebar"></div>
+
+    <div class="flex-1 flex flex-col min-h-screen md:ml-[90px] pt-10">
+        <main class="flex-1 p-4 md:py-10 md:px-20 max-w-full">
+            <div class="flex flex-col lg:flex-row gap-10 items-center md:items-center max-w-full">
+                <!-- Image Column -->
+                <div class="w-full lg:w-1/2">
+                    <img src="https://cf.geekdo-images.com/txQ7QzbQz89AO5BmVv7OqA__original/img/sj4Qg_VXKyNZFLftFjRv7p4-RKk=/0x0/filters:format(png)/pic5331288.png"
+                        alt="The Night Cage"
+                        class="w-full h-auto object-cover rounded-[32px] border border-black shadow-lg" />
+                </div>
+
+                <!-- Text Column -->
+                <div class="w-full lg:w-1/2 flex flex-col justify-center space-y-14">
+                    <h1
+                        class="font-extrabold text-[28px] md:text-[52px] bg-gradient-to-r from-[#f59275] via-[#f1647a] to-[#f1647a] bg-clip-text text-transparent leading-tight">
+                        The Night Cage Tutorial
+                    </h1>
+
+                    <p class="text-gray-400 text-base sm:text-lg md:text-xl">
+                        An interactive play-along tutorial to be used as a companion to the
+                        actual tabletop game. This tutorial allows you to learn the game
+                        while you play!
+                    </p>
+
+                    <a href="/views/tutorial/tutorial.html"
+                        style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+                        class="inline-flex items-center justify-center gap-4 mt-10 rounded-full bg-[#2f364a] px-8 py-4 md:px-12 md:py-6 shadow-md text-gray-200 text-lg md:text-2xl font-bold hover:bg-[#3A4258] transition-colors max-w-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 md:w-10 md:h-10" fill="currentColor"
+                            viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                        Start Tutorial
+                    </a>
+
+                </div>
+            </div>
+        </main>
     </div>
-  </main>
-  <div data-component="footer"></div>
+
+    <!-- Footer section -->
+    <div data-component="footer"></div>
+
+    <!-- External Scripts -->
+    <script src="../../js/inject.js"></script>
+
+    <!-- Authentication Guard -->
+    <script type="module">
+        import { initAuthGuard } from "../../js/auth/authGuard.js";
+        initAuthGuard();
+    </script>
 </body>
-<script src="../../js/inject.js"></script>
 
 </html>

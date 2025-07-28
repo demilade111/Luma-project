@@ -4,6 +4,8 @@ import {
   collection,
   addDoc,
   Timestamp,
+  doc,
+  getDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
@@ -156,6 +158,61 @@ async function handleCreateEvent() {
 
   const host_user_id = currentUser.uid;
 
+  // Fetch user profile details from Firestore
+  let userProfile = {};
+  try {
+    console.log("Fetching user profile for host_user_id:", host_user_id);
+    const userRef = doc(db, "users", host_user_id);
+    const userSnap = await getDoc(userRef);
+    console.log("User document exists:", userSnap.exists());
+
+    if (userSnap.exists()) {
+      const data = userSnap.data();
+      console.log("User data from Firestore:", data);
+      userProfile = {
+        username: data.username || "",
+        profileImg: data.profileImg || "",
+        email: data.email || "",
+        bio: data.bio || "",
+      };
+      console.log("Processed user profile:", userProfile);
+    } else {
+      console.log("User document does not exist in Firestore");
+      // Try to get user info from auth
+      userProfile = {
+        username:
+          currentUser.displayName ||
+          currentUser.email?.split("@")[0] ||
+          "Anonymous User",
+        profileImg: currentUser.photoURL || "",
+        email: currentUser.email || "",
+        bio: `${
+          currentUser.displayName ||
+          currentUser.email?.split("@")[0] ||
+          "Anonymous User"
+        } is an active event creator in our community.`,
+      };
+      console.log("Using auth user info as fallback:", userProfile);
+    }
+  } catch (err) {
+    console.error("Could not fetch user profile for event creation", err);
+    // Fallback to auth user info
+    userProfile = {
+      username:
+        currentUser.displayName ||
+        currentUser.email?.split("@")[0] ||
+        "Anonymous User",
+      profileImg: currentUser.photoURL || "",
+      email: currentUser.email || "",
+      bio: `${
+        currentUser.displayName ||
+        currentUser.email?.split("@")[0] ||
+        "Anonymous User"
+      } is an active event creator in our community.`,
+    };
+    console.log("Using auth user info as error fallback:", userProfile);
+  }
+
   const name = document.getElementById("eventName").value.trim();
   const location = document.getElementById("eventLocation").value.trim();
   const description = document.getElementById("eventDescription").value.trim();
@@ -193,6 +250,7 @@ async function handleCreateEvent() {
 
     const newEvent = {
       host_user_id,
+      user: userProfile, // Store user info in a 'user' object
       city_id: "city_456",
       name,
       location,
@@ -203,9 +261,14 @@ async function handleCreateEvent() {
       image_url: imageUrl,
       tags: tagArray,
       recurrence,
+      created_at: Timestamp.now(), // Add creation timestamp
     };
 
+    console.log("Creating new event with data:", newEvent);
+    console.log("Created at timestamp:", newEvent.created_at);
+
     await addDoc(collection(db, "events"), newEvent);
+    console.log("✅ Event created successfully with created_at timestamp");
     alert("✅ Event created successfully");
 
     [
@@ -261,4 +324,5 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("click", handleCreateEvent);
 
   loadGoogleMapsScript(); // load Google Maps AFTER window.initAutocomplete is defined
-});s
+});
+s;
