@@ -6,7 +6,31 @@
       "use": "@vercel/node"
     },
     {
-      "src": "views/(.*)",
+      "src": "*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "views/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "components/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "js/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "src/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "config/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "service/**/*",
       "use": "@vercel/static"
     }
   ],
@@ -17,7 +41,7 @@
     },
     {
       "src": "/",
-      "dest": "/views/home/index.html"
+      "dest": "/index.html"
     },
     {
       "src": "/(.*)",
