@@ -334,7 +334,7 @@ function updatePageContent(user, events) {
         <div class="mt-auto flex justify-start">
           <a href="post-event-details.html?id=${
             event.id
-          }" class="inline-block px-4 py-2 text-sm font-semibold text-white bg-pink-600 hover:bg-pink-700 rounded transition">
+          }" class="inline-block px-4 py-2 text-sm font-semibold text-white bg-gradient-to-b from-[#F59275] to-[#F1647A] rounded-2xl transition">
             View Event
           </a>
         </div>

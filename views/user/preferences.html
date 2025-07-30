@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luma | Profile</title>
+    <title>Luma | Settings</title>
     <link href="../../src/output.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="shortcut icon" href="/src/asset/images/Luma - Icon 1.png" />
 </head>
 
 <body class="bg-[#1A1F2C] font-nunito text-white min-h-screen">
@@ -14,28 +15,35 @@
 
     <div class="flex-1 flex flex-col min-h-screen md:ml-[90px] pt-10">
         <main class="flex-1 p-4 md:py-10 md:px-20">
-            <h1 class="text-[42px] luma-gradient font-bold mb-12">Preferences</h1>
+            <h1 class="text-[42px] luma-gradient font-bold mb-12">Settings</h1>
 
             <!-- Responsive Two Column -->
-            <div class="flex flex-col md:flex-row gap-6">
+            <div class="flex flex-col lg:flex-row gap-6">
                 <!-- Left Menu - 40% -->
-                <div class="w-full md:w-2/5 bg-[#2A2F45] rounded-xl p-4 space-y-4">
-                    <button onclick="showContent('categories')" data-menu-button="categories"
-                        class="bg-gradient-to-bl text-left w-full text-xl px-6 rounded-xl py-3.5 text-gray-200 font-medium cursor-pointer shadow-sm">
-                        Categories
+                <div class="w-full lg:w-2/5 bg-[#2A2F45] rounded-xl p-4 space-y-4 flex flex-col h-full">
+                    <button onclick="showContent('preferences')" data-menu-button="preferences"
+                        class="bg-gradient-to-bl text-left w-full text-xl px-6 rounded-xl py-3.5 text-gray-200 font-medium cursor-pointer shadow-sm hover:shadow-md hover:to-[#F59275] hover:from-[#F1647A] transition-all duration-300 flex-grow">
+                        Preferences
                     </button>
 
                     <a href="/views/event/calendar.html"
-                        class="bg-gradient-to-bl text-left block text-xl px-6 rounded-xl py-3.5 text-gray-200 font-medium cursor-pointer shadow-sm hover:shadow-md hover:from-[#F59275] hover:to-[#F1647A] transition-all duration-300">
+                        class="bg-gradient-to-bl text-left block text-xl px-6 rounded-xl py-3.5 text-gray-200 font-medium cursor-pointer shadow-sm hover:shadow-md hover:to-[#F59275] hover:from-[#F1647A] transition-all duration-300 flex-grow">
                         Subscriptions
                     </a>
+
+                    <!-- New Support Tab -->
+                    <button onclick="showContent('support')" data-menu-button="support"
+                        class="bg-gradient-to-bl text-left w-full text-xl px-6 rounded-xl py-3.5 text-gray-200 font-medium cursor-pointer shadow-sm hover:shadow-md hover:to-[#F59275] hover:from-[#F1647A] transition-all duration-300 flex-grow">
+                        Support
+                    </button>
                 </div>
 
                 <!-- Right Content - 60% -->
-                <div class="w-full md:w-3/5 bg-[#2A2F45] rounded-xl p-6 min-h-[200px]" id="content-area">
+                <div class="w-full lg:w-3/5 bg-[#2A2F45] rounded-xl p-10 min-h-[200px]" id="content-area">
                     <p>Select a menu item to view content.</p>
                 </div>
             </div>
+
         </main>
     </div>
 
@@ -65,12 +73,10 @@
                     "shadow-gray-600",
                     "bg-gradient-to-r"
                 );
-                btn.classList.add("bg-[#3A3F5C]");
             });
 
             const activeButton = document.querySelector(`[data-menu-button="${section}"]`);
             if (activeButton) {
-                activeButton.classList.remove("bg-[#3A3F5C]");
                 activeButton.classList.add(
                     "to-[#F59275]",
                     "from-[#F1647A]",
@@ -81,54 +87,72 @@
                 );
             }
 
-            if (section === "categories") {
+            // Categories Section
+            if (section === "preferences") {
                 const categories = [
-                    "Fantasy",
-                    "Horror",
-                    "Maze",
-                    "Civilization",
-                    "Expansion for Base-game",
-                    "Fan Expansion",
-                    "Negotiation",
-                    "Medieval",
-                    "Ancient",
-                    "Card Game",
-                    "Dice",
-                    "Print & Play",
-                    "City Building",
-                    "Economic",
-                    "Abstract Strategy",
-                    "Renaissance",
-                    "Animals",
-                    "Bluffing",
-                    "Deduction",
-                    "Party Game",
+                    "Fantasy", "Horror", "Maze", "Civilization", "Expansion for Base-game",
+                    "Fan Expansion", "Negotiation", "Medieval", "Ancient", "Card Game",
+                    "Dice", "Print & Play", "City Building", "Economic", "Abstract Strategy",
+                    "Renaissance", "Animals", "Bluffing", "Deduction", "Party Game",
                 ];
 
                 contentArea.innerHTML = `
-                    <h2 class="text-xl font-semibold mb-6 luma-gradient">Select Categories</h2>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-6" id="category-grid">
-                        ${categories
+        <h2 class="text-xl font-semibold mb-6 luma-gradient">Select Categories</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-6" id="category-grid">
+            ${categories
                         .map(
                             (cat) => `
-                        <div onclick="toggleCategory('${cat}')"
-                            class="category-card bg-[#3A3F5C] h-24 flex items-center justify-center text-center rounded-xl px-4 py-3 text-sm font-medium text-gray-100 shadow hover:bg-[#4A4F6C] transition cursor-pointer"
-                            data-category="${cat}">
-                            ${cat}
-                        </div>
-                        `
+            <div onclick="toggleCategory('${cat}')"
+                class="category-card bg-[#3A3F5C] h-24 flex items-center justify-center text-center rounded-xl px-4 py-3 text-sm font-medium text-gray-100 shadow hover:bg-[#4A4F6C] transition cursor-pointer max-w-full overflow-hidden"
+                data-category="${cat}">
+                <div class="line-clamp-2">${cat}</div>
+            </div>
+            `
                         )
                         .join("")}
-                    </div>
-                    <button onclick="saveCategories()" class="px-6 py-2 bg-[#F1647A] hover:bg-[#F59275] rounded-xl font-semibold shadow text-white transition">
-                        Save
-                    </button>
-                `;
+        </div>
+        <button onclick="saveCategories()" class="px-6 py-2 bg-[#F1647A] hover:bg-[#F59275] rounded-xl font-semibold shadow text-white transition">
+            Save
+        </button>
+    `;
 
-                // example: after categories are rendered
                 setTimeout(async () => {
                     await loadUserCategories();
                 }, 0);
+            }
+
+            // Support Section
+            if (section === "support") {
+                contentArea.innerHTML = `
+                    <h2 class="text-3xl font-medium text-gray-200 mb-4 mt-6">
+                        Having trouble with the app or a board game? We're here to help!
+                    </h2>
+                    <p class="text-gray-400">Can’t find players? Confused by a rule?</p>
+                    <p class="text-gray-400">
+                        Whether it’s a bug, or a game tutorial that isn’t loading — we’ve got your back.
+                    </p>
+                    <p class="text-gray-400">
+                        Check our FAQ or reach out directly. We’ll get you playing again in no time.
+                    </p>
+
+                    <!-- Left: Image (Full Width) -->
+                    <div class="w-full mt-8">
+                        <img
+                            src="/src/asset/images/support.jpg"
+                            alt="Support Image"
+                            class="w-full h-auto object-cover rounded-2xl"
+                        />
+                    </div>
+
+                    <!-- Right: Content -->
+                    <div class="flex flex-col sm:flex-row gap-4 mt-8 mb-5">
+                        <button
+                            style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
+                            class="border border-gray-700 rounded-xl px-6 py-2 bg-gradient-to-r from-[#F1647A] to-[#F59275] text-gray-200 cursor-pointer hover:bg-[#3A4258] transition-colors">
+                            Browse FAQ
+                        </button>
+                    </div>
+                `;
             }
         }
 
@@ -137,7 +161,7 @@
 
         // Load default section
         window.onload = () => {
-            showContent("categories");
+            showContent("preferences");
         };
     </script>
 

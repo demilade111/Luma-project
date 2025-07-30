@@ -180,7 +180,7 @@ function renderGamesWithPagination() {
   if (hasMoreGames) {
     const viewMoreButton = `
       <div class="col-span-full flex justify-center mt-8">
-        <button id="view-more-games" class="px-8 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+        <button id="view-more-games" class="px-8 py-3 bg-gradient-to-r to-[#f59275] from-[#f1647a] text-gray-200 rounded-xl transition-colors">
           View More Games 
         </button>
       </div>

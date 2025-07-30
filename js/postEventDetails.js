@@ -39,19 +39,43 @@ function formatDateTime(ts) {
 
 async function renderEventDetails() {
   if (!eventId) return;
+
   const eventDoc = await getDoc(doc(db, "events", eventId));
   if (!eventDoc.exists()) return;
+
   const event = eventDoc.data();
 
+  // Set event name and description
   document.getElementById("eventName").textContent = event.name || "";
   document.getElementById("eventDescription").textContent =
     event.description || "";
-  document.getElementById("eventImage").src = event.image_url || "";
-  if (document.getElementById("eventCapacity"))
-    document.getElementById("eventCapacity").textContent = event.capacity || "";
 
+  // Image handling with loading text
+  const eventImage = document.getElementById("eventImage");
+  const loadingText = document.getElementById("imageLoadingText");
+
+  if (eventImage) {
+    eventImage.src = event.image_url || "https://via.placeholder.com/600x600?text=No+Image";
+
+    eventImage.onload = () => {
+      if (loadingText) loadingText.style.display = "none";
+      eventImage.classList.remove("opacity-0");
+      eventImage.classList.add("opacity-100");
+    };
+
+    eventImage.onerror = () => {
+      if (loadingText) loadingText.textContent = "Failed to load image";
+    };
+  }
+
+  // Capacity
+  const capacityEl = document.getElementById("eventCapacity");
+  if (capacityEl) capacityEl.textContent = event.capacity || "";
+
+  // Start and end time
   const start = formatDateTime(event.start_time);
   const end = formatDateTime(event.end_time);
+
   const startTimeEl = document.getElementById("eventStartTime");
   const endTimeEl = document.getElementById("eventEndTime");
   const locationEl = document.getElementById("eventLocation");
@@ -64,12 +88,10 @@ async function renderEventDetails() {
         </div>
         <div class="flex flex-col">
           <span class="font-bold text-white">${start.dateStr || ""}</span>
-          <span class="text-gray-300">${start.timeStr || ""}${
-      end.timeStr ? " - " + end.timeStr : ""
-    }</span>
+          <span class="text-gray-300">${start.timeStr || ""}${end.timeStr ? " - " + end.timeStr : ""}</span>
         </div>
       </div>`;
-    endTimeEl.innerHTML = "";
+    endTimeEl.innerHTML = ""; // You can remove this line if you want to show endTime
     locationEl.innerHTML = `
       <div class="flex items-center gap-3 mt-2">
         <i class="fas fa-map-marker-alt text-2xl text-white"></i>
@@ -83,31 +105,40 @@ async function renderEventDetails() {
   const mapDiv = document.getElementById("eventMap");
   if (mapDiv && event.location) {
     // Geocode the address to lat/lng using Nominatim
-    fetch(
-      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-        event.location
-      )}`
-    )
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(event.location)}`)
       .then((res) => res.json())
       .then((data) => {
         if (data && data.length > 0) {
           const lat = parseFloat(data[0].lat);
           const lon = parseFloat(data[0].lon);
           mapDiv.innerHTML = ""; // Clear previous content
+
           // Create map
           const map = L.map(mapDiv).setView([lat, lon], 15);
           L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution:
-              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
           }).addTo(map);
+
           // Add marker
           L.marker([lat, lon]).addTo(map).bindPopup(event.location).openPopup();
         } else {
-          mapDiv.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500"><div class="text-center"><i class="fas fa-map-marker-alt text-4xl mb-2"></i><p>Location not found</p></div></div>`;
+          mapDiv.innerHTML = `
+            <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500">
+              <div class="text-center">
+                <i class="fas fa-map-marker-alt text-4xl mb-2"></i>
+                <p>Location not found</p>
+              </div>
+            </div>`;
         }
       })
       .catch(() => {
-        mapDiv.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500"><div class="text-center"><i class="fas fa-map-marker-alt text-4xl mb-2"></i><p>Map error</p></div></div>`;
+        mapDiv.innerHTML = `
+          <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500">
+            <div class="text-center">
+              <i class="fas fa-map-marker-alt text-4xl mb-2"></i>
+              <p>Map error</p>
+            </div>
+          </div>`;
       });
   } else if (mapDiv) {
     // Show placeholder if no location is available
@@ -117,10 +148,10 @@ async function renderEventDetails() {
           <i class="fas fa-map-marker-alt text-4xl mb-2"></i>
           <p>Location not available</p>
         </div>
-      </div>
-    `;
+      </div>`;
   }
 }
+
 
 // --- Registration Logic ---
 async function registerForEvent(eventId, user) {
@@ -191,9 +222,8 @@ function setupRegistration() {
         if (names.length <= 2) {
           goingListEl.textContent = names.join(", ");
         } else {
-          goingListEl.textContent = `${names[0]}, ${names[1]} and ${
-            names.length - 2
-          } others`;
+          goingListEl.textContent = `${names[0]}, ${names[1]} and ${names.length - 2
+            } others`;
         }
       }
     }
@@ -201,12 +231,14 @@ function setupRegistration() {
     const isRegistered = attendees.some((a) => a.userId === user.userId);
     if (isRegistered) {
       registerBtn.textContent = "Registered";
-      registerBtn.classList.add("bg-green-600", "text-white");
-      registerBtn.classList.remove("bg-[#2F364A]", "hover:bg-[#3A4258]");
+      registerBtn.classList.remove("bg-[#2F364A]", "hover:bg-[#3A4258]", "text-gray-200");
+      registerBtn.classList.add("luma-gradient");
+
     } else {
       registerBtn.textContent = "Register";
-      registerBtn.classList.remove("bg-green-600", "text-white");
-      registerBtn.classList.add("bg-[#2F364A]", "hover:bg-[#3A4258]");
+
+      registerBtn.classList.add("bg-[#2F364A]", "hover:bg-[#3A4258]", "text-gray-200");
+      registerBtn.classList.remove("luma-gradient");
     }
     registerBtn.disabled = false;
   });
@@ -323,17 +355,24 @@ function setupAddToCalendar() {
   function setAddState() {
     addToCalendarBtn.disabled = false;
     addToCalendarBtn.textContent = "Add to Calendar";
+
+    // Reset to default style
+    addToCalendarBtn.classList.remove("luma-gradient");
+    addToCalendarBtn.classList.add("bg-[#2F364A]", "hover:bg-[#3A4258]", "text-gray-200");
+
     addToCalendarBtn.onclick = async () => {
       addToCalendarBtn.disabled = true;
       try {
         const eventDoc = await getDoc(doc(db, "events", eventId));
         if (!eventDoc.exists()) throw new Error("Event not found");
+
         const event = eventDoc.data();
         await setDoc(calendarRef, {
           ...event,
           eventId,
           addedAt: new Date(),
         });
+
         setAddedState();
         alert("Event added to calendar");
       } catch (err) {
@@ -342,9 +381,15 @@ function setupAddToCalendar() {
       }
     };
   }
+
   function setAddedState() {
     addToCalendarBtn.disabled = false;
     addToCalendarBtn.textContent = "Added to Calendar";
+
+    // Apply "active" styling
+    addToCalendarBtn.classList.remove("bg-[#2F364A]", "hover:bg-[#3A4258]", "text-gray-200");
+    addToCalendarBtn.classList.add("luma-gradient");
+
     addToCalendarBtn.onclick = async () => {
       addToCalendarBtn.disabled = true;
       try {
@@ -357,6 +402,7 @@ function setupAddToCalendar() {
       }
     };
   }
+
   getDoc(calendarRef).then((docSnap) => {
     if (docSnap.exists()) {
       setAddedState();

@@ -1,3 +1,39 @@
+<!-- Mobile Navigation Bar -->
+<nav class="block md:hidden">
+  <div class="flex justify-between items-center p-4">
+    <!-- Logo Section -->
+    <div class="text-xl ml-2">
+      <img src="/src/asset/images/logo.png" alt="Logo" class="h-8 object-contain" />
+    </div>
+
+    <!-- Menu Icon (Hamburger) -->
+    <div class="lg:hidden cursor-pointer">
+      <!-- Hamburger Icon -->
+      <img id="hamburger-menu" src="/src/asset/images/expand.png" alt="Expand" class="h-10 object-contain" />
+    </div>
+  </div>
+</nav>
+
+<!-- Dropdown Menu -->
+<div id="dropdown-menu" class="fixed inset-0 z-50 bg-black bg-opacity-50 hidden flex items-center justify-center">
+  <div class="bg-white p-6 rounded-lg shadow-lg max-w-[90%] w-full md:w-[300px] space-y-4">
+    <!-- Close Button -->
+    <div id="close-menu" class="absolute top-4 right-4 cursor-pointer text-xl text-gray-700">
+      <i class="fas fa-times"></i>
+    </div>
+
+    <!-- Menu Items -->
+    <div class="flex flex-col space-y-3 text-center">
+      <a href="/home" class="text-lg text-gray-800 hover:text-blue-600">Home</a>
+      <a href="/about" class="text-lg text-gray-800 hover:text-blue-600">About</a>
+      <a href="/services" class="text-lg text-gray-800 hover:text-blue-600">Services</a>
+      <a href="/contact" class="text-lg text-gray-800 hover:text-blue-600">Contact</a>
+    </div>
+  </div>
+</div>
+
+<!-- ----------------------- -->
+
 <!-- Mobile sidebar toggle button -->
 <button id="sidebar-toggle" class="fixed top-6 left-6 z-50 p-2 text-white rounded-lg hidden w-full"
   aria-label="Open menu" type="button" style="background: #2a2f3c; width: 100%">
@@ -11,7 +47,6 @@
 <aside id="sidebar"
   class="fixed top-0 left-0 z-40 flex flex-col justify-between items-center w-full max-w-[80px] h-screen bg-[#1a1f2c] border-1 border-l-0 border-gray-600/30 shadow-lg drop-shadow-md shadow-[#0e1017]/70 rounded-tr-2xl rounded-br-2xl hidden md:flex transition-transform duration-300"
   aria-label="Sidebar">
-
   <!-- Navigation Icons -->
   <nav class="flex flex-col items-center space-y-5 pt-6 pb-4 w-full">
     <!-- Logo/Brand -->
@@ -42,45 +77,66 @@
     <!-- Menu Icons -->
 
     <!-- Crown -->
-    <a href="/views/home/index.html" title="Crown"
-      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A] rounded-lg transition-all">
-      <i class="fas fa-crown text-2xl"></i>
+    <a href="/views/home/index.html" title="Home"
+      class="group w-10 h-10 flex flex-col p-6 items-center justify-center text-gray-200 transition-all">
+      <i
+        class="fas fa-crown text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
+      <span
+        class="text-sm text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Home</span>
     </a>
 
     <!-- Games -->
-    <a href="/views/game/games.html" title="Apps"
-      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A] rounded-lg transition-all">
-      <i class="fas fa-th text-2xl"></i>
+    <a href="/views/game/games.html" title="Games"
+      class="group w-10 h-10 flex flex-col p-6 items-center justify-center text-gray-200 transition-all">
+      <i
+        class="fas fa-th text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
+      <span
+        class="text-sm text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Games</span>
     </a>
 
     <!-- Rocket -->
-    <a href="/views/event/event.html" title="Rocket"
-      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A] rounded-lg transition-all">
-      <i class="fas fa-rocket text-2xl"></i>
-    </a>
-
-    <!-- Play -->
-    <a href="/views/tutorial/tutorial.html" title="Play"
-      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A] rounded-lg transition-all">
-      <i class="fas fa-play text-2xl"></i>
+    <a href="/views/event/event.html" title="Events"
+      class="group w-10 h-10 flex flex-col p-6 items-center justify-center text-gray-200 transition-all">
+      <i
+        class="fas fa-rocket text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
+      <span
+        class="text-sm text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Events</span>
     </a>
 
     <!-- Calendar -->
     <a href="/views/event/calendar.html" title="Calendar"
-      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A] rounded-lg transition-all">
-      <i class="fas fa-calendar text-2xl"></i>
+      class="group w-10 h-10 flex flex-col p-6 items-center justify-center text-gray-200 transition-all">
+      <i
+        class="fas fa-calendar text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
+      <span
+        class="text-sm text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Calendar</span>
     </a>
 
     <!-- Bookmarks -->
-    <a href="/views/bookmarks/bookmark.html" title="Calendar"
-      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A] rounded-lg transition-all">
-      <i class="fa-solid fa-bookmark"></i>
+    <a href="/views/bookmarks/bookmark.html" title="Bookmarks"
+      class="group w-10 h-10 flex flex-col p-6 items-center justify-center text-gray-200 transition-all">
+      <i
+        class="fa-solid fa-bookmark text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
+      <span
+        class="text-sm text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Bookmarks</span>
     </a>
 
     <!-- Settings -->
-    <a href="/views/user/setting.html" title="Settings"
-      class="w-10 h-10 flex items-center justify-center text-gray-200 hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A] rounded-lg transition-all">
-      <i class="fas fa-cog text-2xl"></i>
+    <a href="/views/user/preferences.html" title="Settings"
+      class="group w-10 h-10 flex flex-col p-6 items-center justify-center text-gray-200 transition-all">
+      <i
+        class="fas fa-cog text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
+      <span
+        class="text-sm text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Settings</span>
+    </a>
+
+    <!-- Profile -->
+    <a href="/views/user/profile.html" title="Profile"
+      class="group w-10 h-10 flex flex-col p-6 items-center justify-center text-gray-200 transition-all">
+      <i
+        class="fas fa-user text-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]"></i>
+      <span
+        class="text-sm text-gray-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-bl from-[#F59275] to-[#F1647A]">Profile</span>
     </a>
   </nav>
 
@@ -93,7 +149,6 @@
     </button>
   </div>
 </aside>
-
 
 <!-- Left Drawer Overlay -->
 <div id="left-drawer-overlay"
@@ -126,5 +181,3 @@
     </div>
   </div>
 </div>
-
-<script type="module" src="../../js/auth/signout.js"></script>
