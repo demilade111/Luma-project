@@ -119,146 +119,145 @@
     <script type="module" src="../../js/mobile-navbar.js"></script>
 
     <!-- Show overlay card on video 3 -->
-   <script>
-    // Show intro text initially when the page loads
-    window.addEventListener("DOMContentLoaded", () => {
-        const introText = document.getElementById("text-tutorial-intro");
-        introText.style.display = "block"; // Ensure intro text is visible initially
-
-        // Pause background audio initially
-        const backgroundAudio = document.getElementById("background-audio");
-        backgroundAudio.pause(); // Pause the audio initially
-    });
-
-    // Get the background audio element
-    const backgroundAudio = document.getElementById("background-audio");
-
-    // Helper: Restore background audio volume and play
-    function resumeAudio() {
-        if (backgroundAudio.volume === 0) {
-            backgroundAudio.volume = 1;
-        }
-        backgroundAudio.currentTime = 0;
-        backgroundAudio.play();
-    }
-
-    // Show the video and hide intro text when play button is clicked
-    document.querySelectorAll(".play-buttons").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            backgroundAudio.pause();
-            backgroundAudio.volume = 1;
-            backgroundAudio.play();
-
+    <script>
+        // Show intro text initially when the page loads
+        window.addEventListener("DOMContentLoaded", () => {
             const introText = document.getElementById("text-tutorial-intro");
-            introText.style.display = "none";
+            introText.style.display = "block"; // Ensure intro text is visible initially
 
-            showVideo(currentVideoIndex);
-        });
-    });
-
-    const overlayCard = document.getElementById("overlay-card");
-    const videos = document.querySelectorAll("video");
-    const part3 = document.getElementById("part3");
-    const prevBtn = document.getElementById("prev-btn");
-    const nextBtn = document.getElementById("next-btn");
-    const replayBtn = document.getElementById("replay-btn");
-    const introText = document.getElementById("text-tutorial-intro");
-
-    let currentVideoIndex = 0;
-
-    const showVideo = (index) => {
-        videos.forEach((vid, i) => {
-            vid.classList.toggle("hidden", i !== index);
-            vid.pause();
-            vid.currentTime = 0;
+            // Pause background audio initially
+            const backgroundAudio = document.getElementById("background-audio");
+            backgroundAudio.pause(); // Pause the audio initially
         });
 
-        videos[index].classList.remove("hidden");
-        videos[index].play();
+        // Get the background audio element
+        const backgroundAudio = document.getElementById("background-audio");
 
-        currentVideoIndex = index;
-    };
-
-    // Listen for third video playing to show overlay
-    part3.addEventListener("play", () => {
-        overlayCard.classList.remove("opacity-0");
-        overlayCard.classList.add("opacity-100");
-    });
-
-    part3.addEventListener("pause", () => {
-        overlayCard.classList.remove("opacity-100");
-        overlayCard.classList.add("opacity-0");
-    });
-
-    part3.addEventListener("ended", () => {
-        overlayCard.classList.remove("opacity-100");
-        overlayCard.classList.add("opacity-0");
-
-        // Smooth fade out
-        let fadeOutInterval = setInterval(() => {
-            if (backgroundAudio.volume > 0.05) {
-                backgroundAudio.volume -= 0.05;
-            } else {
-                backgroundAudio.volume = 0;
-                backgroundAudio.pause();
-                backgroundAudio.currentTime = 0;
-                clearInterval(fadeOutInterval);
+        // Helper: Restore background audio volume and play
+        function resumeAudio() {
+            if (backgroundAudio.volume === 0) {
+                backgroundAudio.volume = 1;
             }
-        }, 100);
-    });
-
-    // Initial video setup
-    showVideo(currentVideoIndex);
-
-    nextBtn.addEventListener("click", () => {
-        resumeAudio();
-        if (currentVideoIndex < videos.length - 1) {
-            showVideo(currentVideoIndex + 1);
+            backgroundAudio.currentTime = 0;
+            backgroundAudio.play();
         }
-    });
 
-    prevBtn.addEventListener("click", () => {
-        if (currentVideoIndex > 0) {
-            resumeAudio();
-            showVideo(currentVideoIndex - 1);
-            introText.style.display = "block";
-        } else {
-            videos.forEach((vid) => {
-                vid.classList.add("hidden");
+        // Show the video and hide intro text when play button is clicked
+        document.querySelectorAll(".play-buttons").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                backgroundAudio.pause();
+                backgroundAudio.volume = 1;
+                backgroundAudio.play();
+
+                const introText = document.getElementById("text-tutorial-intro");
+                introText.style.display = "none";
+
+                showVideo(currentVideoIndex);
+            });
+        });
+
+        const overlayCard = document.getElementById("overlay-card");
+        const videos = document.querySelectorAll("video");
+        const part3 = document.getElementById("part3");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+        const replayBtn = document.getElementById("replay-btn");
+        const introText = document.getElementById("text-tutorial-intro");
+
+        let currentVideoIndex = 0;
+
+        const showVideo = (index) => {
+            videos.forEach((vid, i) => {
+                vid.classList.toggle("hidden", i !== index);
                 vid.pause();
                 vid.currentTime = 0;
             });
 
-            const playButton = document.querySelector(".play-buttons");
-            playButton.style.display = "flex";
+            videos[index].classList.remove("hidden");
+            videos[index].play();
 
-            backgroundAudio.pause();
-        }
-    });
+            currentVideoIndex = index;
+        };
 
-    replayBtn.addEventListener("click", () => {
-        const currentVideo = videos[currentVideoIndex];
-        currentVideo.currentTime = 0;
-        currentVideo.play();
-
-        resumeAudio();
-    });
-
-    // Initially hide all videos and pause, and hide controls always
-    videos.forEach((vid) => {
-        vid.classList.add("hidden");
-        vid.pause();
-        vid.currentTime = 0;
-        vid.controls = false;
-    });
-
-    videos.forEach(video => {
-        video.addEventListener("play", () => {
-            introText.style.display = "none";
+        // Listen for third video playing to show overlay
+        part3.addEventListener("play", () => {
+            overlayCard.classList.remove("opacity-0");
+            overlayCard.classList.add("opacity-100");
         });
-    });
-</script>
 
+        part3.addEventListener("pause", () => {
+            overlayCard.classList.remove("opacity-100");
+            overlayCard.classList.add("opacity-0");
+        });
+
+        part3.addEventListener("ended", () => {
+            overlayCard.classList.remove("opacity-100");
+            overlayCard.classList.add("opacity-0");
+
+            // Smooth fade out
+            let fadeOutInterval = setInterval(() => {
+                if (backgroundAudio.volume > 0.05) {
+                    backgroundAudio.volume -= 0.05;
+                } else {
+                    backgroundAudio.volume = 0;
+                    backgroundAudio.pause();
+                    backgroundAudio.currentTime = 0;
+                    clearInterval(fadeOutInterval);
+                }
+            }, 100);
+        });
+
+        // Initial video setup
+        showVideo(currentVideoIndex);
+
+        nextBtn.addEventListener("click", () => {
+            resumeAudio();
+            if (currentVideoIndex < videos.length - 1) {
+                showVideo(currentVideoIndex + 1);
+            }
+        });
+
+        prevBtn.addEventListener("click", () => {
+            if (currentVideoIndex > 0) {
+                resumeAudio();
+                showVideo(currentVideoIndex - 1);
+                introText.style.display = "block";
+            } else {
+                videos.forEach((vid) => {
+                    vid.classList.add("hidden");
+                    vid.pause();
+                    vid.currentTime = 0;
+                });
+
+                const playButton = document.querySelector(".play-buttons");
+                playButton.style.display = "flex";
+
+                backgroundAudio.pause();
+            }
+        });
+
+        replayBtn.addEventListener("click", () => {
+            const currentVideo = videos[currentVideoIndex];
+            currentVideo.currentTime = 0;
+            currentVideo.play();
+
+            resumeAudio();
+        });
+
+        // Initially hide all videos and pause, and hide controls always
+        videos.forEach((vid) => {
+            vid.classList.add("hidden");
+            vid.pause();
+            vid.currentTime = 0;
+            vid.controls = false;
+        });
+
+        videos.forEach(video => {
+            video.addEventListener("play", () => {
+                introText.style.display = "none";
+            });
+        });
+    </script>
 
     <!-- Auth -->
     <script type="module">
