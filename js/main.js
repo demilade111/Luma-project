@@ -14,6 +14,7 @@ import {
   onSnapshot,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getGamesFromFirebase } from "./uploadGamesToFirebase.js";
 
 const container = document.getElementById("events");
 
@@ -101,27 +102,12 @@ async function loadGames() {
     errorDiv.classList.add("hidden");
     gamesContainer.classList.add("hidden");
 
-    console.log("🎮 Loading games from API...");
+    console.log("🎮 Loading games from Firebase...");
 
-    // Get gameService from window (since it's loaded as a script tag)
-    const gameService =
-      window.gameService ||
-      (typeof gameService !== "undefined" ? gameService : null);
-
-    if (!gameService) {
-      throw new Error("Game service not available");
-    }
-
-    const result = await gameService.getAllGames();
-
-    if (!result.success) {
-      throw new Error(result.error || "Failed to load games");
-    }
-
-    allGamesData = result.games;
-    console.log(allGamesData);
+    // Load games data from Firebase
+    allGamesData = await getGamesFromFirebase();
     currentPage = 1;
-    console.log(`✅ Loaded ${allGamesData.length} games`);
+    console.log(`✅ Loaded ${allGamesData.length} games from Firebase`);
 
     // Hide loading and show games
     loadingDiv.classList.add("hidden");
@@ -263,19 +249,20 @@ async function filterGamesByCategory(category) {
 
     console.log(`🔍 Filtering games by category: ${category}`);
 
-    const gameService = window.gameService;
-    if (!gameService) {
-      throw new Error("Game service not available");
-    }
+    // Load games data from Firebase
+    const allGames = await getGamesFromFirebase();
 
-    const result = await gameService.getGamesByCategory(category);
-
-    if (!result.success) {
-      throw new Error(result.error || "Failed to filter games");
-    }
+    // Filter games by category
+    const filteredGames = allGames.filter(
+      (game) =>
+        game.categories &&
+        game.categories.some(
+          (cat) => cat.toLowerCase() === category.toLowerCase()
+        )
+    );
 
     console.log(
-      `✅ Found ${result.games.length} games in category: ${category}`
+      `✅ Found ${filteredGames.length} games in category: ${category}`
     );
 
     // Hide loading and show games
@@ -285,7 +272,7 @@ async function filterGamesByCategory(category) {
     // Render filtered games
     const gamesContainerElement = document.getElementById("games-container");
     if (gamesContainerElement) {
-      gamesContainerElement.innerHTML = result.games
+      gamesContainerElement.innerHTML = filteredGames
         .map((game) => createGameCard(game))
         .join("");
       setupGameCardClickHandlers();
@@ -363,7 +350,7 @@ function createGameCard(game) {
                 .slice(0, 3)
                 .map(
                   (cat) =>
-                    `<span class="px-2 py-1 text-xs bg-blue-100 text-gray-700 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
+                    `<span class="px-2 py-1 text-xs underline text-gray-400 rounded-full category-tag cursor-pointer hover:bg-blue-200" 
                        data-category="${cat}">${cat}</span>`
                 )
                 .join("")}
@@ -447,6 +434,11 @@ function renderRandomGames(games) {
             <div class="text-button flex flex-col justify-between h-32 w-32">
               <p class="text-sm text-gray-400 leading-tight">${truncatedDescription}</p>
               <button type="button" ${disabledAttr}
+                ${
+                  isNightCafe
+                    ? `onclick="window.location.href='/views/game/night-cage-tutorial.html'"`
+                    : ""
+                }
                 style="box-shadow: -3px -3px 8px -3px rgba(255, 255, 255, 0.8)"
                 class="border border-gray-700 rounded-xl px-6 py-1 bg-[#2F364A] text-gray-200 transition-colors ${buttonClasses}">
                 Tutorial
@@ -472,28 +464,13 @@ export async function loadRandomGames() {
     errorDiv.classList.add("hidden");
     gamesContainer.classList.add("hidden");
 
-    console.log("🎮 Loading games from API...");
+    console.log("🎮 Loading games from Firebase...");
 
-    // Get gameService from global
-    const gameService =
-      window.gameService ||
-      (typeof gameService !== "undefined" ? gameService : null);
-
-    if (!gameService) {
-      throw new Error("Game service not available");
-    }
-
-    const result = await gameService.getAllGames();
-
-    if (!result.success) {
-      throw new Error(result.error || "Failed to load games");
-    }
-
-    // Store all games globally
-    allGamesData = result.games;
+    // Load games data from Firebase
+    allGamesData = await getGamesFromFirebase();
     currentPage = 1;
 
-    console.log(`✅ Loaded ${allGamesData.length} games`);
+    console.log(`✅ Loaded ${allGamesData.length} games from Firebase`);
 
     // Hide loading
     loadingDiv.classList.add("hidden");
@@ -657,13 +634,13 @@ document.addEventListener("DOMContentLoaded", setupTutorial);
 window.addEventListener("components-injected", setupTutorial);
 
 // Game Details Page Functions
-function setupGameDetailsPage() {
+async function setupGameDetailsPage() {
   // Only run on game details page
   if (!document.getElementById("game-title")) return;
 
   console.log("🎮 Setting up game details page...");
 
-  loadGameDetails();
+  await loadGameDetails();
   setupPDFModal();
   if (window.location.pathname.includes("game-details.html")) {
     setupGameComments();
@@ -673,24 +650,38 @@ function setupGameDetailsPage() {
   }
 }
 
-function loadGameDetails() {
-  const gameData = localStorage.getItem("selectedGame");
+async function loadGameDetails() {
+  // Get game ID from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const gameId = urlParams.get("id");
 
-  if (!gameData) {
-    console.error("No game data found");
+  if (!gameId) {
+    console.error("No game ID found in URL");
     document.getElementById("game-title").textContent = "Game not found";
     return;
   }
 
-  const game = JSON.parse(gameData);
-  console.log("Loading game details:", game);
+  console.log("🎮 Loading game details for ID:", gameId);
 
-  // Update game image
-  const gameImage = document.getElementById("game-image");
-  const imageUrl = game.image || game.thumbnail;
+  try {
+    // Fetch game data from Firebase by ID
+    const games = await getGamesFromFirebase();
+    const game = games.find((g) => g.id === gameId);
 
-  if (imageUrl) {
-    gameImage.innerHTML = `
+    if (!game) {
+      console.error("❌ Game not found in Firebase:", gameId);
+      document.getElementById("game-title").textContent = "Game not found";
+      return;
+    }
+
+    console.log("✅ Game found:", game);
+
+    // Update game image
+    const gameImage = document.getElementById("game-image");
+    const imageUrl = game.image || game.thumbnail;
+
+    if (imageUrl) {
+      gameImage.innerHTML = `
       <img src="${imageUrl}" 
            alt="${game.name}" 
            class="w-full h-full object-cover rounded-2xl"
@@ -702,8 +693,8 @@ function loadGameDetails() {
         </div>
       </div>
     `;
-  } else {
-    gameImage.innerHTML = `
+    } else {
+      gameImage.innerHTML = `
       <div class="w-full h-full flex items-center justify-center text-center">
         <div>
           <i class="fas fa-dice text-6xl text-gray-400"></i>
@@ -711,203 +702,224 @@ function loadGameDetails() {
         </div>
       </div>
     `;
-  }
-
-  // Update basic info
-  document.getElementById("game-title").textContent =
-    game.name || "Unknown Game";
-  document.getElementById("game-subtitle").textContent = game.year
-    ? `Released in ${game.year}`
-    : "";
-  document.getElementById("game-description").textContent =
-    game.description || "No description available";
-
-  // Update stats
-  const playingTime = game.playingTime || game.maxPlayTime || "?";
-  if (document.querySelector(".time-value")) {
-    document.querySelector(".time-value").textContent = `${playingTime}m`;
-  }
-
-  const minPlayers = game.minPlayers || "?";
-  const maxPlayers = game.maxPlayers || "?";
-  const playerText =
-    minPlayers === maxPlayers ? minPlayers : `${minPlayers}-${maxPlayers}`;
-  if (document.querySelector(".players-value")) {
-    document.querySelector(".players-value").textContent = playerText;
-  }
-
-  if (document.querySelector(".age-value")) {
-    document.querySelector(".age-value").textContent = game.age
-      ? `${game.age}+`
-      : "N/A";
-  }
-  if (document.querySelector(".rating-value")) {
-    document.querySelector(".rating-value").textContent = game.rating
-      ? `${game.rating}/10`
-      : "?";
-  }
-
-  // Update designers
-  if (game.designers && game.designers.length > 0) {
-    document.getElementById("designers-list").innerHTML = game.designers
-      .map((designer) => `<p class="text-base text-gray-400">${designer}</p>`)
-      .join("");
-  } else {
-    document.getElementById("designers-list").innerHTML =
-      '<p class="text-custom-gray text-2xl">Unknown</p>';
-  }
-
-  // Update publishers
-  if (game.publishers && game.publishers.length > 0) {
-    console.log(game);
-    document.getElementById("publishers-list").innerHTML = game.publishers
-      .map((publisher) => `<p class="text-base text-gray-400">${publisher}</p>`)
-      .join("");
-  } else {
-    document.getElementById("publishers-list").innerHTML =
-      '<p class="text-custom-gray text-2xl">Unknown</p>';
-  }
-
-  // Update categories
-  if (game.categories && game.categories.length > 0) {
-    document.getElementById("categories-list").innerHTML = game.categories
-      .map(
-        (category) =>
-          `<span class="inline-flex items-center mr-6 bg-[#2F364A] text-xl rounded-xl p-3 border text-gray-200 border-gray-700 gap-3 w-fit whitespace-nowrap min-w-[140px] mt-5 justify-center">${category}</span>`
-      )
-      .join("");
-  } else {
-    document.getElementById("categories-list").innerHTML =
-      '<p class="text-custom-gray text-2xl">None specified</p>';
-  }
-
-  // Update detailed description
-  document.getElementById("detailed-description").textContent =
-    game.description || "No detailed description available";
-
-  // Setup rules button
-  const rulesBtn = document.getElementById("rules-btn");
-  if (game.rulebook && rulesBtn) {
-    rulesBtn.onclick = () => openPDFPreview(game.rulebook, game.name);
-  } else if (rulesBtn) {
-    rulesBtn.disabled = true;
-    rulesBtn.textContent = "Rules N/A";
-    rulesBtn.classList.add("opacity-50", "cursor-not-allowed");
-  }
-
-  // Setup tutorial button for The Night Cage
-  const tutorialBtn = document.getElementById("tutorial-btn");
-  if (tutorialBtn) {
-    if (game.name && game.name.toLowerCase() === "the night cage") {
-      tutorialBtn.onclick = () => {
-        window.location.href = "night-cage-tutorial.html";
-      };
-    } else {
-      tutorialBtn.onclick = null;
-      tutorialBtn.classList.add("opacity-50", "cursor-not-allowed");
-      tutorialBtn.disabled = true;
     }
+
+    // Update basic info
+    document.getElementById("game-title").textContent =
+      game.name || "Unknown Game";
+    document.getElementById("game-subtitle").textContent = game.year
+      ? `Released in ${game.year}`
+      : "";
+    
+    // Debug description
+    console.log("🎮 Game description:", game.description);
+    console.log("🎮 Detailed description element:", document.getElementById("detailed-description"));
+    
+    // Update both description elements
+    const descriptionElement = document.getElementById("detailed-description");
+    const gameDescriptionElement = document.getElementById("game-description");
+    
+    if (descriptionElement) {
+      // Set description with a small delay to ensure DOM is ready
+      setTimeout(() => {
+        descriptionElement.innerHTML =
+          game.description || "No description available";
+        descriptionElement.style.display = "block"; // Ensure it's visible
+        console.log("✅ Detailed description set successfully");
+        console.log(
+          "🎮 Element content after setting:",
+          descriptionElement.innerHTML
+        );
+      }, 100);
+    } else {
+      console.error("❌ Detailed description element not found!");
+    }
+    
+    // Update the short description too
+    if (gameDescriptionElement) {
+      console.log("🎮 Found game-description element:", gameDescriptionElement);
+      console.log("🎮 Current content:", gameDescriptionElement.innerHTML);
+      gameDescriptionElement.innerHTML = game.description || "No description available";
+      console.log("✅ Game description set successfully");
+      console.log("🎮 New content:", gameDescriptionElement.innerHTML);
+    } else {
+      console.error("❌ Game description element not found!");
+    }
+
+    // Update stats
+    const playingTime = game.playingTime || game.maxPlayTime || "?";
+    if (document.querySelector(".time-value")) {
+      document.querySelector(".time-value").textContent = `${playingTime}m`;
+    }
+
+    const minPlayers = game.minPlayers || "?";
+    const maxPlayers = game.maxPlayers || "?";
+    const playerText =
+      minPlayers === maxPlayers ? minPlayers : `${minPlayers}-${maxPlayers}`;
+    if (document.querySelector(".players-value")) {
+      document.querySelector(".players-value").textContent = playerText;
+    }
+
+    if (document.querySelector(".age-value")) {
+      document.querySelector(".age-value").textContent = game.age
+        ? `${game.age}+`
+        : "N/A";
+    }
+    if (document.querySelector(".rating-value")) {
+      document.querySelector(".rating-value").textContent = game.rating
+        ? `${game.rating}/10`
+        : "?";
+    }
+
+    // Update designers
+    if (game.designers && game.designers.length > 0) {
+      document.getElementById("designers-list").innerHTML = game.designers
+        .map((designer) => `<p class="text-base text-gray-400">${designer}</p>`)
+        .join("");
+    } else {
+      document.getElementById("designers-list").innerHTML =
+        '<p class="text-custom-gray text-2xl">Unknown</p>';
+    }
+
+    // Update publishers
+    if (game.publishers && game.publishers.length > 0) {
+      console.log(game);
+      document.getElementById("publishers-list").innerHTML = game.publishers
+        .map(
+          (publisher) => `<p class="text-base text-gray-400">${publisher}</p>`
+        )
+        .join("");
+    } else {
+      document.getElementById("publishers-list").innerHTML =
+        '<p class="text-custom-gray text-2xl">Unknown</p>';
+    }
+
+    // Update categories
+    if (game.categories && game.categories.length > 0) {
+      document.getElementById("categories-list").innerHTML = game.categories
+        .map((category) => `<p class="text-base text-gray-400">${category}</p>`)
+        .join("");
+    } else {
+      document.getElementById("categories-list").innerHTML =
+        '<p class="text-custom-gray text-2xl">Unknown</p>';
+    }
+
+    // Update bookmark button
+    updateBookmarkBtn(game);
+
+    // Setup Rules button
+    setupRulesButton(game);
+
+    // Setup Tutorial button
+    setupTutorialButton(game);
+  } catch (error) {
+    console.error("❌ Error loading game details:", error);
+    document.getElementById("game-title").textContent = "Error loading game";
+  }
+}
+
+// Setup Rules button functionality
+function setupRulesButton(game) {
+  const rulesBtn = document.getElementById("rules-btn");
+  if (!rulesBtn) return;
+
+  if (game.rulebook) {
+    // Game has rules PDF - enable button
+    rulesBtn.onclick = () => {
+      openPDFPreview(game.rulebook, game.name);
+    };
+    rulesBtn.disabled = false;
+    rulesBtn.classList.remove("opacity-50", "cursor-not-allowed");
+    rulesBtn.classList.add("cursor-pointer", "hover:bg-[#3A4258]");
+  } else {
+    // No rules PDF - disable button
+    rulesBtn.onclick = null;
+    rulesBtn.disabled = true;
+    rulesBtn.classList.add("opacity-50", "cursor-not-allowed");
+    rulesBtn.classList.remove("cursor-pointer", "hover:bg-[#3A4258]");
+  }
+}
+
+// Setup Tutorial button functionality
+function setupTutorialButton(game) {
+  const tutorialBtn = document.getElementById("tutorial-btn");
+  console.log("🎮 Tutorial button element:", tutorialBtn);
+  
+  if (!tutorialBtn) {
+    console.error("❌ Tutorial button not found!");
+    return;
   }
 
-  // --- Bookmark and Share logic ---
-  const bookmarkBtn = document.getElementById("bookmark-btn");
-  const shareBtn = document.getElementById("share-btn");
-  let currentUser = null;
-  let isBookmarked = false;
+  tutorialBtn.onclick = () => {
+    console.log("🎮 Tutorial button clicked! Redirecting to tutorial page...");
+    // Navigate to tutorial page
+    window.location.href = "/views/tutorial/tutorial.html";
+  };
+  
+  console.log("✅ Tutorial button setup complete");
+}
 
-  function updateBookmarkBtn() {
-    if (!bookmarkBtn) return;
+// Update bookmark button state
+async function updateBookmarkBtn(game) {
+  const bookmarkBtn = document.getElementById("bookmark-btn");
+  if (!bookmarkBtn) return;
+
+  const user = auth.currentUser;
+  if (!user) {
+    // User not logged in - show login prompt
+    bookmarkBtn.innerHTML =
+      '<i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Login to Bookmark';
+    bookmarkBtn.onclick = () => {
+      window.location.href = "/views/auth/login.html";
+    };
+    return;
+  }
+
+  try {
+    // Check if game is bookmarked
+    const bookmarkRef = doc(db, "users", user.uid, "bookmarks", game.id);
+    const bookmarkDoc = await getDoc(bookmarkRef);
+    const isBookmarked = bookmarkDoc.exists();
+
+    // Update button appearance and functionality
     if (isBookmarked) {
       bookmarkBtn.innerHTML =
-        '<span class="luma-gradient m-0 p-0"><i class="fa-regular fa-bookmark mr-3"></i>Bookmarked</span>';
+        '<i class="fa-solid fa-bookmark mr-3 text-[#F1647A]"></i>Bookmarked';
+      bookmarkBtn.onclick = async () => {
+        if (confirm(`Remove "${game.name}" from bookmarks?`)) {
+          try {
+            await deleteDoc(bookmarkRef);
+            console.log("Bookmark removed successfully");
+            updateBookmarkBtn(game); // Re-fetch and update button state after deletion
+          } catch (error) {
+            console.error("Error removing bookmark:", error);
+            alert("Failed to remove bookmark. Please try again.");
+          }
+        }
+      };
     } else {
       bookmarkBtn.innerHTML =
         '<i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Bookmark';
-    }
-  }
-
-  function setupBookmarkListener(user) {
-    if (!user) return;
-
-    if (!game || !game.id) {
-      console.error("Game or game.id is not available for bookmark listener");
-      return;
-    }
-
-    const docRef = doc(db, "users", user.uid, "bookmarks", game.id);
-
-    // Set up real-time listener for bookmark status
-    onSnapshot(
-      docRef,
-      (docSnap) => {
-        isBookmarked = docSnap.exists();
-        updateBookmarkBtn();
-      },
-      (error) => {
-        console.error("Error in bookmark listener:", error);
-      }
-    );
-  }
-
-  async function toggleBookmark(user) {
-    if (!user) {
-      alert("Please sign in to bookmark games.");
-      return;
-    }
-    const docRef = doc(db, "users", user.uid, "bookmarks", game.id);
-    if (isBookmarked) {
-      await deleteDoc(docRef);
-      // Don't manually update state here - let the listener handle it
-      alert("Bookmark removed.");
-    } else {
-      const info = {
-        gameId: game.id,
-        title: game.name,
-        image: game.image || game.thumbnail || "",
-      };
-      await setDoc(docRef, info);
-      // Don't manually update state here - let the listener handle it
-      alert("Game bookmarked successfully!");
-    }
-  }
-
-  if (bookmarkBtn) {
-    bookmarkBtn.onclick = () => {
-      if (!currentUser) {
-        alert("Please sign in to bookmark games.");
-        return;
-      }
-      toggleBookmark(currentUser);
-    };
-  }
-
-  if (shareBtn) {
-    shareBtn.onclick = async () => {
-      const url = window.location.href;
-      const title = game.name || "Check out this game!";
-      if (navigator.share) {
+      bookmarkBtn.onclick = async () => {
         try {
-          await navigator.share({ title, url });
-        } catch (e) {
-          // User cancelled share
+          await setDoc(bookmarkRef, {
+            gameId: game.id,
+            title: game.name,
+            image: game.image || game.thumbnail,
+          });
+          console.log("Game bookmarked successfully");
+          updateBookmarkBtn(game); // Re-fetch and update button state after addition
+        } catch (error) {
+          console.error("Error adding bookmark:", error);
+          alert("Failed to add bookmark. Please try again.");
         }
-      } else {
-        await navigator.clipboard.writeText(url);
-        shareBtn.textContent = "Copied!";
-        setTimeout(() => (shareBtn.textContent = "Share"), 1200);
-      }
-    };
-  }
-
-  onAuthStateChanged(auth, (user) => {
-    currentUser = user;
-    if (user) {
-      setupBookmarkListener(user);
-    } else {
-      isBookmarked = false;
-      updateBookmarkBtn();
+      };
     }
-  });
+  } catch (error) {
+    console.error("Error checking bookmark status:", error);
+    bookmarkBtn.innerHTML =
+      '<i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Bookmark';
+  }
 }
 
 function setupPDFModal() {
@@ -974,6 +986,7 @@ function closePDFModal() {
 
 // Home Page Functions
 function setupHomePage() {
+  console.log("🏠 Setting up home page...");
   loadHomeGames();
   setupHomeGamesRetry();
 }
@@ -991,25 +1004,11 @@ async function loadHomeGames() {
     errorDiv.classList.add("hidden");
     gamesContainer.classList.add("hidden");
 
-    console.log("🎮 Loading games for home page...");
+    console.log("🎮 Loading games for home page from Firebase...");
 
-    // Get gameService from window
-    const gameService =
-      window.gameService ||
-      (typeof gameService !== "undefined" ? gameService : null);
-
-    if (!gameService) {
-      throw new Error("Game service not available");
-    }
-
-    const result = await gameService.getAllGames();
-
-    if (!result.success) {
-      throw new Error(result.error || "Failed to load games");
-    }
-
-    const games = result.games;
-    console.log(`✅ Loaded ${games.length} games for home page`);
+    // Load games data from Firebase
+    const games = await getGamesFromFirebase();
+    console.log(`✅ Loaded ${games.length} games for home page from Firebase`);
 
     // Hide loading and show games
     loadingDiv.classList.add("hidden");
@@ -1061,21 +1060,20 @@ function createHomeGameCard(game) {
 
 function setupHomeGameCardClickHandlers() {
   const gameCards = document.querySelectorAll(".home-game-card");
+  console.log(
+    `🎯 Setting up click handlers for ${gameCards.length} home game cards`
+  );
 
   gameCards.forEach((card) => {
-    card.addEventListener("click", () => {
+    card.addEventListener("click", async () => {
       const gameId = card.dataset.gameId;
+      console.log(`🎮 Home game card clicked: ${gameId}`);
 
-      // Get the game data and store in localStorage
-      const gameService = window.gameService;
-      if (gameService) {
-        gameService.getGameById(gameId).then((result) => {
-          if (result.success) {
-            localStorage.setItem("selectedGame", JSON.stringify(result.game));
-            window.location.href = `../game/game-details.html?id=${gameId}`;
-          }
-        });
-      }
+      // Navigate to game details page with the game ID
+      console.log(
+        `✅ Navigating to: /views/game/game-details.html?id=${gameId}`
+      );
+      window.location.href = `/views/game/game-details.html?id=${gameId}`;
     });
   });
 }
@@ -1109,35 +1107,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // SHARE GAME DETAILS FUNCTIONALITY
 document.addEventListener("DOMContentLoaded", () => {
-  const shareBtn = document.getElementById("shareBtn");
-  const links = document.getElementById("share-links");
-  const fb = document.getElementById("share-facebook");
-  const tw = document.getElementById("share-twitter");
-
-  const url = encodeURIComponent(window.location.href);
-  const title = encodeURIComponent(document.title);
-  const text = encodeURIComponent(
-    document.querySelector("#game-description")?.innerText || ""
-  );
-
-  // Fallback share URLs
-  if (fb) fb.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-  if (tw) tw.href = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+  const shareBtn = document.getElementById("share-btn");
 
   if (shareBtn) {
     shareBtn.addEventListener("click", async () => {
+      const url = window.location.href;
+      const title = document.title;
+      const text =
+        document.querySelector("#detailed-description")?.innerText ||
+        "Check out this game!";
+
+      // Use Web Share API
       if (navigator.share) {
         try {
           await navigator.share({
-            title: document.title,
+            title: title,
             text: text,
-            url: window.location.href,
+            url: url,
           });
         } catch (err) {
           console.error("Share failed:", err);
         }
-      } else if (links) {
-        links.classList.toggle("hidden");
+      } else {
+        // Fallback: just show an alert with the URL
+        alert(`Share this game: ${url}`);
       }
     });
   }
@@ -1328,27 +1321,34 @@ document.addEventListener("DOMContentLoaded", function () {
 // Loading Games in the Continue Learning boxes
 async function resistance() {
   try {
-    const resp = await fetch("./data/top-games.json");
-    const games = await resp.json();
-
+    // Load games data from Firebase
+    const games = await getGamesFromFirebase();
     const game = games.find((g) => g.name === "The Resistance");
+
     if (!game) {
-      console.warn("The Resistance was not found in JSON");
+      console.warn("The Resistance was not found in games data");
       return;
     }
+
     //adding image of the game in the box
     const divBox = document.querySelector(".resistance-box");
-    divBox.innerHTML = `<img src="${game.thumbnail}" alt="${game.name}" class="w-full h-full object-cover rounded-2xl"/>`;
+    if (divBox) {
+      divBox.innerHTML = `<img src="${game.thumbnail}" alt="${game.name}" class="w-full h-full object-cover rounded-2xl"/>`;
+    }
 
     //adding description
     const desc = document.getElementById("resistance-desc");
-    desc.textContent = game.description || "No description available";
+    if (desc) {
+      desc.textContent = game.description || "No description available";
+    }
 
     //Tutorial button
     const tutorialBtn = document.getElementById("resistance-tutorial");
-    tutorialBtn.addEventListener("click", () => {
-      if (game.rulebook) window.open(game.rulebook, "_blank");
-    });
+    if (tutorialBtn) {
+      tutorialBtn.addEventListener("click", () => {
+        if (game.rulebook) window.open(game.rulebook, "_blank");
+      });
+    }
   } catch (err) {
     console.error("failed to load game:", err);
   }
@@ -1619,26 +1619,10 @@ async function renderSuggestedGames() {
     new Set([...bookmarkedIds, ...tutorialsWatched])
   );
 
-  // Fetch all games using gameService
+  // Fetch all games from Firebase
   let games = [];
   try {
-    const gameService = window.gameService;
-    if (!gameService) {
-      console.error("GameService not available");
-      grid.innerHTML =
-        '<p class="text-gray-400">Game service not available.</p>';
-      return;
-    }
-
-    const result = await gameService.getAllGames();
-    if (result.success) {
-      games = result.games || [];
-    } else {
-      console.error("Failed to fetch games:", result.error);
-      grid.innerHTML =
-        '<p class="text-gray-400">Failed to load suggested games.</p>';
-      return;
-    }
+    games = await getGamesFromFirebase();
   } catch (e) {
     console.error("Error fetching games:", e);
     grid.innerHTML =

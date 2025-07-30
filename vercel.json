@@ -1,23 +1,52 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
   "builds": [
     {
-      "src": "Server/api.js",
-      "use": "@vercel/node"
+      "src": "*.html",
+      "use": "@vercel/static"
     },
     {
-      "src": "views/(.*)",
+      "src": "*.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.json",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.xml",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "views/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "components/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "js/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "src/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "config/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "service/**/*",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/Server/api.js"
-    },
-    {
       "src": "/",
-      "dest": "/views/home/index.html"
+      "dest": "/index.html"
     },
     {
       "src": "/(.*)",

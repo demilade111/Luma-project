@@ -1,157 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../../src/output.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="../../src/output.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <title>Luma | Games</title>
+    <link rel="shortcut icon" href="/src/asset/images/Luma - Icon 1.png" />
+  </head>
 
-  <title>Luma | Games</title>
-  <link rel="shortcut icon" href="/src/asset/images/Luma - Icon 1.png" />
-</head>
+  <body class="bg-[#1A1F2C] font-nunito text-white min-h-screen">
+    <div data-component="mobilenavbar"></div>
+    <div data-component="sidebar"></div>
 
-<body class="bg-[#1A1F2C] font-nunito text-white min-h-screen">
-  <div data-component="sidebar"></div>
+    <div class="flex-1 flex flex-col min-h-screen md:ml-[90px] pt-5">
+      <main class="flex-1 p-4 md:py-10 md:px-20">
+        <div class="flex justify-between items-center mb-5 md:mb-12 px-4">
+          <h1
+            class="font-bold mb-6 flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient"
+          >
+            Popular Games
+          </h1>
+          <!-- <div id="games-count" class="text-sm text-gray-500"> -->
+          <!-- Game count will be shown here -->
+          <!-- </div> -->
+        </div>
 
-  <div class="flex-1 flex flex-col min-h-screen md:ml-[90px] pt-5">
-    <main class="flex-1 p-4 md:py-10 md:px-20">
-      <div class="flex justify-between items-center mb-5 md:mb-12 px-4">
-        <h1 class="font-bold mb-6 flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient">
-          Popular Games
-        </h1>
-        <!-- <div id="games-count" class="text-sm text-gray-500"> -->
-        <!-- Game count will be shown here -->
-        <!-- </div> -->
-      </div>
+        <!--Cards container-->
+        <div id="games-loading" class="text-center py-8">
+          <i class="fas fa-spinner fa-spin text-2xl text-gray-400"></i>
+          <p class="mt-2 text-gray-500">Loading games...</p>
+        </div>
 
-      <!--Cards container-->
-      <div id="games-loading" class="text-center py-8">
-        <i class="fas fa-spinner fa-spin text-2xl text-gray-400"></i>
-        <p class="mt-2 text-gray-500">Loading games...</p>
-      </div>
-
-      <div id="games-error" class="hidden text-center py-8">
-        <i class="fas fa-exclamation-triangle text-2xl text-red-400"></i>
-        <p class="mt-2 text-red-500">
-          Error loading games. Please try again.
-        </p>
-        <button id="retry-games" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-          Retry
-        </button>
-      </div>
-
-      <div id="games-container" class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-6 px-4">
-        <!-- Games will be dynamically inserted here -->
-      </div>
-
-      <!-- Categories Section -->
-      <div class="mt-16 md:my-28 px-4">
-        <h1
-          class="font-bold flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient h-20 md:h-28">
-          Categories
-        </h1>
-
-        <div class="relative">
-          <!-- Left Scroll Button -->
-          <button id="scrollLeftCategory"
-            class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
-            <i class="fa-solid fa-angle-left"></i>
-          </button>
-
-          <div id="category-scroll" class="flex gap-2 overflow-x-auto pb-4 max-w-full scroll-hide"></div>
-
-          <!-- Right Scroll Button -->
-          <button id="scrollRightCategory"
-            class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
-            <i class="fa-solid fa-angle-right"></i>
+        <div id="games-error" class="hidden text-center py-8">
+          <i class="fas fa-exclamation-triangle text-2xl text-red-400"></i>
+          <p class="mt-2 text-red-500">
+            Error loading games. Please try again.
+          </p>
+          <button
+            id="retry-games"
+            class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Retry
           </button>
         </div>
-      </div>
 
-      <!-- Random Games Scrollable Section -->
-      <div class="my-16 md:mt-24 md:mb-16 px-4">
-        <h1
-          class="font-bold flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient h-20 md:h-28">
-          Continue Learning
-        </h1>
+        <div
+          id="games-container"
+          class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-6 px-4"
+        >
+          <!-- Games will be dynamically inserted here -->
+        </div>
 
-        <div class="relative">
-          <!-- Left Scroll Button -->
-          <button id="scrollLeftLearn"
-            class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
-            <i class="fa-solid fa-angle-left"></i>
-          </button>
+        <!-- Categories Section -->
+        <div class="mt-16 md:my-28 px-4">
+          <h1
+            class="font-bold flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient h-20 md:h-28"
+          >
+            Categories
+          </h1>
 
-          <!-- Random Games Scrollable Section -->
-          <div class="flex overflow-x-auto gap-3 md:gap-6 pb-4 scroll-hide" id="random-games-container">
-            <!-- JS will inject 4 cards here -->
+          <div class="relative">
+            <!-- Left Scroll Button -->
+            <button
+              id="scrollLeftCategory"
+              class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors"
+            >
+              <i class="fa-solid fa-angle-left"></i>
+            </button>
+
+            <div
+              id="category-scroll"
+              class="flex gap-2 overflow-x-auto pb-4 max-w-full scroll-hide"
+            ></div>
+
+            <!-- Right Scroll Button -->
+            <button
+              id="scrollRightCategory"
+              class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors"
+            >
+              <i class="fa-solid fa-angle-right"></i>
+            </button>
           </div>
-
-          <!-- Right Scroll Button -->
-          <button id="scrollRightLearn"
-            class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors">
-            <i class="fa-solid fa-angle-right"></i>
-          </button>
         </div>
-      </div>
-    </main>
-  </div>
 
-  <!--Footer section-->
-  <div data-component="footer"></div>
+        <!-- Random Games Scrollable Section -->
+        <div class="my-16 md:mt-24 md:mb-16 px-4">
+          <h1
+            class="font-bold flex-shrink-0 font-nunito text-3xl sm:text-4xl md:text-5xl lg:text-6xl luma-gradient h-20 md:h-28"
+          >
+            Continue Learning
+          </h1>
 
-  <!-- Scripts -->
-  <script src="../../service/gameService.js" defer></script>
-  <script src="../../js/inject.js" defer></script>
-  <script type="module" src="../../js/main.js" defer></script>
-  <script type="module" src="../../js/auth/signout.js"></script>
-  <script type="module" src="../../js/gameDetails.js"></script>
+          <div class="relative">
+            <!-- Left Scroll Button -->
+            <button
+              id="scrollLeftLearn"
+              class="absolute -left-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors"
+            >
+              <i class="fa-solid fa-angle-left"></i>
+            </button>
 
-  <!-- Script imports -->
-  <script type="module">
-    import { categories } from "/Server/categories.js";
-    import { initScrollButtons } from "../../js/scroll-buttons.js";
+            <!-- Random Games Scrollable Section -->
+            <div
+              class="flex overflow-x-auto gap-3 md:gap-6 pb-4 scroll-hide"
+              id="random-games-container"
+            >
+              <!-- JS will inject 4 cards here -->
+            </div>
 
-    const container = document.getElementById("category-scroll");
+            <!-- Right Scroll Button -->
+            <button
+              id="scrollRightLearn"
+              class="absolute -right-14 top-1/2 w-12 h-12 -translate-y-1/2 z-30 bg-white/30 text-white p-2 rounded-full hidden md:block cursor-pointer hover:bg-white/20 transition-colors"
+            >
+              <i class="fa-solid fa-angle-right"></i>
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
 
-    categories.forEach((cat) => {
-      const div = document.createElement("div");
-      div.className =
-        "inline-flex items-center bg-[#2F364A] rounded-2xl p-5 md:px-5 md:py-8 gap-3 w-fit whitespace-nowrap md:min-w-[240px] justify-center cursor-pointer hover:bg-gray-600 category-filter";
-      div.dataset.category = cat.title;
-      div.innerHTML = `${cat.svg}<div class="truncate overflow-hidden whitespace-nowrap text-ellipsis font-medium text-2xl text-gray-200 max-w-[160px]">${cat.title}</div>`;
-      container.appendChild(div);
-    });
+    <!--Footer section-->
+    <div data-component="footer"></div>
 
-    initScrollButtons({
-      containerId: "category-scroll",
-      leftBtnId: "scrollLeftCategory",
-      rightBtnId: "scrollRightCategory",
-      scrollStep: 300,
-      autoScroll: true,
-      autoScrollInterval: 2000, // every 2s
-      initialScrollDelay: 1,  // start scroll quickly
-      autoScrollPauseOnHover: true,
-    });
+    <!-- Scripts -->
+    <script src="../../service/gameService.js" defer></script>
+    <script src="../../js/inject.js" defer></script>
+    <script type="module" src="../../js/main.js" defer></script>
+    <script type="module" src="../../js/auth/signout.js"></script>
+    <script type="module" src="../../js/gameDetails.js"></script>
+    <script type="module" src="../../js/mobile-navbar.js"></script>
+    <script type="module" src="../../js/uploadGamesToFirebase.js"></script>
 
-    initScrollButtons({
-      containerId: "random-games-container",
-      leftBtnId: "scrollLeftLearn",
-      rightBtnId: "scrollRightLearn",
-      scrollStep: 300,
-      autoScroll: true,
-      autoScrollInterval: 2000, // every 2s
-      initialScrollDelay: 1,  // start scroll quickly
-      autoScrollPauseOnHover: true,
-    });
-  </script>
+    <!-- Script imports -->
+    <script type="module">
+      import { initScrollButtons } from "../../js/scroll-buttons.js";
+      import { getGamesFromFirebase } from "../../js/uploadGamesToFirebase.js";
 
-  <!-- Authentication Guard -->
-  <script type="module">
-    import { initAuthGuard } from "../../js/auth/authGuard.js";
-    initAuthGuard();
-  </script>
-</body>
+      // Function to extract unique categories from games data
+      function extractCategoriesFromGames(games) {
+        const categorySet = new Set();
 
+        games.forEach((game) => {
+          if (game.categories && Array.isArray(game.categories)) {
+            game.categories.forEach((category) => {
+              categorySet.add(category);
+            });
+          }
+        });
+
+        // Convert to array and sort alphabetically
+        const categories = Array.from(categorySet).sort();
+
+        // Create category objects with simple icons
+        return categories.map((category) => ({
+          title: category,
+          svg: getCategoryIcon(category),
+        }));
+      }
+
+      // Function to get appropriate icon for each category
+      function getCategoryIcon(category) {
+        const iconMap = {
+          Fantasy: '<i class="fas fa-dragon text-2xl"></i>',
+          Horror: '<i class="fas fa-ghost text-2xl"></i>',
+          Maze: '<i class="fas fa-route text-2xl"></i>',
+          Civilization: '<i class="fas fa-city text-2xl"></i>',
+          Medieval: '<i class="fas fa-crown text-2xl"></i>',
+          "Card Game": '<i class="fas fa-heart text-2xl"></i>',
+          Dice: '<i class="fas fa-dice text-2xl"></i>',
+          "Party Game": '<i class="fas fa-users text-2xl"></i>',
+          Negotiation: '<i class="fas fa-handshake text-2xl"></i>',
+          Deduction: '<i class="fas fa-search text-2xl"></i>',
+          Bluffing: '<i class="fas fa-theater-masks text-2xl"></i>',
+          Economic: '<i class="fas fa-coins text-2xl"></i>',
+          "Abstract Strategy": '<i class="fas fa-chess text-2xl"></i>',
+          Ancient: '<i class="fas fa-landmark text-2xl"></i>',
+          Animals: '<i class="fas fa-paw text-2xl"></i>',
+          "City Building": '<i class="fas fa-building text-2xl"></i>',
+          "Print & Play": '<i class="fas fa-print text-2xl"></i>',
+          Renaissance: '<i class="fas fa-palette text-2xl"></i>',
+          "Fan Expansion": '<i class="fas fa-plus-circle text-2xl"></i>',
+          "Expansion for Base-game":
+            '<i class="fas fa-puzzle-piece text-2xl"></i>',
+          Fighting: '<i class="fas fa-fist-raised text-2xl"></i>',
+          Miniatures: '<i class="fas fa-chess-king text-2xl"></i>',
+          Mythology: '<i class="fas fa-mountain text-2xl"></i>',
+        };
+
+        return iconMap[category] || '<i class="fas fa-gamepad text-2xl"></i>';
+      }
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        console.log("🎮 Games page DOM loaded, starting categories setup...");
+
+        // Test if container exists
+        const container = document.getElementById("category-scroll");
+        console.log("Category container found:", !!container);
+
+        if (container) {
+          console.log("Container classes:", container.className);
+          console.log("Container styles:", container.style.cssText);
+          console.log(
+            "Container computed display:",
+            window.getComputedStyle(container).display
+          );
+        }
+
+        let categories = [];
+
+        try {
+          // Load games from Firebase and extract categories
+          console.log(
+            "📥 Loading games from Firebase to extract categories..."
+          );
+          const games = await getGamesFromFirebase();
+          categories = extractCategoriesFromGames(games);
+          console.log(
+            `✅ Extracted ${categories.length} unique categories from games`
+          );
+        } catch (error) {
+          console.error("Failed to load categories from Firebase:", error);
+          // Fallback categories if Firebase fails
+          categories = [
+            { title: "Fantasy", svg: '<i class="fas fa-dragon text-2xl"></i>' },
+            { title: "Horror", svg: '<i class="fas fa-ghost text-2xl"></i>' },
+            { title: "Maze", svg: '<i class="fas fa-route text-2xl"></i>' },
+            {
+              title: "Civilization",
+              svg: '<i class="fas fa-city text-2xl"></i>',
+            },
+            { title: "Medieval", svg: '<i class="fas fa-crown text-2xl"></i>' },
+            {
+              title: "Card Game",
+              svg: '<i class="fas fa-heart text-2xl"></i>',
+            },
+            { title: "Dice", svg: '<i class="fas fa-dice text-2xl"></i>' },
+            {
+              title: "Party Game",
+              svg: '<i class="fas fa-users text-2xl"></i>',
+            },
+          ];
+          console.log("Using fallback categories:", categories.length);
+        }
+
+        if (!container) {
+          console.error("Category scroll container not found!");
+          return;
+        }
+
+        if (!categories || categories.length === 0) {
+          console.error("No categories loaded!");
+          container.innerHTML =
+            '<p class="text-gray-400">Categories not available</p>';
+          return;
+        }
+
+        console.log(`Loading ${categories.length} categories...`);
+
+        // Clear container first
+        container.innerHTML = "";
+
+        categories.forEach((cat, index) => {
+          const div = document.createElement("div");
+          div.className =
+            "inline-flex items-center bg-[#2F364A] rounded-2xl p-5 md:px-5 md:py-8 gap-3 w-fit whitespace-nowrap md:min-w-[240px] justify-center cursor-pointer hover:bg-gray-600 category-filter";
+          div.dataset.category = cat.title;
+          div.innerHTML = `${cat.svg}<div class="truncate overflow-hidden whitespace-nowrap text-ellipsis font-medium text-2xl text-gray-200 max-w-[160px]">${cat.title}</div>`;
+          container.appendChild(div);
+          console.log(`Added category ${index + 1}: ${cat.title}`);
+        });
+
+        console.log("Categories loaded successfully!");
+        console.log(
+          "Final container children count:",
+          container.children.length
+        );
+
+        initScrollButtons({
+          containerId: "category-scroll",
+          leftBtnId: "scrollLeftCategory",
+          rightBtnId: "scrollRightCategory",
+          scrollStep: 300,
+          autoScroll: true,
+          autoScrollInterval: 2000, // every 2s
+          initialScrollDelay: 1, // start scroll quickly
+          autoScrollPauseOnHover: true,
+        });
+
+        initScrollButtons({
+          containerId: "random-games-container",
+          leftBtnId: "scrollLeftLearn",
+          rightBtnId: "scrollRightLearn",
+          scrollStep: 300,
+          autoScroll: true,
+          autoScrollInterval: 2000, // every 2s
+          initialScrollDelay: 1, // start scroll quickly
+          autoScrollPauseOnHover: true,
+        });
+      });
+    </script>
+
+    <!-- Authentication Guard -->
+    <script type="module">
+      import { initAuthGuard } from "../../js/auth/authGuard.js";
+      import { uploadGamesToFirebase } from "../../js/uploadGamesToFirebase.js";
+
+      initAuthGuard();
+
+      // Add upload button event listener
+      document.addEventListener("DOMContentLoaded", () => {
+        const uploadBtn = document.getElementById("uploadGamesBtn");
+        if (uploadBtn) {
+          uploadBtn.addEventListener("click", async () => {
+            uploadBtn.disabled = true;
+            uploadBtn.textContent = "⏳ Uploading...";
+            try {
+              await uploadGamesToFirebase();
+              uploadBtn.textContent = "✅ Upload Complete!";
+              setTimeout(() => {
+                uploadBtn.textContent = "🚀 Upload Games to Firebase";
+                uploadBtn.disabled = false;
+              }, 3000);
+            } catch (error) {
+              uploadBtn.textContent = "❌ Upload Failed";
+              setTimeout(() => {
+                uploadBtn.textContent = "🚀 Upload Games to Firebase";
+                uploadBtn.disabled = false;
+              }, 3000);
+            }
+          });
+        }
+      });
+    </script>
+  </body>
 </html>

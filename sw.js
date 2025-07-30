@@ -31,12 +31,12 @@ const STATIC_FILES = [
 
 // Install event - cache static files
 self.addEventListener("install", (event) => {
-  console.log("Service Worker: Installing...");
+
   event.waitUntil(
     caches
       .open(STATIC_CACHE)
       .then((cache) => {
-        console.log("Service Worker: Caching static files");
+     
         return cache.addAll(STATIC_FILES);
       })
       .catch((error) => {
@@ -48,7 +48,7 @@ self.addEventListener("install", (event) => {
 
 // Activate event - clean up old caches
 self.addEventListener("activate", (event) => {
-  console.log("Service Worker: Activating...");
+  
   event.waitUntil(
     caches
       .keys()
@@ -56,14 +56,14 @@ self.addEventListener("activate", (event) => {
         return Promise.all(
           cacheNames.map((cacheName) => {
             if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
-              console.log("Service Worker: Deleting old cache", cacheName);
+            
               return caches.delete(cacheName);
             }
           })
         );
       })
       .then(() => {
-        console.log("Service Worker: Claiming clients");
+    
         return self.clients.claim();
       })
   );
@@ -160,19 +160,19 @@ self.addEventListener("fetch", (event) => {
 
 // Background sync for offline actions
 self.addEventListener("sync", (event) => {
-  console.log("Service Worker: Background sync", event.tag);
+
 
   if (event.tag === "background-sync") {
     event.waitUntil(
       // Handle any pending offline actions
-      console.log("Processing background sync...")
+
     );
   }
 });
 
 // Push notification handling
 self.addEventListener("push", (event) => {
-  console.log("Service Worker: Push notification received");
+
 
   const options = {
     body: event.data ? event.data.text() : "New notification from Luma",
@@ -202,7 +202,7 @@ self.addEventListener("push", (event) => {
 
 // Notification click handling
 self.addEventListener("notificationclick", (event) => {
-  console.log("Service Worker: Notification clicked");
+
 
   event.notification.close();
 
@@ -213,7 +213,7 @@ self.addEventListener("notificationclick", (event) => {
 
 // Message handling for communication with main thread
 self.addEventListener("message", (event) => {
-  console.log("Service Worker: Message received", event.data);
+ 
 
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
