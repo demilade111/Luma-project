@@ -26,7 +26,6 @@ function formatDateTime(timestamp) {
 }
 
 async function loadPopularEvents() {
-  console.log("Loading popular events...");
   const eventsCol = collection(db, "events");
 
   // Try to get events ordered by created_at first (newest created events)
@@ -43,20 +42,20 @@ async function loadPopularEvents() {
   }
 
   const container = document.getElementById("popularEventsGrid");
-  console.log("Popular events container:", container);
+
   if (!container) {
-    console.error("Popular events container not found!");
+ 
     return;
   }
   container.innerHTML = ""; // Clear if reloaded
 
   if (snapshot.empty) {
-    console.log("No events found in database");
+
     container.innerHTML = `<p class="text-gray-500">No events found.</p>`;
     return;
   }
 
-  console.log(`Found ${snapshot.size} events to display`);
+  
 
   snapshot.forEach((doc) => {
     const event = doc.data();
