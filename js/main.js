@@ -1321,8 +1321,10 @@ document.addEventListener("DOMContentLoaded", function () {
 // Loading Games in the Continue Learning boxes
 async function resistance() {
   try {
-    // Load games data from Firebase
-    const games = await getGamesFromFirebase();
+    // const resp = await fetch("./data/top-games.json");
+    const resp = await fetch("../../Server/data/top-games.json");
+    const games = await resp.json();
+
     const game = games.find((g) => g.name === "The Resistance");
 
     if (!game) {
