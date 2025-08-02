@@ -1,18 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Initialize offline manager and network status indicator
-  Promise.all([
-    import("./offlineManager.js"),
-    import("./networkStatus.js"),
-    import("./cacheTest.js"),
-    import("./offlineTestUI.js"),
-  ])
+  // Initialize offline manager
+  import("./offlineManager.js")
     .then(() => {
-      console.log(
-        "Offline manager, network status indicator, cache test utility, and offline test UI initialized"
-      );
+      console.log("Offline manager initialized");
     })
     .catch((error) => {
-      console.error("Failed to initialize offline components:", error);
+      console.error("Failed to initialize offline manager:", error);
     });
 
   const base = "";
@@ -317,21 +310,4 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   injectComponents();
-
-  // Add simple offline test button to the page
-  setTimeout(() => {
-    const testButton = document.createElement("button");
-    testButton.id = "simple-offline-test-btn";
-    testButton.className =
-      "fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 hover:bg-blue-600 transition-colors";
-    testButton.innerHTML = "🧪 Test Offline Mode";
-    testButton.onclick = () => {
-      if (window.offlineTestUI) {
-        window.offlineTestUI.panel.style.display = "block";
-      } else {
-        alert("Offline test UI not loaded. Please refresh the page.");
-      }
-    };
-    document.body.appendChild(testButton);
-  }, 2000);
 });
