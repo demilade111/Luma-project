@@ -1,4 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Initialize offline manager and network status indicator
+  Promise.all([
+    import("./offlineManager.js"),
+    import("./networkStatus.js"),
+    import("./cacheTest.js"),
+    import("./offlineTestUI.js"),
+  ])
+    .then(() => {
+      console.log(
+        "Offline manager, network status indicator, cache test utility, and offline test UI initialized"
+      );
+    })
+    .catch((error) => {
+      console.error("Failed to initialize offline components:", error);
+    });
 
   const base = "";
   const componentPaths = {
@@ -17,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <path d="M30.8085 35.3021H11.4848C10.6086 35.3021 9.87451 34.5879 9.87451 33.7072C9.87451 32.8264 10.5849 32.1123 11.4848 32.1123H30.7848C31.661 32.1123 32.3951 32.8264 32.3951 33.7072C32.3951 34.5879 31.6847 35.3021 30.7848 35.3021H30.8085Z" fill="white"/>
       <path d="M34.8565 14.4254L25.8814 19.7576L22.0451 6.42726C21.7136 5.28466 20.6243 5.28466 20.2927 6.42726L16.4564 19.7576L7.48133 14.4254C6.69986 13.9732 5.94207 15.1158 6.24992 16.2822L9.80206 29.7791H32.5832L36.1353 16.2822C36.4432 15.1158 35.6617 13.9494 34.9039 14.4254H34.8565ZM24.3659 23.9709L23.1344 25.2563C23.1344 25.2563 23.0871 25.3277 23.0871 25.3754L23.3239 27.1369C23.3713 27.4225 23.0634 27.6367 22.8029 27.5177L21.2163 26.756C21.2163 26.756 21.1216 26.756 21.0979 26.756L19.5113 27.5177C19.2508 27.6367 18.9429 27.4225 18.9903 27.1369L19.2271 25.3754C19.2271 25.3754 19.2271 25.2801 19.1797 25.2563L17.9483 23.9709C17.7352 23.7567 17.8536 23.3996 18.1378 23.352L19.8902 23.0425C19.8902 23.0425 19.9612 23.0187 19.9849 22.9711L20.8137 21.4001C20.9558 21.1382 21.311 21.1382 21.4531 21.4001L22.2819 22.9711C22.2819 22.9711 22.3293 23.0425 22.3767 23.0425L24.129 23.352C24.4132 23.3996 24.5316 23.7567 24.3185 23.9709H24.3659Z" fill="white"/>
       </svg>
-    `
+    `,
     },
     {
       label: "Games",
@@ -36,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
       </clipPath>
       </defs>
       </svg>
-      `
+      `,
     },
     {
       label: "Events",
@@ -56,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
         {
           label: "Create Event",
           href: "/views/event/create-event.html",
-        }
+        },
       ],
     },
     //     {
@@ -83,8 +98,9 @@ document.addEventListener("DOMContentLoaded", function () {
       svg: `<svg width="43" height="44" viewBox="0 0 43 44" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M34.6931 10.4916C33.8169 9.75368 32.917 9.75368 31.8513 9.75368H30.1937V8.25402C30.1937 7.68272 30.2884 7.04001 29.8621 6.58773C29.2464 5.96882 28.1808 6.25447 27.9677 7.11142C27.8729 7.44468 27.9203 7.84935 27.9203 8.20641V9.75368H14.6826V8.27782C14.6826 7.32565 14.73 6.15925 13.3565 6.23066C12.3145 6.4449 12.3619 7.27805 12.3619 8.1588V9.77748H10.6569C8.09933 9.77748 6.74951 10.6106 6.74951 13.3243V33.8197C6.74951 36.1763 8.21773 37.176 10.4437 37.176H32.8933C35.4272 36.9618 35.9481 35.2717 35.9481 33.0341V14.205C35.9481 12.7292 36.0192 11.539 34.7404 10.4916H34.6931ZM27.423 23.8219L25.0786 26.2737C25.0786 26.2737 24.9839 26.4166 25.0075 26.5118L25.4575 29.8682C25.5285 30.4157 24.9602 30.8441 24.4629 30.6061L21.408 29.1302C21.408 29.1302 21.2423 29.0826 21.1712 29.1302L18.1164 30.6061C17.6191 30.8441 17.0507 30.4395 17.1218 29.8682L17.5717 26.5118C17.5717 26.5118 17.5717 26.3452 17.5007 26.2737L15.1563 23.8219C14.7774 23.4172 14.9905 22.7507 15.5352 22.6317L18.8505 22.0366C18.8505 22.0366 18.9926 21.9652 19.0399 21.8938L20.6266 18.8945C20.887 18.3946 21.5975 18.3946 21.858 18.8945L23.4683 21.8938C23.4683 21.8938 23.5867 22.0128 23.6577 22.0366L26.9731 22.6317C27.5177 22.7269 27.7309 23.4172 27.352 23.8219H27.423Z" fill="white"/>
       </svg>
-      `
-    }, {
+      `,
+    },
+    {
       label: "Bookmarks",
       href: "/views/bookmarks/bookmark.html",
       svg: `<svg width="43" height="43" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -97,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
       </clipPath>
       </defs>
       </svg>
-      `
+      `,
     },
     //     {
     //       label: "Notifications",
@@ -114,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
       svg: `<svg width="43" height="44" viewBox="0 0 43 44" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M33.841 17.8838C33.6042 17.0744 33.2726 16.2889 32.8937 15.5748L34.8829 13.5752C35.1434 13.3134 35.1908 12.8849 35.0013 12.5754C33.7936 10.7663 32.2544 9.21906 30.4546 8.00505C30.1467 7.79082 29.7205 7.83842 29.46 8.12407L27.4708 10.1236C26.7367 9.74275 25.9789 9.4095 25.1737 9.17146V6.36257C25.1737 5.9817 24.9133 5.64844 24.558 5.57703C23.5161 5.36279 22.4504 5.26758 21.3374 5.26758C20.2244 5.26758 19.1588 5.3866 18.1168 5.57703C17.7616 5.64844 17.5011 5.9817 17.5011 6.36257V9.17146C16.696 9.4095 15.9145 9.74275 15.2041 10.1236L13.2149 8.12407C12.9544 7.86223 12.5281 7.81462 12.2203 8.00505C10.4205 9.21906 8.88124 10.7663 7.67351 12.5754C7.46038 12.8849 7.50774 13.3134 7.79191 13.5752L9.78111 15.5748C9.40222 16.3127 9.07068 17.0744 8.83387 17.8838H6.03952C5.66062 17.8838 5.32909 18.1456 5.25805 18.5027C5.04492 19.5501 4.9502 20.6212 4.9502 21.74C4.9502 22.8588 5.0686 23.93 5.25805 24.9774C5.32909 25.3345 5.66062 25.5963 6.03952 25.5963H8.83387C9.07068 26.4056 9.40222 27.1912 9.78111 27.9053L7.79191 29.9049C7.53142 30.1667 7.48406 30.5952 7.67351 30.9046C8.88124 32.7137 10.4205 34.261 12.2203 35.475C12.5281 35.6893 12.9544 35.6417 13.2149 35.356L15.2041 33.3565C15.9382 33.7373 16.696 34.0706 17.5011 34.3086V37.1175C17.5011 37.4984 17.7616 37.8316 18.1168 37.903C19.1588 38.1173 20.2244 38.2125 21.3374 38.2125C22.4504 38.2125 23.5161 38.0935 24.558 37.903C24.9133 37.8316 25.1737 37.4984 25.1737 37.1175V34.3086C25.9789 34.0706 26.7604 33.7373 27.4708 33.3565L29.46 35.356C29.7205 35.6178 30.1467 35.6655 30.4546 35.475C32.2544 34.261 33.7936 32.7137 35.0013 30.9046C35.2145 30.5952 35.1671 30.1667 34.8829 29.9049L32.8937 27.9053C33.2726 27.1674 33.6042 26.4056 33.841 25.5963H36.6353C37.0142 25.5963 37.3458 25.3345 37.4168 24.9774C37.6299 23.93 37.7247 22.8588 37.7247 21.74C37.7247 20.6212 37.6063 19.5501 37.4168 18.5027C37.3458 18.1456 37.0142 17.8838 36.6353 17.8838H33.841ZM22.5452 28.0005C18.0695 28.8575 14.2331 25.0012 15.0857 20.5022C15.5593 18.0028 17.5958 15.9556 20.0587 15.5034C24.5344 14.6464 28.3707 18.5027 27.5182 23.0017C27.0445 25.5011 25.008 27.5482 22.5452 28.0005Z" fill="white"/>
       </svg>
-      `
+      `,
     },
     {
       label: "Profile",
@@ -122,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
       svg: `<svg width="43" height="44" viewBox="0 0 43 44" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M21.3123 5.5127C12.2188 5.5127 4.854 12.9158 4.854 22.0566C4.854 31.1974 12.2188 38.6004 21.3123 38.6004C30.4058 38.6004 37.7706 31.1974 37.7706 22.0566C37.7706 12.9158 30.4058 5.5127 21.3123 5.5127ZM21.3123 10.0355C24.6276 10.0355 27.3036 12.7253 27.3036 16.0579C27.3036 19.3905 24.6276 22.0804 21.3123 22.0804C17.9969 22.0804 15.321 19.3905 15.321 16.0579C15.321 12.7253 17.9969 10.0355 21.3123 10.0355ZM28.9612 32.6732H13.6633C12.1004 32.6732 11.1058 31.0069 11.8162 29.6025C13.3318 26.5794 17.026 24.437 21.3123 24.437C25.5985 24.437 29.2928 26.5794 30.8083 29.6025C31.5188 31.0069 30.5242 32.6732 28.9612 32.6732Z" fill="white"/>
       </svg>
-      `
+      `,
     },
   ];
 
@@ -257,7 +273,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Dropdown content
         const dropdown = document.createElement("div");
-        dropdown.className = "ml-8 mt-1 flex flex-col gap-1 hidden transition-all";
+        dropdown.className =
+          "ml-8 mt-1 flex flex-col gap-1 hidden transition-all";
 
         item.children.forEach((child) => {
           const childLink = document.createElement("a");
@@ -274,9 +291,10 @@ document.addEventListener("DOMContentLoaded", function () {
         link.addEventListener("click", () => {
           const isHidden = dropdown.classList.contains("hidden");
           dropdown.classList.toggle("hidden");
-          dropdownIcon.style.transform = isHidden ? "rotate(180deg)" : "rotate(0deg)";
+          dropdownIcon.style.transform = isHidden
+            ? "rotate(180deg)"
+            : "rotate(0deg)";
         });
-
       } else {
         // Non-dropdown item (a normal <a>)
         const link = document.createElement("a");
@@ -298,6 +316,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-
   injectComponents();
+
+  // Add simple offline test button to the page
+  setTimeout(() => {
+    const testButton = document.createElement("button");
+    testButton.id = "simple-offline-test-btn";
+    testButton.className =
+      "fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 hover:bg-blue-600 transition-colors";
+    testButton.innerHTML = "🧪 Test Offline Mode";
+    testButton.onclick = () => {
+      if (window.offlineTestUI) {
+        window.offlineTestUI.panel.style.display = "block";
+      } else {
+        alert("Offline test UI not loaded. Please refresh the page.");
+      }
+    };
+    document.body.appendChild(testButton);
+  }, 2000);
 });

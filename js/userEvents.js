@@ -175,29 +175,19 @@ function updateButtonState(button, isSubscribed) {
 async function loadUserEvents(userId) {
   console.log("Loading events for user ID:", userId);
   try {
-    const eventsCol = collection(db, "events");
-
-    // First, let's get all events to debug
-    const allEventsSnapshot = await getDocs(eventsCol);
+    // Get all events with offline support
+    const allEvents = await firebaseOfflineService.getEvents();
+    
     console.log("All events in database:");
-    allEventsSnapshot.forEach((doc) => {
-      const eventData = doc.data();
+    allEvents.forEach((eventData) => {
       console.log(
         `Event: ${eventData.name}, host_user_id: ${eventData.host_user_id
         }, matches query: ${eventData.host_user_id === userId}`
       );
     });
 
-    const q = query(eventsCol, where("host_user_id", "==", userId));
-    const snapshot = await getDocs(q);
-
-    const events = [];
-    snapshot.forEach((doc) => {
-      events.push({
-        id: doc.id,
-        ...doc.data(),
-      });
-    });
+    // Filter events for the specific user
+    const events = allEvents.filter(event => event.host_user_id === userId);
 
     // Sort events by start_time in JavaScript
     events.sort((a, b) => {
@@ -506,13 +496,11 @@ async function initUserEventsPage() {
 async function debugAllEvents() {
   console.log("=== DEBUG: All Events in Database ===");
   try {
-    const eventsCol = collection(db, "events");
-    const snapshot = await getDocs(eventsCol);
+    const events = await firebaseOfflineService.getEvents();
 
-    console.log(`Total events in database: ${snapshot.size}`);
-    snapshot.forEach((doc) => {
-      const eventData = doc.data();
-      console.log(`Event ID: ${doc.id}`);
+    console.log(`Total events in database: ${events.length}`);
+    events.forEach((eventData) => {
+      console.log(`Event ID: ${eventData.id}`);
       console.log(`  Name: ${eventData.name}`);
       console.log(`  Host User ID: ${eventData.host_user_id}`);
       console.log(`  Location: ${eventData.location}`);

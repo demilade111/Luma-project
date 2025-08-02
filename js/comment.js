@@ -12,6 +12,7 @@ import {
   runTransaction,
   getDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import firebaseOfflineService from "./firebaseOfflineService.js";
 
 // Add a comment to Firestore for a specific event, and update event doc with latest 3 comments and count
 export async function postComment(eventId, text) {
@@ -38,13 +39,12 @@ export async function postComment(eventId, text) {
     console.log("Could not fetch user data, using fallback name");
   }
 
-  // Add comment to subcollection with user info
-  await addDoc(collection(db, "events", eventId, "comments"), {
+  // Add comment using offline service
+  await firebaseOfflineService.addComment(eventId, {
     text,
     userId: user.uid,
     userEmail: userEmail,
     userName: userName,
-    createdAt: serverTimestamp(),
   });
 
   // Update event doc with latest 3 comments and count

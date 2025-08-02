@@ -11,6 +11,7 @@ import {
   doc,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getCurrentUser } from "./auth/authGuard.js";
+import firebaseOfflineService from "./firebaseOfflineService.js";
 
 // Format Firestore Timestamp to readable string
 function formatDateTime(timestamp) {
@@ -26,42 +27,94 @@ function formatDateTime(timestamp) {
 }
 
 async function loadPopularEvents() {
-  const eventsCol = collection(db, "events");
-
-  // Try to get events ordered by created_at first (newest created events)
-  let q = query(eventsCol, orderBy("created_at", "desc"), limit(6));
-  let snapshot = await getDocs(q);
-
-  // If no events with created_at found, fallback to start_time ordering
-  if (snapshot.empty) {
-    console.log(
-      "No events with created_at field found, using start_time ordering..."
-    );
-    q = query(eventsCol, orderBy("start_time", "desc"), limit(6));
-    snapshot = await getDocs(q);
-  }
-
   const container = document.getElementById("popularEventsGrid");
 
   if (!container) {
- 
     return;
   }
   container.innerHTML = ""; // Clear if reloaded
 
-  if (snapshot.empty) {
+  try {
+    // Get events with offline support
+    const events = await firebaseOfflineService.getEvents({
+      orderBy: { field: "created_at", direction: "desc" },
+      limit: 6
+    });
 
-    container.innerHTML = `<p class="text-gray-500">No events found.</p>`;
-    return;
-  }
+    // If no events with created_at found, fallback to start_time ordering
+    if (events.length === 0) {
+      console.log("No events with created_at field found, using start_time ordering...");
+      const eventsByTime = await firebaseOfflineService.getEvents({
+        orderBy: { field: "start_time", direction: "desc" },
+        limit: 6
+      });
+      
+      if (eventsByTime.length === 0) {
+        container.innerHTML = `<p class="text-gray-500">No events found.</p>`;
+        return;
+      }
+      
+            eventsByTime.forEach((event) => {
+        const eventId = event.id;
 
-  
+        const startTimeStr = formatDateTime(event.start_time);
 
-  snapshot.forEach((doc) => {
-    const event = doc.data();
-    const eventId = doc.id;
+        const nameShort =
+          event.name?.length > 30
+            ? event.name.substring(0, 27) + "..."
+            : event.name || "";
 
-    const startTimeStr = formatDateTime(event.start_time);
+        const descriptionShort =
+          event.description?.length > 80
+            ? event.description.substring(0, 77) + "..."
+            : event.description || "";
+
+        const card = document.createElement("div");
+        card.className =
+          "flex flex-col md:flex-row items-center gap-3 overflow-hidden bg-transparent rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer";
+        card.innerHTML = `
+          <img src="${event.image_url}" alt="${event.name}" class="w-full h-48 md:w-48 md:h-48 object-cover rounded-2xl overflow-hidden bg-gray-100 shrink-0" />
+          <div class="md:p-4 flex flex-col justify-between items-start flex-1">
+            <div class="flex-1">
+              <h2 class="text-2xl font-semibold text-gray-200 mb-2">${nameShort}</h2>
+              <p class="text-base text-gray-400 mb-3 leading-relaxed">${descriptionShort}</p>
+            </div>
+            <div class="text-base text-gray-200 space-y-2">
+              <p class="flex items-center text-gray-400">
+                <i class="fa-regular fa-calendar mr-2 text-gray-200"></i>
+                ${startTimeStr}
+              </p>
+              <p class="flex items-center text-gray-400">
+                <i class="fa-solid fa-location-dot mr-2 text-gray-200"></i>
+                ${event.location}
+              </p>
+            </div>
+          </div>
+        `;
+        card.addEventListener("click", () => {
+          // Check if we're offline and handle navigation accordingly
+          if (!navigator.onLine) {
+            console.log("📱 Offline mode - using client-side navigation for event");
+            try {
+              window.location.href = `post-event-details.html?id=${eventId}`;
+            } catch (error) {
+              console.log("❌ Navigation failed, showing offline message");
+              alert("You're offline. Please go online to view event details, or use the cached data from the main page.");
+            }
+          } else {
+            window.location.href = `post-event-details.html?id=${eventId}`;
+          }
+        });
+        container.appendChild(card);
+      });
+      return;
+    }
+
+    // Process events with created_at field
+    events.forEach((event) => {
+      const eventId = event.id;
+
+      const startTimeStr = formatDateTime(event.start_time);
 
     const nameShort =
       event.name?.length > 30
@@ -95,12 +148,27 @@ async function loadPopularEvents() {
         </div>
       </div>
     `;
-    card.addEventListener("click", () => {
-      window.location.href = `post-event-details.html?id=${eventId}`;
-    });
-    container.appendChild(card);
-  });
-}
+         card.addEventListener("click", () => {
+           // Check if we're offline and handle navigation accordingly
+           if (!navigator.onLine) {
+             console.log("📱 Offline mode - using client-side navigation for event");
+             try {
+               window.location.href = `post-event-details.html?id=${eventId}`;
+             } catch (error) {
+               console.log("❌ Navigation failed, showing offline message");
+               alert("You're offline. Please go online to view event details, or use the cached data from the main page.");
+             }
+           } else {
+             window.location.href = `post-event-details.html?id=${eventId}`;
+           }
+         });
+     container.appendChild(card);
+   });
+   } catch (error) {
+     console.error("Error loading popular events:", error);
+     container.innerHTML = `<p class="text-gray-500">Failed to load events.</p>`;
+   }
+ }
 
 async function loadUserCalendars() {
   const user = getCurrentUser();
@@ -221,12 +289,10 @@ async function loadFeaturedCalendars() {
   console.log("Current user ID:", currentUserId);
 
   // 1. Get all events, collect unique host_user_id and their profile info from event doc
-  const eventsCol = collection(db, "events");
-  const eventsSnap = await getDocs(eventsCol);
+  const events = await firebaseOfflineService.getEvents();
   const userMap = new Map();
 
-  eventsSnap.forEach((doc) => {
-    const event = doc.data();
+  events.forEach((event) => {
     if (!event.host_user_id) return;
 
     // Skip if this is the current user's event

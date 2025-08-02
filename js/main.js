@@ -15,6 +15,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getGamesFromFirebase } from "./uploadGamesToFirebase.js";
+import firebaseOfflineService from "./firebaseOfflineService.js";
+import offlineManager from "./offlineManager.js";
 
 const container = document.getElementById("events");
 
@@ -102,12 +104,19 @@ async function loadGames() {
     errorDiv.classList.add("hidden");
     gamesContainer.classList.add("hidden");
 
-    console.log("🎮 Loading games from Firebase...");
+    console.log("🎮 Loading games with offline support...");
+    console.log("📡 Network status:", navigator.onLine ? "Online" : "Offline");
 
-    // Load games data from Firebase
-    allGamesData = await getGamesFromFirebase();
+    // Load games data with offline support
+    allGamesData = await firebaseOfflineService.getGames();
     currentPage = 1;
-    console.log(`✅ Loaded ${allGamesData.length} games from Firebase`);
+    console.log(
+      `✅ Loaded ${allGamesData.length} games (offline support enabled)`
+    );
+
+    if (allGamesData.length === 0) {
+      console.log("⚠️ No games loaded - checking if this is expected...");
+    }
 
     // Hide loading and show games
     loadingDiv.classList.add("hidden");
@@ -219,8 +228,20 @@ function setupGameCardClickHandlers() {
       // Store game data in localStorage for the details page
       localStorage.setItem("selectedGame", JSON.stringify(gameData));
 
-      // Redirect to game details page with id in URL
-      window.location.href = `./game-details.html?id=${gameId}`;
+      // Check if we're offline and handle navigation accordingly
+      if (!navigator.onLine) {
+        console.log("📱 Offline mode - using client-side navigation");
+        // For offline mode, we'll try to navigate but show a fallback if it fails
+        try {
+          window.location.href = `./game-details.html?id=${gameId}`;
+        } catch (error) {
+          console.log("❌ Navigation failed, showing offline message");
+          alert("You're offline. Please go online to view game details, or use the cached data from the main page.");
+        }
+      } else {
+        // Online mode - normal navigation
+        window.location.href = `./game-details.html?id=${gameId}`;
+      }
     });
   });
 
@@ -464,13 +485,15 @@ export async function loadRandomGames() {
     errorDiv.classList.add("hidden");
     gamesContainer.classList.add("hidden");
 
-    console.log("🎮 Loading games from Firebase...");
+    console.log("🎮 Loading games with offline support...");
 
-    // Load games data from Firebase
-    allGamesData = await getGamesFromFirebase();
+    // Load games data with offline support
+    allGamesData = await firebaseOfflineService.getGames();
     currentPage = 1;
 
-    console.log(`✅ Loaded ${allGamesData.length} games from Firebase`);
+    console.log(
+      `✅ Loaded ${allGamesData.length} games (offline support enabled)`
+    );
 
     // Hide loading
     loadingDiv.classList.add("hidden");
@@ -664,12 +687,12 @@ async function loadGameDetails() {
   console.log("🎮 Loading game details for ID:", gameId);
 
   try {
-    // Fetch game data from Firebase by ID
-    const games = await getGamesFromFirebase();
+    // Fetch game data with offline support
+    const games = await firebaseOfflineService.getGames();
     const game = games.find((g) => g.id === gameId);
 
     if (!game) {
-      console.error("❌ Game not found in Firebase:", gameId);
+      console.error("❌ Game not found:", gameId);
       document.getElementById("game-title").textContent = "Game not found";
       return;
     }
@@ -710,15 +733,18 @@ async function loadGameDetails() {
     document.getElementById("game-subtitle").textContent = game.year
       ? `Released in ${game.year}`
       : "";
-    
+
     // Debug description
     console.log("🎮 Game description:", game.description);
-    console.log("🎮 Detailed description element:", document.getElementById("detailed-description"));
-    
+    console.log(
+      "🎮 Detailed description element:",
+      document.getElementById("detailed-description")
+    );
+
     // Update both description elements
     const descriptionElement = document.getElementById("detailed-description");
     const gameDescriptionElement = document.getElementById("game-description");
-    
+
     if (descriptionElement) {
       // Set description with a small delay to ensure DOM is ready
       setTimeout(() => {
@@ -734,12 +760,13 @@ async function loadGameDetails() {
     } else {
       console.error("❌ Detailed description element not found!");
     }
-    
+
     // Update the short description too
     if (gameDescriptionElement) {
       console.log("🎮 Found game-description element:", gameDescriptionElement);
       console.log("🎮 Current content:", gameDescriptionElement.innerHTML);
-      gameDescriptionElement.innerHTML = game.description || "No description available";
+      gameDescriptionElement.innerHTML =
+        game.description || "No description available";
       console.log("✅ Game description set successfully");
       console.log("🎮 New content:", gameDescriptionElement.innerHTML);
     } else {
@@ -844,7 +871,7 @@ function setupRulesButton(game) {
 function setupTutorialButton(game) {
   const tutorialBtn = document.getElementById("tutorial-btn");
   console.log("🎮 Tutorial button element:", tutorialBtn);
-  
+
   if (!tutorialBtn) {
     console.error("❌ Tutorial button not found!");
     return;
@@ -855,7 +882,7 @@ function setupTutorialButton(game) {
     // Navigate to tutorial page
     window.location.href = "/views/tutorial/tutorial.html";
   };
-  
+
   console.log("✅ Tutorial button setup complete");
 }
 
@@ -876,10 +903,11 @@ async function updateBookmarkBtn(game) {
   }
 
   try {
-    // Check if game is bookmarked
-    const bookmarkRef = doc(db, "users", user.uid, "bookmarks", game.id);
-    const bookmarkDoc = await getDoc(bookmarkRef);
-    const isBookmarked = bookmarkDoc.exists();
+    // Check if game is bookmarked using offline service
+    const bookmarks = await firebaseOfflineService.getUserBookmarks(user.uid);
+    const isBookmarked = bookmarks.some(
+      (bookmark) => bookmark.gameId === game.id
+    );
 
     // Update button appearance and functionality
     if (isBookmarked) {
@@ -888,7 +916,12 @@ async function updateBookmarkBtn(game) {
       bookmarkBtn.onclick = async () => {
         if (confirm(`Remove "${game.name}" from bookmarks?`)) {
           try {
-            await deleteDoc(bookmarkRef);
+            await firebaseOfflineService.toggleBookmark(
+              user.uid,
+              game.id,
+              game,
+              "remove"
+            );
             console.log("Bookmark removed successfully");
             updateBookmarkBtn(game); // Re-fetch and update button state after deletion
           } catch (error) {
@@ -902,11 +935,12 @@ async function updateBookmarkBtn(game) {
         '<i class="fa-regular fa-bookmark mr-3 text-gray-400"></i>Bookmark';
       bookmarkBtn.onclick = async () => {
         try {
-          await setDoc(bookmarkRef, {
-            gameId: game.id,
-            title: game.name,
-            image: game.image || game.thumbnail,
-          });
+          await firebaseOfflineService.toggleBookmark(
+            user.uid,
+            game.id,
+            game,
+            "add"
+          );
           console.log("Game bookmarked successfully");
           updateBookmarkBtn(game); // Re-fetch and update button state after addition
         } catch (error) {
@@ -1004,11 +1038,13 @@ async function loadHomeGames() {
     errorDiv.classList.add("hidden");
     gamesContainer.classList.add("hidden");
 
-    console.log("🎮 Loading games for home page from Firebase...");
+    console.log("🎮 Loading games for home page with offline support...");
 
-    // Load games data from Firebase
-    const games = await getGamesFromFirebase();
-    console.log(`✅ Loaded ${games.length} games for home page from Firebase`);
+    // Load games data with offline support
+    const games = await firebaseOfflineService.getGames();
+    console.log(
+      `✅ Loaded ${games.length} games for home page (offline support enabled)`
+    );
 
     // Hide loading and show games
     loadingDiv.classList.add("hidden");
@@ -1090,6 +1126,9 @@ document.addEventListener("DOMContentLoaded", function () {
   setupSearchToggle();
   setupSeedButton();
 
+  // Populate cache on first load
+  populateInitialCache();
+
   // Setup page-specific functionality
   if (document.getElementById("games-container")) {
     setupGamesPage();
@@ -1104,6 +1143,46 @@ document.addEventListener("DOMContentLoaded", function () {
     setupHomePage();
   }
 });
+
+// Function to populate initial cache
+async function populateInitialCache() {
+  console.log("Populating initial cache...");
+  console.log("📡 Network status:", navigator.onLine ? "Online" : "Offline");
+
+  // Only populate cache when online
+  if (!navigator.onLine) {
+    console.log("🔄 Offline - skipping cache population, using existing cache");
+    return;
+  }
+
+  try {
+    // Wait for offline manager to be ready
+    if (window.offlineManager) {
+      // Force load and cache games
+      console.log("Caching games...");
+      const games = await firebaseOfflineService.getGames();
+      console.log(`Cached ${games.length} games`);
+
+      // Force load and cache events
+      console.log("Caching events...");
+      const events = await firebaseOfflineService.getEvents();
+      console.log(`Cached ${events.length} events`);
+
+      // Cache user data if logged in
+      if (auth.currentUser) {
+        console.log("Caching user data...");
+        const userBookmarks = await firebaseOfflineService.getUserBookmarks(
+          auth.currentUser.uid
+        );
+        console.log(`Cached ${userBookmarks.length} bookmarks`);
+      }
+
+      console.log("Initial cache population complete");
+    }
+  } catch (error) {
+    console.error("Error populating initial cache:", error);
+  }
+}
 
 // SHARE GAME DETAILS FUNCTIONALITY
 document.addEventListener("DOMContentLoaded", () => {
@@ -1365,26 +1444,33 @@ async function renderTrendingEvents() {
   const grid = document.getElementById("trendingEventsGrid");
   if (!grid) return;
   grid.innerHTML = "";
-  let q;
+
+  console.log("🎯 Loading trending events with offline support...");
+
   try {
-    // Try to order by 'popularity' field if it exists
-    q = query(
-      collection(db, "events"),
-      orderBy("popularity", "desc"),
-      limit(12)
-    );
-    let snapshot = await getDocs(q);
-    if (snapshot.empty) {
-      // Fallback: order by most recent
-      q = query(
-        collection(db, "events"),
-        orderBy("start_time", "desc"),
-        limit(12)
+    // Get events with offline support
+    let events = await firebaseOfflineService.getEvents({
+      orderBy: { field: "popularity", direction: "desc" },
+      limit: 12,
+    });
+
+    console.log(`📊 Found ${events.length} trending events (popularity order)`);
+
+    // If no events with popularity field, fallback to start_time ordering
+    if (events.length === 0) {
+      console.log(
+        "🔄 No events with popularity field, trying start_time ordering..."
       );
-      snapshot = await getDocs(q);
+      events = await firebaseOfflineService.getEvents({
+        orderBy: { field: "start_time", direction: "desc" },
+        limit: 12,
+      });
+      console.log(
+        `📊 Found ${events.length} trending events (start_time order)`
+      );
     }
-    snapshot.forEach((docSnap) => {
-      const event = docSnap.data();
+
+    events.forEach((event) => {
       const card = document.createElement("div");
       card.className =
         "relative cursor-pointer flex-shrink-0 w-[45vw] sm:w-[200px] md:w-[250px] h-[320px] sm:h-[380px] md:h-[400px]";
@@ -1399,11 +1485,12 @@ async function renderTrendingEvents() {
 `;
 
       card.onclick = () => {
-        window.location.href = `/views/event/post-event-details.html?id=${docSnap.id}`;
+        window.location.href = `/views/event/post-event-details.html?id=${event.id}`;
       };
       grid.appendChild(card);
     });
   } catch (err) {
+    console.error("Error loading trending events:", err);
     grid.innerHTML = `<p class='text-gray-400'>Failed to load trending events.</p>`;
   }
 }
@@ -1412,15 +1499,19 @@ async function renderUpcomingEvents() {
   const grid = document.getElementById("upcomingEventsGrid");
   if (!grid) return;
   grid.innerHTML = "";
+
+  console.log("📅 Loading upcoming events with offline support...");
+
   try {
-    const q = query(
-      collection(db, "events"),
-      orderBy("start_time", "asc"),
-      limit(12)
-    );
-    const snapshot = await getDocs(q);
-    snapshot.forEach((docSnap) => {
-      const event = docSnap.data();
+    // Get events with offline support
+    const events = await firebaseOfflineService.getEvents({
+      orderBy: { field: "start_time", direction: "asc" },
+      limit: 12,
+    });
+
+    console.log(`📊 Found ${events.length} upcoming events`);
+
+    events.forEach((event) => {
       const card = document.createElement("div");
       card.className =
         "relative cursor-pointer flex-shrink-0 w-[45vw] sm:w-[200px] md:w-[250px] h-[320px] sm:h-[380px] md:h-[400px]";
@@ -1434,11 +1525,12 @@ async function renderUpcomingEvents() {
   ></div>
 `;
       card.onclick = () => {
-        window.location.href = `/views/event/post-event-details.html?id=${docSnap.id}`;
+        window.location.href = `/views/event/post-event-details.html?id=${event.id}`;
       };
       grid.appendChild(card);
     });
   } catch (err) {
+    console.error("Error loading upcoming events:", err);
     grid.innerHTML = `<p class='text-gray-400'>Failed to load upcoming events.</p>`;
   }
 }
@@ -1621,10 +1713,10 @@ async function renderSuggestedGames() {
     new Set([...bookmarkedIds, ...tutorialsWatched])
   );
 
-  // Fetch all games from Firebase
+  // Fetch all games with offline support
   let games = [];
   try {
-    games = await getGamesFromFirebase();
+    games = await firebaseOfflineService.getGames();
   } catch (e) {
     console.error("Error fetching games:", e);
     grid.innerHTML =
